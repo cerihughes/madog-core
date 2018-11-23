@@ -32,6 +32,9 @@
 		65A2512021A842C80035FA0F /* ResourceLocator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A2511F21A842C80035FA0F /* ResourceLocator.swift */; };
 		65A2512221A843BC0035FA0F /* Page2View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A2512121A843BC0035FA0F /* Page2View.swift */; };
 		65BEBC8D21A8850800397E39 /* BaseUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BEBC8C21A8850800397E39 /* BaseUI.swift */; };
+		65BEBC9221A893C900397E39 /* ModalContextImplementation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BEBC9121A893C900397E39 /* ModalContextImplementation.swift */; };
+		65BEBC9421A893F100397E39 /* NavigationContextImplementation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BEBC9321A893F100397E39 /* NavigationContextImplementation.swift */; };
+		65BEBC9621A8983600397E39 /* TabBarNavigationContextImplementation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BEBC9521A8983600397E39 /* TabBarNavigationContextImplementation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -90,6 +93,9 @@
 		65A2511F21A842C80035FA0F /* ResourceLocator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResourceLocator.swift; sourceTree = "<group>"; };
 		65A2512121A843BC0035FA0F /* Page2View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Page2View.swift; sourceTree = "<group>"; };
 		65BEBC8C21A8850800397E39 /* BaseUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseUI.swift; sourceTree = "<group>"; };
+		65BEBC9121A893C900397E39 /* ModalContextImplementation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalContextImplementation.swift; sourceTree = "<group>"; };
+		65BEBC9321A893F100397E39 /* NavigationContextImplementation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationContextImplementation.swift; sourceTree = "<group>"; };
+		65BEBC9521A8983600397E39 /* TabBarNavigationContextImplementation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarNavigationContextImplementation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -202,6 +208,7 @@
 		65A250E121A822810035FA0F /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				65BEBC9021A893B000397E39 /* Contexts */,
 				65BEBC8C21A8850800397E39 /* BaseUI.swift */,
 				65A250CE21A81FBF0035FA0F /* NavigationUI.swift */,
 				65A250E221A822990035FA0F /* TabBarNavigationUI.swift */,
@@ -265,6 +272,16 @@
 				65A2512121A843BC0035FA0F /* Page2View.swift */,
 			);
 			path = "Page 2";
+			sourceTree = "<group>";
+		};
+		65BEBC9021A893B000397E39 /* Contexts */ = {
+			isa = PBXGroup;
+			children = (
+				65BEBC9121A893C900397E39 /* ModalContextImplementation.swift */,
+				65BEBC9321A893F100397E39 /* NavigationContextImplementation.swift */,
+				65BEBC9521A8983600397E39 /* TabBarNavigationContextImplementation.swift */,
+			);
+			path = Contexts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -439,6 +456,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				65BEBC8D21A8850800397E39 /* BaseUI.swift in Sources */,
+				65BEBC9621A8983600397E39 /* TabBarNavigationContextImplementation.swift in Sources */,
 				65A250E021A8218B0035FA0F /* PageFactory.swift in Sources */,
 				65A250D221A81FBF0035FA0F /* RuntimePageLoader.swift in Sources */,
 				65A250EA21A834C70035FA0F /* ViewControllerRegistry.swift in Sources */,
@@ -447,7 +465,9 @@
 				65A250D421A81FBF0035FA0F /* PageResolver.swift in Sources */,
 				65A250D521A81FBF0035FA0F /* NavigationUI.swift in Sources */,
 				65A250D621A81FBF0035FA0F /* Page.swift in Sources */,
+				65BEBC9421A893F100397E39 /* NavigationContextImplementation.swift in Sources */,
 				65A250E321A822990035FA0F /* TabBarNavigationUI.swift in Sources */,
+				65BEBC9221A893C900397E39 /* ModalContextImplementation.swift in Sources */,
 				65A250DE21A8212F0035FA0F /* NavigationContext.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

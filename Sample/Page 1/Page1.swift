@@ -36,7 +36,7 @@ class Page1: PageFactory, Page {
     // MARK: Private
 
     private func createViewController<Context>(context: Context) -> UIViewController? {
-        guard let navigationContext = context as? NavigationUIContext else {
+        guard let navigationContext = context as? NavigationContext else {
             return nil
         }
 

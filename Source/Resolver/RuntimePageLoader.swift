@@ -16,7 +16,7 @@ public final class RuntimePageResolver: PageResolver {
     // MARK: PageResolver
 
     public func pageFactories() -> [PageFactory.Type] {
-        var pageFactories: [PageFactory.Type] = []
+        var pageFactories = [PageFactory.Type]()
 
         if let executablePath = Bundle.main.executablePath {
             var classCount: UInt32 = 0

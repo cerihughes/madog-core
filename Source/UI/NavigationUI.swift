@@ -13,16 +13,11 @@ public typealias NavigationUIContext = ModalContext & NavigationContext
 /// A class that presents view controllers, and manages the navigation between them.
 ///
 /// At the moment, this is achieved with a UINavigationController that can be pushed / popped to / from.
-public class NavigationUI<Token>: NavigationUIContext {
-    private let registry = Registry<Token, NavigationUIContext, UIViewController>()
+public class NavigationUI<Token>: BaseUI<Token, NavigationUIContext>, NavigationUIContext {
     private let navigationController = UINavigationController()
 
-    public init?(pageResolver: PageResolver) {
-        let pageFactories = pageResolver.pageFactories()
-        for pageFactory in pageFactories {
-            let page = pageFactory.createPage()
-            page.register(with: registry)
-        }
+    override public init?(pageResolver: PageResolver) {
+        super.init(pageResolver: pageResolver)
 
         guard let initialViewControllers = registry.createGlobalResults(context: self),
             let initialViewController = initialViewControllers.first else {

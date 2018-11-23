@@ -14,7 +14,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let window = UIWindow()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        guard let ui = NavigationUI<URL>(pageResolver: RuntimePageResolver()) else {
+        guard let ui = NavigationUI<ResourceLocator>(pageResolver: RuntimePageResolver()) else {
             return false
         }
 

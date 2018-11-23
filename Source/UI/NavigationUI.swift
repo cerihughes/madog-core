@@ -8,7 +8,7 @@
 
 import UIKit
 
-public typealias NavigationUIContext = NavigationContext & ForwardNavigationContext
+public typealias NavigationUIContext = ModalContext & NavigationContext
 
 /// A class that presents view controllers, and manages the navigation between them.
 ///
@@ -40,20 +40,24 @@ public class NavigationUI<Token>: NavigationUIContext {
         return navigationController
     }
 
-    // MARK: NavigationContext
+    // MARK: ModalContext
 
     public func openModal<ContextToken>(with token: ContextToken, from fromViewController: UIViewController, animated: Bool) -> NavigationToken? {
         return nil
     }
 
-    // MARK: ForwardNavigationContext
+    // MARK: NavigationContext
 
-    public func navigate<ContextToken>(with token: ContextToken, from fromViewController: UIViewController, animated: Bool) -> NavigationToken? {
+    public func navigateForward<ContextToken>(with token: ContextToken, animated: Bool) -> NavigationToken? {
         guard let token = token as? Token, let viewController = registry.createResult(from: token, context: self) else {
             return nil
         }
 
         navigationController.pushViewController(viewController, animated: animated)
         return NavigationTokenImplementation(viewController: viewController)
+    }
+
+    public func navigateBack(animated: Bool) -> Bool {
+        return navigationController.popViewController(animated: animated) != nil
     }
 }

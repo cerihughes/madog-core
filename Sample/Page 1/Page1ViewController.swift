@@ -25,7 +25,7 @@ class Page1ViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         let token = ResourceLocator.createPage2ResourceLocator(pageIdentifier: "ABC123")
         DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-            _ = self.context.navigate(with: token, from: self, animated: true)
+            _ = self.context.navigateForward(with: token, animated: true)
         }
     }
 }

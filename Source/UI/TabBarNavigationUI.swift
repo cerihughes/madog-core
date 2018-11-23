@@ -8,7 +8,7 @@
 
 import UIKit
 
-public typealias TabBarNavigationUIContext = NavigationContext & ForwardNavigationContext
+public typealias TabBarNavigationUIContext = ModalContext & TabBarNavigationContext
 
 /// A class that presents view controllers in a tab bar, and manages the navigation between them.
 ///
@@ -36,15 +36,15 @@ public class TabBarNavigationUI<Token>: TabBarNavigationUIContext {
         return tabBarController
     }
 
-    // MARK: NavigationContext
+    // MARK: ModalContext
 
     public func openModal<ContextToken>(with token: ContextToken, from fromViewController: UIViewController, animated: Bool) -> NavigationToken? {
         return nil
     }
 
-    // MARK: ForwardNavigationContext
+    // MARK: TabBarNavigationContext
 
-    public func navigate<ContextToken>(with token: ContextToken, from fromViewController: UIViewController, animated: Bool) -> NavigationToken? {
+    public func navigateForward<ContextToken>(with token: ContextToken, from fromViewController: UIViewController, animated: Bool) -> NavigationToken? {
         guard let token = token as? Token,
             let toViewController = registry.createResult(from: token, context: self),
             let navigationController = fromViewController.navigationController else {
@@ -55,4 +55,10 @@ public class TabBarNavigationUI<Token>: TabBarNavigationUIContext {
         return NavigationTokenImplementation(viewController: toViewController)
     }
 
+    public func navigateBack(animated: Bool) -> Bool {
+        guard let navigationController = tabBarController.selectedViewController as? UINavigationController else {
+            return false
+        }
+        return navigationController.popViewController(animated: animated) != nil
+    }
 }

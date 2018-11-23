@@ -8,10 +8,16 @@
 
 import UIKit
 
-public protocol NavigationContext {
+public protocol ModalContext {
     func openModal<Token>(with token: Token, from fromViewController: UIViewController, animated: Bool) -> NavigationToken?
 }
 
-public protocol ForwardNavigationContext {
-    func navigate<Token>(with token: Token, from fromViewController: UIViewController, animated: Bool) -> NavigationToken?
+public protocol NavigationContext {
+    func navigateForward<Token>(with token: Token, animated: Bool) -> NavigationToken?
+    func navigateBack(animated: Bool) -> Bool
+}
+
+public protocol TabBarNavigationContext {
+    func navigateForward<Token>(with token: Token, from fromViewController: UIViewController, animated: Bool) -> NavigationToken?
+    func navigateBack(animated: Bool) -> Bool
 }

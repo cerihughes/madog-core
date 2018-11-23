@@ -53,8 +53,8 @@
 		658C850621A81D26006ECF6F = {
 			isa = PBXGroup;
 			children = (
-				658C851221A81D26006ECF6F /* Madog */,
-				658C851D21A81D26006ECF6F /* MadogTests */,
+				658C851221A81D26006ECF6F /* Source */,
+				658C851D21A81D26006ECF6F /* Tests */,
 				658C851121A81D26006ECF6F /* Products */,
 			);
 			sourceTree = "<group>";
@@ -68,22 +68,22 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		658C851221A81D26006ECF6F /* Madog */ = {
+		658C851221A81D26006ECF6F /* Source */ = {
 			isa = PBXGroup;
 			children = (
 				658C851321A81D26006ECF6F /* Madog.h */,
 				658C851421A81D26006ECF6F /* Info.plist */,
 			);
-			path = Madog;
+			path = Source;
 			sourceTree = "<group>";
 		};
-		658C851D21A81D26006ECF6F /* MadogTests */ = {
+		658C851D21A81D26006ECF6F /* Tests */ = {
 			isa = PBXGroup;
 			children = (
 				658C851E21A81D26006ECF6F /* MadogTests.swift */,
 				658C852021A81D26006ECF6F /* Info.plist */,
 			);
-			path = MadogTests;
+			path = Tests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -348,7 +348,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = Madog/Info.plist;
+				INFOPLIST_FILE = Source/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -373,7 +373,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = Madog/Info.plist;
+				INFOPLIST_FILE = Source/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -393,7 +393,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Y56955G4Q8;
-				INFOPLIST_FILE = MadogTests/Info.plist;
+				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -411,7 +411,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Y56955G4Q8;
-				INFOPLIST_FILE = MadogTests/Info.plist;
+				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

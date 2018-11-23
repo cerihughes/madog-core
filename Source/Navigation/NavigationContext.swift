@@ -8,10 +8,10 @@
 
 import UIKit
 
-protocol NavigationContext {
+public protocol NavigationContext {
     func openModal<Token>(with token: Token, from fromViewController: UIViewController, animated: Bool) -> NavigationToken?
 }
 
-protocol ForwardNavigationContext {
+public protocol ForwardNavigationContext {
     func navigate<Token>(with token: Token, from fromViewController: UIViewController, animated: Bool) -> NavigationToken?
 }

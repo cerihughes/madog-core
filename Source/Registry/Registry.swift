@@ -17,42 +17,42 @@ import Foundation
 ///
 /// Note that registrants should make sure they don't "overlap" - if more than 1 registrant could potentially return an
 /// object for the same token, behaviour is undefined - there's no guarantee which will be returned first.
-class Registry<Token, Context, Result>: NSObject {
-    typealias GlobalRegistryFunction = (Context) -> Result
-    typealias RegistryFunction = (Token, Context) -> Result?
+public class Registry<Token, Context, Result>: NSObject {
+    public typealias GlobalRegistryFunction = (Context) -> Result?
+    public typealias RegistryFunction = (Token, Context) -> Result?
 
     private var globalRegistry: [UUID:GlobalRegistryFunction] = [:]
     private var registry: [UUID:RegistryFunction] = [:]
 
-    func add(globalRegistryFunction: @escaping GlobalRegistryFunction) -> UUID {
+    public func add(globalRegistryFunction: @escaping GlobalRegistryFunction) -> UUID {
         let uuid = UUID()
         globalRegistry[uuid] = globalRegistryFunction
         return uuid
     }
 
-    func add(registryFunction: @escaping RegistryFunction) -> UUID {
+    public func add(registryFunction: @escaping RegistryFunction) -> UUID {
         let uuid = UUID()
         registry[uuid] = registryFunction
         return uuid
     }
 
-    func removeGlobalRegistryFunction(uuid: UUID) {
+    public func removeGlobalRegistryFunction(uuid: UUID) {
         globalRegistry.removeValue(forKey: uuid)
     }
 
-    func removeRegistryFunction(token: UUID) {
-        registry.removeValue(forKey: token)
+    public func removeRegistryFunction(uuid: UUID) {
+        registry.removeValue(forKey: uuid)
     }
 
-    func createGlobalResults(context: Context) -> [Result]? {
+    public func createGlobalResults(context: Context) -> [Result]? {
         guard globalRegistry.count > 0 else {
             return nil
         }
 
-        return globalRegistry.values.map { $0(context) }
+        return globalRegistry.values.compactMap { $0(context) }
     }
 
-    func createResult(from token: Token, context: Context) -> Result? {
+    public func createResult(from token: Token, context: Context) -> Result? {
         for function in registry.values {
             if let result = function(token, context) {
                 return result

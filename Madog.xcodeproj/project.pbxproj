@@ -11,7 +11,6 @@
 		658C851F21A81D26006ECF6F /* MadogTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658C851E21A81D26006ECF6F /* MadogTests.swift */; };
 		658C852121A81D26006ECF6F /* Madog.h in Headers */ = {isa = PBXBuildFile; fileRef = 658C851321A81D26006ECF6F /* Madog.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		65A250D221A81FBF0035FA0F /* RuntimePageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A250CB21A81FBE0035FA0F /* RuntimePageLoader.swift */; };
-		65A250D321A81FBF0035FA0F /* ResourceLocator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A250CC21A81FBF0035FA0F /* ResourceLocator.swift */; };
 		65A250D421A81FBF0035FA0F /* PageResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A250CD21A81FBF0035FA0F /* PageResolver.swift */; };
 		65A250D521A81FBF0035FA0F /* NavigationUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A250CE21A81FBF0035FA0F /* NavigationUI.swift */; };
 		65A250D621A81FBF0035FA0F /* Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A250CF21A81FBF0035FA0F /* Page.swift */; };
@@ -22,11 +21,16 @@
 		65A250E721A82C6D0035FA0F /* Registry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A250E621A82C6D0035FA0F /* Registry.swift */; };
 		65A250EA21A834C70035FA0F /* ViewControllerRegistry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A250E921A834C70035FA0F /* ViewControllerRegistry.swift */; };
 		65A250F221A836C50035FA0F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A250F121A836C50035FA0F /* AppDelegate.swift */; };
-		65A250F421A836C50035FA0F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A250F321A836C50035FA0F /* ViewController.swift */; };
-		65A250F721A836C50035FA0F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 65A250F521A836C50035FA0F /* Main.storyboard */; };
 		65A250F921A836C80035FA0F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 65A250F821A836C80035FA0F /* Assets.xcassets */; };
 		65A250FC21A836C80035FA0F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 65A250FA21A836C80035FA0F /* LaunchScreen.storyboard */; };
 		65A2510721A836C90035FA0F /* MadogSampleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A2510621A836C90035FA0F /* MadogSampleUITests.swift */; };
+		65A2511621A83C1A0035FA0F /* Page1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A2511221A83BF40035FA0F /* Page1.swift */; };
+		65A2511721A83C1D0035FA0F /* Page1ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A2511421A83C010035FA0F /* Page1ViewController.swift */; };
+		65A2511921A840EB0035FA0F /* Madog.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 658C851021A81D26006ECF6F /* Madog.framework */; };
+		65A2511C21A841760035FA0F /* Page2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A2511B21A841760035FA0F /* Page2.swift */; };
+		65A2511E21A841830035FA0F /* Page2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A2511D21A841830035FA0F /* Page2ViewController.swift */; };
+		65A2512021A842C80035FA0F /* ResourceLocator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A2511F21A842C80035FA0F /* ResourceLocator.swift */; };
+		65A2512221A843BC0035FA0F /* Page2View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A2512121A843BC0035FA0F /* Page2View.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +48,13 @@
 			remoteGlobalIDString = 65A250EE21A836C50035FA0F;
 			remoteInfo = MadogSample;
 		};
+		65A2510F21A838D20035FA0F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 658C850721A81D26006ECF6F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 658C850F21A81D26006ECF6F;
+			remoteInfo = Madog;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -54,7 +65,6 @@
 		658C851E21A81D26006ECF6F /* MadogTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MadogTests.swift; sourceTree = "<group>"; };
 		658C852021A81D26006ECF6F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		65A250CB21A81FBE0035FA0F /* RuntimePageLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RuntimePageLoader.swift; sourceTree = "<group>"; };
-		65A250CC21A81FBF0035FA0F /* ResourceLocator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResourceLocator.swift; sourceTree = "<group>"; };
 		65A250CD21A81FBF0035FA0F /* PageResolver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageResolver.swift; sourceTree = "<group>"; };
 		65A250CE21A81FBF0035FA0F /* NavigationUI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationUI.swift; sourceTree = "<group>"; };
 		65A250CF21A81FBF0035FA0F /* Page.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Page.swift; sourceTree = "<group>"; };
@@ -66,14 +76,18 @@
 		65A250E921A834C70035FA0F /* ViewControllerRegistry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerRegistry.swift; sourceTree = "<group>"; };
 		65A250EF21A836C50035FA0F /* MadogSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MadogSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		65A250F121A836C50035FA0F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		65A250F321A836C50035FA0F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		65A250F621A836C50035FA0F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		65A250F821A836C80035FA0F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		65A250FB21A836C80035FA0F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		65A250FD21A836C80035FA0F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		65A2510221A836C90035FA0F /* MadogSampleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MadogSampleUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		65A2510621A836C90035FA0F /* MadogSampleUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MadogSampleUITests.swift; sourceTree = "<group>"; };
 		65A2510821A836C90035FA0F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		65A2511221A83BF40035FA0F /* Page1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Page1.swift; sourceTree = "<group>"; };
+		65A2511421A83C010035FA0F /* Page1ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Page1ViewController.swift; sourceTree = "<group>"; };
+		65A2511B21A841760035FA0F /* Page2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Page2.swift; sourceTree = "<group>"; };
+		65A2511D21A841830035FA0F /* Page2ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Page2ViewController.swift; sourceTree = "<group>"; };
+		65A2511F21A842C80035FA0F /* ResourceLocator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResourceLocator.swift; sourceTree = "<group>"; };
+		65A2512121A843BC0035FA0F /* Page2View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Page2View.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +110,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				65A2511921A840EB0035FA0F /* Madog.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -117,6 +132,7 @@
 				65A250F021A836C50035FA0F /* Sample */,
 				65A2510521A836C90035FA0F /* SampleUITests */,
 				658C851121A81D26006ECF6F /* Products */,
+				65A2511821A840EB0035FA0F /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -137,7 +153,6 @@
 				65A250E821A82EC00035FA0F /* Registry */,
 				65A250DB21A820100035FA0F /* Navigation */,
 				65A250E121A822810035FA0F /* UI */,
-				65A250DC21A8207B0035FA0F /* Token */,
 				65A250D921A81FF50035FA0F /* Page */,
 				65A250DA21A81FFA0035FA0F /* Resolver */,
 				658C851321A81D26006ECF6F /* Madog.h */,
@@ -182,14 +197,6 @@
 			path = Navigation;
 			sourceTree = "<group>";
 		};
-		65A250DC21A8207B0035FA0F /* Token */ = {
-			isa = PBXGroup;
-			children = (
-				65A250CC21A81FBF0035FA0F /* ResourceLocator.swift */,
-			);
-			path = Token;
-			sourceTree = "<group>";
-		};
 		65A250E121A822810035FA0F /* UI */ = {
 			isa = PBXGroup;
 			children = (
@@ -212,8 +219,9 @@
 			isa = PBXGroup;
 			children = (
 				65A250F121A836C50035FA0F /* AppDelegate.swift */,
-				65A250F321A836C50035FA0F /* ViewController.swift */,
-				65A250F521A836C50035FA0F /* Main.storyboard */,
+				65A2511F21A842C80035FA0F /* ResourceLocator.swift */,
+				65A2511121A83BC00035FA0F /* Page 1 */,
+				65A2511A21A841410035FA0F /* Page 2 */,
 				65A250F821A836C80035FA0F /* Assets.xcassets */,
 				65A250FA21A836C80035FA0F /* LaunchScreen.storyboard */,
 				65A250FD21A836C80035FA0F /* Info.plist */,
@@ -228,6 +236,32 @@
 				65A2510821A836C90035FA0F /* Info.plist */,
 			);
 			path = SampleUITests;
+			sourceTree = "<group>";
+		};
+		65A2511121A83BC00035FA0F /* Page 1 */ = {
+			isa = PBXGroup;
+			children = (
+				65A2511221A83BF40035FA0F /* Page1.swift */,
+				65A2511421A83C010035FA0F /* Page1ViewController.swift */,
+			);
+			path = "Page 1";
+			sourceTree = "<group>";
+		};
+		65A2511821A840EB0035FA0F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		65A2511A21A841410035FA0F /* Page 2 */ = {
+			isa = PBXGroup;
+			children = (
+				65A2511B21A841760035FA0F /* Page2.swift */,
+				65A2511D21A841830035FA0F /* Page2ViewController.swift */,
+				65A2512121A843BC0035FA0F /* Page2View.swift */,
+			);
+			path = "Page 2";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -291,6 +325,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				65A2511021A838D20035FA0F /* PBXTargetDependency */,
 			);
 			name = MadogSample;
 			productName = MadogSample;
@@ -383,7 +418,6 @@
 			files = (
 				65A250FC21A836C80035FA0F /* LaunchScreen.storyboard in Resources */,
 				65A250F921A836C80035FA0F /* Assets.xcassets in Resources */,
-				65A250F721A836C50035FA0F /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -401,7 +435,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				65A250D321A81FBF0035FA0F /* ResourceLocator.swift in Sources */,
 				65A250E021A8218B0035FA0F /* PageFactory.swift in Sources */,
 				65A250D221A81FBF0035FA0F /* RuntimePageLoader.swift in Sources */,
 				65A250EA21A834C70035FA0F /* ViewControllerRegistry.swift in Sources */,
@@ -427,8 +460,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				65A250F421A836C50035FA0F /* ViewController.swift in Sources */,
+				65A2511E21A841830035FA0F /* Page2ViewController.swift in Sources */,
+				65A2511721A83C1D0035FA0F /* Page1ViewController.swift in Sources */,
+				65A2511C21A841760035FA0F /* Page2.swift in Sources */,
+				65A2511621A83C1A0035FA0F /* Page1.swift in Sources */,
+				65A2512021A842C80035FA0F /* ResourceLocator.swift in Sources */,
 				65A250F221A836C50035FA0F /* AppDelegate.swift in Sources */,
+				65A2512221A843BC0035FA0F /* Page2View.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -453,17 +491,14 @@
 			target = 65A250EE21A836C50035FA0F /* MadogSample */;
 			targetProxy = 65A2510321A836C90035FA0F /* PBXContainerItemProxy */;
 		};
+		65A2511021A838D20035FA0F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 658C850F21A81D26006ECF6F /* Madog */;
+			targetProxy = 65A2510F21A838D20035FA0F /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		65A250F521A836C50035FA0F /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				65A250F621A836C50035FA0F /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		65A250FA21A836C80035FA0F /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (

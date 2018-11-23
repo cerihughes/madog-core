@@ -9,11 +9,13 @@
 import Foundation
 
 /// An implementation of PageResolver which uses objc-runtime magic to find all loaded classes that implement Page.
-final class RuntimePageResolver: PageResolver {
+public final class RuntimePageResolver: PageResolver {
+
+    public init() {}
 
     // MARK: PageResolver
 
-    func pageFactories() -> [PageFactory.Type] {
+    public func pageFactories() -> [PageFactory.Type] {
         var pageFactories: [PageFactory.Type] = []
 
         if let executablePath = Bundle.main.executablePath {

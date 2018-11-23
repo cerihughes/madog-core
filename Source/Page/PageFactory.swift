@@ -8,6 +8,6 @@
 
 import Foundation
 
-protocol PageFactory {
+public protocol PageFactory {
     static func createPage() -> Page
 }

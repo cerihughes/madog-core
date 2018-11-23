@@ -10,6 +10,17 @@
 		658C851A21A81D26006ECF6F /* Madog.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 658C851021A81D26006ECF6F /* Madog.framework */; };
 		658C851F21A81D26006ECF6F /* MadogTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658C851E21A81D26006ECF6F /* MadogTests.swift */; };
 		658C852121A81D26006ECF6F /* Madog.h in Headers */ = {isa = PBXBuildFile; fileRef = 658C851321A81D26006ECF6F /* Madog.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		65A250D221A81FBF0035FA0F /* RuntimePageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A250CB21A81FBE0035FA0F /* RuntimePageLoader.swift */; };
+		65A250D321A81FBF0035FA0F /* ResourceLocator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A250CC21A81FBF0035FA0F /* ResourceLocator.swift */; };
+		65A250D421A81FBF0035FA0F /* PageResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A250CD21A81FBF0035FA0F /* PageResolver.swift */; };
+		65A250D521A81FBF0035FA0F /* NavigationUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A250CE21A81FBF0035FA0F /* NavigationUI.swift */; };
+		65A250D621A81FBF0035FA0F /* Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A250CF21A81FBF0035FA0F /* Page.swift */; };
+		65A250DE21A8212F0035FA0F /* NavigationContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A250DD21A8212F0035FA0F /* NavigationContext.swift */; };
+		65A250E021A8218B0035FA0F /* PageFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A250DF21A8218B0035FA0F /* PageFactory.swift */; };
+		65A250E321A822990035FA0F /* TabBarNavigationUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A250E221A822990035FA0F /* TabBarNavigationUI.swift */; };
+		65A250E521A822DF0035FA0F /* NavigationToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A250E421A822DF0035FA0F /* NavigationToken.swift */; };
+		65A250E721A82C6D0035FA0F /* Registry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A250E621A82C6D0035FA0F /* Registry.swift */; };
+		65A250EA21A834C70035FA0F /* ViewControllerRegistry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A250E921A834C70035FA0F /* ViewControllerRegistry.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +40,17 @@
 		658C851921A81D26006ECF6F /* MadogTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MadogTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		658C851E21A81D26006ECF6F /* MadogTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MadogTests.swift; sourceTree = "<group>"; };
 		658C852021A81D26006ECF6F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		65A250CB21A81FBE0035FA0F /* RuntimePageLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RuntimePageLoader.swift; sourceTree = "<group>"; };
+		65A250CC21A81FBF0035FA0F /* ResourceLocator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResourceLocator.swift; sourceTree = "<group>"; };
+		65A250CD21A81FBF0035FA0F /* PageResolver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageResolver.swift; sourceTree = "<group>"; };
+		65A250CE21A81FBF0035FA0F /* NavigationUI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationUI.swift; sourceTree = "<group>"; };
+		65A250CF21A81FBF0035FA0F /* Page.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Page.swift; sourceTree = "<group>"; };
+		65A250DD21A8212F0035FA0F /* NavigationContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationContext.swift; sourceTree = "<group>"; };
+		65A250DF21A8218B0035FA0F /* PageFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageFactory.swift; sourceTree = "<group>"; };
+		65A250E221A822990035FA0F /* TabBarNavigationUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarNavigationUI.swift; sourceTree = "<group>"; };
+		65A250E421A822DF0035FA0F /* NavigationToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationToken.swift; sourceTree = "<group>"; };
+		65A250E621A82C6D0035FA0F /* Registry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Registry.swift; sourceTree = "<group>"; };
+		65A250E921A834C70035FA0F /* ViewControllerRegistry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerRegistry.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +93,12 @@
 		658C851221A81D26006ECF6F /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				65A250E821A82EC00035FA0F /* Registry */,
+				65A250DB21A820100035FA0F /* Navigation */,
+				65A250E121A822810035FA0F /* UI */,
+				65A250DC21A8207B0035FA0F /* Token */,
+				65A250D921A81FF50035FA0F /* Page */,
+				65A250DA21A81FFA0035FA0F /* Resolver */,
 				658C851321A81D26006ECF6F /* Madog.h */,
 				658C851421A81D26006ECF6F /* Info.plist */,
 			);
@@ -84,6 +112,59 @@
 				658C852021A81D26006ECF6F /* Info.plist */,
 			);
 			path = Tests;
+			sourceTree = "<group>";
+		};
+		65A250D921A81FF50035FA0F /* Page */ = {
+			isa = PBXGroup;
+			children = (
+				65A250CF21A81FBF0035FA0F /* Page.swift */,
+				65A250DF21A8218B0035FA0F /* PageFactory.swift */,
+			);
+			path = Page;
+			sourceTree = "<group>";
+		};
+		65A250DA21A81FFA0035FA0F /* Resolver */ = {
+			isa = PBXGroup;
+			children = (
+				65A250CD21A81FBF0035FA0F /* PageResolver.swift */,
+				65A250CB21A81FBE0035FA0F /* RuntimePageLoader.swift */,
+			);
+			path = Resolver;
+			sourceTree = "<group>";
+		};
+		65A250DB21A820100035FA0F /* Navigation */ = {
+			isa = PBXGroup;
+			children = (
+				65A250DD21A8212F0035FA0F /* NavigationContext.swift */,
+				65A250E421A822DF0035FA0F /* NavigationToken.swift */,
+			);
+			path = Navigation;
+			sourceTree = "<group>";
+		};
+		65A250DC21A8207B0035FA0F /* Token */ = {
+			isa = PBXGroup;
+			children = (
+				65A250CC21A81FBF0035FA0F /* ResourceLocator.swift */,
+			);
+			path = Token;
+			sourceTree = "<group>";
+		};
+		65A250E121A822810035FA0F /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				65A250CE21A81FBF0035FA0F /* NavigationUI.swift */,
+				65A250E221A822990035FA0F /* TabBarNavigationUI.swift */,
+				65A250E921A834C70035FA0F /* ViewControllerRegistry.swift */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		65A250E821A82EC00035FA0F /* Registry */ = {
+			isa = PBXGroup;
+			children = (
+				65A250E621A82C6D0035FA0F /* Registry.swift */,
+			);
+			path = Registry;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -148,6 +229,7 @@
 				TargetAttributes = {
 					658C850F21A81D26006ECF6F = {
 						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1010;
 					};
 					658C851821A81D26006ECF6F = {
 						CreatedOnToolsVersion = 10.1;
@@ -194,6 +276,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				65A250D321A81FBF0035FA0F /* ResourceLocator.swift in Sources */,
+				65A250E021A8218B0035FA0F /* PageFactory.swift in Sources */,
+				65A250D221A81FBF0035FA0F /* RuntimePageLoader.swift in Sources */,
+				65A250EA21A834C70035FA0F /* ViewControllerRegistry.swift in Sources */,
+				65A250E721A82C6D0035FA0F /* Registry.swift in Sources */,
+				65A250E521A822DF0035FA0F /* NavigationToken.swift in Sources */,
+				65A250D421A81FBF0035FA0F /* PageResolver.swift in Sources */,
+				65A250D521A81FBF0035FA0F /* NavigationUI.swift in Sources */,
+				65A250D621A81FBF0035FA0F /* Page.swift in Sources */,
+				65A250E321A822990035FA0F /* TabBarNavigationUI.swift in Sources */,
+				65A250DE21A8212F0035FA0F /* NavigationContext.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -341,6 +434,7 @@
 		658C852521A81D26006ECF6F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
@@ -358,6 +452,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = uk.co.cerihughes.Madog;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -366,6 +461,7 @@
 		658C852621A81D26006ECF6F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
@@ -391,6 +487,7 @@
 		658C852821A81D26006ECF6F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Y56955G4Q8;
 				INFOPLIST_FILE = Tests/Info.plist;
@@ -409,6 +506,7 @@
 		658C852921A81D26006ECF6F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Y56955G4Q8;
 				INFOPLIST_FILE = Tests/Info.plist;

@@ -31,6 +31,7 @@
 		65A2511E21A841830035FA0F /* Page2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A2511D21A841830035FA0F /* Page2ViewController.swift */; };
 		65A2512021A842C80035FA0F /* ResourceLocator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A2511F21A842C80035FA0F /* ResourceLocator.swift */; };
 		65A2512221A843BC0035FA0F /* Page2View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A2512121A843BC0035FA0F /* Page2View.swift */; };
+		65BEBC8D21A8850800397E39 /* BaseUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BEBC8C21A8850800397E39 /* BaseUI.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -88,6 +89,7 @@
 		65A2511D21A841830035FA0F /* Page2ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Page2ViewController.swift; sourceTree = "<group>"; };
 		65A2511F21A842C80035FA0F /* ResourceLocator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResourceLocator.swift; sourceTree = "<group>"; };
 		65A2512121A843BC0035FA0F /* Page2View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Page2View.swift; sourceTree = "<group>"; };
+		65BEBC8C21A8850800397E39 /* BaseUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseUI.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -200,6 +202,7 @@
 		65A250E121A822810035FA0F /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				65BEBC8C21A8850800397E39 /* BaseUI.swift */,
 				65A250CE21A81FBF0035FA0F /* NavigationUI.swift */,
 				65A250E221A822990035FA0F /* TabBarNavigationUI.swift */,
 				65A250E921A834C70035FA0F /* ViewControllerRegistry.swift */,
@@ -435,6 +438,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				65BEBC8D21A8850800397E39 /* BaseUI.swift in Sources */,
 				65A250E021A8218B0035FA0F /* PageFactory.swift in Sources */,
 				65A250D221A81FBF0035FA0F /* RuntimePageLoader.swift in Sources */,
 				65A250EA21A834C70035FA0F /* ViewControllerRegistry.swift in Sources */,

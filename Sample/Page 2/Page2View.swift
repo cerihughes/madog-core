@@ -20,7 +20,7 @@ class Page2View: UIView {
         label.textAlignment = .center
         addSubview(label)
 
-        var constraints: [NSLayoutConstraint] = []
+        var constraints = [NSLayoutConstraint]()
 
         constraints.append(label.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor))
         constraints.append(label.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor))

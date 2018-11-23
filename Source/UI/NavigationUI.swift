@@ -8,18 +8,19 @@
 
 import UIKit
 
-public typealias NavigationUIContext = ModalContext & NavigationContext
-
 /// A class that presents view controllers, and manages the navigation between them.
 ///
 /// At the moment, this is achieved with a UINavigationController that can be pushed / popped to / from.
-public class NavigationUI<Token>: BaseUI<Token, NavigationUIContext>, NavigationUIContext {
-    private let navigationController = UINavigationController()
+public class NavigationUI<Token>: BaseUI<Token, NavigationContext> {
+    private let context: NavigationContextImplementation<Token>
 
-    override public init?(pageResolver: PageResolver) {
-        super.init(pageResolver: pageResolver)
+    public init?(pageResolver: PageResolver) {
+        let registry = ViewControllerRegistry<Token, NavigationContext>()
+        self.context = NavigationContextImplementation(registry: registry)
 
-        guard let initialViewControllers = registry.createGlobalResults(context: self),
+        super.init(pageResolver: pageResolver, registry: registry)
+
+        guard let initialViewControllers = registry.createGlobalResults(context: self.context),
             let initialViewController = initialViewControllers.first else {
             return nil
         }
@@ -28,31 +29,10 @@ public class NavigationUI<Token>: BaseUI<Token, NavigationUIContext>, Navigation
             print("Warning: More than 1 initial registry function is registered. There are no guarantees about which will be used.")
         }
 
-        navigationController.pushViewController(initialViewController, animated: false)
+        self.context.navigationController.pushViewController(initialViewController, animated: false)
     }
 
     public var initialViewController: UINavigationController {
-        return navigationController
-    }
-
-    // MARK: ModalContext
-
-    public func openModal<ContextToken>(with token: ContextToken, from fromViewController: UIViewController, animated: Bool) -> NavigationToken? {
-        return nil
-    }
-
-    // MARK: NavigationContext
-
-    public func navigateForward<ContextToken>(with token: ContextToken, animated: Bool) -> NavigationToken? {
-        guard let token = token as? Token, let viewController = registry.createResult(from: token, context: self) else {
-            return nil
-        }
-
-        navigationController.pushViewController(viewController, animated: animated)
-        return NavigationTokenImplementation(viewController: viewController)
-    }
-
-    public func navigateBack(animated: Bool) -> Bool {
-        return navigationController.popViewController(animated: animated) != nil
+        return self.context.navigationController
     }
 }

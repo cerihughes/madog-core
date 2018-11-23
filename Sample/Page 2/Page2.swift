@@ -41,7 +41,7 @@ class Page2: PageFactory, Page {
         guard let rl = token as? ResourceLocator,
             rl.identifier == page2Identifier,
             let pageIdentifier = rl.pageIdentifier,
-            let navigationContext = context as? NavigationUIContext else {
+            let navigationContext = context as? NavigationContext else {
             return nil
         }
 

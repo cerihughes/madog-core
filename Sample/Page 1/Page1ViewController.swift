@@ -10,9 +10,9 @@ import Madog
 import UIKit
 
 class Page1ViewController: UIViewController {
-    private let context: NavigationUIContext
+    private let context: NavigationContext
 
-    init(context: NavigationUIContext) {
+    init(context: NavigationContext) {
         self.context = context
 
         super.init(nibName: nil, bundle: nil)

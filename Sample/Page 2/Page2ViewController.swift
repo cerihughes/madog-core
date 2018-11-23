@@ -11,9 +11,9 @@ import UIKit
 
 class Page2ViewController: UIViewController {
     private let pageIdentifier: String
-    private let context: NavigationUIContext
+    private let context: NavigationContext
 
-    init(pageIdentifier:String, context: NavigationUIContext) {
+    init(pageIdentifier:String, context: NavigationContext) {
         self.pageIdentifier = pageIdentifier
         self.context = context
 

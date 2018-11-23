@@ -8,16 +8,16 @@
 
 import UIKit
 
-typealias TabBarNavigationUIContext = NavigationContext & ForwardNavigationContext
+public typealias TabBarNavigationUIContext = NavigationContext & ForwardNavigationContext
 
 /// A class that presents view controllers in a tab bar, and manages the navigation between them.
 ///
 /// At the moment, this is achieved with a UINavigationController that can be pushed / popped to / from.
-class TabBarNavigationUI<Token>: TabBarNavigationUIContext {
+public class TabBarNavigationUI<Token>: TabBarNavigationUIContext {
     private let registry = Registry<Token, TabBarNavigationUIContext, UIViewController>()
     private let tabBarController = UITabBarController()
 
-    init?(pageResolver: PageResolver) {
+    public init?(pageResolver: PageResolver) {
         let pageFactories = pageResolver.pageFactories()
         for pageFactory in pageFactories {
             let page = pageFactory.createPage()
@@ -32,19 +32,19 @@ class TabBarNavigationUI<Token>: TabBarNavigationUIContext {
         tabBarController.viewControllers = initialViewControllers
     }
 
-    var initialViewController: UIViewController {
+    public var initialViewController: UIViewController {
         return tabBarController
     }
 
     // MARK: NavigationContext
 
-    func openModal<ContextToken>(with token: ContextToken, from fromViewController: UIViewController, animated: Bool) -> NavigationToken? {
+    public func openModal<ContextToken>(with token: ContextToken, from fromViewController: UIViewController, animated: Bool) -> NavigationToken? {
         return nil
     }
 
     // MARK: ForwardNavigationContext
 
-    func navigate<ContextToken>(with token: ContextToken, from fromViewController: UIViewController, animated: Bool) -> NavigationToken? {
+    public func navigate<ContextToken>(with token: ContextToken, from fromViewController: UIViewController, animated: Bool) -> NavigationToken? {
         guard let token = token as? Token,
             let toViewController = registry.createResult(from: token, context: self),
             let navigationController = fromViewController.navigationController else {

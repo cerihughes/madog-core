@@ -8,4 +8,4 @@
 
 import UIKit
 
-typealias ViewControllerRegistry<Token, Context> = Registry<Token, Context, UIViewController>
+public typealias ViewControllerRegistry<Token, Context> = Registry<Token, Context, UIViewController>

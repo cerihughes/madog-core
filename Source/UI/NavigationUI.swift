@@ -8,16 +8,16 @@
 
 import UIKit
 
-typealias NavigationUIContext = NavigationContext & ForwardNavigationContext
+public typealias NavigationUIContext = NavigationContext & ForwardNavigationContext
 
 /// A class that presents view controllers, and manages the navigation between them.
 ///
 /// At the moment, this is achieved with a UINavigationController that can be pushed / popped to / from.
-class NavigationUI<Token>: NavigationUIContext {
+public class NavigationUI<Token>: NavigationUIContext {
     private let registry = Registry<Token, NavigationUIContext, UIViewController>()
     private let navigationController = UINavigationController()
 
-    init?(pageResolver: PageResolver) {
+    public init?(pageResolver: PageResolver) {
         let pageFactories = pageResolver.pageFactories()
         for pageFactory in pageFactories {
             let page = pageFactory.createPage()
@@ -36,19 +36,19 @@ class NavigationUI<Token>: NavigationUIContext {
         navigationController.pushViewController(initialViewController, animated: false)
     }
 
-    var initialViewController: UIViewController {
+    public var initialViewController: UIViewController {
         return navigationController
     }
 
     // MARK: NavigationContext
 
-    func openModal<ContextToken>(with token: ContextToken, from fromViewController: UIViewController, animated: Bool) -> NavigationToken? {
+    public func openModal<ContextToken>(with token: ContextToken, from fromViewController: UIViewController, animated: Bool) -> NavigationToken? {
         return nil
     }
 
     // MARK: ForwardNavigationContext
 
-    func navigate<ContextToken>(with token: ContextToken, from fromViewController: UIViewController, animated: Bool) -> NavigationToken? {
+    public func navigate<ContextToken>(with token: ContextToken, from fromViewController: UIViewController, animated: Bool) -> NavigationToken? {
         guard let token = token as? Token, let viewController = registry.createResult(from: token, context: self) else {
             return nil
         }

@@ -17,14 +17,18 @@ class TabBarNavigationUI<Token>: TabBarNavigationUIContext {
     private let registry = Registry<Token, TabBarNavigationUIContext, UIViewController>()
     private let tabBarController = UITabBarController()
 
-    init(pageResolver: PageResolver) {
+    init?(pageResolver: PageResolver) {
         let pageFactories = pageResolver.pageFactories()
         for pageFactory in pageFactories {
             let page = pageFactory.createPage()
             page.register(with: registry)
         }
 
-        let initialViewControllers = registry.createGlobalResults(context: self)
+        guard let initialViewControllers = registry.createGlobalResults(context: self),
+            initialViewControllers.count > 0 else {
+                return nil
+        }
+
         tabBarController.viewControllers = initialViewControllers
     }
 

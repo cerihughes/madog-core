@@ -24,14 +24,13 @@ class NavigationUI<Token>: NavigationUIContext {
             page.register(with: registry)
         }
 
-        let initialViewControllers = registry.createGlobalResults(context: self)
+        guard let initialViewControllers = registry.createGlobalResults(context: self),
+            let initialViewController = initialViewControllers.first else {
+            return nil
+        }
 
         if initialViewControllers.count > 1 {
             print("Warning: More than 1 initial registry function is registered. There are no guarantees about which will be used.")
-        }
-
-        guard let initialViewController = initialViewControllers.first else {
-            return nil
         }
 
         navigationController.pushViewController(initialViewController, animated: false)

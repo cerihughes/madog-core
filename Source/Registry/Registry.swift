@@ -44,9 +44,9 @@ class Registry<Token, Context, Result>: NSObject {
         registry.removeValue(forKey: token)
     }
 
-    func createGlobalResults(context: Context) -> [Result] {
+    func createGlobalResults(context: Context) -> [Result]? {
         guard globalRegistry.count > 0 else {
-            return []
+            return nil
         }
 
         return globalRegistry.values.map { $0(context) }

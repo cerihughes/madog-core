@@ -32,7 +32,7 @@ public class TabBarNavigationUI<Token>: TabBarNavigationUIContext {
         tabBarController.viewControllers = initialViewControllers
     }
 
-    public var initialViewController: UIViewController {
+    public var initialViewController: UITabBarController {
         return tabBarController
     }
 

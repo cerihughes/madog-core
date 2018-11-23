@@ -36,7 +36,7 @@ public class NavigationUI<Token>: NavigationUIContext {
         navigationController.pushViewController(initialViewController, animated: false)
     }
 
-    public var initialViewController: UIViewController {
+    public var initialViewController: UINavigationController {
         return navigationController
     }
 

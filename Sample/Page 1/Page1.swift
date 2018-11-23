@@ -30,7 +30,7 @@ class Page1: PageFactory, Page {
             return
         }
 
-        registry.removeGlobalRegistryFunction(uuid: uuid)
+        registry.removeRegistryFunction(uuid: uuid)
     }
 
     // MARK: Private

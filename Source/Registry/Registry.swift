@@ -36,11 +36,8 @@ public class Registry<Token, Context, Result>: NSObject {
         return uuid
     }
 
-    public func removeGlobalRegistryFunction(uuid: UUID) {
-        globalRegistry.removeValue(forKey: uuid)
-    }
-
     public func removeRegistryFunction(uuid: UUID) {
+        globalRegistry.removeValue(forKey: uuid)
         registry.removeValue(forKey: uuid)
     }
 

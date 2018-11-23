@@ -17,6 +17,7 @@ class Page2View: UIView {
         backgroundColor = .white
 
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.textAlignment = .center
         addSubview(label)
 
         var constraints: [NSLayoutConstraint] = []

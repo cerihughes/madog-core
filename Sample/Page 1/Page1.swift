@@ -22,7 +22,7 @@ class Page1: PageFactory, Page {
     // MARK: Page
 
     func register<Token, Context>(with registry: ViewControllerRegistry<Token, Context>) {
-        uuid = registry.add(globalRegistryFunction: createViewController(context:))
+        uuid = registry.add(initialRegistryFunction: createViewController(context:))
     }
 
     func unregister<Token, Context>(from registry: ViewControllerRegistry<Token, Context>) {

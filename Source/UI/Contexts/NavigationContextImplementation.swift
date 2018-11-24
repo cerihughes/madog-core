@@ -21,7 +21,7 @@ internal class NavigationContextImplementation<Token>: ModalContextImplementatio
     // MARK: NavigationContext
 
     public func navigateForward<ContextToken>(with token: ContextToken, animated: Bool) -> NavigationToken? {
-        guard let token = token as? Token, let viewController = registry.createResult(from: token, context: self) else {
+        guard let token = token as? Token, let viewController = registry.createViewController(from: token, context: self) else {
             return nil
         }
 

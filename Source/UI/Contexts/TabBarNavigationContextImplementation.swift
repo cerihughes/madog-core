@@ -22,7 +22,7 @@ internal class TabBarNavigationContextImplementation<Token>: ModalContextImpleme
 
     public func navigateForward<ContextToken>(with token: ContextToken, from fromViewController: UIViewController, animated: Bool) -> NavigationToken? {
         guard let token = token as? Token,
-            let toViewController = registry.createResult(from: token, context: self),
+            let toViewController = registry.createViewController(from: token, context: self),
             let navigationController = fromViewController.navigationController else {
                 return nil
         }

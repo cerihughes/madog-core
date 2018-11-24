@@ -29,7 +29,7 @@ public class NavigationUI<Token>: BaseUI {
     public func resolveInitialViewController(pageResolver: PageResolver) -> UINavigationController? {
         registerPages(with: registry, pageResolver: pageResolver)
         
-        guard let initialViewControllers = registry.createGlobalResults(context: self.context),
+        guard let initialViewControllers = registry.createInitialViewControllers(context: self.context),
             let initialViewController = initialViewControllers.first else {
                 return nil
         }

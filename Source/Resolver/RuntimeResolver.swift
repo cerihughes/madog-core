@@ -11,10 +11,18 @@ import Foundation
 /// An implementation of PageResolver and StateResolver which uses objc-runtime magic to find all loaded classes that
 /// implement Page and State respectively.
 public final class RuntimeResolver: PageResolver, StateResolver {
+    private let bundle: Bundle
+
     private var loadedPageFactories = [PageFactory.Type]()
     private var loadedStateFactories = [StateFactory.Type]()
 
-    public init() {
+    convenience public init() {
+        self.init(bundle: Bundle.main)
+    }
+
+    public init(bundle: Bundle) {
+        self.bundle = bundle
+
         inspectLoadedClasses()
     }
 
@@ -33,7 +41,7 @@ public final class RuntimeResolver: PageResolver, StateResolver {
     // MARK: Private
 
     private func inspectLoadedClasses() {
-        if let executablePath = Bundle.main.executablePath {
+        if let executablePath = bundle.executablePath {
             var classCount: UInt32 = 0
             let classNames = objc_copyClassNamesForImage(executablePath, &classCount)
             if let classNames = classNames {

@@ -15,6 +15,9 @@ public class TabBarNavigationUI<Token>: BaseUI {
     private let registry: ViewControllerRegistry<Token, TabBarNavigationContext>
     private let context: TabBarNavigationContextImplementation<Token>
 
+    /// The default function by the tab bar item's tag (ascending).
+    public var sortFunction: (UIViewController, UIViewController) -> Bool = { $0.tabBarItem.tag < $1.tabBarItem.tag }
+
     override public init() {
         self.registry = ViewControllerRegistry<Token, TabBarNavigationContext>()
         self.context = TabBarNavigationContextImplementation(registry: self.registry)
@@ -30,7 +33,9 @@ public class TabBarNavigationUI<Token>: BaseUI {
                 return nil
         }
 
-        self.context.tabBarController.viewControllers = initialViewControllers
+        let sortedViewControllers = initialViewControllers.sorted(by: sortFunction)
+        let navigationControllers = sortedViewControllers.map { UINavigationController(rootViewController: $0) }
+        self.context.tabBarController.viewControllers = navigationControllers
         return self.context.tabBarController
     }
 }

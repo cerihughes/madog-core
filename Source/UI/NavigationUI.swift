@@ -11,18 +11,27 @@ import UIKit
 /// A class that presents view controllers, and manages the navigation between them.
 ///
 /// At the moment, this is achieved with a UINavigationController that can be pushed / popped to / from.
-public class NavigationUI<Token>: BaseUI<Token, NavigationContext> {
+public class NavigationUI<Token>: BaseUI {
+    private let registry: ViewControllerRegistry<Token, NavigationContext>
     private let context: NavigationContextImplementation<Token>
 
-    public init?(pageResolver: PageResolver) {
-        let registry = ViewControllerRegistry<Token, NavigationContext>()
-        self.context = NavigationContextImplementation(registry: registry)
+    override public init() {
+        self.registry = ViewControllerRegistry<Token, NavigationContext>()
+        self.context = NavigationContextImplementation(registry: self.registry)
 
-        super.init(pageResolver: pageResolver, registry: registry)
+        super.init()
+    }
 
+    deinit {
+        unregisterPages(from: self.registry)
+    }
+
+    public func resolveInitialViewController(pageResolver: PageResolver) -> UINavigationController? {
+        registerPages(with: registry, pageResolver: pageResolver)
+        
         guard let initialViewControllers = registry.createGlobalResults(context: self.context),
             let initialViewController = initialViewControllers.first else {
-            return nil
+                return nil
         }
 
         if initialViewControllers.count > 1 {
@@ -30,9 +39,6 @@ public class NavigationUI<Token>: BaseUI<Token, NavigationContext> {
         }
 
         self.context.navigationController.pushViewController(initialViewController, animated: false)
-    }
-
-    public var initialViewController: UINavigationController {
         return self.context.navigationController
     }
 }

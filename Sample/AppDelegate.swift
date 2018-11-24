@@ -15,7 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let ui = NavigationUI<ResourceLocator>()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        guard let initialViewController = ui.resolveInitialViewController(pageResolver: RuntimePageResolver()) else {
+        guard let initialViewController = ui.resolveInitialViewController(resolver: RuntimeResolver()) else {
             return false
         }
 

@@ -10,12 +10,16 @@ import Madog
 import UIKit
 
 class Page2ViewController: UIViewController {
+    private let state1: State1
+    private let state2: State2
     private let pageIdentifier: String
-    private let context: NavigationContext
+    private let navigationContext: NavigationContext
 
-    init(pageIdentifier:String, context: NavigationContext) {
+    init(state1: State1, state2: State2, pageIdentifier:String, navigationContext: NavigationContext) {
+        self.state1 = state1
+        self.state2 = state2
         self.pageIdentifier = pageIdentifier
-        self.context = context
+        self.navigationContext = navigationContext
 
         super.init(nibName: nil, bundle: nil)
     }
@@ -34,7 +38,7 @@ class Page2ViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-            _ = self.context.navigateBack(animated: true)
+            _ = self.navigationContext.navigateBack(animated: true)
         }
     }
 

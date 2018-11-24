@@ -11,8 +11,9 @@ import UIKit
 
 private let page2Identifier = "page2Identifier"
 
-class Page2: PageFactory, Page {
-
+class Page2: PageFactory, StatefulPage {
+    private var state1: State1?
+    private var state2: State2?
     private var uuid: UUID?
 
     // MARK: PageFactory
@@ -22,6 +23,11 @@ class Page2: PageFactory, Page {
     }
 
     // MARK: Page
+
+    func configure(with state: [String : State]) {
+        state1 = state[state1Name] as? State1
+        state2 = state[state2Name] as? State2
+    }
 
     func register<Token, Context>(with registry: ViewControllerRegistry<Token, Context>) {
         uuid = registry.add(registryFunction: createViewController(token:context:))
@@ -38,15 +44,19 @@ class Page2: PageFactory, Page {
     // MARK: Private
 
     private func createViewController<Token, Context>(token: Token, context: Context) -> UIViewController? {
-        guard let rl = token as? ResourceLocator,
+        guard let state1 = state1,
+            let state2 = state2,
+            let rl = token as? ResourceLocator,
             rl.identifier == page2Identifier,
             let pageIdentifier = rl.pageIdentifier,
             let navigationContext = context as? NavigationContext else {
             return nil
         }
 
-        let viewController = Page2ViewController(pageIdentifier:pageIdentifier, context: navigationContext)
-        return viewController
+        return Page2ViewController(state1: state1,
+                                   state2: state2,
+                                   pageIdentifier: pageIdentifier,
+                                   navigationContext: navigationContext)
     }
 }
 

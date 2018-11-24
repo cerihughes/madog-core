@@ -10,10 +10,12 @@ import Madog
 import UIKit
 
 class Page1ViewController: UIViewController {
-    private let context: NavigationContext
+    private let state1: State1
+    private let navigationContext: NavigationContext
 
-    init(context: NavigationContext) {
-        self.context = context
+    init(state1: State1, navigationContext: NavigationContext) {
+        self.state1 = state1
+        self.navigationContext = navigationContext
 
         super.init(nibName: nil, bundle: nil)
     }
@@ -25,7 +27,7 @@ class Page1ViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         let token = ResourceLocator.createPage2ResourceLocator(pageIdentifier: "ABC123")
         DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-            _ = self.context.navigateForward(with: token, animated: true)
+            _ = self.navigationContext.navigateForward(with: token, animated: true)
         }
     }
 }

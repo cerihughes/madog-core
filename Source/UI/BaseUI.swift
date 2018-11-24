@@ -9,24 +9,19 @@
 import Foundation
 
 /// A class that presents view controllers, and manages the navigation between them.
-public class BaseUI<Token, Context> {
-    internal let registry: ViewControllerRegistry<Token, Context>
-    internal let pages: [Page]
+public class BaseUI {
+    private var pages = [Page]()
 
-    internal init(pageResolver: PageResolver, registry: ViewControllerRegistry<Token, Context>) {
-        self.registry = registry
-
-        var pages = [Page]()
+    internal func registerPages<Token, Context>(with registry: ViewControllerRegistry<Token, Context>, pageResolver: PageResolver) {
         let pageFactories = pageResolver.pageFactories()
         for pageFactory in pageFactories {
             let page = pageFactory.createPage()
             page.register(with: registry)
             pages.append(page)
         }
-        self.pages = pages
     }
 
-    deinit {
+    internal func unregisterPages<Token, Context>(from registry: ViewControllerRegistry<Token, Context>) {
         for page in pages {
             page.unregister(from: registry)
         }

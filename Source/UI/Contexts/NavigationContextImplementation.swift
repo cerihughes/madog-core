@@ -9,11 +9,10 @@
 import UIKit
 
 internal class NavigationContextImplementation<Token>: ModalContextImplementation, NavigationContext {
-    internal let navigationController: UINavigationController
+    internal let navigationController = UINavigationController()
     private let registry: ViewControllerRegistry<Token, NavigationContext>
 
     internal init(registry: ViewControllerRegistry<Token, NavigationContext>) {
-        self.navigationController = UINavigationController()
         self.registry = registry
 
         super.init(viewController: self.navigationController)
@@ -22,7 +21,7 @@ internal class NavigationContextImplementation<Token>: ModalContextImplementatio
     // MARK: NavigationContext
 
     public func navigateForward<ContextToken>(with token: ContextToken, animated: Bool) -> NavigationToken? {
-        guard let token = token as? Token, let viewController = registry.createResult(from: token, context: self) else {
+        guard let token = token as? Token, let viewController = registry.createViewController(from: token, context: self) else {
             return nil
         }
 

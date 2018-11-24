@@ -18,8 +18,7 @@
 		65A250E021A8218B0035FA0F /* PageFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A250DF21A8218B0035FA0F /* PageFactory.swift */; };
 		65A250E321A822990035FA0F /* TabBarNavigationUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A250E221A822990035FA0F /* TabBarNavigationUI.swift */; };
 		65A250E521A822DF0035FA0F /* NavigationToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A250E421A822DF0035FA0F /* NavigationToken.swift */; };
-		65A250E721A82C6D0035FA0F /* Registry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A250E621A82C6D0035FA0F /* Registry.swift */; };
-		65A250EA21A834C70035FA0F /* ViewControllerRegistry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A250E921A834C70035FA0F /* ViewControllerRegistry.swift */; };
+		65A250E721A82C6D0035FA0F /* ViewControllerRegistry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A250E621A82C6D0035FA0F /* ViewControllerRegistry.swift */; };
 		65A250F221A836C50035FA0F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A250F121A836C50035FA0F /* AppDelegate.swift */; };
 		65A250F921A836C80035FA0F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 65A250F821A836C80035FA0F /* Assets.xcassets */; };
 		65A250FC21A836C80035FA0F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 65A250FA21A836C80035FA0F /* LaunchScreen.storyboard */; };
@@ -76,8 +75,7 @@
 		65A250DF21A8218B0035FA0F /* PageFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageFactory.swift; sourceTree = "<group>"; };
 		65A250E221A822990035FA0F /* TabBarNavigationUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarNavigationUI.swift; sourceTree = "<group>"; };
 		65A250E421A822DF0035FA0F /* NavigationToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationToken.swift; sourceTree = "<group>"; };
-		65A250E621A82C6D0035FA0F /* Registry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Registry.swift; sourceTree = "<group>"; };
-		65A250E921A834C70035FA0F /* ViewControllerRegistry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerRegistry.swift; sourceTree = "<group>"; };
+		65A250E621A82C6D0035FA0F /* ViewControllerRegistry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerRegistry.swift; sourceTree = "<group>"; };
 		65A250EF21A836C50035FA0F /* MadogSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MadogSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		65A250F121A836C50035FA0F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		65A250F821A836C80035FA0F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -212,7 +210,6 @@
 				65BEBC8C21A8850800397E39 /* BaseUI.swift */,
 				65A250CE21A81FBF0035FA0F /* NavigationUI.swift */,
 				65A250E221A822990035FA0F /* TabBarNavigationUI.swift */,
-				65A250E921A834C70035FA0F /* ViewControllerRegistry.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -220,7 +217,7 @@
 		65A250E821A82EC00035FA0F /* Registry */ = {
 			isa = PBXGroup;
 			children = (
-				65A250E621A82C6D0035FA0F /* Registry.swift */,
+				65A250E621A82C6D0035FA0F /* ViewControllerRegistry.swift */,
 			);
 			path = Registry;
 			sourceTree = "<group>";
@@ -459,8 +456,7 @@
 				65BEBC9621A8983600397E39 /* TabBarNavigationContextImplementation.swift in Sources */,
 				65A250E021A8218B0035FA0F /* PageFactory.swift in Sources */,
 				65A250D221A81FBF0035FA0F /* RuntimePageLoader.swift in Sources */,
-				65A250EA21A834C70035FA0F /* ViewControllerRegistry.swift in Sources */,
-				65A250E721A82C6D0035FA0F /* Registry.swift in Sources */,
+				65A250E721A82C6D0035FA0F /* ViewControllerRegistry.swift in Sources */,
 				65A250E521A822DF0035FA0F /* NavigationToken.swift in Sources */,
 				65A250D421A81FBF0035FA0F /* PageResolver.swift in Sources */,
 				65A250D521A81FBF0035FA0F /* NavigationUI.swift in Sources */,

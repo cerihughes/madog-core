@@ -32,6 +32,9 @@ public final class RuntimePageResolver: PageResolver {
             }
 
             free(classNames);
+
+            // Sort factories alphabetically by name
+            pageFactories.sort { String(describing: $0) < String(describing: $1) }
         }
 
         return pageFactories

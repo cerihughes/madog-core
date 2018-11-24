@@ -10,8 +10,8 @@ import Foundation
 
 /// A class that presents view controllers, and manages the navigation between them.
 public class BaseUI {
-    private var states = [String:State]()
-    private var pages = [Page]()
+    internal var states = [String:State]()
+    internal var pages = [Page]()
 
     internal func loadState(stateResolver: StateResolver) {
         let stateFactories = stateResolver.stateFactories()
@@ -38,5 +38,6 @@ public class BaseUI {
         for page in pages {
             page.unregister(from: registry)
         }
+        pages.removeAll()
     }
 }

@@ -9,8 +9,8 @@
 import Madog
 import UIKit
 
-class Page1: PageFactory, Page {
-
+class Page1: PageFactory, StatefulPage {
+    private var state1: State1?
     private var uuid: UUID?
 
     // MARK: PageFactory
@@ -20,6 +20,10 @@ class Page1: PageFactory, Page {
     }
 
     // MARK: Page
+
+    func configure(with state: [String : State]) {
+        state1 = state[state1Name] as? State1
+    }
 
     func register<Token, Context>(with registry: ViewControllerRegistry<Token, Context>) {
         uuid = registry.add(initialRegistryFunction: createViewController(context:))
@@ -36,10 +40,12 @@ class Page1: PageFactory, Page {
     // MARK: Private
 
     private func createViewController<Context>(context: Context) -> UIViewController? {
-        guard let navigationContext = context as? NavigationContext else {
+        guard let state1 = state1,
+            let navigationContext = context as? NavigationContext else {
             return nil
         }
 
-        return Page1ViewController(context: navigationContext)
+        return Page1ViewController(state1: state1,
+                                   navigationContext: navigationContext)
     }
 }

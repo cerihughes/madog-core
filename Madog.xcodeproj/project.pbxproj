@@ -7,10 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		655A469D21A9B18400CEC47F /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655A469C21A9B18400CEC47F /* State.swift */; };
+		655A469F21A9B18F00CEC47F /* StateFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655A469E21A9B18F00CEC47F /* StateFactory.swift */; };
+		655A46A121A9B1CE00CEC47F /* StatefulPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655A46A021A9B1CE00CEC47F /* StatefulPage.swift */; };
+		655A46A921A9B2FA00CEC47F /* StateResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655A46A821A9B2FA00CEC47F /* StateResolver.swift */; };
+		655A46AA21A9B7E800CEC47F /* State1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655A46A421A9B23E00CEC47F /* State1.swift */; };
+		655A46AC21A9B99F00CEC47F /* State2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655A46A621A9B29C00CEC47F /* State2.swift */; };
 		658C851A21A81D26006ECF6F /* Madog.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 658C851021A81D26006ECF6F /* Madog.framework */; };
 		658C851F21A81D26006ECF6F /* MadogTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658C851E21A81D26006ECF6F /* MadogTests.swift */; };
 		658C852121A81D26006ECF6F /* Madog.h in Headers */ = {isa = PBXBuildFile; fileRef = 658C851321A81D26006ECF6F /* Madog.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		65A250D221A81FBF0035FA0F /* RuntimePageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A250CB21A81FBE0035FA0F /* RuntimePageLoader.swift */; };
+		65A250D221A81FBF0035FA0F /* RuntimeResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A250CB21A81FBE0035FA0F /* RuntimeResolver.swift */; };
 		65A250D421A81FBF0035FA0F /* PageResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A250CD21A81FBF0035FA0F /* PageResolver.swift */; };
 		65A250D521A81FBF0035FA0F /* NavigationUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A250CE21A81FBF0035FA0F /* NavigationUI.swift */; };
 		65A250D621A81FBF0035FA0F /* Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A250CF21A81FBF0035FA0F /* Page.swift */; };
@@ -61,13 +67,19 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		655A469C21A9B18400CEC47F /* State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = State.swift; sourceTree = "<group>"; };
+		655A469E21A9B18F00CEC47F /* StateFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateFactory.swift; sourceTree = "<group>"; };
+		655A46A021A9B1CE00CEC47F /* StatefulPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatefulPage.swift; sourceTree = "<group>"; };
+		655A46A421A9B23E00CEC47F /* State1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = State1.swift; sourceTree = "<group>"; };
+		655A46A621A9B29C00CEC47F /* State2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = State2.swift; sourceTree = "<group>"; };
+		655A46A821A9B2FA00CEC47F /* StateResolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateResolver.swift; sourceTree = "<group>"; };
 		658C851021A81D26006ECF6F /* Madog.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Madog.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		658C851321A81D26006ECF6F /* Madog.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Madog.h; sourceTree = "<group>"; };
 		658C851421A81D26006ECF6F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		658C851921A81D26006ECF6F /* MadogTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MadogTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		658C851E21A81D26006ECF6F /* MadogTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MadogTests.swift; sourceTree = "<group>"; };
 		658C852021A81D26006ECF6F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		65A250CB21A81FBE0035FA0F /* RuntimePageLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RuntimePageLoader.swift; sourceTree = "<group>"; };
+		65A250CB21A81FBE0035FA0F /* RuntimeResolver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RuntimeResolver.swift; sourceTree = "<group>"; };
 		65A250CD21A81FBF0035FA0F /* PageResolver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageResolver.swift; sourceTree = "<group>"; };
 		65A250CE21A81FBF0035FA0F /* NavigationUI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationUI.swift; sourceTree = "<group>"; };
 		65A250CF21A81FBF0035FA0F /* Page.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Page.swift; sourceTree = "<group>"; };
@@ -130,6 +142,33 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		655A469B21A9B0E200CEC47F /* State */ = {
+			isa = PBXGroup;
+			children = (
+				655A469C21A9B18400CEC47F /* State.swift */,
+				655A469E21A9B18F00CEC47F /* StateFactory.swift */,
+				655A46A821A9B2FA00CEC47F /* StateResolver.swift */,
+				655A46A021A9B1CE00CEC47F /* StatefulPage.swift */,
+			);
+			path = State;
+			sourceTree = "<group>";
+		};
+		655A46A221A9B22100CEC47F /* State 1 */ = {
+			isa = PBXGroup;
+			children = (
+				655A46A421A9B23E00CEC47F /* State1.swift */,
+			);
+			path = "State 1";
+			sourceTree = "<group>";
+		};
+		655A46A321A9B22B00CEC47F /* State 2 */ = {
+			isa = PBXGroup;
+			children = (
+				655A46A621A9B29C00CEC47F /* State2.swift */,
+			);
+			path = "State 2";
+			sourceTree = "<group>";
+		};
 		658C850621A81D26006ECF6F = {
 			isa = PBXGroup;
 			children = (
@@ -160,6 +199,7 @@
 				65A250DB21A820100035FA0F /* Navigation */,
 				65A250E121A822810035FA0F /* UI */,
 				65A250D921A81FF50035FA0F /* Page */,
+				655A469B21A9B0E200CEC47F /* State */,
 				65A250DA21A81FFA0035FA0F /* Resolver */,
 				658C851321A81D26006ECF6F /* Madog.h */,
 				658C851421A81D26006ECF6F /* Info.plist */,
@@ -181,6 +221,7 @@
 			children = (
 				65A250CF21A81FBF0035FA0F /* Page.swift */,
 				65A250DF21A8218B0035FA0F /* PageFactory.swift */,
+				65A250CD21A81FBF0035FA0F /* PageResolver.swift */,
 			);
 			path = Page;
 			sourceTree = "<group>";
@@ -188,8 +229,7 @@
 		65A250DA21A81FFA0035FA0F /* Resolver */ = {
 			isa = PBXGroup;
 			children = (
-				65A250CD21A81FBF0035FA0F /* PageResolver.swift */,
-				65A250CB21A81FBE0035FA0F /* RuntimePageLoader.swift */,
+				65A250CB21A81FBE0035FA0F /* RuntimeResolver.swift */,
 			);
 			path = Resolver;
 			sourceTree = "<group>";
@@ -229,6 +269,8 @@
 				65A2511F21A842C80035FA0F /* ResourceLocator.swift */,
 				65A2511121A83BC00035FA0F /* Page 1 */,
 				65A2511A21A841410035FA0F /* Page 2 */,
+				655A46A221A9B22100CEC47F /* State 1 */,
+				655A46A321A9B22B00CEC47F /* State 2 */,
 				65A250F821A836C80035FA0F /* Assets.xcassets */,
 				65A250FA21A836C80035FA0F /* LaunchScreen.storyboard */,
 				65A250FD21A836C80035FA0F /* Info.plist */,
@@ -454,15 +496,19 @@
 			files = (
 				65BEBC8D21A8850800397E39 /* BaseUI.swift in Sources */,
 				65BEBC9621A8983600397E39 /* TabBarNavigationContextImplementation.swift in Sources */,
+				655A46A121A9B1CE00CEC47F /* StatefulPage.swift in Sources */,
 				65A250E021A8218B0035FA0F /* PageFactory.swift in Sources */,
-				65A250D221A81FBF0035FA0F /* RuntimePageLoader.swift in Sources */,
+				65A250D221A81FBF0035FA0F /* RuntimeResolver.swift in Sources */,
 				65A250E721A82C6D0035FA0F /* ViewControllerRegistry.swift in Sources */,
+				655A469D21A9B18400CEC47F /* State.swift in Sources */,
+				655A46A921A9B2FA00CEC47F /* StateResolver.swift in Sources */,
 				65A250E521A822DF0035FA0F /* NavigationToken.swift in Sources */,
 				65A250D421A81FBF0035FA0F /* PageResolver.swift in Sources */,
 				65A250D521A81FBF0035FA0F /* NavigationUI.swift in Sources */,
 				65A250D621A81FBF0035FA0F /* Page.swift in Sources */,
 				65BEBC9421A893F100397E39 /* NavigationContextImplementation.swift in Sources */,
 				65A250E321A822990035FA0F /* TabBarNavigationUI.swift in Sources */,
+				655A469F21A9B18F00CEC47F /* StateFactory.swift in Sources */,
 				65BEBC9221A893C900397E39 /* ModalContextImplementation.swift in Sources */,
 				65A250DE21A8212F0035FA0F /* NavigationContext.swift in Sources */,
 			);
@@ -481,10 +527,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				65A2511E21A841830035FA0F /* Page2ViewController.swift in Sources */,
+				655A46AA21A9B7E800CEC47F /* State1.swift in Sources */,
 				65A2511721A83C1D0035FA0F /* Page1ViewController.swift in Sources */,
 				65A2511C21A841760035FA0F /* Page2.swift in Sources */,
 				65A2511621A83C1A0035FA0F /* Page1.swift in Sources */,
 				65A2512021A842C80035FA0F /* ResourceLocator.swift in Sources */,
+				655A46AC21A9B99F00CEC47F /* State2.swift in Sources */,
 				65A250F221A836C50035FA0F /* AppDelegate.swift in Sources */,
 				65A2512221A843BC0035FA0F /* Page2View.swift in Sources */,
 			);

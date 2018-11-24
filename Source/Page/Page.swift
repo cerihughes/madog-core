@@ -6,7 +6,7 @@
 //  Copyright © 2018 Ceri Hughes. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
 /// A protocol that describes a page that wants to provide a VC (or a number of VCs) for a given token by registering
 /// with a ViewControllerRegistry.

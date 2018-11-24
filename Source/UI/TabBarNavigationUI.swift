@@ -25,8 +25,13 @@ public class TabBarNavigationUI<Token>: BaseUI {
         super.init()
     }
 
-    public func resolveInitialViewController(pageResolver: PageResolver) -> UITabBarController? {
-        registerPages(with: registry, pageResolver: pageResolver)
+    deinit {
+        unregisterPages(from: self.registry)
+    }
+
+    public func resolveInitialViewController(resolver: PageResolver & StateResolver) -> UITabBarController? {
+        loadState(stateResolver: resolver)
+        registerPages(with: registry, pageResolver: resolver)
 
         guard let initialViewControllers = registry.createInitialViewControllers(context: self.context),
             initialViewControllers.count > 0 else {

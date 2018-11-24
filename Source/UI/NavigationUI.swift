@@ -26,8 +26,9 @@ public class NavigationUI<Token>: BaseUI {
         unregisterPages(from: self.registry)
     }
 
-    public func resolveInitialViewController(pageResolver: PageResolver) -> UINavigationController? {
-        registerPages(with: registry, pageResolver: pageResolver)
+    public func resolveInitialViewController(resolver: PageResolver & StateResolver) -> UINavigationController? {
+        loadState(stateResolver: resolver)
+        registerPages(with: registry, pageResolver: resolver)
         
         guard let initialViewControllers = registry.createInitialViewControllers(context: self.context),
             let initialViewController = initialViewControllers.first else {

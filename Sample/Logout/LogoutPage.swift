@@ -1,30 +1,30 @@
 //
-//  Page1.swift
-//  Madog
+//  LogoutPage.swift
+//  MadogSample
 //
-//  Created by Ceri Hughes on 23/11/2018.
+//  Created by Ceri Hughes on 02/12/2018.
 //  Copyright © 2018 Ceri Hughes. All rights reserved.
 //
 
 import Madog
 import UIKit
 
-fileprivate let page1Identifier = "page1Identifier"
+fileprivate let logoutPageIdentifier = "logoutPageIdentifier"
 
-class Page1: PageFactory, StatefulPage {
-    private var state1: State1?
+class LogoutPage: PageFactory, StatefulPage {
+    private var authenticatorState: AuthenicatorState?
     private var uuid: UUID?
 
     // MARK: PageFactory
 
     static func createPage() -> Page {
-        return Page1()
+        return LogoutPage()
     }
 
     // MARK: StatefulPage1
 
     func configure(with state: [String : State]) {
-        state1 = state[state1Name] as? State1
+        authenticatorState = state[authenicatorStateName] as? AuthenicatorState
     }
 
     // MARK: Page
@@ -44,21 +44,20 @@ class Page1: PageFactory, StatefulPage {
     // MARK: Private
 
     private func createViewController<Token>(token: Token, context: Context) -> UIViewController? {
-        guard let state1 = state1,
+        guard let authenticator = authenticatorState?.authenticator,
             let rl = token as? ResourceLocator,
-            rl.identifier == page1Identifier,
-            let navigationContext = context as? ForwardBackNavigationContext else {
-            return nil
+            rl.identifier == logoutPageIdentifier else {
+                return nil
         }
 
-        let viewController =  Page1ViewController(state1: state1, navigationContext: navigationContext)
-        viewController.tabBarItem = UITabBarItem.init(tabBarSystemItem: .bookmarks, tag: 0)
+        let viewController =  LogoutViewController(authenticator: authenticator, context: context)
+        viewController.tabBarItem = UITabBarItem.init(tabBarSystemItem: .history, tag: 0)
         return viewController
     }
 }
 
 extension ResourceLocator {
-    static func createPage1ResourceLocator() -> ResourceLocator {
-        return ResourceLocator(identifier: page1Identifier, data: [:])
+    static func createLogoutPageResourceLocator() -> ResourceLocator {
+        return ResourceLocator(identifier: logoutPageIdentifier, data: [:])
     }
 }

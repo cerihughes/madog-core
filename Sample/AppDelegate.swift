@@ -17,7 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         window.makeKeyAndVisible()
 
-        let initialRL = ResourceLocator.createPage1ResourceLocator()
+        let initialRL = ResourceLocator.createLoginPageResourceLocator()
         return madog.renderSinglePageUI(.navigationController, with: initialRL, in: window)
     }
 }

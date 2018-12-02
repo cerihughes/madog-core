@@ -1,5 +1,5 @@
 //
-//  Page2View.swift
+//  LabelView.swift
 //  MadogSample
 //
 //  Created by Ceri Hughes on 23/11/2018.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class Page2View: UIView {
+class LabelView: UIView {
     let label = UILabel()
 
     override init(frame: CGRect) {

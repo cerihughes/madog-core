@@ -27,6 +27,32 @@ class NavigationUI<Token>: NavigationContext {
         return navigationController
     }
 
+    func change<T>(to ui: SinglePageUI, with token: T) -> Bool {
+        if ui == .navigationController {
+            return renderInitialView(with: token)
+        }
+
+        guard let window = viewController.view.window,
+            let context = factory.createSinglePageUI(ui),
+            context.renderInitialView(with: token) == true else {
+                return false
+        }
+
+        window.rootViewController = context.viewController
+        return true
+    }
+
+    func change<T>(to ui: MultiPageUI, with tokens: [T]) -> Bool {
+        guard let window = viewController.view.window,
+            let context = factory.createMultiPageUI(ui),
+            context.renderInitialViews(with: tokens) == true else {
+            return false
+        }
+
+        window.rootViewController = context.viewController
+        return true
+    }
+
     public func openModal<T>(with token: T, from fromViewController: UIViewController, animated: Bool) -> NavigationToken? {
         return nil
     }
@@ -42,7 +68,7 @@ class NavigationUI<Token>: NavigationContext {
         return true
     }
 
-    // MARK: - NavigationContext
+    // MARK: - ForwardBackNavigationContext
 
     public func navigateForward<T>(with token: T, animated: Bool) -> NavigationToken? {
         guard let token = token as? Token, let viewController = registry.createViewController(from: token, context: self) else {

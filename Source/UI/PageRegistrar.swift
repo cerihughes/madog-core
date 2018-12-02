@@ -1,5 +1,5 @@
 //
-//  BaseUI.swift
+//  PageRegistrar.swift
 //  Madog
 //
 //  Created by Ceri Hughes on 23/11/2018.
@@ -9,7 +9,7 @@
 import Foundation
 
 /// A class that presents view controllers, and manages the navigation between them.
-public class BaseUI {
+public class PageRegistrar<Token> {
     internal var states = [String:State]()
     internal var pages = [Page]()
 
@@ -22,7 +22,7 @@ public class BaseUI {
         }
     }
 
-    internal func registerPages<Token>(with registry: ViewControllerRegistry<Token>, pageResolver: PageResolver) {
+    internal func registerPages(with registry: ViewControllerRegistry<Token>, pageResolver: PageResolver) {
         let pageFactories = pageResolver.pageFactories()
         for pageFactory in pageFactories {
             let page = pageFactory.createPage()
@@ -34,7 +34,7 @@ public class BaseUI {
         }
     }
 
-    internal func unregisterPages<Token>(from registry: ViewControllerRegistry<Token>) {
+    internal func unregisterPages(from registry: ViewControllerRegistry<Token>) {
         for page in pages {
             page.unregister(from: registry)
         }

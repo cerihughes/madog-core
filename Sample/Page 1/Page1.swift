@@ -9,6 +9,8 @@
 import Madog
 import UIKit
 
+fileprivate let page1Identifier = "page1Identifier"
+
 class Page1: PageFactory, StatefulPage {
     private var state1: State1?
     private var uuid: UUID?
@@ -26,7 +28,7 @@ class Page1: PageFactory, StatefulPage {
     }
 
     func register<Token>(with registry: ViewControllerRegistry<Token>) {
-        uuid = registry.add(initialRegistryFunction: createViewController(context:))
+        uuid = registry.add(registryFunction: createViewController(token:context:))
     }
 
     func unregister<Token>(from registry: ViewControllerRegistry<Token>) {
@@ -39,13 +41,21 @@ class Page1: PageFactory, StatefulPage {
 
     // MARK: Private
 
-    private func createViewController(context: Context) -> UIViewController? {
+    private func createViewController<Token>(token: Token, context: Context) -> UIViewController? {
         guard let state1 = state1,
+            let rl = token as? ResourceLocator,
+            rl.identifier == page1Identifier,
             let navigationContext = context as? NavigationContext else {
             return nil
         }
 
         return Page1ViewController(state1: state1,
                                    navigationContext: navigationContext)
+    }
+}
+
+extension ResourceLocator {
+    static func createPage1ResourceLocator() -> ResourceLocator {
+        return ResourceLocator(identifier: page1Identifier, data: [:])
     }
 }

@@ -11,9 +11,10 @@ import UIKit
 
 class Page1ViewController: UIViewController {
     private let state1: State1
-    private let navigationContext: NavigationContext
+    private let navigationContext: ForwardBackNavigationContext
+    private var pushCount = 0
 
-    init(state1: State1, navigationContext: NavigationContext) {
+    init(state1: State1, navigationContext: ForwardBackNavigationContext) {
         self.state1 = state1
         self.navigationContext = navigationContext
 
@@ -24,10 +25,28 @@ class Page1ViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
-    override func viewDidAppear(_ animated: Bool) {
-        let token = ResourceLocator.createPage2ResourceLocator(pageData: "ABC123")
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-            _ = self.navigationContext.navigateForward(with: token, animated: true)
+    override func loadView() {
+        view = ButtonView()
+    }
+
+    override func viewDidLoad() {
+        guard let view = view as? ButtonView else {
+            return
         }
+
+        view.button.setTitle("Push", for: .normal)
+        view.button.addTarget(self, action: #selector(buttonTapGesture(sender:)), for: .touchUpInside)
+    }
+}
+
+extension Page1ViewController {
+
+    // MARK: UIButton interactions
+
+    @objc
+    private func buttonTapGesture(sender: UIButton) {
+        pushCount += 1
+        let token = ResourceLocator.createPage2ResourceLocator(pageData: String(pushCount))
+        _ = self.navigationContext.navigateForward(with: token, animated: true)
     }
 }

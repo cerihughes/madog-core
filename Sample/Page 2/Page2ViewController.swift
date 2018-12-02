@@ -11,13 +11,11 @@ import UIKit
 
 class Page2ViewController: UIViewController {
     private let state1: State1
-    private let state2: State2
     private let pageData: String
-    private let navigationContext: NavigationContext
+    private let navigationContext: ForwardBackNavigationContext
 
-    init(state1: State1, state2: State2, pageData:String, navigationContext: NavigationContext) {
+    init(state1: State1, pageData:String, navigationContext: ForwardBackNavigationContext) {
         self.state1 = state1
-        self.state2 = state2
         self.pageData = pageData
         self.navigationContext = navigationContext
 
@@ -25,15 +23,17 @@ class Page2ViewController: UIViewController {
     }
 
     override func loadView() {
-        view = Page2View()
+        view = LabelView()
     }
 
     override func viewDidLoad() {
-        guard let view = view as? Page2View else {
+        guard let view = view as? LabelView else {
             return
         }
 
         view.label.text = pageData
+
+        // Maybe do something with the state at this point?
     }
 
     override func viewDidAppear(_ animated: Bool) {

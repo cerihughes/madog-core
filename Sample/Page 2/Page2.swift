@@ -13,7 +13,6 @@ fileprivate let page2Identifier = "page2Identifier"
 
 class Page2: PageFactory, StatefulPage {
     private var state1: State1?
-    private var state2: State2?
     private var uuid: UUID?
 
     // MARK: PageFactory
@@ -22,12 +21,13 @@ class Page2: PageFactory, StatefulPage {
         return Page2()
     }
 
-    // MARK: Page
+    // MARK: StatefulPage1
 
     func configure(with state: [String : State]) {
         state1 = state[state1Name] as? State1
-        state2 = state[state2Name] as? State2
     }
+
+    // MARK: Page
 
     func register<Token>(with registry: ViewControllerRegistry<Token>) {
         uuid = registry.add(registryFunction: createViewController(token:context:))
@@ -43,20 +43,20 @@ class Page2: PageFactory, StatefulPage {
 
     // MARK: Private
 
-    private func createViewController<Token, Context>(token: Token, context: Context) -> UIViewController? {
+    private func createViewController<Token>(token: Token, context: Context) -> UIViewController? {
         guard let state1 = state1,
-            let state2 = state2,
             let rl = token as? ResourceLocator,
             rl.identifier == page2Identifier,
             let pageData = rl.pageData,
-            let navigationContext = context as? NavigationContext else {
+            let navigationContext = context as? ForwardBackNavigationContext else {
             return nil
         }
 
-        return Page2ViewController(state1: state1,
-                                   state2: state2,
-                                   pageData: pageData,
-                                   navigationContext: navigationContext)
+        let viewController = Page2ViewController(state1: state1,
+                                                 pageData: pageData,
+                                                 navigationContext: navigationContext)
+        viewController.tabBarItem = UITabBarItem.init(tabBarSystemItem: .contacts, tag: 0)
+        return viewController
     }
 }
 

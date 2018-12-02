@@ -21,7 +21,7 @@ class MadogFactory<Token>: Factory {
     }
 
     func createSinglePageUI(_ ui: SinglePageUI) -> SinglePageContext? {
-        if ui.value == SinglePageUI.navigationController.value {
+        if ui == .navigationController {
             return NavigationUI<Token>(registry: registry, factory: self)
         }
 
@@ -29,7 +29,7 @@ class MadogFactory<Token>: Factory {
     }
 
     func createMultiPageUI(_ ui: MultiPageUI) -> MultiPageContext? {
-        if ui.value == MultiPageUI.tabBarController.value {
+        if ui == .tabBarController {
             return TabBarNavigationUI<Token>(registry: registry, factory: self)
         }
         

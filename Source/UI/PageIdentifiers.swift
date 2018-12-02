@@ -8,16 +8,16 @@
 
 import Foundation
 
-public struct SinglePageUI {
-    internal let value: String
+public struct SinglePageUI: Equatable {
+    private let value: String
     internal init(_ value: String) {
         self.value = value
     }
     public static var navigationController = SinglePageUI("navigationController")
 }
 
-public struct MultiPageUI {
-    internal let value: String
+public struct MultiPageUI: Equatable {
+    private let value: String
     internal init(_ value: String) {
         self.value = value
     }

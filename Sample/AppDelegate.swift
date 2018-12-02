@@ -12,16 +12,12 @@ import UIKit
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     let window = UIWindow()
-    let ui = NavigationUI<ResourceLocator>()
+    let madog = Madog<ResourceLocator>(resolver: RuntimeResolver())
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        guard let initialViewController = ui.resolveInitialViewController(resolver: RuntimeResolver()) else {
-            return false
-        }
-
-        window.rootViewController = initialViewController
         window.makeKeyAndVisible()
 
-        return true
+        let initialRL = ResourceLocator.createPage1ResourceLocator()
+        return madog.renderSinglePageUI(.navigationController, with: initialRL, in: window)
     }
 }

@@ -11,35 +11,49 @@ import UIKit
 /// A class that presents view controllers, and manages the navigation between them.
 ///
 /// At the moment, this is achieved with a UINavigationController that can be pushed / popped to / from.
-public class NavigationUI<Token>: BaseUI {
+class NavigationUI<Token>: NavigationContext {
+    private let navigationController = UINavigationController()
     private let registry: ViewControllerRegistry<Token>
-    private let context: NavigationContextImplementation<Token>
+    private let factory: Factory
 
-    override public init() {
-        self.registry = ViewControllerRegistry<Token>()
-        self.context = NavigationContextImplementation(registry: self.registry)
-
-        super.init()
+    init(registry: ViewControllerRegistry<Token>, factory: Factory) {
+        self.registry = registry
+        self.factory = factory
     }
 
-    deinit {
-        unregisterPages(from: self.registry)
+    // MARK: - Context
+
+    public var viewController: UIViewController {
+        return navigationController
     }
 
-    public func resolveInitialViewController(resolver: PageResolver & StateResolver) -> UINavigationController? {
-        loadState(stateResolver: resolver)
-        registerPages(with: registry, pageResolver: resolver)
-        
-        guard let initialViewControllers = registry.createInitialViewControllers(context: self.context),
-            let initialViewController = initialViewControllers.first else {
-                return nil
+    public func openModal<T>(with token: T, from fromViewController: UIViewController, animated: Bool) -> NavigationToken? {
+        return nil
+    }
+
+    // MARK: - SinglePageContext
+
+    func renderInitialView<T>(with token: T) -> Bool {
+        guard let token = token as? Token, let viewController = registry.createViewController(from: token, context: self) else {
+            return false
         }
 
-        if initialViewControllers.count > 1 {
-            print("Warning: More than 1 initial registry function is registered. There are no guarantees about which will be used.")
+        navigationController.setViewControllers([viewController], animated: false)
+        return true
+    }
+
+    // MARK: - NavigationContext
+
+    public func navigateForward<T>(with token: T, animated: Bool) -> NavigationToken? {
+        guard let token = token as? Token, let viewController = registry.createViewController(from: token, context: self) else {
+            return nil
         }
 
-        self.context.navigationController.pushViewController(initialViewController, animated: false)
-        return self.context.navigationController
+        navigationController.pushViewController(viewController, animated: animated)
+        return NavigationTokenImplementation(viewController: viewController)
+    }
+
+    public func navigateBack(animated: Bool) -> Bool {
+        return navigationController.popViewController(animated: animated) != nil
     }
 }

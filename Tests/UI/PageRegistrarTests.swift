@@ -2,10 +2,10 @@ import XCTest
 
 @testable import Madog
 
-class BaseUITests: XCTestCase {
+class PageRegistrarTests: XCTestCase {
 
     // MARK: CUT
-    private var baseUI: BaseUI!
+    private var pageRegistrar: PageRegistrar<String>!
 
     // MARK: Test Data
     private var resolver: TestResolver!
@@ -17,11 +17,11 @@ class BaseUITests: XCTestCase {
         let testStateFactories: [StateFactory.Type] = [TestStateFactory.self, TestPageAndStateFactory.self]
         resolver = TestResolver(testPageFactories: testPageFactories, testStateFactories: testStateFactories)
         registry = ViewControllerRegistry<String>()
-        baseUI = BaseUI()
+        pageRegistrar = PageRegistrar()
     }
 
     override func tearDown() {
-        baseUI = nil
+        pageRegistrar = nil
         super.tearDown()
     }
 
@@ -29,11 +29,11 @@ class BaseUITests: XCTestCase {
         TestStateFactory.created = false
         TestPageAndStateFactory.createdState = false
 
-        XCTAssertEqual(baseUI.states.count, 0)
-        baseUI.loadState(stateResolver: resolver)
+        XCTAssertEqual(pageRegistrar.states.count, 0)
+        pageRegistrar.loadState(stateResolver: resolver)
 
         // Both factories create a state object with the same name, so we only get 1 object
-        XCTAssertEqual(baseUI.states.count, 1)
+        XCTAssertEqual(pageRegistrar.states.count, 1)
 
         XCTAssertTrue(TestStateFactory.created)
         XCTAssertTrue(TestPageAndStateFactory.createdState)
@@ -44,24 +44,24 @@ class BaseUITests: XCTestCase {
         TestStatefulPageFactory.created = false
         TestPageAndStateFactory.createdPage = false
 
-        XCTAssertEqual(baseUI.pages.count, 0)
-        baseUI.registerPages(with: registry, pageResolver: resolver)
-        XCTAssertEqual(baseUI.pages.count, 3)
+        XCTAssertEqual(pageRegistrar.pages.count, 0)
+        pageRegistrar.registerPages(with: registry, pageResolver: resolver)
+        XCTAssertEqual(pageRegistrar.pages.count, 3)
 
         XCTAssertTrue(TestPageFactory.created)
         XCTAssertTrue(TestStatefulPageFactory.created)
         XCTAssertTrue(TestPageAndStateFactory.createdPage)
 
-        for page in baseUI.pages {
+        for page in pageRegistrar.pages {
             let testPage = page as! TestPage
             XCTAssertTrue(testPage.registered)
             XCTAssertFalse(testPage.unregistered)
         }
 
-        baseUI.unregisterPages(from: registry)
-        XCTAssertEqual(baseUI.pages.count, 0)
+        pageRegistrar.unregisterPages(from: registry)
+        XCTAssertEqual(pageRegistrar.pages.count, 0)
 
-        for page in baseUI.pages {
+        for page in pageRegistrar.pages {
             let testPage = page as! TestPage
             XCTAssertTrue(testPage.registered)
             XCTAssertTrue(testPage.unregistered)

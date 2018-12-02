@@ -10,9 +10,9 @@ import UIKit
 
 internal class NavigationContextImplementation<Token>: ModalContextImplementation, NavigationContext {
     internal let navigationController = UINavigationController()
-    private let registry: ViewControllerRegistry<Token, NavigationContext>
+    private let registry: ViewControllerRegistry<Token>
 
-    internal init(registry: ViewControllerRegistry<Token, NavigationContext>) {
+    internal init(registry: ViewControllerRegistry<Token>) {
         self.registry = registry
 
         super.init(viewController: self.navigationController)

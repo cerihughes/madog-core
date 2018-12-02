@@ -22,7 +22,7 @@ public class BaseUI {
         }
     }
 
-    internal func registerPages<Token, Context>(with registry: ViewControllerRegistry<Token, Context>, pageResolver: PageResolver) {
+    internal func registerPages<Token>(with registry: ViewControllerRegistry<Token>, pageResolver: PageResolver) {
         let pageFactories = pageResolver.pageFactories()
         for pageFactory in pageFactories {
             let page = pageFactory.createPage()
@@ -34,7 +34,7 @@ public class BaseUI {
         }
     }
 
-    internal func unregisterPages<Token, Context>(from registry: ViewControllerRegistry<Token, Context>) {
+    internal func unregisterPages<Token>(from registry: ViewControllerRegistry<Token>) {
         for page in pages {
             page.unregister(from: registry)
         }

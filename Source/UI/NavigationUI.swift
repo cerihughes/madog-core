@@ -12,11 +12,11 @@ import UIKit
 ///
 /// At the moment, this is achieved with a UINavigationController that can be pushed / popped to / from.
 public class NavigationUI<Token>: BaseUI {
-    private let registry: ViewControllerRegistry<Token, NavigationContext>
+    private let registry: ViewControllerRegistry<Token>
     private let context: NavigationContextImplementation<Token>
 
     override public init() {
-        self.registry = ViewControllerRegistry<Token, NavigationContext>()
+        self.registry = ViewControllerRegistry<Token>()
         self.context = NavigationContextImplementation(registry: self.registry)
 
         super.init()

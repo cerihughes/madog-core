@@ -12,14 +12,14 @@ import UIKit
 ///
 /// At the moment, this is achieved with a UINavigationController that can be pushed / popped to / from.
 public class TabBarNavigationUI<Token>: BaseUI {
-    private let registry: ViewControllerRegistry<Token, TabBarNavigationContext>
+    private let registry: ViewControllerRegistry<Token>
     private let context: TabBarNavigationContextImplementation<Token>
 
     /// The default function by the tab bar item's tag (ascending).
     public var sortFunction: (UIViewController, UIViewController) -> Bool = { $0.tabBarItem.tag < $1.tabBarItem.tag }
 
     override public init() {
-        self.registry = ViewControllerRegistry<Token, TabBarNavigationContext>()
+        self.registry = ViewControllerRegistry<Token>()
         self.context = TabBarNavigationContextImplementation(registry: self.registry)
 
         super.init()

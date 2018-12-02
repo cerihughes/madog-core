@@ -9,7 +9,7 @@
 import Madog
 import UIKit
 
-private let page2Identifier = "page2Identifier"
+fileprivate let page2Identifier = "page2Identifier"
 
 class Page2: PageFactory, StatefulPage {
     private var state1: State1?
@@ -48,26 +48,26 @@ class Page2: PageFactory, StatefulPage {
             let state2 = state2,
             let rl = token as? ResourceLocator,
             rl.identifier == page2Identifier,
-            let pageIdentifier = rl.pageIdentifier,
+            let pageData = rl.pageData,
             let navigationContext = context as? NavigationContext else {
             return nil
         }
 
         return Page2ViewController(state1: state1,
                                    state2: state2,
-                                   pageIdentifier: pageIdentifier,
+                                   pageData: pageData,
                                    navigationContext: navigationContext)
     }
 }
 
 extension ResourceLocator {
-    private static let pageIdentifierKey = "pageIdentifier"
+    private static let pageDataKey = "pageData"
 
-    static func createPage2ResourceLocator(pageIdentifier: String) -> ResourceLocator {
-        return ResourceLocator(identifier: page2Identifier, data: [pageIdentifierKey : pageIdentifier])
+    static func createPage2ResourceLocator(pageData: String) -> ResourceLocator {
+        return ResourceLocator(identifier: page2Identifier, data: [pageDataKey : pageData])
     }
 
-    var pageIdentifier: String? {
-        return data[ResourceLocator.pageIdentifierKey] as? String
+    var pageData: String? {
+        return data[ResourceLocator.pageDataKey] as? String
     }
 }

@@ -12,13 +12,13 @@ import UIKit
 class Page2ViewController: UIViewController {
     private let state1: State1
     private let state2: State2
-    private let pageIdentifier: String
+    private let pageData: String
     private let navigationContext: NavigationContext
 
-    init(state1: State1, state2: State2, pageIdentifier:String, navigationContext: NavigationContext) {
+    init(state1: State1, state2: State2, pageData:String, navigationContext: NavigationContext) {
         self.state1 = state1
         self.state2 = state2
-        self.pageIdentifier = pageIdentifier
+        self.pageData = pageData
         self.navigationContext = navigationContext
 
         super.init(nibName: nil, bundle: nil)
@@ -33,7 +33,7 @@ class Page2ViewController: UIViewController {
             return
         }
 
-        view.label.text = pageIdentifier
+        view.label.text = pageData
     }
 
     override func viewDidAppear(_ animated: Bool) {

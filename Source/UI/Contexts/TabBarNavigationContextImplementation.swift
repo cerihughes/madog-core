@@ -10,9 +10,9 @@ import UIKit
 
 internal class TabBarNavigationContextImplementation<Token>: ModalContextImplementation, TabBarNavigationContext {
     internal let tabBarController = UITabBarController()
-    private let registry: ViewControllerRegistry<Token, TabBarNavigationContext>
+    private let registry: ViewControllerRegistry<Token>
 
-    internal init(registry: ViewControllerRegistry<Token, TabBarNavigationContext>) {
+    internal init(registry: ViewControllerRegistry<Token>) {
         self.registry = registry
 
         super.init(viewController: self.tabBarController)

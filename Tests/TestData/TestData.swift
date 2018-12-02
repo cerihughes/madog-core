@@ -3,10 +3,10 @@ import Madog
 
 class TestPage: Page {
     var registered = false, unregistered = false
-    func register<Token, Context>(with registry: ViewControllerRegistry<Token, Context>) {
+    func register<Token>(with registry: ViewControllerRegistry<Token>) {
         registered = true
     }
-    func unregister<Token, Context>(from registry: ViewControllerRegistry<Token, Context>) {
+    func unregister<Token>(from registry: ViewControllerRegistry<Token>) {
         unregistered = true
     }
 }

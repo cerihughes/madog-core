@@ -29,11 +29,11 @@ class Page2: PageFactory, StatefulPage {
         state2 = state[state2Name] as? State2
     }
 
-    func register<Token, Context>(with registry: ViewControllerRegistry<Token, Context>) {
+    func register<Token>(with registry: ViewControllerRegistry<Token>) {
         uuid = registry.add(registryFunction: createViewController(token:context:))
     }
 
-    func unregister<Token, Context>(from registry: ViewControllerRegistry<Token, Context>) {
+    func unregister<Token>(from registry: ViewControllerRegistry<Token>) {
         guard let uuid = uuid else {
             return
         }

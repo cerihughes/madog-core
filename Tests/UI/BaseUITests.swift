@@ -9,14 +9,14 @@ class BaseUITests: XCTestCase {
 
     // MARK: Test Data
     private var resolver: TestResolver!
-    private var registry: ViewControllerRegistry<String, String>!
+    private var registry: ViewControllerRegistry<String>!
 
     override func setUp() {
         super.setUp()
         let testPageFactories: [PageFactory.Type] = [TestPageFactory.self, TestStatefulPageFactory.self, TestPageAndStateFactory.self]
         let testStateFactories: [StateFactory.Type] = [TestStateFactory.self, TestPageAndStateFactory.self]
         resolver = TestResolver(testPageFactories: testPageFactories, testStateFactories: testStateFactories)
-        registry = ViewControllerRegistry<String, String>()
+        registry = ViewControllerRegistry<String>()
         baseUI = BaseUI()
     }
 

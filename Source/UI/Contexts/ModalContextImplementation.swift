@@ -8,7 +8,7 @@
 
 import UIKit
 
-internal class ModalContextImplementation: ModalContext {
+internal class ModalContextImplementation: Context {
     internal let viewController: UIViewController
 
     internal init(viewController: UIViewController) {

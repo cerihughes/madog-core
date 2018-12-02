@@ -25,11 +25,11 @@ class Page1: PageFactory, StatefulPage {
         state1 = state[state1Name] as? State1
     }
 
-    func register<Token, Context>(with registry: ViewControllerRegistry<Token, Context>) {
+    func register<Token>(with registry: ViewControllerRegistry<Token>) {
         uuid = registry.add(initialRegistryFunction: createViewController(context:))
     }
 
-    func unregister<Token, Context>(from registry: ViewControllerRegistry<Token, Context>) {
+    func unregister<Token>(from registry: ViewControllerRegistry<Token>) {
         guard let uuid = uuid else {
             return
         }
@@ -39,7 +39,7 @@ class Page1: PageFactory, StatefulPage {
 
     // MARK: Private
 
-    private func createViewController<Context>(context: Context) -> UIViewController? {
+    private func createViewController(context: Context) -> UIViewController? {
         guard let state1 = state1,
             let navigationContext = context as? NavigationContext else {
             return nil

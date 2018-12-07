@@ -8,6 +8,11 @@
 
 import UIKit
 
+protocol TabBarNavigationContext: Context, MultiPageContext, ForwardBackNavigationContext {
+    func navigateForward<Token>(with token: Token, from fromViewController: UIViewController, animated: Bool) -> NavigationToken?
+    func navigateBack(from fromViewController: UIViewController, animated: Bool) -> Bool
+}
+
 /// A class that presents view controllers in a tab bar, and manages the navigation between them.
 ///
 /// At the moment, this is achieved with a UINavigationController that can be pushed / popped to / from.
@@ -29,7 +34,7 @@ class TabBarNavigationUI<Token>: TabBarNavigationContext {
 
     func change<T>(to ui: SinglePageUI, with token: T) -> Bool {
         guard let window = viewController.view.window,
-            let context = factory.createSinglePageUI(ui),
+            let context = factory.createSinglePageUI(ui) as? Context & SinglePageContext,
             context.renderInitialView(with: token) == true else {
             return false
         }
@@ -44,7 +49,7 @@ class TabBarNavigationUI<Token>: TabBarNavigationContext {
         }
 
         guard let window = viewController.view.window,
-            let context = factory.createMultiPageUI(ui),
+            let context = factory.createMultiPageUI(ui) as? Context & MultiPageContext,
             context.renderInitialViews(with: tokens) == true else {
                 return false
         }

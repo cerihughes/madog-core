@@ -11,13 +11,13 @@ import UIKit
 
 class LoginViewController: UIViewController {
     var authenticator: Authenticator!
-    var navigationContext: ForwardBackNavigationContext!
+    var navigationContext: (Context & ForwardBackNavigationContext)!
 
     @IBOutlet private var usernameField: UITextField!
     @IBOutlet private var passwordField: UITextField!
     @IBOutlet private var activityIndicator: UIActivityIndicatorView!
 
-    static func createLoginViewController(authenticator: Authenticator, navigationContext: ForwardBackNavigationContext) -> LoginViewController? {
+    static func createLoginViewController(authenticator: Authenticator, navigationContext: Context & ForwardBackNavigationContext) -> LoginViewController? {
         let storyboard = UIStoryboard(name: "LoginViewController", bundle: Bundle(for: LoginViewController.self))
         guard let loginViewController = storyboard.instantiateInitialViewController() as? LoginViewController else {
             return nil

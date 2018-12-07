@@ -8,6 +8,8 @@
 
 import UIKit
 
+protocol NavigationContext: Context, SinglePageContext, ForwardBackNavigationContext {}
+
 /// A class that presents view controllers, and manages the navigation between them.
 ///
 /// At the moment, this is achieved with a UINavigationController that can be pushed / popped to / from.
@@ -33,7 +35,7 @@ class NavigationUI<Token>: NavigationContext {
         }
 
         guard let window = viewController.view.window,
-            let context = factory.createSinglePageUI(ui),
+            let context = factory.createSinglePageUI(ui) as? Context & SinglePageContext,
             context.renderInitialView(with: token) == true else {
                 return false
         }
@@ -44,7 +46,7 @@ class NavigationUI<Token>: NavigationContext {
 
     func change<T>(to ui: MultiPageUI, with tokens: [T]) -> Bool {
         guard let window = viewController.view.window,
-            let context = factory.createMultiPageUI(ui),
+            let context = factory.createMultiPageUI(ui) as? Context & MultiPageContext,
             context.renderInitialViews(with: tokens) == true else {
             return false
         }

@@ -35,7 +35,7 @@ class MadogUIContextFactoryImplementation<Token>: MadogUIContextFactory {
         if uiIdentifier == .tabBarControllerIdentifier {
             return TabBarNavigationUI<Token>(registry: registry, factory: self)
         }
-        
+
         return nil
     }
 }

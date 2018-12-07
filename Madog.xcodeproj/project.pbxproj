@@ -49,7 +49,6 @@
 		65A2511E21A841830035FA0F /* Page2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A2511D21A841830035FA0F /* Page2ViewController.swift */; };
 		65A2512021A842C80035FA0F /* ResourceLocator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A2511F21A842C80035FA0F /* ResourceLocator.swift */; };
 		65A2512221A843BC0035FA0F /* LabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A2512121A843BC0035FA0F /* LabelView.swift */; };
-		65A643DA21BAC3D8005CD016 /* MadogUIContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A643D921BAC3D8005CD016 /* MadogUIContext.swift */; };
 		65BEBC8D21A8850800397E39 /* PageRegistrar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BEBC8C21A8850800397E39 /* PageRegistrar.swift */; };
 		65EBE71521B41472002A2DF5 /* WeakContextFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65EBE71421B41472002A2DF5 /* WeakContextFactory.swift */; };
 /* End PBXBuildFile section */
@@ -127,7 +126,6 @@
 		65A2511D21A841830035FA0F /* Page2ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Page2ViewController.swift; sourceTree = "<group>"; };
 		65A2511F21A842C80035FA0F /* ResourceLocator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResourceLocator.swift; sourceTree = "<group>"; };
 		65A2512121A843BC0035FA0F /* LabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelView.swift; sourceTree = "<group>"; };
-		65A643D921BAC3D8005CD016 /* MadogUIContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MadogUIContext.swift; sourceTree = "<group>"; };
 		65BEBC8C21A8850800397E39 /* PageRegistrar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageRegistrar.swift; sourceTree = "<group>"; };
 		65EBE71421B41472002A2DF5 /* WeakContextFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeakContextFactory.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */

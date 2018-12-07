@@ -205,12 +205,13 @@
 			path = TestData;
 			sourceTree = "<group>";
 		};
-		6518E79021A9FC910036F553 /* UI */ = {
+		6518E79021A9FC910036F553 /* Registry */ = {
 			isa = PBXGroup;
 			children = (
+				6518E77D21A9F06A0036F553 /* Resolver */,
 				6518E79121A9FCAA0036F553 /* PageRegistrarTests.swift */,
 			);
-			path = UI;
+			path = Registry;
 			sourceTree = "<group>";
 		};
 		655A469B21A9B0E200CEC47F /* State */ = {
@@ -218,8 +219,6 @@
 			children = (
 				655A469C21A9B18400CEC47F /* State.swift */,
 				655A469E21A9B18F00CEC47F /* StateFactory.swift */,
-				655A46A821A9B2FA00CEC47F /* StateResolver.swift */,
-				655A46A021A9B1CE00CEC47F /* StatefulPage.swift */,
 			);
 			path = State;
 			sourceTree = "<group>";
@@ -261,10 +260,8 @@
 			children = (
 				65A250E821A82EC00035FA0F /* Registry */,
 				65A250DB21A820100035FA0F /* Navigation */,
+				659766B621BAC1F300308080 /* UIContext */,
 				65A250E121A822810035FA0F /* UI */,
-				65A250D921A81FF50035FA0F /* Page */,
-				655A469B21A9B0E200CEC47F /* State */,
-				65A250DA21A81FFA0035FA0F /* Resolver */,
 				6560D4A321B3F2EB00EA9BE3 /* Madog.swift */,
 				658C851321A81D26006ECF6F /* Madog.h */,
 				658C851421A81D26006ECF6F /* Info.plist */,
@@ -275,20 +272,28 @@
 		658C851D21A81D26006ECF6F /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				6518E79021A9FC910036F553 /* UI */,
-				6518E77D21A9F06A0036F553 /* Resolver */,
+				6518E79021A9FC910036F553 /* Registry */,
 				6518E78F21A9FB500036F553 /* TestData */,
 				658C852021A81D26006ECF6F /* Info.plist */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
 		};
+		659766B621BAC1F300308080 /* UIContext */ = {
+			isa = PBXGroup;
+			children = (
+				6560D49F21B3F20A00EA9BE3 /* PageUIIdentifiers.swift */,
+				6560D4A121B3F24600EA9BE3 /* MadogUIContextFactory.swift */,
+			);
+			path = UIContext;
+			sourceTree = "<group>";
+		};
 		65A250D921A81FF50035FA0F /* Page */ = {
 			isa = PBXGroup;
 			children = (
 				65A250CF21A81FBF0035FA0F /* Page.swift */,
+				655A46A021A9B1CE00CEC47F /* StatefulPage.swift */,
 				65A250DF21A8218B0035FA0F /* PageFactory.swift */,
-				65A250CD21A81FBF0035FA0F /* PageResolver.swift */,
 			);
 			path = Page;
 			sourceTree = "<group>";
@@ -296,6 +301,8 @@
 		65A250DA21A81FFA0035FA0F /* Resolver */ = {
 			isa = PBXGroup;
 			children = (
+				655A46A821A9B2FA00CEC47F /* StateResolver.swift */,
+				65A250CD21A81FBF0035FA0F /* PageResolver.swift */,
 				65A250CB21A81FBE0035FA0F /* RuntimeResolver.swift */,
 			);
 			path = Resolver;
@@ -313,9 +320,6 @@
 		65A250E121A822810035FA0F /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				6560D49F21B3F20A00EA9BE3 /* PageUIIdentifiers.swift */,
-				6560D4A121B3F24600EA9BE3 /* MadogUIContextFactory.swift */,
-				65BEBC8C21A8850800397E39 /* PageRegistrar.swift */,
 				65A250CE21A81FBF0035FA0F /* NavigationUI.swift */,
 				65A250E221A822990035FA0F /* TabBarNavigationUI.swift */,
 			);
@@ -325,6 +329,10 @@
 		65A250E821A82EC00035FA0F /* Registry */ = {
 			isa = PBXGroup;
 			children = (
+				655A469B21A9B0E200CEC47F /* State */,
+				65A250D921A81FF50035FA0F /* Page */,
+				65A250DA21A81FFA0035FA0F /* Resolver */,
+				65BEBC8C21A8850800397E39 /* PageRegistrar.swift */,
 				65A250E621A82C6D0035FA0F /* ViewControllerRegistry.swift */,
 			);
 			path = Registry;

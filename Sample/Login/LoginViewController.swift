@@ -39,7 +39,7 @@ class LoginViewController: UIViewController {
 
                 let tab1 = ResourceLocator.createPage1ResourceLocator()
                 let tab2 = ResourceLocator.createLogoutPageResourceLocator()
-                _ = self.navigationContext.change(to: .tabBarController, with: [tab1, tab2])
+                _ = self.navigationContext.change(to: .tabBarControllerIdentifier, with: [tab1, tab2])
             })
         }
     }

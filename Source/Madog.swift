@@ -24,8 +24,8 @@ public final class Madog<Token> {
         pageRegistrar.unregisterPages(from: self.registry)
     }
 
-    public func renderSinglePageUI(_ ui: SinglePageUI, with token: Token, in window: UIWindow) -> Bool {
-        guard let context = factory.createSinglePageUI(ui) as? Context & SinglePageContext,
+    public func renderSinglePageUI(_ uiIdentifier: SinglePageUIIdentifier, with token: Token, in window: UIWindow) -> Bool {
+        guard let context = factory.createSinglePageUI(uiIdentifier) as? Context & SinglePageContext,
             context.renderInitialView(with: token) == true else {
             return false
         }
@@ -34,8 +34,8 @@ public final class Madog<Token> {
         return true
     }
 
-    public func renderMultiPageUI(_ ui: MultiPageUI, with tokens: [Token], in window: UIWindow) -> Bool {
-        guard let context = factory.createMultiPageUI(ui) as? Context & MultiPageContext,
+    public func renderMultiPageUI(_ uiIdentifier: MultiPageUIIdentifier, with tokens: [Token], in window: UIWindow) -> Bool {
+        guard let context = factory.createMultiPageUI(uiIdentifier) as? Context & MultiPageContext,
             context.renderInitialViews(with: tokens) == true else {
             return false
         }

@@ -9,8 +9,8 @@
 import UIKit
 
 protocol Factory {
-    func createSinglePageUI(_ ui: SinglePageUI) -> SinglePageContext?
-    func createMultiPageUI(_ ui: MultiPageUI) -> MultiPageContext?
+    func createSinglePageUI(_ uiIdentifier: SinglePageUIIdentifier) -> SinglePageContext?
+    func createMultiPageUI(_ uiIdentifier: MultiPageUIIdentifier) -> MultiPageContext?
 }
 
 class MadogFactory<Token>: Factory {
@@ -20,19 +20,19 @@ class MadogFactory<Token>: Factory {
         self.registry = registry
     }
 
-    func createSinglePageUI(_ ui: SinglePageUI) -> SinglePageContext? {
-        if ui == .navigationController {
+    func createSinglePageUI(_ uiIdentifier: SinglePageUIIdentifier) -> SinglePageContext? {
+        if uiIdentifier == .navigationControllerIdentifier {
             return NavigationUI<Token>(registry: registry, factory: self)
         }
 
         return nil
     }
 
-    func createMultiPageUI(_ ui: MultiPageUI) -> MultiPageContext? {
-        if ui == .tabBarController {
+    func createMultiPageUI(_ uiIdentifier: MultiPageUIIdentifier) -> MultiPageContext? {
+        if uiIdentifier == .tabBarControllerIdentifier {
             return TabBarNavigationUI<Token>(registry: registry, factory: self)
         }
-        
+
         return nil
     }
 }

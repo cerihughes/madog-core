@@ -8,19 +8,19 @@
 
 import UIKit
 
-protocol TabBarNavigationContext: class, Context, MultiPageContext, ForwardBackNavigationContext {}
+internal protocol TabBarNavigationContext: class, Context, MultiPageContext, ForwardBackNavigationContext {}
 
 /// A class that presents view controllers in a tab bar, and manages the navigation between them.
 ///
 /// At the moment, this is achieved with a UINavigationController that can be pushed / popped to / from.
-class TabBarNavigationUI: MultiPageUIContext, TabBarNavigationContext {
+internal class TabBarNavigationUI: MultiPageUIContext, TabBarNavigationContext {
     private let tabBarController = UITabBarController()
     private let registry: ViewControllerRegistry
     private let factory: MadogUIContextFactory
 
-    weak var delegate: MadogUIContextDelegate?
+    internal weak var delegate: MadogUIContextDelegate?
 
-    init(registry: ViewControllerRegistry, factory: MadogUIContextFactory) {
+    internal init(registry: ViewControllerRegistry, factory: MadogUIContextFactory) {
         self.registry = registry
         self.factory = factory
     }
@@ -31,11 +31,11 @@ class TabBarNavigationUI: MultiPageUIContext, TabBarNavigationContext {
 
     // MARK: - Context
 
-    var viewController: UIViewController {
+    internal var viewController: UIViewController {
         return tabBarController
     }
 
-    func change<T>(to uiIdentifier: SinglePageUIIdentifier, with token: T) -> Bool {
+    internal func change<T>(to uiIdentifier: SinglePageUIIdentifier, with token: T) -> Bool {
         guard let delegate = delegate, let window = viewController.view.window else {
             return false
         }
@@ -43,7 +43,7 @@ class TabBarNavigationUI: MultiPageUIContext, TabBarNavigationContext {
         return delegate.renderSinglePageUI(uiIdentifier, with: token, in: window)
     }
 
-    func change<T>(to uiIdentifier: MultiPageUIIdentifier, with tokens: [T]) -> Bool {
+    internal func change<T>(to uiIdentifier: MultiPageUIIdentifier, with tokens: [T]) -> Bool {
         guard let delegate = delegate, let window = viewController.view.window else {
             return false
         }
@@ -51,13 +51,13 @@ class TabBarNavigationUI: MultiPageUIContext, TabBarNavigationContext {
         return delegate.renderMultiPageUI(uiIdentifier, with: tokens, in: window)
     }
 
-    func openModal<T>(with token: T, from fromViewController: UIViewController, animated: Bool) -> NavigationToken? {
+    internal func openModal<T>(with token: T, from fromViewController: UIViewController, animated: Bool) -> NavigationToken? {
         return nil
     }
 
     // MARK: - MultiPageContext
 
-    func renderInitialViews(with tokens: [Any]) -> Bool {
+    internal func renderInitialViews(with tokens: [Any]) -> Bool {
         let viewControllers = tokens.compactMap { registry.createViewController(from: $0, context: self) }
             .map { UINavigationController(rootViewController: $0) }
 
@@ -67,7 +67,7 @@ class TabBarNavigationUI: MultiPageUIContext, TabBarNavigationContext {
 
     // MARK: - ForwardBackNavigationContext
 
-    func navigateForward(with token: Any, animated: Bool) -> NavigationToken? {
+    internal func navigateForward(with token: Any, animated: Bool) -> NavigationToken? {
         guard let toViewController = registry.createViewController(from: token, context: self),
             let navigationController = tabBarController.selectedViewController as? UINavigationController else {
                 return nil
@@ -77,7 +77,7 @@ class TabBarNavigationUI: MultiPageUIContext, TabBarNavigationContext {
         return NavigationTokenImplementation(viewController: toViewController)
     }
 
-    func navigateBack(animated: Bool) -> Bool {
+    internal func navigateBack(animated: Bool) -> Bool {
         guard let navigationController = tabBarController.selectedViewController as? UINavigationController else {
             return false
         }

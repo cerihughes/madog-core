@@ -8,19 +8,19 @@
 
 import UIKit
 
-protocol NavigationContext: class, Context, SinglePageContext, ForwardBackNavigationContext {}
+internal protocol NavigationContext: class, Context, SinglePageContext, ForwardBackNavigationContext {}
 
 /// A class that presents view controllers, and manages the navigation between them.
 ///
 /// At the moment, this is achieved with a UINavigationController that can be pushed / popped to / from.
-class NavigationUI: SinglePageUIContext, NavigationContext {
+internal class NavigationUI: SinglePageUIContext, NavigationContext {
     private let navigationController = UINavigationController()
     private let registry: ViewControllerRegistry
     private let factory: MadogUIContextFactory
 
-    weak var delegate: MadogUIContextDelegate?
+    internal weak var delegate: MadogUIContextDelegate?
 
-    init(registry: ViewControllerRegistry, factory: MadogUIContextFactory) {
+    internal init(registry: ViewControllerRegistry, factory: MadogUIContextFactory) {
         self.registry = registry
         self.factory = factory
     }
@@ -31,11 +31,11 @@ class NavigationUI: SinglePageUIContext, NavigationContext {
 
     // MARK: - Context
 
-    public var viewController: UIViewController {
+    internal var viewController: UIViewController {
         return navigationController
     }
 
-    func change(to uiIdentifier: SinglePageUIIdentifier, with token: Any) -> Bool {
+    internal func change(to uiIdentifier: SinglePageUIIdentifier, with token: Any) -> Bool {
         guard let delegate = delegate, let window = viewController.view.window else {
             return false
         }
@@ -43,7 +43,7 @@ class NavigationUI: SinglePageUIContext, NavigationContext {
         return delegate.renderSinglePageUI(uiIdentifier, with: token, in: window)
     }
 
-    func change(to uiIdentifier: MultiPageUIIdentifier, with tokens: [Any]) -> Bool {
+    internal func change(to uiIdentifier: MultiPageUIIdentifier, with tokens: [Any]) -> Bool {
         guard let delegate = delegate, let window = viewController.view.window else {
             return false
         }
@@ -51,13 +51,13 @@ class NavigationUI: SinglePageUIContext, NavigationContext {
         return delegate.renderMultiPageUI(uiIdentifier, with: tokens, in: window)
     }
 
-    public func openModal(with token: Any, from fromViewController: UIViewController, animated: Bool) -> NavigationToken? {
+    internal func openModal(with token: Any, from fromViewController: UIViewController, animated: Bool) -> NavigationToken? {
         return nil
     }
 
     // MARK: - SinglePageContext
 
-    func renderInitialView(with token: Any) -> Bool {
+    internal func renderInitialView(with token: Any) -> Bool {
         guard let viewController = registry.createViewController(from: token, context: self) else {
             return false
         }
@@ -68,7 +68,7 @@ class NavigationUI: SinglePageUIContext, NavigationContext {
 
     // MARK: - ForwardBackNavigationContext
 
-    public func navigateForward(with token: Any, animated: Bool) -> NavigationToken? {
+    internal func navigateForward(with token: Any, animated: Bool) -> NavigationToken? {
         guard let viewController = registry.createViewController(from: token, context: self) else {
             return nil
         }
@@ -77,7 +77,7 @@ class NavigationUI: SinglePageUIContext, NavigationContext {
         return NavigationTokenImplementation(viewController: viewController)
     }
 
-    public func navigateBack(animated: Bool) -> Bool {
+    internal func navigateBack(animated: Bool) -> Bool {
         return navigationController.popViewController(animated: animated) != nil
     }
 }

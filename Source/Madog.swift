@@ -26,12 +26,12 @@ public final class Madog<Token>: MadogUIContextDelegate {
         pageRegistrar.unregisterPages(from: self.registry)
     }
 
-    // MARK: - ContextUIDelegate
+    // MARK: - MadogUIContextDelegate
 
     public func renderSinglePageUI<T>(_ uiIdentifier: SinglePageUIIdentifier, with token: T, in window: UIWindow) -> Bool {
         guard var contextUI = factory.createSinglePageUI(uiIdentifier),
             contextUI.renderInitialView(with: token) == true else {
-            return false
+                return false
         }
 
         contextUI.delegate = self
@@ -43,7 +43,7 @@ public final class Madog<Token>: MadogUIContextDelegate {
     public func renderMultiPageUI<T>(_ uiIdentifier: MultiPageUIIdentifier, with tokens: [T], in window: UIWindow) -> Bool {
         guard var contextUI = factory.createMultiPageUI(uiIdentifier),
             contextUI.renderInitialViews(with: tokens) == true else {
-            return false
+                return false
         }
 
         contextUI.delegate = self

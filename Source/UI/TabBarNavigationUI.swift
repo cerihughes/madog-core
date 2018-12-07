@@ -35,7 +35,7 @@ class TabBarNavigationUI<Token>: MultiPageUIContext, TabBarNavigationContext {
         return tabBarController
     }
 
-    func change<Token>(to uiIdentifier: SinglePageUIIdentifier, with token: Token) -> Bool {
+    func change<T>(to uiIdentifier: SinglePageUIIdentifier, with token: T) -> Bool {
         guard let delegate = delegate, let window = viewController.view.window else {
             return false
         }
@@ -43,7 +43,7 @@ class TabBarNavigationUI<Token>: MultiPageUIContext, TabBarNavigationContext {
         return delegate.renderSinglePageUI(uiIdentifier, with: token, in: window)
     }
 
-    func change<Token>(to uiIdentifier: MultiPageUIIdentifier, with tokens: [Token]) -> Bool {
+    func change<T>(to uiIdentifier: MultiPageUIIdentifier, with tokens: [T]) -> Bool {
         guard let delegate = delegate, let window = viewController.view.window else {
             return false
         }

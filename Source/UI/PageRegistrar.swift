@@ -9,7 +9,7 @@
 import Foundation
 
 /// A class that presents view controllers, and manages the navigation between them.
-public class PageRegistrar<Token> {
+internal class PageRegistrar<Token> {
     internal var states = [String:State]()
     internal var pages = [Page]()
 

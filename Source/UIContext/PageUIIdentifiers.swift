@@ -22,5 +22,6 @@ public struct MultiPageUIIdentifier: Equatable {
     internal init(_ value: String) {
         self.value = value
     }
+
     public static var tabBarControllerIdentifier = MultiPageUIIdentifier("tabBarControllerIdentifier")
 }

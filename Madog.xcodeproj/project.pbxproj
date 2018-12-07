@@ -48,8 +48,8 @@
 		65A2511E21A841830035FA0F /* Page2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A2511D21A841830035FA0F /* Page2ViewController.swift */; };
 		65A2512021A842C80035FA0F /* ResourceLocator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A2511F21A842C80035FA0F /* ResourceLocator.swift */; };
 		65A2512221A843BC0035FA0F /* LabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A2512121A843BC0035FA0F /* LabelView.swift */; };
+		65A643DA21BAC3D8005CD016 /* MadogUIContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A643D921BAC3D8005CD016 /* MadogUIContext.swift */; };
 		65BEBC8D21A8850800397E39 /* PageRegistrar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BEBC8C21A8850800397E39 /* PageRegistrar.swift */; };
-		65D9974D21BA95C900FD4599 /* MadogUIContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D9974C21BA95C900FD4599 /* MadogUIContext.swift */; };
 		65EBE71521B41472002A2DF5 /* WeakContextFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65EBE71421B41472002A2DF5 /* WeakContextFactory.swift */; };
 /* End PBXBuildFile section */
 
@@ -125,8 +125,8 @@
 		65A2511D21A841830035FA0F /* Page2ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Page2ViewController.swift; sourceTree = "<group>"; };
 		65A2511F21A842C80035FA0F /* ResourceLocator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResourceLocator.swift; sourceTree = "<group>"; };
 		65A2512121A843BC0035FA0F /* LabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelView.swift; sourceTree = "<group>"; };
+		65A643D921BAC3D8005CD016 /* MadogUIContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MadogUIContext.swift; sourceTree = "<group>"; };
 		65BEBC8C21A8850800397E39 /* PageRegistrar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageRegistrar.swift; sourceTree = "<group>"; };
-		65D9974C21BA95C900FD4599 /* MadogUIContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MadogUIContext.swift; sourceTree = "<group>"; };
 		65EBE71421B41472002A2DF5 /* WeakContextFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeakContextFactory.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -209,12 +209,13 @@
 			path = TestData;
 			sourceTree = "<group>";
 		};
-		6518E79021A9FC910036F553 /* UI */ = {
+		6518E79021A9FC910036F553 /* Registry */ = {
 			isa = PBXGroup;
 			children = (
+				6518E77D21A9F06A0036F553 /* Resolver */,
 				6518E79121A9FCAA0036F553 /* PageRegistrarTests.swift */,
 			);
-			path = UI;
+			path = Registry;
 			sourceTree = "<group>";
 		};
 		655A469B21A9B0E200CEC47F /* State */ = {
@@ -263,7 +264,7 @@
 			children = (
 				65A250E821A82EC00035FA0F /* Registry */,
 				65A250DB21A820100035FA0F /* Navigation */,
-				65A8E93E21BAB7F400EC61A5 /* UIContext */,
+				659766B621BAC1F300308080 /* UIContext */,
 				65A250E121A822810035FA0F /* UI */,
 				6560D4A321B3F2EB00EA9BE3 /* Madog.swift */,
 				658C851321A81D26006ECF6F /* Madog.h */,
@@ -275,12 +276,21 @@
 		658C851D21A81D26006ECF6F /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				6518E79021A9FC910036F553 /* UI */,
-				6518E77D21A9F06A0036F553 /* Resolver */,
+				6518E79021A9FC910036F553 /* Registry */,
 				6518E78F21A9FB500036F553 /* TestData */,
 				658C852021A81D26006ECF6F /* Info.plist */,
 			);
 			path = Tests;
+			sourceTree = "<group>";
+		};
+		659766B621BAC1F300308080 /* UIContext */ = {
+			isa = PBXGroup;
+			children = (
+				6560D49F21B3F20A00EA9BE3 /* PageUIIdentifiers.swift */,
+				65A643D921BAC3D8005CD016 /* MadogUIContext.swift */,
+				6560D4A121B3F24600EA9BE3 /* MadogUIContextFactory.swift */,
+			);
+			path = UIContext;
 			sourceTree = "<group>";
 		};
 		65A250D921A81FF50035FA0F /* Page */ = {
@@ -384,16 +394,6 @@
 				65A2511D21A841830035FA0F /* Page2ViewController.swift */,
 			);
 			path = "Page 2";
-			sourceTree = "<group>";
-		};
-		65A8E93E21BAB7F400EC61A5 /* UIContext */ = {
-			isa = PBXGroup;
-			children = (
-				6560D49F21B3F20A00EA9BE3 /* PageUIIdentifiers.swift */,
-				65D9974C21BA95C900FD4599 /* MadogUIContext.swift */,
-				6560D4A121B3F24600EA9BE3 /* MadogUIContextFactory.swift */,
-			);
-			path = UIContext;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -573,11 +573,11 @@
 				6560D4A021B3F20A00EA9BE3 /* PageUIIdentifiers.swift in Sources */,
 				65A250E021A8218B0035FA0F /* PageFactory.swift in Sources */,
 				65A250D221A81FBF0035FA0F /* RuntimeResolver.swift in Sources */,
-				65D9974D21BA95C900FD4599 /* MadogUIContext.swift in Sources */,
 				65EBE71521B41472002A2DF5 /* WeakContextFactory.swift in Sources */,
 				65A250E721A82C6D0035FA0F /* ViewControllerRegistry.swift in Sources */,
 				655A469D21A9B18400CEC47F /* State.swift in Sources */,
 				655A46A921A9B2FA00CEC47F /* StateResolver.swift in Sources */,
+				65A643DA21BAC3D8005CD016 /* MadogUIContext.swift in Sources */,
 				65A250E521A822DF0035FA0F /* NavigationToken.swift in Sources */,
 				65A250D421A81FBF0035FA0F /* PageResolver.swift in Sources */,
 				6560D4A221B3F24600EA9BE3 /* MadogUIContextFactory.swift in Sources */,

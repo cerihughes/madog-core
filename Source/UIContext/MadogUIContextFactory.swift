@@ -8,9 +8,12 @@
 
 import UIKit
 
+protocol SinglePageUIContext: MadogUIContext, SinglePageContext {}
+protocol MultiPageUIContext: MadogUIContext, MultiPageContext {}
+
 protocol MadogUIContextFactory {
-    func createSinglePageUI(_ uiIdentifier: SinglePageUIIdentifier) -> SinglePageContext?
-    func createMultiPageUI(_ uiIdentifier: MultiPageUIIdentifier) -> MultiPageContext?
+    func createSinglePageUI(_ uiIdentifier: SinglePageUIIdentifier) -> SinglePageUIContext?
+    func createMultiPageUI(_ uiIdentifier: MultiPageUIIdentifier) -> MultiPageUIContext?
 }
 
 class MadogUIContextFactoryImplementation<Token>: MadogUIContextFactory {
@@ -20,7 +23,7 @@ class MadogUIContextFactoryImplementation<Token>: MadogUIContextFactory {
         self.registry = registry
     }
 
-    func createSinglePageUI(_ uiIdentifier: SinglePageUIIdentifier) -> SinglePageContext? {
+    func createSinglePageUI(_ uiIdentifier: SinglePageUIIdentifier) -> SinglePageUIContext? {
         if uiIdentifier == .navigationControllerIdentifier {
             return NavigationUI<Token>(registry: registry, factory: self)
         }
@@ -28,7 +31,7 @@ class MadogUIContextFactoryImplementation<Token>: MadogUIContextFactory {
         return nil
     }
 
-    func createMultiPageUI(_ uiIdentifier: MultiPageUIIdentifier) -> MultiPageContext? {
+    func createMultiPageUI(_ uiIdentifier: MultiPageUIIdentifier) -> MultiPageUIContext? {
         if uiIdentifier == .tabBarControllerIdentifier {
             return TabBarNavigationUI<Token>(registry: registry, factory: self)
         }

@@ -43,11 +43,11 @@ internal class WeakNavigationContext: NavigationContext {
 
     // MARK: - Context
 
-    internal func change(to uiIdentifier: SinglePageUIIdentifier, with token: Any) -> Bool {
+    internal func change<VC: UIViewController>(to uiIdentifier: SinglePageUIIdentifier<VC>, with token: Any) -> Bool {
         return target?.change(to: uiIdentifier, with: token) ?? false
     }
 
-    internal func change(to uiIdentifier: MultiPageUIIdentifier, with tokens: [Any]) -> Bool {
+    internal func change<VC: UIViewController>(to uiIdentifier: MultiPageUIIdentifier<VC>, with tokens: [Any]) -> Bool {
         return target?.change(to: uiIdentifier, with: tokens) ?? false
     }
 
@@ -81,11 +81,11 @@ internal class WeakTabBarNavigationContext: TabBarNavigationContext {
 
     // MARK: - Context
 
-    internal func change(to uiIdentifier: SinglePageUIIdentifier, with token: Any) -> Bool {
+    internal func change<VC: UIViewController>(to uiIdentifier: SinglePageUIIdentifier<VC>, with token: Any) -> Bool {
         return target?.change(to: uiIdentifier, with: token) ?? false
     }
 
-    internal func change(to uiIdentifier: MultiPageUIIdentifier, with tokens: [Any]) -> Bool {
+    internal func change<VC: UIViewController>(to uiIdentifier: MultiPageUIIdentifier<VC>, with tokens: [Any]) -> Bool {
         return target?.change(to: uiIdentifier, with: tokens) ?? false
     }
 

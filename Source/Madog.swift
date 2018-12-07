@@ -28,7 +28,7 @@ public final class Madog: MadogUIContextDelegate {
 
     // MARK: - MadogUIContextDelegate
 
-    public func renderSinglePageUI(_ uiIdentifier: SinglePageUIIdentifier, with token: Any, in window: UIWindow) -> Bool {
+    public func renderSinglePageUI<VC: UIViewController>(_ uiIdentifier: SinglePageUIIdentifier<VC>, with token: Any, in window: UIWindow) -> Bool {
         guard var contextUI = factory.createSinglePageUI(uiIdentifier),
             contextUI.renderInitialView(with: token) == true else {
                 return false
@@ -36,11 +36,17 @@ public final class Madog: MadogUIContextDelegate {
 
         contextUI.delegate = self
         currentContextUI = contextUI
-        window.rootViewController = contextUI.viewController
+
+        guard let viewController = contextUI.viewController as? VC else {
+            return false
+        }
+        uiIdentifier.customisation(viewController)
+
+        window.rootViewController = viewController
         return true
     }
 
-    public func renderMultiPageUI(_ uiIdentifier: MultiPageUIIdentifier, with tokens: [Any], in window: UIWindow) -> Bool {
+    public func renderMultiPageUI<VC: UIViewController>(_ uiIdentifier: MultiPageUIIdentifier<VC>, with tokens: [Any], in window: UIWindow) -> Bool {
         guard var contextUI = factory.createMultiPageUI(uiIdentifier),
             contextUI.renderInitialViews(with: tokens) == true else {
                 return false
@@ -48,7 +54,13 @@ public final class Madog: MadogUIContextDelegate {
 
         contextUI.delegate = self
         currentContextUI = contextUI
-        window.rootViewController = contextUI.viewController
+
+        guard let viewController = contextUI.viewController as? VC else {
+            return false
+        }
+        uiIdentifier.customisation(viewController)
+
+        window.rootViewController = viewController
         return true
     }
 }

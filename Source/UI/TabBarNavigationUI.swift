@@ -35,7 +35,7 @@ internal class TabBarNavigationUI: MadogUIContext, TabBarNavigationContext {
         return tabBarController
     }
 
-    internal func change<T>(to uiIdentifier: SinglePageUIIdentifier, with token: T) -> Bool {
+    internal func change<VC: UIViewController>(to uiIdentifier: SinglePageUIIdentifier<VC>, with token: Any) -> Bool {
         guard let delegate = delegate, let window = viewController.view.window else {
             return false
         }
@@ -43,7 +43,7 @@ internal class TabBarNavigationUI: MadogUIContext, TabBarNavigationContext {
         return delegate.renderSinglePageUI(uiIdentifier, with: token, in: window)
     }
 
-    internal func change<T>(to uiIdentifier: MultiPageUIIdentifier, with tokens: [T]) -> Bool {
+    internal func change<VC: UIViewController>(to uiIdentifier: MultiPageUIIdentifier<VC>, with tokens: [Any]) -> Bool {
         guard let delegate = delegate, let window = viewController.view.window else {
             return false
         }

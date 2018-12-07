@@ -35,7 +35,7 @@ internal class NavigationUI: MadogUIContext, NavigationContext {
         return navigationController
     }
 
-    internal func change(to uiIdentifier: SinglePageUIIdentifier, with token: Any) -> Bool {
+    internal func change<VC: UIViewController>(to uiIdentifier: SinglePageUIIdentifier<VC>, with token: Any) -> Bool {
         guard let delegate = delegate, let window = viewController.view.window else {
             return false
         }
@@ -43,7 +43,7 @@ internal class NavigationUI: MadogUIContext, NavigationContext {
         return delegate.renderSinglePageUI(uiIdentifier, with: token, in: window)
     }
 
-    internal func change(to uiIdentifier: MultiPageUIIdentifier, with tokens: [Any]) -> Bool {
+    internal func change<VC: UIViewController>(to uiIdentifier: MultiPageUIIdentifier<VC>, with tokens: [Any]) -> Bool {
         guard let delegate = delegate, let window = viewController.view.window else {
             return false
         }

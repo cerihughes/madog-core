@@ -9,8 +9,8 @@
 import UIKit
 
 public protocol Context {
-    func change(to uiIdentifier: SinglePageUIIdentifier, with token: Any) -> Bool
-    func change(to uiIdentifier: MultiPageUIIdentifier, with tokens: [Any]) -> Bool
+    func change<VC: UIViewController>(to uiIdentifier: SinglePageUIIdentifier<VC>, with token: Any) -> Bool
+    func change<VC: UIViewController>(to uiIdentifier: MultiPageUIIdentifier<VC>, with tokens: [Any]) -> Bool
     func openModal(with token: Any, from fromViewController: UIViewController, animated: Bool) -> NavigationToken?
 }
 

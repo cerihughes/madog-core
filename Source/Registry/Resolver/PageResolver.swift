@@ -20,5 +20,5 @@ import UIKit
 /// Other implementations can be written that (e.g.) manually instantiate the required implementations, or maybe load
 /// them via a plist.
 public protocol PageResolver {
-    func pageFactories() -> [PageFactory.Type]
+    func pageFactoryTypes() -> [PageFactory.Type]
 }

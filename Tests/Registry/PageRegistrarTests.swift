@@ -13,9 +13,9 @@ class PageRegistrarTests: XCTestCase {
 
     override func setUp() {
         super.setUp()
-        let testPageFactories: [PageFactory.Type] = [TestPageFactory.self, TestStatefulPageFactory.self, TestPageAndStateFactory.self]
-        let testStateFactories: [StateFactory.Type] = [TestStateFactory.self, TestPageAndStateFactory.self]
-        resolver = TestResolver(testPageFactories: testPageFactories, testStateFactories: testStateFactories)
+        let testPageFactoryTypes: [PageFactory.Type] = [TestPageFactory.self, TestStatefulPageFactory.self, TestPageAndStateFactory.self]
+        let testStateFactoryTypes: [StateFactory.Type] = [TestStateFactory.self, TestPageAndStateFactory.self]
+        resolver = TestResolver(testPageFactoryTypes: testPageFactoryTypes, testStateFactoryTypes: testStateFactoryTypes)
         registry = ViewControllerRegistry()
         pageRegistrar = PageRegistrar()
     }

@@ -12,15 +12,15 @@ internal let navigationControllerIdentifier = "navigationControllerIdentifier"
 
 public class SinglePageUIIdentifier<VC: UIViewController> {
     internal let value: String
-    internal let completion: (VC) -> Void
+    internal let customisation: (VC) -> Void
 
-    internal init(_ value: String, completion: @escaping (VC) -> Void) {
+    internal init(_ value: String, customisation: @escaping (VC) -> Void) {
         self.value = value
-        self.completion = completion
+        self.customisation = customisation
     }
 
-    public static func createNavigationControllerIdentifier(completion: @escaping (UINavigationController) -> Void = { _ in }) -> SinglePageUIIdentifier<UINavigationController> {
-        return SinglePageUIIdentifier<UINavigationController>(navigationControllerIdentifier, completion: completion)
+    public static func createNavigationControllerIdentifier(customisation: @escaping (UINavigationController) -> Void = { _ in }) -> SinglePageUIIdentifier<UINavigationController> {
+        return SinglePageUIIdentifier<UINavigationController>(navigationControllerIdentifier, customisation: customisation)
     }
 }
 
@@ -28,14 +28,14 @@ internal let tabBarControllerIdentifier = "tabBarControllerIdentifier"
 
 public class MultiPageUIIdentifier<VC: UIViewController> {
     internal let value: String
-    internal let completion: (VC) -> Void
+    internal let customisation: (VC) -> Void
 
-    internal init(_ value: String, completion: @escaping (VC) -> Void) {
+    internal init(_ value: String, customisation: @escaping (VC) -> Void) {
         self.value = value
-        self.completion = completion
+        self.customisation = customisation
     }
 
-    public static func createTabBarControllerIdentifier(completion: @escaping (UITabBarController) -> Void = { _ in }) -> MultiPageUIIdentifier<UITabBarController> {
-        return MultiPageUIIdentifier<UITabBarController>(tabBarControllerIdentifier, completion: completion)
+    public static func createTabBarControllerIdentifier(customisation: @escaping (UITabBarController) -> Void = { _ in }) -> MultiPageUIIdentifier<UITabBarController> {
+        return MultiPageUIIdentifier<UITabBarController>(tabBarControllerIdentifier, customisation: customisation)
     }
 }

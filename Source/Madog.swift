@@ -40,7 +40,7 @@ public final class Madog: MadogUIContextDelegate {
         guard let viewController = contextUI.viewController as? VC else {
             return false
         }
-        uiIdentifier.completion(viewController)
+        uiIdentifier.customisation(viewController)
 
         window.rootViewController = viewController
         return true
@@ -58,7 +58,7 @@ public final class Madog: MadogUIContextDelegate {
         guard let viewController = contextUI.viewController as? VC else {
             return false
         }
-        uiIdentifier.completion(viewController)
+        uiIdentifier.customisation(viewController)
 
         window.rootViewController = viewController
         return true

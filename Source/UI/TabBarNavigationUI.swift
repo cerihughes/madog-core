@@ -13,7 +13,7 @@ internal protocol TabBarNavigationContext: class, Context, MultiPageContext, For
 /// A class that presents view controllers in a tab bar, and manages the navigation between them.
 ///
 /// At the moment, this is achieved with a UINavigationController that can be pushed / popped to / from.
-internal class TabBarNavigationUI: MultiPageUIContext, TabBarNavigationContext {
+internal class TabBarNavigationUI: MadogUIContext, TabBarNavigationContext {
     private let tabBarController = UITabBarController()
     private let registry: ViewControllerRegistry
     private let factory: MadogUIContextFactory

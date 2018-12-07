@@ -16,9 +16,9 @@ protocol TabBarNavigationContext: Context, MultiPageContext, ForwardBackNavigati
 class TabBarNavigationUI<Token>: TabBarNavigationContext {
     private let tabBarController = UITabBarController()
     private let registry: ViewControllerRegistry<Token>
-    private let factory: Factory
+    private let factory: MadogUIContextFactory
 
-    init(registry: ViewControllerRegistry<Token>, factory: Factory) {
+    init(registry: ViewControllerRegistry<Token>, factory: MadogUIContextFactory) {
         self.registry = registry
         self.factory = factory
     }

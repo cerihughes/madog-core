@@ -10,7 +10,7 @@ import Foundation
 
 public struct SinglePageUIIdentifier: Equatable {
     private let value: String
-    internal init(_ value: String) {
+    private init(_ value: String) {
         self.value = value
     }
 
@@ -19,7 +19,7 @@ public struct SinglePageUIIdentifier: Equatable {
 
 public struct MultiPageUIIdentifier: Equatable {
     private let value: String
-    internal init(_ value: String) {
+    private init(_ value: String) {
         self.value = value
     }
 

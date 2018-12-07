@@ -8,12 +8,12 @@
 
 import Foundation
 
-typealias WeakContextCreationFunction = (Context) -> Context?
+internal typealias WeakContextCreationFunction = (Context) -> Context?
 
-class WeakContextFactory {
+internal class WeakContextFactory {
     private var weakContextCreationFunctions = [WeakContextCreationFunction]()
 
-    init() {
+    internal init() {
         weakContextCreationFunctions.append { (context) -> Context? in
             if let context = context as? NavigationContext {
                 return WeakNavigationContext(context)
@@ -29,83 +29,83 @@ class WeakContextFactory {
         }
     }
 
-    func createWeakContext(for context: Context) -> Context? {
+    internal func createWeakContext(for context: Context) -> Context? {
         return weakContextCreationFunctions.compactMap { $0(context) }.first
     }
 }
 
-class WeakNavigationContext: NavigationContext {
-    weak var target: NavigationContext?
+internal class WeakNavigationContext: NavigationContext {
+    private weak var target: NavigationContext?
 
-    init(_ target: NavigationContext) {
+    internal init(_ target: NavigationContext) {
         self.target = target
     }
 
     // MARK: - Context
 
-    func change(to uiIdentifier: SinglePageUIIdentifier, with token: Any) -> Bool {
+    internal func change(to uiIdentifier: SinglePageUIIdentifier, with token: Any) -> Bool {
         return target?.change(to: uiIdentifier, with: token) ?? false
     }
 
-    func change(to uiIdentifier: MultiPageUIIdentifier, with tokens: [Any]) -> Bool {
+    internal func change(to uiIdentifier: MultiPageUIIdentifier, with tokens: [Any]) -> Bool {
         return target?.change(to: uiIdentifier, with: tokens) ?? false
     }
 
-    func openModal(with token: Any, from fromViewController: UIViewController, animated: Bool) -> NavigationToken? {
+    internal func openModal(with token: Any, from fromViewController: UIViewController, animated: Bool) -> NavigationToken? {
         return target?.openModal(with: token, from: fromViewController, animated: animated)
     }
 
     // MARK: - SinglePageContext
 
-    func renderInitialView(with token: Any) -> Bool {
+    internal func renderInitialView(with token: Any) -> Bool {
         return target?.renderInitialView(with: token) ?? false
     }
 
     // MARK: - ForwardBackNavigationContext
 
-    func navigateForward(with token: Any, animated: Bool) -> NavigationToken? {
+    internal func navigateForward(with token: Any, animated: Bool) -> NavigationToken? {
         return target?.navigateForward(with: token, animated: animated)
     }
 
-    func navigateBack(animated: Bool) -> Bool {
+    internal func navigateBack(animated: Bool) -> Bool {
         return target?.navigateBack(animated: animated) ?? false
     }
 }
 
-class WeakTabBarNavigationContext: TabBarNavigationContext {
-    weak var target: TabBarNavigationContext?
+internal class WeakTabBarNavigationContext: TabBarNavigationContext {
+    private weak var target: TabBarNavigationContext?
 
-    init(_ target: TabBarNavigationContext) {
+    internal init(_ target: TabBarNavigationContext) {
         self.target = target
     }
 
     // MARK: - Context
 
-    func change(to uiIdentifier: SinglePageUIIdentifier, with token: Any) -> Bool {
+    internal func change(to uiIdentifier: SinglePageUIIdentifier, with token: Any) -> Bool {
         return target?.change(to: uiIdentifier, with: token) ?? false
     }
 
-    func change(to uiIdentifier: MultiPageUIIdentifier, with tokens: [Any]) -> Bool {
+    internal func change(to uiIdentifier: MultiPageUIIdentifier, with tokens: [Any]) -> Bool {
         return target?.change(to: uiIdentifier, with: tokens) ?? false
     }
 
-    func openModal(with token: Any, from fromViewController: UIViewController, animated: Bool) -> NavigationToken? {
+    internal func openModal(with token: Any, from fromViewController: UIViewController, animated: Bool) -> NavigationToken? {
         return target?.openModal(with: token, from: fromViewController, animated: animated)
     }
 
     // MARK: - MultiPageContext
 
-    func renderInitialViews(with tokens: [Any]) -> Bool {
+    internal func renderInitialViews(with tokens: [Any]) -> Bool {
         return target?.renderInitialViews(with: tokens) ?? false
     }
 
     // MARK: - ForwardBackNavigationContext
 
-    func navigateForward(with token: Any, animated: Bool) -> NavigationToken? {
+    internal func navigateForward(with token: Any, animated: Bool) -> NavigationToken? {
         return target?.navigateForward(with: token, animated: animated)
     }
 
-    func navigateBack(animated: Bool) -> Bool {
+    internal func navigateBack(animated: Bool) -> Bool {
         return target?.navigateBack(animated: animated) ?? false
     }
 }

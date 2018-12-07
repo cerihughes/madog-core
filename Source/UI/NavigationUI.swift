@@ -25,10 +25,6 @@ internal class NavigationUI: MadogUIContext, NavigationContext {
         self.factory = factory
     }
 
-    deinit {
-        print("NavigationUI deinit")
-    }
-
     // MARK: - Context
 
     internal var viewController: UIViewController {

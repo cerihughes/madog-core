@@ -46,7 +46,7 @@ extension LogoutViewController {
     private func buttonTapGesture(sender: UIButton) {
         authenticator.logout { (result) in
             let token = ResourceLocator.createLoginPageResourceLocator()
-            _ = self.context.change(to: .navigationController, with: token)
+            _ = self.context.change(to: .navigationControllerIdentifier, with: token)
         }
     }
 }

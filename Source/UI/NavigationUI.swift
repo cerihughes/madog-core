@@ -29,13 +29,13 @@ class NavigationUI<Token>: NavigationContext {
         return navigationController
     }
 
-    func change<T>(to ui: SinglePageUI, with token: T) -> Bool {
-        if ui == .navigationController {
+    func change<T>(to uiIdentifier: SinglePageUIIdentifier, with token: T) -> Bool {
+        if uiIdentifier == .navigationControllerIdentifier {
             return renderInitialView(with: token)
         }
 
         guard let window = viewController.view.window,
-            let context = factory.createSinglePageUI(ui) as? Context & SinglePageContext,
+            let context = factory.createSinglePageUI(uiIdentifier) as? Context & SinglePageContext,
             context.renderInitialView(with: token) == true else {
                 return false
         }
@@ -44,9 +44,9 @@ class NavigationUI<Token>: NavigationContext {
         return true
     }
 
-    func change<T>(to ui: MultiPageUI, with tokens: [T]) -> Bool {
+    func change<T>(to uiIdentifier: MultiPageUIIdentifier, with tokens: [T]) -> Bool {
         guard let window = viewController.view.window,
-            let context = factory.createMultiPageUI(ui) as? Context & MultiPageContext,
+            let context = factory.createMultiPageUI(uiIdentifier) as? Context & MultiPageContext,
             context.renderInitialViews(with: tokens) == true else {
             return false
         }

@@ -18,6 +18,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window.makeKeyAndVisible()
 
         let initialRL = ResourceLocator.createLoginPageResourceLocator()
-        return madog.renderSinglePageUI(.navigationControllerIdentifier, with: initialRL, in: window)
+        let identifier = SinglePageUIIdentifier.createNavigationControllerIdentifier { (navigationController) in
+            navigationController.isNavigationBarHidden = true
+        }
+        return madog.renderSinglePageUI(identifier, with: initialRL, in: window)
     }
 }

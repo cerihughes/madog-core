@@ -8,20 +8,34 @@
 
 import Foundation
 
-public struct SinglePageUIIdentifier: Equatable {
-    private let value: String
-    private init(_ value: String) {
+internal let navigationControllerIdentifier = "navigationControllerIdentifier"
+
+public class SinglePageUIIdentifier<VC: UIViewController> {
+    internal let value: String
+    internal let completion: (VC) -> Void
+
+    internal init(_ value: String, completion: @escaping (VC) -> Void) {
         self.value = value
+        self.completion = completion
     }
 
-    public static var navigationControllerIdentifier = SinglePageUIIdentifier("navigationControllerIdentifier")
+    public static func createNavigationControllerIdentifier(completion: @escaping (UINavigationController) -> Void = { _ in }) -> SinglePageUIIdentifier<UINavigationController> {
+        return SinglePageUIIdentifier<UINavigationController>(navigationControllerIdentifier, completion: completion)
+    }
 }
 
-public struct MultiPageUIIdentifier: Equatable {
-    private let value: String
-    private init(_ value: String) {
+internal let tabBarControllerIdentifier = "tabBarControllerIdentifier"
+
+public class MultiPageUIIdentifier<VC: UIViewController> {
+    internal let value: String
+    internal let completion: (VC) -> Void
+
+    internal init(_ value: String, completion: @escaping (VC) -> Void) {
         self.value = value
+        self.completion = completion
     }
 
-    public static var tabBarControllerIdentifier = MultiPageUIIdentifier("tabBarControllerIdentifier")
+    public static func createTabBarControllerIdentifier(completion: @escaping (UITabBarController) -> Void = { _ in }) -> MultiPageUIIdentifier<UITabBarController> {
+        return MultiPageUIIdentifier<UITabBarController>(tabBarControllerIdentifier, completion: completion)
+    }
 }

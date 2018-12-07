@@ -20,6 +20,7 @@ public class ViewControllerRegistry<Token>: NSObject {
     public typealias RegistryFunction = (Token, Context) -> UIViewController?
 
     private var registry: [UUID:RegistryFunction] = [:]
+    private var weakContextFactory = WeakContextFactory()
 
     public func add(registryFunction: @escaping RegistryFunction) -> UUID {
         let uuid = UUID()
@@ -32,9 +33,11 @@ public class ViewControllerRegistry<Token>: NSObject {
     }
 
     public func createViewController(from token: Token, context: Context) -> UIViewController? {
-        for function in registry.values {
-            if let result = function(token, context) {
-                return result
+        if let weakContext = weakContextFactory.createWeakContext(for: context) {
+            for function in registry.values {
+                if let result = function(token, weakContext) {
+                    return result
+                }
             }
         }
         return nil

@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol TabBarNavigationContext: Context, MultiPageContext, ForwardBackNavigationContext {}
+protocol TabBarNavigationContext: class, Context, MultiPageContext, ForwardBackNavigationContext {}
 
 /// A class that presents view controllers in a tab bar, and manages the navigation between them.
 ///
@@ -23,6 +23,10 @@ class TabBarNavigationUI<Token>: MultiPageUIContext, TabBarNavigationContext {
     init(registry: ViewControllerRegistry<Token>, factory: MadogUIContextFactory) {
         self.registry = registry
         self.factory = factory
+    }
+
+    deinit {
+        print("TabBarNavigationUI deinit")
     }
 
     // MARK: - Context

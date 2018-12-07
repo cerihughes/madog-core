@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol NavigationContext: Context, SinglePageContext, ForwardBackNavigationContext {}
+protocol NavigationContext: class, Context, SinglePageContext, ForwardBackNavigationContext {}
 
 /// A class that presents view controllers, and manages the navigation between them.
 ///
@@ -23,6 +23,10 @@ class NavigationUI<Token>: SinglePageUIContext, NavigationContext {
     init(registry: ViewControllerRegistry<Token>, factory: MadogUIContextFactory) {
         self.registry = registry
         self.factory = factory
+    }
+
+    deinit {
+        print("NavigationUI deinit")
     }
 
     // MARK: - Context

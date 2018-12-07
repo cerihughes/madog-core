@@ -29,7 +29,7 @@ public final class Madog<Token>: ContextUIDelegate {
     // MARK: - ContextUIDelegate
 
     public func renderSinglePageUI<Token>(_ uiIdentifier: SinglePageUIIdentifier, with token: Token, in window: UIWindow) -> Bool {
-        guard let context = factory.createSinglePageUI(uiIdentifier) as? Context & SinglePageContextUI,
+        guard var context = factory.createSinglePageUI(uiIdentifier) as? Context & SinglePageContextUI,
             context.renderInitialView(with: token) == true else {
             return false
         }
@@ -41,7 +41,7 @@ public final class Madog<Token>: ContextUIDelegate {
     }
 
     public func renderMultiPageUI<Token>(_ uiIdentifier: MultiPageUIIdentifier, with tokens: [Token], in window: UIWindow) -> Bool {
-        guard let context = factory.createMultiPageUI(uiIdentifier) as? Context & MultiPageContextUI,
+        guard var context = factory.createMultiPageUI(uiIdentifier) as? Context & MultiPageContextUI,
             context.renderInitialViews(with: tokens) == true else {
             return false
         }

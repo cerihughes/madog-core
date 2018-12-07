@@ -43,10 +43,6 @@ class WeakNavigationContext: NavigationContext {
 
     // MARK: - Context
 
-    var viewController: UIViewController {
-        return target?.viewController ?? UINavigationController()
-    }
-
     func change<Token>(to uiIdentifier: SinglePageUIIdentifier, with token: Token) -> Bool {
         return target?.change(to: uiIdentifier, with: token) ?? false
     }
@@ -84,10 +80,6 @@ class WeakTabBarNavigationContext: TabBarNavigationContext {
     }
 
     // MARK: - Context
-
-    var viewController: UIViewController {
-        return target?.viewController ?? UITabBarController()
-    }
 
     func change<Token>(to uiIdentifier: SinglePageUIIdentifier, with token: Token) -> Bool {
         return target?.change(to: uiIdentifier, with: token) ?? false

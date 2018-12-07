@@ -16,9 +16,15 @@ class TabBarNavigationUI<Token>: MultiPageContextUI, TabBarNavigationContext {
     private let registry: ViewControllerRegistry<Token>
     private let factory: Factory
 
+    weak var delegate: ContextUIDelegate?
+
     init(registry: ViewControllerRegistry<Token>, factory: Factory) {
         self.registry = registry
         self.factory = factory
+    }
+
+    deinit {
+        print("TabBarNavigationUI deinit")
     }
 
     // MARK: - Context
@@ -49,7 +55,7 @@ class TabBarNavigationUI<Token>: MultiPageContextUI, TabBarNavigationContext {
 
     // MARK: - MultiPageContext
 
-    override func renderInitialViews<T>(with tokens: [T]) -> Bool {
+    func renderInitialViews<T>(with tokens: [T]) -> Bool {
         let viewControllers = tokens.compactMap { $0 as? Token }
             .compactMap { registry.createViewController(from: $0, context: self) }
             .map { UINavigationController(rootViewController: $0) }

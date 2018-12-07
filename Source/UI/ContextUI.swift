@@ -13,18 +13,13 @@ protocol ContextUIDelegate: class {
     func renderMultiPageUI<Token>(_ uiIdentifier: MultiPageUIIdentifier, with tokens: [Token], in window: UIWindow) -> Bool
 }
 
-class ContextUI {
-    weak var delegate: ContextUIDelegate?
+protocol ContextUI {
+    var delegate: ContextUIDelegate? {get set}
+    var viewController: UIViewController {get}
 }
 
-class SinglePageContextUI: ContextUI, SinglePageContext {
-    func renderInitialView<Token>(with token: Token) -> Bool {
-        return false
-    }
+protocol SinglePageContextUI: ContextUI, SinglePageContext {
 }
 
-class MultiPageContextUI: ContextUI, MultiPageContext {
-    func renderInitialViews<Token>(with tokens: [Token]) -> Bool {
-        return false
-    }
+protocol MultiPageContextUI: ContextUI, MultiPageContext {
 }

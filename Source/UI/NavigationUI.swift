@@ -16,9 +16,15 @@ class NavigationUI<Token>: SinglePageContextUI, NavigationContext {
     private let registry: ViewControllerRegistry<Token>
     private let factory: Factory
 
+    weak var delegate: ContextUIDelegate?
+
     init(registry: ViewControllerRegistry<Token>, factory: Factory) {
         self.registry = registry
         self.factory = factory
+    }
+
+    deinit {
+        print("NavigationUI deinit")
     }
 
     // MARK: - Context
@@ -49,7 +55,7 @@ class NavigationUI<Token>: SinglePageContextUI, NavigationContext {
 
     // MARK: - SinglePageContext
 
-    override func renderInitialView<T>(with token: T) -> Bool {
+    func renderInitialView<T>(with token: T) -> Bool {
         guard let token = token as? Token, let viewController = registry.createViewController(from: token, context: self) else {
             return false
         }

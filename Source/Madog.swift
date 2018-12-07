@@ -25,7 +25,8 @@ public final class Madog<Token> {
     }
 
     public func renderSinglePageUI(_ ui: SinglePageUI, with token: Token, in window: UIWindow) -> Bool {
-        guard let context = factory.createSinglePageUI(ui), context.renderInitialView(with: token) == true else {
+        guard let context = factory.createSinglePageUI(ui) as? Context & SinglePageContext,
+            context.renderInitialView(with: token) == true else {
             return false
         }
 
@@ -34,7 +35,8 @@ public final class Madog<Token> {
     }
 
     public func renderMultiPageUI(_ ui: MultiPageUI, with tokens: [Token], in window: UIWindow) -> Bool {
-        guard let context = factory.createMultiPageUI(ui), context.renderInitialViews(with: tokens) == true else {
+        guard let context = factory.createMultiPageUI(ui) as? Context & MultiPageContext,
+            context.renderInitialViews(with: tokens) == true else {
             return false
         }
 

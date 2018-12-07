@@ -1,5 +1,5 @@
 //
-//  ContextUI.swift
+//  MadogUIContext.swift
 //  Madog
 //
 //  Created by Ceri Hughes on 07/12/2018.
@@ -8,18 +8,12 @@
 
 import UIKit
 
-protocol ContextUIDelegate: class {
+protocol MadogUIContextDelegate: class {
     func renderSinglePageUI<Token>(_ uiIdentifier: SinglePageUIIdentifier, with token: Token, in window: UIWindow) -> Bool
     func renderMultiPageUI<Token>(_ uiIdentifier: MultiPageUIIdentifier, with tokens: [Token], in window: UIWindow) -> Bool
 }
 
-protocol ContextUI {
-    var delegate: ContextUIDelegate? {get set}
+protocol MadogUIContext {
+    var delegate: MadogUIContextDelegate? {get set}
     var viewController: UIViewController {get}
-}
-
-protocol SinglePageContextUI: ContextUI, SinglePageContext {
-}
-
-protocol MultiPageContextUI: ContextUI, MultiPageContext {
 }

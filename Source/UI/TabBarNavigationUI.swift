@@ -8,17 +8,19 @@
 
 import UIKit
 
+protocol TabBarNavigationContext: class, Context, MultiPageContext, ForwardBackNavigationContext {}
+
 /// A class that presents view controllers in a tab bar, and manages the navigation between them.
 ///
 /// At the moment, this is achieved with a UINavigationController that can be pushed / popped to / from.
-class TabBarNavigationUI<Token>: MultiPageContextUI, TabBarNavigationContext {
+class TabBarNavigationUI<Token>: MultiPageUIContext, TabBarNavigationContext {
     private let tabBarController = UITabBarController()
     private let registry: ViewControllerRegistry<Token>
-    private let factory: Factory
+    private let factory: MadogUIContextFactory
 
-    weak var delegate: ContextUIDelegate?
+    weak var delegate: MadogUIContextDelegate?
 
-    init(registry: ViewControllerRegistry<Token>, factory: Factory) {
+    init(registry: ViewControllerRegistry<Token>, factory: MadogUIContextFactory) {
         self.registry = registry
         self.factory = factory
     }

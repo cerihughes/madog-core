@@ -8,17 +8,19 @@
 
 import UIKit
 
+protocol NavigationContext: class, Context, SinglePageContext, ForwardBackNavigationContext {}
+
 /// A class that presents view controllers, and manages the navigation between them.
 ///
 /// At the moment, this is achieved with a UINavigationController that can be pushed / popped to / from.
-class NavigationUI<Token>: SinglePageContextUI, NavigationContext {
+class NavigationUI<Token>: SinglePageUIContext, NavigationContext {
     private let navigationController = UINavigationController()
     private let registry: ViewControllerRegistry<Token>
-    private let factory: Factory
+    private let factory: MadogUIContextFactory
 
-    weak var delegate: ContextUIDelegate?
+    weak var delegate: MadogUIContextDelegate?
 
-    init(registry: ViewControllerRegistry<Token>, factory: Factory) {
+    init(registry: ViewControllerRegistry<Token>, factory: MadogUIContextFactory) {
         self.registry = registry
         self.factory = factory
     }

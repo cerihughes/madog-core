@@ -1,5 +1,5 @@
 //
-//  PageIdentifiers.swift
+//  PageUIIdentifiers.swift
 //  Madog
 //
 //  Created by Ceri Hughes on 02/12/2018.

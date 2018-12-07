@@ -8,16 +8,16 @@
 
 import UIKit
 
-public final class Madog<Token>: ContextUIDelegate {
+public final class Madog<Token>: MadogUIContextDelegate {
     private let registry: ViewControllerRegistry<Token>
-    private let factory: Factory
+    private let factory: MadogUIContextFactory
     private let pageRegistrar = PageRegistrar<Token>()
 
-    private var currentContext: Context?
+    private var currentContextUI: MadogUIContext?
 
     public init(resolver: PageResolver & StateResolver) {
         registry = ViewControllerRegistry<Token>()
-        factory = MadogFactory<Token>(registry: registry)
+        factory = MadogUIContextFactoryImplementation<Token>(registry: registry)
         pageRegistrar.loadState(stateResolver: resolver)
         pageRegistrar.registerPages(with: registry, pageResolver: resolver)
     }
@@ -28,27 +28,27 @@ public final class Madog<Token>: ContextUIDelegate {
 
     // MARK: - ContextUIDelegate
 
-    public func renderSinglePageUI<Token>(_ uiIdentifier: SinglePageUIIdentifier, with token: Token, in window: UIWindow) -> Bool {
-        guard var context = factory.createSinglePageUI(uiIdentifier) as? Context & SinglePageContextUI,
-            context.renderInitialView(with: token) == true else {
+    public func renderSinglePageUI<T>(_ uiIdentifier: SinglePageUIIdentifier, with token: T, in window: UIWindow) -> Bool {
+        guard var contextUI = factory.createSinglePageUI(uiIdentifier),
+            contextUI.renderInitialView(with: token) == true else {
             return false
         }
 
-        context.delegate = self
-        currentContext = context
-        window.rootViewController = context.viewController
+        contextUI.delegate = self
+        currentContextUI = contextUI
+        window.rootViewController = contextUI.viewController
         return true
     }
 
-    public func renderMultiPageUI<Token>(_ uiIdentifier: MultiPageUIIdentifier, with tokens: [Token], in window: UIWindow) -> Bool {
-        guard var context = factory.createMultiPageUI(uiIdentifier) as? Context & MultiPageContextUI,
-            context.renderInitialViews(with: tokens) == true else {
+    public func renderMultiPageUI<T>(_ uiIdentifier: MultiPageUIIdentifier, with tokens: [T], in window: UIWindow) -> Bool {
+        guard var contextUI = factory.createMultiPageUI(uiIdentifier),
+            contextUI.renderInitialViews(with: tokens) == true else {
             return false
         }
 
-        context.delegate = self
-        currentContext = context
-        window.rootViewController = context.viewController
+        contextUI.delegate = self
+        currentContextUI = contextUI
+        window.rootViewController = contextUI.viewController
         return true
     }
 }

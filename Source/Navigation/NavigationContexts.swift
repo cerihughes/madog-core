@@ -1,5 +1,5 @@
 //
-//  NavigationContext.swift
+//  NavigationContexts.swift
 //  Madog
 //
 //  Created by Ceri Hughes on 23/11/2018.
@@ -25,10 +25,4 @@ public protocol MultiPageContext {
 public protocol ForwardBackNavigationContext {
     func navigateForward<Token>(with token: Token, animated: Bool) -> NavigationToken?
     func navigateBack(animated: Bool) -> Bool
-}
-
-public protocol NavigationContext: class, Context, SinglePageContext, ForwardBackNavigationContext {
-}
-
-public protocol TabBarNavigationContext: class, Context, MultiPageContext, ForwardBackNavigationContext {
 }

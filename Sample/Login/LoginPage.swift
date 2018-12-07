@@ -29,11 +29,11 @@ class LoginPage: PageFactory, StatefulPage {
 
     // MARK: Page
 
-    func register<Token>(with registry: ViewControllerRegistry<Token>) {
+    func register(with registry: ViewControllerRegistry) {
         uuid = registry.add(registryFunction: createViewController(token:context:))
     }
 
-    func unregister<Token>(from registry: ViewControllerRegistry<Token>) {
+    func unregister(from registry: ViewControllerRegistry) {
         guard let uuid = uuid else {
             return
         }
@@ -43,7 +43,7 @@ class LoginPage: PageFactory, StatefulPage {
 
     // MARK: Private
 
-    private func createViewController<Token>(token: Token, context: Context) -> UIViewController? {
+    private func createViewController(token: Any, context: Context) -> UIViewController? {
         guard let rl = token as? ResourceLocator,
             rl.identifier == loginPageIdentifier,
             let authenticator = authenticatorState?.authenticator,

@@ -13,14 +13,14 @@ protocol TabBarNavigationContext: class, Context, MultiPageContext, ForwardBackN
 /// A class that presents view controllers in a tab bar, and manages the navigation between them.
 ///
 /// At the moment, this is achieved with a UINavigationController that can be pushed / popped to / from.
-class TabBarNavigationUI<Token>: MultiPageUIContext, TabBarNavigationContext {
+class TabBarNavigationUI: MultiPageUIContext, TabBarNavigationContext {
     private let tabBarController = UITabBarController()
-    private let registry: ViewControllerRegistry<Token>
+    private let registry: ViewControllerRegistry
     private let factory: MadogUIContextFactory
 
     weak var delegate: MadogUIContextDelegate?
 
-    init(registry: ViewControllerRegistry<Token>, factory: MadogUIContextFactory) {
+    init(registry: ViewControllerRegistry, factory: MadogUIContextFactory) {
         self.registry = registry
         self.factory = factory
     }
@@ -57,9 +57,8 @@ class TabBarNavigationUI<Token>: MultiPageUIContext, TabBarNavigationContext {
 
     // MARK: - MultiPageContext
 
-    func renderInitialViews<T>(with tokens: [T]) -> Bool {
-        let viewControllers = tokens.compactMap { $0 as? Token }
-            .compactMap { registry.createViewController(from: $0, context: self) }
+    func renderInitialViews(with tokens: [Any]) -> Bool {
+        let viewControllers = tokens.compactMap { registry.createViewController(from: $0, context: self) }
             .map { UINavigationController(rootViewController: $0) }
 
         tabBarController.viewControllers = viewControllers
@@ -68,9 +67,8 @@ class TabBarNavigationUI<Token>: MultiPageUIContext, TabBarNavigationContext {
 
     // MARK: - ForwardBackNavigationContext
 
-    func navigateForward<T>(with token: T, animated: Bool) -> NavigationToken? {
-        guard let token = token as? Token,
-            let toViewController = registry.createViewController(from: token, context: self),
+    func navigateForward(with token: Any, animated: Bool) -> NavigationToken? {
+        guard let toViewController = registry.createViewController(from: token, context: self),
             let navigationController = tabBarController.selectedViewController as? UINavigationController else {
                 return nil
         }

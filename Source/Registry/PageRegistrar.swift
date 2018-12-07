@@ -9,7 +9,7 @@
 import Foundation
 
 /// A class that presents view controllers, and manages the navigation between them.
-internal class PageRegistrar<Token> {
+internal class PageRegistrar {
     internal var states = [String:State]()
     internal var pages = [Page]()
 
@@ -22,7 +22,7 @@ internal class PageRegistrar<Token> {
         }
     }
 
-    internal func registerPages(with registry: ViewControllerRegistry<Token>, pageResolver: PageResolver) {
+    internal func registerPages(with registry: ViewControllerRegistry, pageResolver: PageResolver) {
         let pageFactories = pageResolver.pageFactories()
         for pageFactory in pageFactories {
             let page = pageFactory.createPage()
@@ -34,7 +34,7 @@ internal class PageRegistrar<Token> {
         }
     }
 
-    internal func unregisterPages(from registry: ViewControllerRegistry<Token>) {
+    internal func unregisterPages(from registry: ViewControllerRegistry) {
         for page in pages {
             page.unregister(from: registry)
         }

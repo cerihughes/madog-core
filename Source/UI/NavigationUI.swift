@@ -16,9 +16,9 @@ protocol NavigationContext: Context, SinglePageContext, ForwardBackNavigationCon
 class NavigationUI<Token>: NavigationContext {
     private let navigationController = UINavigationController()
     private let registry: ViewControllerRegistry<Token>
-    private let factory: Factory
+    private let factory: MadogUIContextFactory
 
-    init(registry: ViewControllerRegistry<Token>, factory: Factory) {
+    init(registry: ViewControllerRegistry<Token>, factory: MadogUIContextFactory) {
         self.registry = registry
         self.factory = factory
     }

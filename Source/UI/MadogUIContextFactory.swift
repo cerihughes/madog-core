@@ -1,5 +1,5 @@
 //
-//  Factory.swift
+//  MadogUIContextFactory.swift
 //  Madog
 //
 //  Created by Ceri Hughes on 02/12/2018.
@@ -8,12 +8,12 @@
 
 import UIKit
 
-protocol Factory {
+protocol MadogUIContextFactory {
     func createSinglePageUI(_ uiIdentifier: SinglePageUIIdentifier) -> SinglePageContext?
     func createMultiPageUI(_ uiIdentifier: MultiPageUIIdentifier) -> MultiPageContext?
 }
 
-class MadogFactory<Token>: Factory {
+class MadogUIContextFactoryImplementation<Token>: MadogUIContextFactory {
     private let registry: ViewControllerRegistry<Token>
 
     init(registry: ViewControllerRegistry<Token>) {

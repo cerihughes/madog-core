@@ -13,10 +13,12 @@ protocol TabBarNavigationContext: Context, MultiPageContext, ForwardBackNavigati
 /// A class that presents view controllers in a tab bar, and manages the navigation between them.
 ///
 /// At the moment, this is achieved with a UINavigationController that can be pushed / popped to / from.
-class TabBarNavigationUI<Token>: TabBarNavigationContext {
+class TabBarNavigationUI<Token>: MultiPageUIContext, TabBarNavigationContext {
     private let tabBarController = UITabBarController()
     private let registry: ViewControllerRegistry<Token>
     private let factory: MadogUIContextFactory
+
+    weak var delegate: MadogUIContextDelegate?
 
     init(registry: ViewControllerRegistry<Token>, factory: MadogUIContextFactory) {
         self.registry = registry
@@ -30,29 +32,19 @@ class TabBarNavigationUI<Token>: TabBarNavigationContext {
     }
 
     func change<T>(to uiIdentifier: SinglePageUIIdentifier, with token: T) -> Bool {
-        guard let window = viewController.view.window,
-            let context = factory.createSinglePageUI(uiIdentifier) as? Context & SinglePageContext,
-            context.renderInitialView(with: token) == true else {
-                return false
+        guard let delegate = delegate, let window = viewController.view.window else {
+            return false
         }
 
-        window.rootViewController = context.viewController
-        return true
+        return delegate.renderSinglePageUI(uiIdentifier, with: token, in: window)
     }
 
     func change<T>(to uiIdentifier: MultiPageUIIdentifier, with tokens: [T]) -> Bool {
-        if uiIdentifier == .tabBarControllerIdentifier {
-            return renderInitialViews(with: tokens)
+        guard let delegate = delegate, let window = viewController.view.window else {
+            return false
         }
 
-        guard let window = viewController.view.window,
-            let context = factory.createMultiPageUI(uiIdentifier) as? Context & MultiPageContext,
-            context.renderInitialViews(with: tokens) == true else {
-                return false
-        }
-
-        window.rootViewController = context.viewController
-        return true
+        return delegate.renderMultiPageUI(uiIdentifier, with: tokens, in: window)
     }
 
     func openModal<T>(with token: T, from fromViewController: UIViewController, animated: Bool) -> NavigationToken? {
@@ -87,6 +79,7 @@ class TabBarNavigationUI<Token>: TabBarNavigationContext {
         guard let navigationController = tabBarController.selectedViewController as? UINavigationController else {
             return false
         }
+
         return navigationController.popViewController(animated: animated) != nil
     }
 }

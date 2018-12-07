@@ -13,10 +13,12 @@ protocol NavigationContext: Context, SinglePageContext, ForwardBackNavigationCon
 /// A class that presents view controllers, and manages the navigation between them.
 ///
 /// At the moment, this is achieved with a UINavigationController that can be pushed / popped to / from.
-class NavigationUI<Token>: NavigationContext {
+class NavigationUI<Token>: SinglePageUIContext, NavigationContext {
     private let navigationController = UINavigationController()
     private let registry: ViewControllerRegistry<Token>
     private let factory: MadogUIContextFactory
+
+    weak var delegate: MadogUIContextDelegate?
 
     init(registry: ViewControllerRegistry<Token>, factory: MadogUIContextFactory) {
         self.registry = registry
@@ -30,29 +32,19 @@ class NavigationUI<Token>: NavigationContext {
     }
 
     func change<T>(to uiIdentifier: SinglePageUIIdentifier, with token: T) -> Bool {
-        if uiIdentifier == .navigationControllerIdentifier {
-            return renderInitialView(with: token)
-        }
-
-        guard let window = viewController.view.window,
-            let context = factory.createSinglePageUI(uiIdentifier) as? Context & SinglePageContext,
-            context.renderInitialView(with: token) == true else {
-                return false
-        }
-
-        window.rootViewController = context.viewController
-        return true
-    }
-
-    func change<T>(to uiIdentifier: MultiPageUIIdentifier, with tokens: [T]) -> Bool {
-        guard let window = viewController.view.window,
-            let context = factory.createMultiPageUI(uiIdentifier) as? Context & MultiPageContext,
-            context.renderInitialViews(with: tokens) == true else {
+        guard let delegate = delegate, let window = viewController.view.window else {
             return false
         }
 
-        window.rootViewController = context.viewController
-        return true
+        return delegate.renderSinglePageUI(uiIdentifier, with: token, in: window)
+    }
+
+    func change<T>(to uiIdentifier: MultiPageUIIdentifier, with tokens: [T]) -> Bool {
+        guard let delegate = delegate, let window = viewController.view.window else {
+            return false
+        }
+
+        return delegate.renderMultiPageUI(uiIdentifier, with: tokens, in: window)
     }
 
     public func openModal<T>(with token: T, from fromViewController: UIViewController, animated: Bool) -> NavigationToken? {

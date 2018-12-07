@@ -8,10 +8,12 @@
 
 import UIKit
 
-public final class Madog<Token> {
+public final class Madog<Token>: MadogUIContextDelegate {
     private let registry: ViewControllerRegistry<Token>
     private let factory: MadogUIContextFactory
     private let pageRegistrar = PageRegistrar<Token>()
+
+    private var currentContextUI: MadogUIContext?
 
     public init(resolver: PageResolver & StateResolver) {
         registry = ViewControllerRegistry<Token>()
@@ -24,23 +26,29 @@ public final class Madog<Token> {
         pageRegistrar.unregisterPages(from: self.registry)
     }
 
-    public func renderSinglePageUI(_ uiIdentifier: SinglePageUIIdentifier, with token: Token, in window: UIWindow) -> Bool {
-        guard let context = factory.createSinglePageUI(uiIdentifier) as? Context & SinglePageContext,
-            context.renderInitialView(with: token) == true else {
-            return false
+    // MARK: - MadogUIContextDelegate
+
+    public func renderSinglePageUI<T>(_ uiIdentifier: SinglePageUIIdentifier, with token: T, in window: UIWindow) -> Bool {
+        guard var contextUI = factory.createSinglePageUI(uiIdentifier),
+            contextUI.renderInitialView(with: token) == true else {
+                return false
         }
 
-        window.rootViewController = context.viewController
+        contextUI.delegate = self
+        currentContextUI = contextUI
+        window.rootViewController = contextUI.viewController
         return true
     }
 
-    public func renderMultiPageUI(_ uiIdentifier: MultiPageUIIdentifier, with tokens: [Token], in window: UIWindow) -> Bool {
-        guard let context = factory.createMultiPageUI(uiIdentifier) as? Context & MultiPageContext,
-            context.renderInitialViews(with: tokens) == true else {
-            return false
+    public func renderMultiPageUI<T>(_ uiIdentifier: MultiPageUIIdentifier, with tokens: [T], in window: UIWindow) -> Bool {
+        guard var contextUI = factory.createMultiPageUI(uiIdentifier),
+            contextUI.renderInitialViews(with: tokens) == true else {
+                return false
         }
 
-        window.rootViewController = context.viewController
+        contextUI.delegate = self
+        currentContextUI = contextUI
+        window.rootViewController = contextUI.viewController
         return true
     }
 }

@@ -11,6 +11,6 @@ import Foundation
 /// A protocol that describes a page that wants to provide a VC (or a number of VCs) for a given token by registering
 /// with a ViewControllerRegistry.
 public protocol Page {
-    func register<Token>(with registry: ViewControllerRegistry<Token>)
-    func unregister<Token>(from registry: ViewControllerRegistry<Token>)
+    func register(with registry: ViewControllerRegistry)
+    func unregister(from registry: ViewControllerRegistry)
 }

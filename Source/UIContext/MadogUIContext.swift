@@ -9,8 +9,8 @@
 import UIKit
 
 protocol MadogUIContextDelegate: class {
-    func renderSinglePageUI<Token>(_ uiIdentifier: SinglePageUIIdentifier, with token: Token, in window: UIWindow) -> Bool
-    func renderMultiPageUI<Token>(_ uiIdentifier: MultiPageUIIdentifier, with tokens: [Token], in window: UIWindow) -> Bool
+    func renderSinglePageUI(_ uiIdentifier: SinglePageUIIdentifier, with token: Any, in window: UIWindow) -> Bool
+    func renderMultiPageUI(_ uiIdentifier: MultiPageUIIdentifier, with tokens: [Any], in window: UIWindow) -> Bool
 }
 
 protocol MadogUIContext {

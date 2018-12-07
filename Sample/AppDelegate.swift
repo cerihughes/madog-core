@@ -12,7 +12,7 @@ import UIKit
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     let window = UIWindow()
-    let madog = Madog<ResourceLocator>(resolver: RuntimeResolver())
+    let madog = Madog(resolver: RuntimeResolver())
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         window.makeKeyAndVisible()

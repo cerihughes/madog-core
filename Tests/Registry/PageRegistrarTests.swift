@@ -5,18 +5,18 @@ import XCTest
 class PageRegistrarTests: XCTestCase {
 
     // MARK: CUT
-    private var pageRegistrar: PageRegistrar<String>!
+    private var pageRegistrar: PageRegistrar!
 
     // MARK: Test Data
     private var resolver: TestResolver!
-    private var registry: ViewControllerRegistry<String>!
+    private var registry: ViewControllerRegistry!
 
     override func setUp() {
         super.setUp()
         let testPageFactories: [PageFactory.Type] = [TestPageFactory.self, TestStatefulPageFactory.self, TestPageAndStateFactory.self]
         let testStateFactories: [StateFactory.Type] = [TestStateFactory.self, TestPageAndStateFactory.self]
         resolver = TestResolver(testPageFactories: testPageFactories, testStateFactories: testStateFactories)
-        registry = ViewControllerRegistry<String>()
+        registry = ViewControllerRegistry()
         pageRegistrar = PageRegistrar()
     }
 

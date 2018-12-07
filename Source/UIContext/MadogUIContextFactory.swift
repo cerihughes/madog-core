@@ -16,16 +16,16 @@ protocol MadogUIContextFactory {
     func createMultiPageUI(_ uiIdentifier: MultiPageUIIdentifier) -> MultiPageUIContext?
 }
 
-class MadogUIContextFactoryImplementation<Token>: MadogUIContextFactory {
-    private let registry: ViewControllerRegistry<Token>
+class MadogUIContextFactoryImplementation: MadogUIContextFactory {
+    private let registry: ViewControllerRegistry
 
-    init(registry: ViewControllerRegistry<Token>) {
+    init(registry: ViewControllerRegistry) {
         self.registry = registry
     }
 
     func createSinglePageUI(_ uiIdentifier: SinglePageUIIdentifier) -> SinglePageUIContext? {
         if uiIdentifier == .navigationControllerIdentifier {
-            return NavigationUI<Token>(registry: registry, factory: self)
+            return NavigationUI(registry: registry, factory: self)
         }
 
         return nil
@@ -33,7 +33,7 @@ class MadogUIContextFactoryImplementation<Token>: MadogUIContextFactory {
 
     func createMultiPageUI(_ uiIdentifier: MultiPageUIIdentifier) -> MultiPageUIContext? {
         if uiIdentifier == .tabBarControllerIdentifier {
-            return TabBarNavigationUI<Token>(registry: registry, factory: self)
+            return TabBarNavigationUI(registry: registry, factory: self)
         }
 
         return nil

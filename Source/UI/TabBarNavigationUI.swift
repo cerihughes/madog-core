@@ -25,10 +25,6 @@ internal class TabBarNavigationUI: MadogUIContext, TabBarNavigationContext {
         self.factory = factory
     }
 
-    deinit {
-        print("TabBarNavigationUI deinit")
-    }
-
     // MARK: - Context
 
     internal var viewController: UIViewController {

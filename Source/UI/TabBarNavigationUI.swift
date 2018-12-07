@@ -11,7 +11,7 @@ import UIKit
 /// A class that presents view controllers in a tab bar, and manages the navigation between them.
 ///
 /// At the moment, this is achieved with a UINavigationController that can be pushed / popped to / from.
-class TabBarNavigationUI<Token>: TabBarNavigationContext {
+class TabBarNavigationUI<Token>: MultiPageContextUI, TabBarNavigationContext {
     private let tabBarController = UITabBarController()
     private let registry: ViewControllerRegistry<Token>
     private let factory: Factory
@@ -27,30 +27,20 @@ class TabBarNavigationUI<Token>: TabBarNavigationContext {
         return tabBarController
     }
 
-    func change<T>(to ui: SinglePageUI, with token: T) -> Bool {
-        guard let window = viewController.view.window,
-            let context = factory.createSinglePageUI(ui),
-            context.renderInitialView(with: token) == true else {
+    func change<Token>(to uiIdentifier: SinglePageUIIdentifier, with token: Token) -> Bool {
+        guard let delegate = delegate, let window = viewController.view.window else {
             return false
         }
 
-        window.rootViewController = context.viewController
-        return true
+        return delegate.renderSinglePageUI(uiIdentifier, with: token, in: window)
     }
 
-    func change<T>(to ui: MultiPageUI, with tokens: [T]) -> Bool {
-        if ui == .tabBarController {
-            return renderInitialViews(with: tokens)
+    func change<Token>(to uiIdentifier: MultiPageUIIdentifier, with tokens: [Token]) -> Bool {
+        guard let delegate = delegate, let window = viewController.view.window else {
+            return false
         }
 
-        guard let window = viewController.view.window,
-            let context = factory.createMultiPageUI(ui),
-            context.renderInitialViews(with: tokens) == true else {
-                return false
-        }
-
-        window.rootViewController = context.viewController
-        return true
+        return delegate.renderMultiPageUI(uiIdentifier, with: tokens, in: window)
     }
 
     func openModal<T>(with token: T, from fromViewController: UIViewController, animated: Bool) -> NavigationToken? {
@@ -59,7 +49,7 @@ class TabBarNavigationUI<Token>: TabBarNavigationContext {
 
     // MARK: - MultiPageContext
 
-    func renderInitialViews<T>(with tokens: [T]) -> Bool {
+    override func renderInitialViews<T>(with tokens: [T]) -> Bool {
         let viewControllers = tokens.compactMap { $0 as? Token }
             .compactMap { registry.createViewController(from: $0, context: self) }
             .map { UINavigationController(rootViewController: $0) }
@@ -71,41 +61,21 @@ class TabBarNavigationUI<Token>: TabBarNavigationContext {
     // MARK: - ForwardBackNavigationContext
 
     func navigateForward<T>(with token: T, animated: Bool) -> NavigationToken? {
-        guard let navigationController = tabBarController.selectedViewController as? UINavigationController,
-            let viewController = navigationController.topViewController else {
-            return nil
-        }
-
-        return navigateForward(with: token, from: viewController, animated: animated)
-    }
-
-    func navigateBack(animated: Bool) -> Bool {
-        guard let navigationController = tabBarController.selectedViewController as? UINavigationController,
-            let viewController = navigationController.topViewController else {
-                return false
-        }
-
-        return navigateBack(from: viewController, animated: animated)
-    }
-
-    // MARK: - TabBarNavigationContext
-
-    func navigateForward<T>(with token: T, from fromViewController: UIViewController, animated: Bool) -> NavigationToken? {
         guard let token = token as? Token,
             let toViewController = registry.createViewController(from: token, context: self),
-            let navigationController = fromViewController.navigationController else {
+            let navigationController = tabBarController.selectedViewController as? UINavigationController else {
                 return nil
         }
 
         navigationController.pushViewController(toViewController, animated: animated)
         return NavigationTokenImplementation(viewController: toViewController)
-
     }
 
-    func navigateBack(from fromViewController: UIViewController, animated: Bool) -> Bool {
-        guard let navigationController = fromViewController.navigationController else {
+    func navigateBack(animated: Bool) -> Bool {
+        guard let navigationController = tabBarController.selectedViewController as? UINavigationController else {
             return false
         }
+
         return navigationController.popViewController(animated: animated) != nil
     }
 }

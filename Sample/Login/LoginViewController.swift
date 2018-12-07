@@ -11,13 +11,13 @@ import UIKit
 
 class LoginViewController: UIViewController {
     var authenticator: Authenticator!
-    var navigationContext: ForwardBackNavigationContext!
+    var navigationContext: (Context & ForwardBackNavigationContext)!
 
     @IBOutlet private var usernameField: UITextField!
     @IBOutlet private var passwordField: UITextField!
     @IBOutlet private var activityIndicator: UIActivityIndicatorView!
 
-    static func createLoginViewController(authenticator: Authenticator, navigationContext: ForwardBackNavigationContext) -> LoginViewController? {
+    static func createLoginViewController(authenticator: Authenticator, navigationContext: Context & ForwardBackNavigationContext) -> LoginViewController? {
         let storyboard = UIStoryboard(name: "LoginViewController", bundle: Bundle(for: LoginViewController.self))
         guard let loginViewController = storyboard.instantiateInitialViewController() as? LoginViewController else {
             return nil
@@ -39,7 +39,7 @@ class LoginViewController: UIViewController {
 
                 let tab1 = ResourceLocator.createPage1ResourceLocator()
                 let tab2 = ResourceLocator.createLogoutPageResourceLocator()
-                _ = self.navigationContext.change(to: .tabBarController, with: [tab1, tab2])
+                _ = self.navigationContext.change(to: .tabBarControllerIdentifier, with: [tab1, tab2])
             })
         }
     }

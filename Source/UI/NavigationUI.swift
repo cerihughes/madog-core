@@ -11,7 +11,7 @@ import UIKit
 /// A class that presents view controllers, and manages the navigation between them.
 ///
 /// At the moment, this is achieved with a UINavigationController that can be pushed / popped to / from.
-class NavigationUI<Token>: NavigationContext {
+class NavigationUI<Token>: SinglePageContextUI, NavigationContext {
     private let navigationController = UINavigationController()
     private let registry: ViewControllerRegistry<Token>
     private let factory: Factory
@@ -27,30 +27,20 @@ class NavigationUI<Token>: NavigationContext {
         return navigationController
     }
 
-    func change<T>(to ui: SinglePageUI, with token: T) -> Bool {
-        if ui == .navigationController {
-            return renderInitialView(with: token)
-        }
-
-        guard let window = viewController.view.window,
-            let context = factory.createSinglePageUI(ui),
-            context.renderInitialView(with: token) == true else {
-                return false
-        }
-
-        window.rootViewController = context.viewController
-        return true
-    }
-
-    func change<T>(to ui: MultiPageUI, with tokens: [T]) -> Bool {
-        guard let window = viewController.view.window,
-            let context = factory.createMultiPageUI(ui),
-            context.renderInitialViews(with: tokens) == true else {
+    func change<T>(to uiIdentifier: SinglePageUIIdentifier, with token: T) -> Bool {
+        guard let delegate = delegate, let window = viewController.view.window else {
             return false
         }
 
-        window.rootViewController = context.viewController
-        return true
+        return delegate.renderSinglePageUI(uiIdentifier, with: token, in: window)
+    }
+
+    func change<T>(to uiIdentifier: MultiPageUIIdentifier, with tokens: [T]) -> Bool {
+        guard let delegate = delegate, let window = viewController.view.window else {
+            return false
+        }
+
+        return delegate.renderMultiPageUI(uiIdentifier, with: tokens, in: window)
     }
 
     public func openModal<T>(with token: T, from fromViewController: UIViewController, animated: Bool) -> NavigationToken? {
@@ -59,7 +49,7 @@ class NavigationUI<Token>: NavigationContext {
 
     // MARK: - SinglePageContext
 
-    func renderInitialView<T>(with token: T) -> Bool {
+    override func renderInitialView<T>(with token: T) -> Bool {
         guard let token = token as? Token, let viewController = registry.createViewController(from: token, context: self) else {
             return false
         }

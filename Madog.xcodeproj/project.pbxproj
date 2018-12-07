@@ -49,6 +49,8 @@
 		65A2512021A842C80035FA0F /* ResourceLocator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A2511F21A842C80035FA0F /* ResourceLocator.swift */; };
 		65A2512221A843BC0035FA0F /* LabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A2512121A843BC0035FA0F /* LabelView.swift */; };
 		65BEBC8D21A8850800397E39 /* PageRegistrar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BEBC8C21A8850800397E39 /* PageRegistrar.swift */; };
+		65D9974D21BA95C900FD4599 /* ContextUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D9974C21BA95C900FD4599 /* ContextUI.swift */; };
+		65EBE71521B41472002A2DF5 /* WeakContextFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65EBE71421B41472002A2DF5 /* WeakContextFactory.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -124,6 +126,8 @@
 		65A2511F21A842C80035FA0F /* ResourceLocator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResourceLocator.swift; sourceTree = "<group>"; };
 		65A2512121A843BC0035FA0F /* LabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelView.swift; sourceTree = "<group>"; };
 		65BEBC8C21A8850800397E39 /* PageRegistrar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageRegistrar.swift; sourceTree = "<group>"; };
+		65D9974C21BA95C900FD4599 /* ContextUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContextUI.swift; sourceTree = "<group>"; };
+		65EBE71421B41472002A2DF5 /* WeakContextFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeakContextFactory.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -316,6 +320,7 @@
 				6560D49F21B3F20A00EA9BE3 /* PageIdentifiers.swift */,
 				6560D4A121B3F24600EA9BE3 /* Factory.swift */,
 				65BEBC8C21A8850800397E39 /* PageRegistrar.swift */,
+				65D9974C21BA95C900FD4599 /* ContextUI.swift */,
 				65A250CE21A81FBF0035FA0F /* NavigationUI.swift */,
 				65A250E221A822990035FA0F /* TabBarNavigationUI.swift */,
 			);
@@ -326,6 +331,7 @@
 			isa = PBXGroup;
 			children = (
 				65A250E621A82C6D0035FA0F /* ViewControllerRegistry.swift */,
+				65EBE71421B41472002A2DF5 /* WeakContextFactory.swift */,
 			);
 			path = Registry;
 			sourceTree = "<group>";
@@ -559,6 +565,8 @@
 				6560D4A021B3F20A00EA9BE3 /* PageIdentifiers.swift in Sources */,
 				65A250E021A8218B0035FA0F /* PageFactory.swift in Sources */,
 				65A250D221A81FBF0035FA0F /* RuntimeResolver.swift in Sources */,
+				65D9974D21BA95C900FD4599 /* ContextUI.swift in Sources */,
+				65EBE71521B41472002A2DF5 /* WeakContextFactory.swift in Sources */,
 				65A250E721A82C6D0035FA0F /* ViewControllerRegistry.swift in Sources */,
 				655A469D21A9B18400CEC47F /* State.swift in Sources */,
 				655A46A921A9B2FA00CEC47F /* StateResolver.swift in Sources */,

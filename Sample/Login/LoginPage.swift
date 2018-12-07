@@ -47,7 +47,7 @@ class LoginPage: PageFactory, StatefulPage {
         guard let rl = token as? ResourceLocator,
             rl.identifier == loginPageIdentifier,
             let authenticator = authenticatorState?.authenticator,
-            let navigationContext = context as? ForwardBackNavigationContext else {
+            let navigationContext = context as? Context & ForwardBackNavigationContext else {
                 return nil
         }
 

@@ -13,7 +13,7 @@ internal protocol NavigationContext: class, Context, SinglePageContext, ForwardB
 /// A class that presents view controllers, and manages the navigation between them.
 ///
 /// At the moment, this is achieved with a UINavigationController that can be pushed / popped to / from.
-internal class NavigationUI: SinglePageUIContext, NavigationContext {
+internal class NavigationUI: MadogUIContext, NavigationContext {
     private let navigationController = UINavigationController()
     private let registry: ViewControllerRegistry
     private let factory: MadogUIContextFactory

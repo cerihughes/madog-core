@@ -9,5 +9,5 @@
 import Foundation
 
 public protocol StateResolver {
-    func stateFactories() -> [StateFactory.Type]
+    func stateFactoryTypes() -> [StateFactory.Type]
 }

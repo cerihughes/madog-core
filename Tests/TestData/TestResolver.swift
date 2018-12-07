@@ -2,19 +2,19 @@ import Foundation
 import Madog
 
 class TestResolver: PageResolver, StateResolver {
-    private let testPageFactories: [PageFactory.Type]
-    private let testStateFactories: [StateFactory.Type]
+    private let testPageFactoryTypes: [PageFactory.Type]
+    private let testStateFactoryTypes: [StateFactory.Type]
 
-    init(testPageFactories: [PageFactory.Type], testStateFactories: [StateFactory.Type]) {
-        self.testPageFactories = testPageFactories
-        self.testStateFactories = testStateFactories
+    init(testPageFactoryTypes: [PageFactory.Type], testStateFactoryTypes: [StateFactory.Type]) {
+        self.testPageFactoryTypes = testPageFactoryTypes
+        self.testStateFactoryTypes = testStateFactoryTypes
     }
 
-    func pageFactories() -> [PageFactory.Type] {
-        return testPageFactories
+    func pageFactoryTypes() -> [PageFactory.Type] {
+        return testPageFactoryTypes
     }
 
-    func stateFactories() -> [StateFactory.Type] {
-        return testStateFactories
+    func stateFactoryTypes() -> [StateFactory.Type] {
+        return testStateFactoryTypes
     }
 }

@@ -20,11 +20,11 @@ class RuntimeResolverTests: XCTestCase {
 
     func testNumberOfPageFactories() {
         // Only classes are considered at the moment
-        XCTAssertEqual(resolver.pageFactories().count, 3)
+        XCTAssertEqual(resolver.pageFactoryTypes().count, 3)
     }
 
     func testNumberOfStateFactories() {
         // Only classes are considered at the moment
-        XCTAssertEqual(resolver.stateFactories().count, 2)
+        XCTAssertEqual(resolver.stateFactoryTypes().count, 2)
     }
 }

@@ -28,13 +28,13 @@ public final class RuntimeResolver: PageResolver, StateResolver {
 
     // MARK: PageResolver
 
-    public func pageFactories() -> [PageFactory.Type] {
+    public func pageFactoryTypes() -> [PageFactory.Type] {
         return loadedPageFactories
     }
 
     // MARK: StateResolver
 
-    public func stateFactories() -> [StateFactory.Type] {
+    public func stateFactoryTypes() -> [StateFactory.Type] {
         return loadedStateFactories
     }
 

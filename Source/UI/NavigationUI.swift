@@ -13,12 +13,12 @@ internal protocol NavigationContext: class, Context, ForwardBackNavigationContex
 /// A class that presents view controllers, and manages the navigation between them.
 ///
 /// At the moment, this is achieved with a UINavigationController that can be pushed / popped to / from.
-internal class NavigationUI: MadogSinglePageUIContext, NavigationContext {
+internal class NavigationUI<Token>: MadogSinglePageUIContext<Token>, NavigationContext {
     private let navigationController = UINavigationController()
     private let registry: ViewControllerRegistry
-    private let factory: MadogUIContextFactory
+    private let factory: MadogUIContextFactory<Token>
 
-    internal init(registry: ViewControllerRegistry, factory: MadogUIContextFactory) {
+    internal init(registry: ViewControllerRegistry, factory: MadogUIContextFactory<Token>) {
         self.registry = registry
         self.factory = factory
         super.init(viewController: navigationController)
@@ -26,7 +26,7 @@ internal class NavigationUI: MadogSinglePageUIContext, NavigationContext {
 
     // MARK: - MadogSinglePageUIContext
 
-    override internal func renderInitialView(with token: Any) -> Bool {
+    override internal func renderInitialView(with token: Token) -> Bool {
         guard let viewController = registry.createViewController(from: token, context: self) else {
             return false
         }

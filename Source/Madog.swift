@@ -8,16 +8,16 @@
 
 import UIKit
 
-public final class Madog: MadogUIContextDelegate {
+public final class Madog<Token>: MadogUIContextDelegate {
     private let registry: ViewControllerRegistry
-    private let factory: MadogUIContextFactory
+    private let factory: MadogUIContextFactory<Token>
     private let pageRegistrar: PageRegistrar
 
     private var currentContextUI: MadogUIContext?
 
     public init(resolver: Resolver) {
         registry = ViewControllerRegistry()
-        factory = MadogUIContextFactoryImplementation(registry: registry)
+        factory = MadogUIContextFactory<Token>(registry: registry)
         pageRegistrar = PageRegistrar(resolver: resolver)
         pageRegistrar.loadState()
         pageRegistrar.registerPages(with: registry)
@@ -30,7 +30,8 @@ public final class Madog: MadogUIContextDelegate {
     // MARK: - MadogUIContextDelegate
 
     public func renderSinglePageUI<VC: UIViewController>(_ uiIdentifier: SinglePageUIIdentifier<VC>, with token: Any, in window: UIWindow) -> Bool {
-        guard let contextUI = factory.createSinglePageUI(uiIdentifier),
+        guard let token = token as? Token,
+            let contextUI = factory.createSinglePageUI(uiIdentifier),
             contextUI.renderInitialView(with: token) == true else {
                 return false
         }
@@ -48,7 +49,8 @@ public final class Madog: MadogUIContextDelegate {
     }
 
     public func renderMultiPageUI<VC: UIViewController>(_ uiIdentifier: MultiPageUIIdentifier<VC>, with tokens: [Any], in window: UIWindow) -> Bool {
-        guard let contextUI = factory.createMultiPageUI(uiIdentifier),
+        guard let tokens = tokens as? [Token],
+            let contextUI = factory.createMultiPageUI(uiIdentifier),
             contextUI.renderInitialViews(with: tokens) == true else {
                 return false
         }

@@ -22,14 +22,14 @@ internal class MadogUIContext {
     }
 }
 
-internal class MadogSinglePageUIContext: MadogUIContext {
-    internal func renderInitialView(with token: Any) -> Bool {
+internal class MadogSinglePageUIContext<Token>: MadogUIContext {
+    internal func renderInitialView(with token: Token) -> Bool {
         return false
     }
 }
 
-internal class MadogMultiPageUIContext: MadogUIContext {
-    internal func renderInitialViews(with tokens: [Any]) -> Bool {
+internal class MadogMultiPageUIContext<Token>: MadogUIContext {
+    internal func renderInitialViews(with tokens: [Token]) -> Bool {
         return false
     }
 }

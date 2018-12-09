@@ -13,12 +13,12 @@ internal protocol TabBarNavigationContext: class, Context, ForwardBackNavigation
 /// A class that presents view controllers in a tab bar, and manages the navigation between them.
 ///
 /// At the moment, this is achieved with a UINavigationController that can be pushed / popped to / from.
-internal class TabBarNavigationUI: MadogMultiPageUIContext, TabBarNavigationContext {
+internal class TabBarNavigationUI<Token>: MadogMultiPageUIContext<Token>, TabBarNavigationContext {
     private let tabBarController = UITabBarController()
     private let registry: ViewControllerRegistry
-    private let factory: MadogUIContextFactory
+    private let factory: MadogUIContextFactory<Token>
 
-    internal init(registry: ViewControllerRegistry, factory: MadogUIContextFactory) {
+    internal init(registry: ViewControllerRegistry, factory: MadogUIContextFactory<Token>) {
         self.registry = registry
         self.factory = factory
         super.init(viewController: tabBarController)
@@ -26,7 +26,7 @@ internal class TabBarNavigationUI: MadogMultiPageUIContext, TabBarNavigationCont
 
     // MARK: - MadogMultiPageUIContext
 
-    override internal func renderInitialViews(with tokens: [Any]) -> Bool {
+    override internal func renderInitialViews(with tokens: [Token]) -> Bool {
         let viewControllers = tokens.compactMap { registry.createViewController(from: $0, context: self) }
             .map { UINavigationController(rootViewController: $0) }
 

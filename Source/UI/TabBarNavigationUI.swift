@@ -8,7 +8,7 @@
 
 import UIKit
 
-internal protocol TabBarNavigationContext: class, Context, ForwardBackNavigationContext {}
+internal protocol TabBarNavigationContext: class, Context, ModalContext, ForwardBackNavigationContext {}
 
 /// A class that presents view controllers in a tab bar, and manages the navigation between them.
 ///

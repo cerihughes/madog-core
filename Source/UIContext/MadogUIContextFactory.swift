@@ -8,29 +8,24 @@
 
 import UIKit
 
-internal protocol MadogUIContextFactory {
-    func createSinglePageUI<VC: UIViewController>(_ uiIdentifier: SinglePageUIIdentifier<VC>) -> MadogSinglePageUIContext?
-    func createMultiPageUI<VC: UIViewController>(_ uiIdentifier: MultiPageUIIdentifier<VC>) -> MadogMultiPageUIContext?
-}
-
-internal class MadogUIContextFactoryImplementation: MadogUIContextFactory {
+internal class MadogUIContextFactory<Token> {
     private let registry: ViewControllerRegistry
 
     internal init(registry: ViewControllerRegistry) {
         self.registry = registry
     }
 
-    internal func createSinglePageUI<VC: UIViewController>(_ uiIdentifier: SinglePageUIIdentifier<VC>) -> MadogSinglePageUIContext? {
+    internal func createSinglePageUI<VC: UIViewController>(_ uiIdentifier: SinglePageUIIdentifier<VC>) -> MadogSinglePageUIContext<Token>? {
         if uiIdentifier.value == navigationControllerIdentifier {
-            return NavigationUI(registry: registry, factory: self)
+            return NavigationUI<Token>(registry: registry, factory: self)
         }
 
         return nil
     }
 
-    internal func createMultiPageUI<VC: UIViewController>(_ uiIdentifier: MultiPageUIIdentifier<VC>) -> MadogMultiPageUIContext? {
+    internal func createMultiPageUI<VC: UIViewController>(_ uiIdentifier: MultiPageUIIdentifier<VC>) -> MadogMultiPageUIContext<Token>? {
         if uiIdentifier.value == tabBarControllerIdentifier {
-            return TabBarNavigationUI(registry: registry, factory: self)
+            return TabBarNavigationUI<Token>(registry: registry, factory: self)
         }
 
         return nil

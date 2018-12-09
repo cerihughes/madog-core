@@ -13,4 +13,5 @@ import Foundation
 public protocol Page {
     func register(with registry: ViewControllerRegistry)
     func unregister(from registry: ViewControllerRegistry)
+    func configure(with state: [String:State])
 }

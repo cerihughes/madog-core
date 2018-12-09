@@ -3,16 +3,13 @@ import Madog
 
 class TestPage: Page {
     var registered = false, unregistered = false
+    var capturedState: [String:State]? = nil
     func register(with registry: ViewControllerRegistry) {
         registered = true
     }
     func unregister(from registry: ViewControllerRegistry) {
         unregistered = true
     }
-}
-
-class TestStatefulPage: TestPage, StatefulPage {
-    var capturedState: [String:State]? = nil
     func configure(with state: [String:State]) {
         capturedState = state
     }
@@ -27,14 +24,6 @@ class TestPageFactory: PageFactory {
     static func createPage() -> Page {
         created = true
         return TestPage()
-    }
-}
-
-class TestStatefulPageFactory: PageFactory {
-    static var created = false
-    static func createPage() -> Page {
-        created = true
-        return TestStatefulPage()
     }
 }
 

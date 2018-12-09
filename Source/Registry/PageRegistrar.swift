@@ -27,9 +27,7 @@ internal class PageRegistrar {
         for pageFactoryType in pageFactoryTypes {
             let page = pageFactoryType.createPage()
             page.register(with: registry)
-            if let statefulPage = page as? StatefulPage {
-                statefulPage.configure(with: states)
-            }
+            page.configure(with: states)
             pages.append(page)
         }
     }

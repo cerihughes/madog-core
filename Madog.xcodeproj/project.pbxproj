@@ -18,7 +18,6 @@
 		6518E79221A9FCAA0036F553 /* PageRegistrarTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6518E79121A9FCAA0036F553 /* PageRegistrarTests.swift */; };
 		6527EC4621BAC5210032B70D /* MadogUIContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6527EC4521BAC5210032B70D /* MadogUIContext.swift */; };
 		655A469D21A9B18400CEC47F /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655A469C21A9B18400CEC47F /* State.swift */; };
-		655A469F21A9B18F00CEC47F /* StateFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655A469E21A9B18F00CEC47F /* StateFactory.swift */; };
 		655A46AA21A9B7E800CEC47F /* State1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655A46A421A9B23E00CEC47F /* State1.swift */; };
 		655A46AC21A9B99F00CEC47F /* AuthenicatorState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655A46A621A9B29C00CEC47F /* AuthenicatorState.swift */; };
 		6560D4A021B3F20A00EA9BE3 /* PageUIIdentifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6560D49F21B3F20A00EA9BE3 /* PageUIIdentifiers.swift */; };
@@ -32,7 +31,6 @@
 		65A250D521A81FBF0035FA0F /* NavigationUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A250CE21A81FBF0035FA0F /* NavigationUI.swift */; };
 		65A250D621A81FBF0035FA0F /* Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A250CF21A81FBF0035FA0F /* Page.swift */; };
 		65A250DE21A8212F0035FA0F /* NavigationContexts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A250DD21A8212F0035FA0F /* NavigationContexts.swift */; };
-		65A250E021A8218B0035FA0F /* PageFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A250DF21A8218B0035FA0F /* PageFactory.swift */; };
 		65A250E321A822990035FA0F /* TabBarNavigationUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A250E221A822990035FA0F /* TabBarNavigationUI.swift */; };
 		65A250E521A822DF0035FA0F /* NavigationToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A250E421A822DF0035FA0F /* NavigationToken.swift */; };
 		65A250E721A82C6D0035FA0F /* ViewControllerRegistry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A250E621A82C6D0035FA0F /* ViewControllerRegistry.swift */; };
@@ -87,7 +85,6 @@
 		6518E79121A9FCAA0036F553 /* PageRegistrarTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageRegistrarTests.swift; sourceTree = "<group>"; };
 		6527EC4521BAC5210032B70D /* MadogUIContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MadogUIContext.swift; sourceTree = "<group>"; };
 		655A469C21A9B18400CEC47F /* State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = State.swift; sourceTree = "<group>"; };
-		655A469E21A9B18F00CEC47F /* StateFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateFactory.swift; sourceTree = "<group>"; };
 		655A46A421A9B23E00CEC47F /* State1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = State1.swift; sourceTree = "<group>"; };
 		655A46A621A9B29C00CEC47F /* AuthenicatorState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenicatorState.swift; sourceTree = "<group>"; };
 		6560D49F21B3F20A00EA9BE3 /* PageUIIdentifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageUIIdentifiers.swift; sourceTree = "<group>"; };
@@ -104,7 +101,6 @@
 		65A250CE21A81FBF0035FA0F /* NavigationUI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationUI.swift; sourceTree = "<group>"; };
 		65A250CF21A81FBF0035FA0F /* Page.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Page.swift; sourceTree = "<group>"; };
 		65A250DD21A8212F0035FA0F /* NavigationContexts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationContexts.swift; sourceTree = "<group>"; };
-		65A250DF21A8218B0035FA0F /* PageFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageFactory.swift; sourceTree = "<group>"; };
 		65A250E221A822990035FA0F /* TabBarNavigationUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarNavigationUI.swift; sourceTree = "<group>"; };
 		65A250E421A822DF0035FA0F /* NavigationToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationToken.swift; sourceTree = "<group>"; };
 		65A250E621A82C6D0035FA0F /* ViewControllerRegistry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerRegistry.swift; sourceTree = "<group>"; };
@@ -218,7 +214,6 @@
 			isa = PBXGroup;
 			children = (
 				655A469C21A9B18400CEC47F /* State.swift */,
-				655A469E21A9B18F00CEC47F /* StateFactory.swift */,
 			);
 			path = State;
 			sourceTree = "<group>";
@@ -293,7 +288,6 @@
 			isa = PBXGroup;
 			children = (
 				65A250CF21A81FBF0035FA0F /* Page.swift */,
-				65A250DF21A8218B0035FA0F /* PageFactory.swift */,
 			);
 			path = Page;
 			sourceTree = "<group>";
@@ -564,7 +558,6 @@
 			files = (
 				65BEBC8D21A8850800397E39 /* PageRegistrar.swift in Sources */,
 				6560D4A021B3F20A00EA9BE3 /* PageUIIdentifiers.swift in Sources */,
-				65A250E021A8218B0035FA0F /* PageFactory.swift in Sources */,
 				65A250D221A81FBF0035FA0F /* RuntimeResolver.swift in Sources */,
 				65EBE71521B41472002A2DF5 /* WeakContextFactory.swift in Sources */,
 				65A250E721A82C6D0035FA0F /* ViewControllerRegistry.swift in Sources */,
@@ -577,7 +570,6 @@
 				65A250D621A81FBF0035FA0F /* Page.swift in Sources */,
 				6560D4A421B3F2EB00EA9BE3 /* Madog.swift in Sources */,
 				65A250E321A822990035FA0F /* TabBarNavigationUI.swift in Sources */,
-				655A469F21A9B18F00CEC47F /* StateFactory.swift in Sources */,
 				65A250DE21A8212F0035FA0F /* NavigationContexts.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

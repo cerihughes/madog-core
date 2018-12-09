@@ -11,17 +11,14 @@ import Madog
 
 let state1Name = "state1Name"
 
-class State1: StateFactory, State {
+class State1: StateObject {
 
-    // MARK: StateFactory
+    // MARK: StateObject
 
-    static func createState() -> State {
-        return State1()
+    required init() {
+        super.init()
+        name = state1Name
     }
-
-    // MARK: State
-
-    let name = state1Name
 
     let somethingShared = "This is shared state"
 }

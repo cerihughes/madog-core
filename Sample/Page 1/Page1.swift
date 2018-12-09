@@ -11,7 +11,7 @@ import UIKit
 
 fileprivate let page1Identifier = "page1Identifier"
 
-class Page1: PageFactory, StatefulPage {
+class Page1: PageFactory, Page {
     private var state1: State1?
     private var uuid: UUID?
 
@@ -19,12 +19,6 @@ class Page1: PageFactory, StatefulPage {
 
     static func createPage() -> Page {
         return Page1()
-    }
-
-    // MARK: StatefulPage1
-
-    func configure(with state: [String : State]) {
-        state1 = state[state1Name] as? State1
     }
 
     // MARK: Page
@@ -41,6 +35,10 @@ class Page1: PageFactory, StatefulPage {
         registry.removeRegistryFunction(uuid: uuid)
     }
 
+    func configure(with state: [String : State]) {
+        state1 = state[state1Name] as? State1
+    }
+
     // MARK: Private
 
     private func createViewController(token: Any, context: Context) -> UIViewController? {
@@ -48,7 +46,7 @@ class Page1: PageFactory, StatefulPage {
             let rl = token as? ResourceLocator,
             rl.identifier == page1Identifier,
             let navigationContext = context as? ForwardBackNavigationContext else {
-            return nil
+                return nil
         }
 
         let viewController =  Page1ViewController(state1: state1, navigationContext: navigationContext)

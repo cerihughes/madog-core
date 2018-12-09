@@ -13,7 +13,7 @@ class PageRegistrarTests: XCTestCase {
 
     override func setUp() {
         super.setUp()
-        let testPageFactoryTypes: [PageFactory.Type] = [TestPageFactory.self, TestStatefulPageFactory.self, TestPageAndStateFactory.self]
+        let testPageFactoryTypes: [PageFactory.Type] = [TestPageFactory.self, TestPageAndStateFactory.self]
         let testStateFactoryTypes: [StateFactory.Type] = [TestStateFactory.self, TestPageAndStateFactory.self]
         resolver = TestResolver(testPageFactoryTypes: testPageFactoryTypes, testStateFactoryTypes: testStateFactoryTypes)
         registry = ViewControllerRegistry()
@@ -41,15 +41,13 @@ class PageRegistrarTests: XCTestCase {
 
     func testRegisterAndUnregisterPages() {
         TestPageFactory.created = false
-        TestStatefulPageFactory.created = false
         TestPageAndStateFactory.createdPage = false
 
         XCTAssertEqual(pageRegistrar.pages.count, 0)
         pageRegistrar.registerPages(with: registry, pageResolver: resolver)
-        XCTAssertEqual(pageRegistrar.pages.count, 3)
+        XCTAssertEqual(pageRegistrar.pages.count, 2)
 
         XCTAssertTrue(TestPageFactory.created)
-        XCTAssertTrue(TestStatefulPageFactory.created)
         XCTAssertTrue(TestPageAndStateFactory.createdPage)
 
         for page in pageRegistrar.pages {

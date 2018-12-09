@@ -11,7 +11,7 @@ import UIKit
 
 fileprivate let logoutPageIdentifier = "logoutPageIdentifier"
 
-class LogoutPage: PageFactory, StatefulPage {
+class LogoutPage: PageFactory, Page {
     private var authenticatorState: AuthenicatorState?
     private var uuid: UUID?
 
@@ -19,12 +19,6 @@ class LogoutPage: PageFactory, StatefulPage {
 
     static func createPage() -> Page {
         return LogoutPage()
-    }
-
-    // MARK: StatefulPage1
-
-    func configure(with state: [String : State]) {
-        authenticatorState = state[authenicatorStateName] as? AuthenicatorState
     }
 
     // MARK: Page
@@ -39,6 +33,10 @@ class LogoutPage: PageFactory, StatefulPage {
         }
 
         registry.removeRegistryFunction(uuid: uuid)
+    }
+
+    func configure(with state: [String : State]) {
+        authenticatorState = state[authenicatorStateName] as? AuthenicatorState
     }
 
     // MARK: Private

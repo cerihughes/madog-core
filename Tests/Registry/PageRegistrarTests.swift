@@ -13,9 +13,10 @@ class PageRegistrarTests: XCTestCase {
 
     override func setUp() {
         super.setUp()
-        let testPageFactoryTypes: [PageFactory.Type] = [TestPageFactory.self, TestPageAndStateFactory.self]
-        let testStateFactoryTypes: [StateFactory.Type] = [TestStateFactory.self, TestPageAndStateFactory.self]
-        resolver = TestResolver(testPageFactoryTypes: testPageFactoryTypes, testStateFactoryTypes: testStateFactoryTypes)
+        let testPageCreationFunctions: [PageCreationFunction] = [TestPageFactory.createPage]
+        let testStateCreationFunctions: [StateCreationFunction] = [TestStateFactory.createState]
+        resolver = TestResolver(testPageCreationFunctions: testPageCreationFunctions,
+                                testStateCreationFunctions: testStateCreationFunctions)
         registry = ViewControllerRegistry()
         pageRegistrar = PageRegistrar(resolver: resolver)
     }
@@ -27,7 +28,6 @@ class PageRegistrarTests: XCTestCase {
 
     func testLoadState() {
         TestStateFactory.created = false
-        TestPageAndStateFactory.createdState = false
 
         XCTAssertEqual(pageRegistrar.states.count, 0)
         pageRegistrar.loadState()
@@ -36,19 +36,16 @@ class PageRegistrarTests: XCTestCase {
         XCTAssertEqual(pageRegistrar.states.count, 1)
 
         XCTAssertTrue(TestStateFactory.created)
-        XCTAssertTrue(TestPageAndStateFactory.createdState)
     }
 
     func testRegisterAndUnregisterPages() {
         TestPageFactory.created = false
-        TestPageAndStateFactory.createdPage = false
 
         XCTAssertEqual(pageRegistrar.pages.count, 0)
         pageRegistrar.registerPages(with: registry)
-        XCTAssertEqual(pageRegistrar.pages.count, 2)
+        XCTAssertEqual(pageRegistrar.pages.count, 1)
 
         XCTAssertTrue(TestPageFactory.created)
-        XCTAssertTrue(TestPageAndStateFactory.createdPage)
 
         for page in pageRegistrar.pages {
             let testPage = page as! TestPage

@@ -11,23 +11,17 @@ import UIKit
 
 fileprivate let page2Identifier = "page2Identifier"
 
-class Page2: PageFactory, Page {
+class Page2: PageObject {
     private var state1: State1?
     private var uuid: UUID?
 
-    // MARK: PageFactory
+    // MARK: PageObject
 
-    static func createPage() -> Page {
-        return Page2()
-    }
-
-    // MARK: Page
-
-    func register(with registry: ViewControllerRegistry) {
+    override func register(with registry: ViewControllerRegistry) {
         uuid = registry.add(registryFunction: createViewController(token:context:))
     }
 
-    func unregister(from registry: ViewControllerRegistry) {
+    override func unregister(from registry: ViewControllerRegistry) {
         guard let uuid = uuid else {
             return
         }
@@ -35,7 +29,7 @@ class Page2: PageFactory, Page {
         registry.removeRegistryFunction(uuid: uuid)
     }
 
-    func configure(with state: [String : State]) {
+    override func configure(with state: [String : State]) {
         state1 = state[state1Name] as? State1
     }
 

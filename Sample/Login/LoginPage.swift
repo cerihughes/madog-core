@@ -11,23 +11,17 @@ import UIKit
 
 fileprivate let loginPageIdentifier = "loginPageIdentifier"
 
-class LoginPage: PageFactory, Page {
+class LoginPage: PageObject {
     private var authenticatorState: AuthenicatorState?
     private var uuid: UUID?
 
-    // MARK: PageFactory
+    // MARK: PageObject
 
-    static func createPage() -> Page {
-        return LoginPage()
-    }
-
-    // MARK: Page
-
-    func register(with registry: ViewControllerRegistry) {
+    override func register(with registry: ViewControllerRegistry) {
         uuid = registry.add(registryFunction: createViewController(token:context:))
     }
 
-    func unregister(from registry: ViewControllerRegistry) {
+    override func unregister(from registry: ViewControllerRegistry) {
         guard let uuid = uuid else {
             return
         }
@@ -35,7 +29,7 @@ class LoginPage: PageFactory, Page {
         registry.removeRegistryFunction(uuid: uuid)
     }
 
-    func configure(with state: [String : State]) {
+    override func configure(with state: [String : State]) {
         authenticatorState = state[authenicatorStateName] as? AuthenicatorState
     }
 

@@ -13,8 +13,8 @@ import Foundation
 public final class RuntimeResolver: Resolver {
     private let bundle: Bundle
 
-    private var loadedPageFactoryTypes = [PageFactory.Type]()
-    private var loadedStateFactoryTypes = [StateFactory.Type]()
+    private var loadedPageCreationFunctions = [PageCreationFunction]()
+    private var loadedStateCreationFunctions = [StateCreationFunction]()
 
     convenience public init() {
         self.init(bundle: Bundle.main)
@@ -28,12 +28,12 @@ public final class RuntimeResolver: Resolver {
 
     // MARK: Resolver
 
-    public func pageFactoryTypes() -> [PageFactory.Type] {
-        return loadedPageFactoryTypes
+    public func pageCreationFunctions() -> [PageCreationFunction] {
+        return loadedPageCreationFunctions
     }
 
-    public func stateFactoryTypes() -> [StateFactory.Type] {
-        return loadedStateFactoryTypes
+    public func stateCreationFunctions() -> [StateCreationFunction] {
+        return loadedStateCreationFunctions
     }
 
     // MARK: Private
@@ -46,20 +46,33 @@ public final class RuntimeResolver: Resolver {
                 for i in 0 ..< classCount {
                     let className = classNames[Int(i)]
                     let name = String.init(cString: className)
-                    if let cls = NSClassFromString(name) as? PageFactory.Type {
-                        loadedPageFactoryTypes.append(cls)
+                    if let cls = NSClassFromString(name) as? PageObject.Type {
+                        loadedPageCreationFunctions.append { return cls.init() }
                     }
-                    if let cls = NSClassFromString(name) as? StateFactory.Type {
-                        loadedStateFactoryTypes.append(cls)
+                    if let cls = NSClassFromString(name) as? StateObject.Type {
+                        loadedStateCreationFunctions.append { return cls.init() }
                     }
                 }
             }
 
             free(classNames);
 
-            // Sort factories alphabetically by class name
-            loadedPageFactoryTypes.sort { String(describing: $0) < String(describing: $1) }
-            loadedStateFactoryTypes.sort { String(describing: $0) < String(describing: $1) }
+            // Sort functions alphabetically by description
+            loadedPageCreationFunctions.sort { String(describing: $0) < String(describing: $1) }
+            loadedStateCreationFunctions.sort { String(describing: $0) < String(describing: $1) }
         }
     }
 }
+
+open class PageObject: Page {
+    public required init() {}
+    open func register(with registry: ViewControllerRegistry) {}
+    open func unregister(from registry: ViewControllerRegistry) {}
+    open func configure(with state: [String:State]) {}
+}
+
+open class StateObject: State {
+    public var name: String = "Default"
+    public required init() {}
+}
+

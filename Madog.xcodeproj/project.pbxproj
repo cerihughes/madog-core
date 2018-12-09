@@ -19,7 +19,7 @@
 		6527EC4621BAC5210032B70D /* MadogUIContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6527EC4521BAC5210032B70D /* MadogUIContext.swift */; };
 		655A469D21A9B18400CEC47F /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655A469C21A9B18400CEC47F /* State.swift */; };
 		655A46AA21A9B7E800CEC47F /* State1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655A46A421A9B23E00CEC47F /* State1.swift */; };
-		655A46AC21A9B99F00CEC47F /* AuthenicatorState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655A46A621A9B29C00CEC47F /* AuthenicatorState.swift */; };
+		655A46AC21A9B99F00CEC47F /* AuthenticatorState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655A46A621A9B29C00CEC47F /* AuthenticatorState.swift */; };
 		6560D4A021B3F20A00EA9BE3 /* PageUIIdentifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6560D49F21B3F20A00EA9BE3 /* PageUIIdentifiers.swift */; };
 		6560D4A221B3F24600EA9BE3 /* MadogUIContextFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6560D4A121B3F24600EA9BE3 /* MadogUIContextFactory.swift */; };
 		6560D4A421B3F2EB00EA9BE3 /* Madog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6560D4A321B3F2EB00EA9BE3 /* Madog.swift */; };
@@ -86,7 +86,7 @@
 		6527EC4521BAC5210032B70D /* MadogUIContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MadogUIContext.swift; sourceTree = "<group>"; };
 		655A469C21A9B18400CEC47F /* State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = State.swift; sourceTree = "<group>"; };
 		655A46A421A9B23E00CEC47F /* State1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = State1.swift; sourceTree = "<group>"; };
-		655A46A621A9B29C00CEC47F /* AuthenicatorState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenicatorState.swift; sourceTree = "<group>"; };
+		655A46A621A9B29C00CEC47F /* AuthenticatorState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticatorState.swift; sourceTree = "<group>"; };
 		6560D49F21B3F20A00EA9BE3 /* PageUIIdentifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageUIIdentifiers.swift; sourceTree = "<group>"; };
 		6560D4A121B3F24600EA9BE3 /* MadogUIContextFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MadogUIContextFactory.swift; sourceTree = "<group>"; };
 		6560D4A321B3F2EB00EA9BE3 /* Madog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Madog.swift; sourceTree = "<group>"; };
@@ -222,7 +222,7 @@
 			isa = PBXGroup;
 			children = (
 				655A46A421A9B23E00CEC47F /* State1.swift */,
-				655A46A621A9B29C00CEC47F /* AuthenicatorState.swift */,
+				655A46A621A9B29C00CEC47F /* AuthenticatorState.swift */,
 			);
 			path = State;
 			sourceTree = "<group>";
@@ -599,7 +599,7 @@
 				65A2511621A83C1A0035FA0F /* Page1.swift in Sources */,
 				6509ABE421B3FE52004AD6E6 /* LoginPage.swift in Sources */,
 				65A2512021A842C80035FA0F /* ResourceLocator.swift in Sources */,
-				655A46AC21A9B99F00CEC47F /* AuthenicatorState.swift in Sources */,
+				655A46AC21A9B99F00CEC47F /* AuthenticatorState.swift in Sources */,
 				65A250F221A836C50035FA0F /* AppDelegate.swift in Sources */,
 				6509ABE321B3FE4A004AD6E6 /* LoginViewController.swift in Sources */,
 				65A2512221A843BC0035FA0F /* LabelView.swift in Sources */,

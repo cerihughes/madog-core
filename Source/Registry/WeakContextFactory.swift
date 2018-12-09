@@ -51,6 +51,8 @@ internal class WeakNavigationContext: NavigationContext {
         return target?.change(to: uiIdentifier, with: tokens) ?? false
     }
 
+    // MARK:- ModalContext
+
     internal func openModal(with token: Any, from fromViewController: UIViewController, animated: Bool) -> NavigationToken? {
         return target?.openModal(with: token, from: fromViewController, animated: animated)
     }
@@ -82,6 +84,8 @@ internal class WeakTabBarNavigationContext: TabBarNavigationContext {
     internal func change<VC: UIViewController>(to uiIdentifier: MultiPageUIIdentifier<VC>, with tokens: [Any]) -> Bool {
         return target?.change(to: uiIdentifier, with: tokens) ?? false
     }
+
+    // MARK: - ModalContext
 
     internal func openModal(with token: Any, from fromViewController: UIViewController, animated: Bool) -> NavigationToken? {
         return target?.openModal(with: token, from: fromViewController, animated: animated)

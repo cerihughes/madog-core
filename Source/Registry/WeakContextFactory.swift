@@ -55,12 +55,6 @@ internal class WeakNavigationContext: NavigationContext {
         return target?.openModal(with: token, from: fromViewController, animated: animated)
     }
 
-    // MARK: - SinglePageContext
-
-    internal func renderInitialView(with token: Any) -> Bool {
-        return target?.renderInitialView(with: token) ?? false
-    }
-
     // MARK: - ForwardBackNavigationContext
 
     internal func navigateForward(with token: Any, animated: Bool) -> NavigationToken? {
@@ -91,12 +85,6 @@ internal class WeakTabBarNavigationContext: TabBarNavigationContext {
 
     internal func openModal(with token: Any, from fromViewController: UIViewController, animated: Bool) -> NavigationToken? {
         return target?.openModal(with: token, from: fromViewController, animated: animated)
-    }
-
-    // MARK: - MultiPageContext
-
-    internal func renderInitialViews(with tokens: [Any]) -> Bool {
-        return target?.renderInitialViews(with: tokens) ?? false
     }
 
     // MARK: - ForwardBackNavigationContext

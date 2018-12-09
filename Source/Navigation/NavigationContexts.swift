@@ -14,14 +14,6 @@ public protocol Context {
     func openModal(with token: Any, from fromViewController: UIViewController, animated: Bool) -> NavigationToken?
 }
 
-public protocol SinglePageContext {
-    func renderInitialView(with token: Any) -> Bool
-}
-
-public protocol MultiPageContext {
-    func renderInitialViews(with tokens: [Any]) -> Bool
-}
-
 public protocol ForwardBackNavigationContext {
     func navigateForward(with token: Any, animated: Bool) -> NavigationToken?
     func navigateBack(animated: Bool) -> Bool

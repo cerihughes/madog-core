@@ -13,7 +13,23 @@ internal protocol MadogUIContextDelegate: class {
     func renderMultiPageUI<VC: UIViewController>(_ uiIdentifier: MultiPageUIIdentifier<VC>, with tokens: [Any], in window: UIWindow) -> Bool
 }
 
-internal protocol MadogUIContext {
-    var delegate: MadogUIContextDelegate? {get set}
-    var viewController: UIViewController {get}
+internal class MadogUIContext {
+    internal weak var delegate: MadogUIContextDelegate?
+    internal var viewController: UIViewController
+
+    internal init(viewController: UIViewController) {
+        self.viewController = viewController
+    }
+}
+
+internal class MadogSinglePageUIContext: MadogUIContext {
+    internal func renderInitialView(with token: Any) -> Bool {
+        return false
+    }
+}
+
+internal class MadogMultiPageUIContext: MadogUIContext {
+    internal func renderInitialViews(with tokens: [Any]) -> Bool {
+        return false
+    }
 }

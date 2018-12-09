@@ -8,28 +8,33 @@
 
 import UIKit
 
-internal protocol TabBarNavigationContext: class, Context, MultiPageContext, ForwardBackNavigationContext {}
+internal protocol TabBarNavigationContext: class, Context, ForwardBackNavigationContext {}
 
 /// A class that presents view controllers in a tab bar, and manages the navigation between them.
 ///
 /// At the moment, this is achieved with a UINavigationController that can be pushed / popped to / from.
-internal class TabBarNavigationUI: MadogUIContext, TabBarNavigationContext {
+internal class TabBarNavigationUI: MadogMultiPageUIContext, TabBarNavigationContext {
     private let tabBarController = UITabBarController()
     private let registry: ViewControllerRegistry
     private let factory: MadogUIContextFactory
 
-    internal weak var delegate: MadogUIContextDelegate?
-
     internal init(registry: ViewControllerRegistry, factory: MadogUIContextFactory) {
         self.registry = registry
         self.factory = factory
+        super.init(viewController: tabBarController)
+    }
+
+    // MARK: - MadogMultiPageUIContext
+
+    override internal func renderInitialViews(with tokens: [Any]) -> Bool {
+        let viewControllers = tokens.compactMap { registry.createViewController(from: $0, context: self) }
+            .map { UINavigationController(rootViewController: $0) }
+
+        tabBarController.viewControllers = viewControllers
+        return true
     }
 
     // MARK: - Context
-
-    internal var viewController: UIViewController {
-        return tabBarController
-    }
 
     internal func change<VC: UIViewController>(to uiIdentifier: SinglePageUIIdentifier<VC>, with token: Any) -> Bool {
         guard let delegate = delegate, let window = viewController.view.window else {
@@ -49,16 +54,6 @@ internal class TabBarNavigationUI: MadogUIContext, TabBarNavigationContext {
 
     internal func openModal<T>(with token: T, from fromViewController: UIViewController, animated: Bool) -> NavigationToken? {
         return nil
-    }
-
-    // MARK: - MultiPageContext
-
-    internal func renderInitialViews(with tokens: [Any]) -> Bool {
-        let viewControllers = tokens.compactMap { registry.createViewController(from: $0, context: self) }
-            .map { UINavigationController(rootViewController: $0) }
-
-        tabBarController.viewControllers = viewControllers
-        return true
     }
 
     // MARK: - ForwardBackNavigationContext

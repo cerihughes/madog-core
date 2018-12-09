@@ -12,7 +12,7 @@ import UIKit
 fileprivate let logoutPageIdentifier = "logoutPageIdentifier"
 
 class LogoutPage: PageObject {
-    private var authenticatorState: AuthenicatorState?
+    private var authenticatorState: AuthenticatorState?
     private var uuid: UUID?
 
     // MARK: PageObject
@@ -30,7 +30,7 @@ class LogoutPage: PageObject {
     }
 
     override func configure(with state: [String : State]) {
-        authenticatorState = state[authenicatorStateName] as? AuthenicatorState
+        authenticatorState = state[authenticatorStateName] as? AuthenticatorState
     }
 
     // MARK: Private

@@ -9,16 +9,16 @@
 import Foundation
 import Madog
 
-let authenicatorStateName = "authenicatorStateName"
+let authenticatorStateName = "authenticatorStateName"
 
-class AuthenicatorState: StateObject {
+class AuthenticatorState: StateObject {
     let authenticator = Authenticator()
 
     // MARK: StateObject
 
     required init() {
         super.init()
-        name = authenicatorStateName
+        name = authenticatorStateName
     }
 }
 

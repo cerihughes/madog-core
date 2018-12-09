@@ -19,7 +19,6 @@
 		6527EC4621BAC5210032B70D /* MadogUIContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6527EC4521BAC5210032B70D /* MadogUIContext.swift */; };
 		655A469D21A9B18400CEC47F /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655A469C21A9B18400CEC47F /* State.swift */; };
 		655A469F21A9B18F00CEC47F /* StateFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655A469E21A9B18F00CEC47F /* StateFactory.swift */; };
-		655A46A921A9B2FA00CEC47F /* StateResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655A46A821A9B2FA00CEC47F /* StateResolver.swift */; };
 		655A46AA21A9B7E800CEC47F /* State1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655A46A421A9B23E00CEC47F /* State1.swift */; };
 		655A46AC21A9B99F00CEC47F /* AuthenicatorState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655A46A621A9B29C00CEC47F /* AuthenicatorState.swift */; };
 		6560D4A021B3F20A00EA9BE3 /* PageUIIdentifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6560D49F21B3F20A00EA9BE3 /* PageUIIdentifiers.swift */; };
@@ -29,7 +28,7 @@
 		658C851F21A81D26006ECF6F /* RuntimeResolverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658C851E21A81D26006ECF6F /* RuntimeResolverTests.swift */; };
 		658C852121A81D26006ECF6F /* Madog.h in Headers */ = {isa = PBXBuildFile; fileRef = 658C851321A81D26006ECF6F /* Madog.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		65A250D221A81FBF0035FA0F /* RuntimeResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A250CB21A81FBE0035FA0F /* RuntimeResolver.swift */; };
-		65A250D421A81FBF0035FA0F /* PageResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A250CD21A81FBF0035FA0F /* PageResolver.swift */; };
+		65A250D421A81FBF0035FA0F /* Resolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A250CD21A81FBF0035FA0F /* Resolver.swift */; };
 		65A250D521A81FBF0035FA0F /* NavigationUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A250CE21A81FBF0035FA0F /* NavigationUI.swift */; };
 		65A250D621A81FBF0035FA0F /* Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A250CF21A81FBF0035FA0F /* Page.swift */; };
 		65A250DE21A8212F0035FA0F /* NavigationContexts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A250DD21A8212F0035FA0F /* NavigationContexts.swift */; };
@@ -91,7 +90,6 @@
 		655A469E21A9B18F00CEC47F /* StateFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateFactory.swift; sourceTree = "<group>"; };
 		655A46A421A9B23E00CEC47F /* State1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = State1.swift; sourceTree = "<group>"; };
 		655A46A621A9B29C00CEC47F /* AuthenicatorState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenicatorState.swift; sourceTree = "<group>"; };
-		655A46A821A9B2FA00CEC47F /* StateResolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateResolver.swift; sourceTree = "<group>"; };
 		6560D49F21B3F20A00EA9BE3 /* PageUIIdentifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageUIIdentifiers.swift; sourceTree = "<group>"; };
 		6560D4A121B3F24600EA9BE3 /* MadogUIContextFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MadogUIContextFactory.swift; sourceTree = "<group>"; };
 		6560D4A321B3F2EB00EA9BE3 /* Madog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Madog.swift; sourceTree = "<group>"; };
@@ -102,7 +100,7 @@
 		658C851E21A81D26006ECF6F /* RuntimeResolverTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RuntimeResolverTests.swift; sourceTree = "<group>"; };
 		658C852021A81D26006ECF6F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		65A250CB21A81FBE0035FA0F /* RuntimeResolver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RuntimeResolver.swift; sourceTree = "<group>"; };
-		65A250CD21A81FBF0035FA0F /* PageResolver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageResolver.swift; sourceTree = "<group>"; };
+		65A250CD21A81FBF0035FA0F /* Resolver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Resolver.swift; sourceTree = "<group>"; };
 		65A250CE21A81FBF0035FA0F /* NavigationUI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationUI.swift; sourceTree = "<group>"; };
 		65A250CF21A81FBF0035FA0F /* Page.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Page.swift; sourceTree = "<group>"; };
 		65A250DD21A8212F0035FA0F /* NavigationContexts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationContexts.swift; sourceTree = "<group>"; };
@@ -303,8 +301,7 @@
 		65A250DA21A81FFA0035FA0F /* Resolver */ = {
 			isa = PBXGroup;
 			children = (
-				655A46A821A9B2FA00CEC47F /* StateResolver.swift */,
-				65A250CD21A81FBF0035FA0F /* PageResolver.swift */,
+				65A250CD21A81FBF0035FA0F /* Resolver.swift */,
 				65A250CB21A81FBE0035FA0F /* RuntimeResolver.swift */,
 			);
 			path = Resolver;
@@ -572,10 +569,9 @@
 				65EBE71521B41472002A2DF5 /* WeakContextFactory.swift in Sources */,
 				65A250E721A82C6D0035FA0F /* ViewControllerRegistry.swift in Sources */,
 				655A469D21A9B18400CEC47F /* State.swift in Sources */,
-				655A46A921A9B2FA00CEC47F /* StateResolver.swift in Sources */,
 				6527EC4621BAC5210032B70D /* MadogUIContext.swift in Sources */,
 				65A250E521A822DF0035FA0F /* NavigationToken.swift in Sources */,
-				65A250D421A81FBF0035FA0F /* PageResolver.swift in Sources */,
+				65A250D421A81FBF0035FA0F /* Resolver.swift in Sources */,
 				6560D4A221B3F24600EA9BE3 /* MadogUIContextFactory.swift in Sources */,
 				65A250D521A81FBF0035FA0F /* NavigationUI.swift in Sources */,
 				65A250D621A81FBF0035FA0F /* Page.swift in Sources */,

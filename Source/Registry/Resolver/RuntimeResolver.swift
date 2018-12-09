@@ -1,5 +1,5 @@
 //
-//  RuntimePageResolver.swift
+//  RuntimeResolver.swift
 //  Madog
 //
 //  Created by Ceri Hughes on 23/11/2018.
@@ -8,9 +8,9 @@
 
 import Foundation
 
-/// An implementation of PageResolver and StateResolver which uses objc-runtime magic to find all loaded classes that
-/// implement Page and State respectively.
-public final class RuntimeResolver: PageResolver, StateResolver {
+/// An implementation of Resolver which uses objc-runtime magic to find all loaded classes that
+/// implement PageFactory and StateFactory respectively.
+public final class RuntimeResolver: Resolver {
     private let bundle: Bundle
 
     private var loadedPageFactoryTypes = [PageFactory.Type]()
@@ -26,13 +26,11 @@ public final class RuntimeResolver: PageResolver, StateResolver {
         inspectLoadedClasses()
     }
 
-    // MARK: PageResolver
+    // MARK: Resolver
 
     public func pageFactoryTypes() -> [PageFactory.Type] {
         return loadedPageFactoryTypes
     }
-
-    // MARK: StateResolver
 
     public func stateFactoryTypes() -> [StateFactory.Type] {
         return loadedStateFactoryTypes

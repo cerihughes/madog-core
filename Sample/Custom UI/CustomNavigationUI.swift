@@ -1,28 +1,29 @@
 //
-//  NavigationUI.swift
-//  Madog
+//  CustomNavigationUI.swift
+//  MadogSample
 //
-//  Created by Ceri Hughes on 23/11/2018.
+//  Created by Ceri Hughes on 11/12/2018.
 //  Copyright © 2018 Ceri Hughes. All rights reserved.
 //
 
+import Madog
 import UIKit
 
-internal protocol NavigationContext: class, Context, ForwardBackNavigationContext {}
+protocol CustomNavigationContext: class, Context, ForwardBackNavigationContext {}
 
 /// A class that presents view controllers, and manages the navigation between them.
 ///
 /// At the moment, this is achieved with a UINavigationController that can be pushed / popped to / from.
-internal class NavigationUI<Token>: MadogSinglePageUIContext<Token>, NavigationContext {
+class CustomNavigationUI<Token>: MadogSinglePageUIContext<Token>, CustomNavigationContext {
     private let navigationController = UINavigationController()
 
-    internal init(registry: ViewControllerRegistry) {
+    init(registry: ViewControllerRegistry) {
         super.init(registry: registry, viewController: navigationController)
     }
 
     // MARK: - MadogSinglePageUIContext
 
-    override internal func renderInitialView(with token: Token) -> Bool {
+    override func renderInitialView(with token: Token) -> Bool {
         guard let viewController = registry.createViewController(from: token, context: self) else {
             return false
         }

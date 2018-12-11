@@ -13,7 +13,7 @@ public final class Madog<Token>: MadogUIContextDelegate {
     private let factory: MadogUIContextFactory<Token>
     private let pageRegistrar: PageRegistrar
 
-    private var currentContextUI: MadogUIContext?
+    private var currentContextUI: MadogUIContext<Token>?
 
     public init(resolver: Resolver) {
         registry = ViewControllerRegistry()

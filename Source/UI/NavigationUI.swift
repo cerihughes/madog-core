@@ -8,19 +8,15 @@
 
 import UIKit
 
-internal protocol NavigationContext: class, Context, ModalContext, ForwardBackNavigationContext {}
+internal protocol NavigationContext: Context, ForwardBackNavigationContext {}
 
 /// A class that presents view controllers, and manages the navigation between them.
 ///
 /// At the moment, this is achieved with a UINavigationController that can be pushed / popped to / from.
 internal class NavigationUI<Token>: MadogSinglePageUIContext<Token>, NavigationContext {
     private let navigationController = UINavigationController()
-    private let registry: ViewControllerRegistry
-    private let factory: MadogUIContextFactory<Token>
 
-    internal init(registry: ViewControllerRegistry, factory: MadogUIContextFactory<Token>) {
-        self.registry = registry
-        self.factory = factory
+    internal init() {
         super.init(viewController: navigationController)
     }
 
@@ -35,28 +31,6 @@ internal class NavigationUI<Token>: MadogSinglePageUIContext<Token>, NavigationC
         return true
     }
 
-    // MARK: - Context
-
-    internal func change<VC: UIViewController>(to uiIdentifier: SinglePageUIIdentifier<VC>, with token: Any) -> Bool {
-        guard let delegate = delegate, let window = viewController.view.window else {
-            return false
-        }
-
-        return delegate.renderSinglePageUI(uiIdentifier, with: token, in: window)
-    }
-
-    internal func change<VC: UIViewController>(to uiIdentifier: MultiPageUIIdentifier<VC>, with tokens: [Any]) -> Bool {
-        guard let delegate = delegate, let window = viewController.view.window else {
-            return false
-        }
-
-        return delegate.renderMultiPageUI(uiIdentifier, with: tokens, in: window)
-    }
-
-    internal func openModal(with token: Any, from fromViewController: UIViewController, animated: Bool) -> NavigationToken? {
-        return nil
-    }
-
     // MARK: - ForwardBackNavigationContext
 
     internal func navigateForward(with token: Any, animated: Bool) -> NavigationToken? {
@@ -65,7 +39,7 @@ internal class NavigationUI<Token>: MadogSinglePageUIContext<Token>, NavigationC
         }
 
         navigationController.pushViewController(viewController, animated: animated)
-        return NavigationTokenImplementation(viewController: viewController)
+        return createNavigationToken(for: viewController)
     }
 
     internal func navigateBack(animated: Bool) -> Bool {

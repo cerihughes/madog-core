@@ -13,23 +13,48 @@ internal protocol MadogUIContextDelegate: class {
     func renderMultiPageUI<VC: UIViewController>(_ uiIdentifier: MultiPageUIIdentifier<VC>, with tokens: [Any], in window: UIWindow) -> Bool
 }
 
-internal class MadogUIContext {
+open class MadogUIContext<Token>: Context {
     internal weak var delegate: MadogUIContextDelegate?
-    internal var viewController: UIViewController
+    internal let viewController: UIViewController
+    internal var internalRegistry: ViewControllerRegistry!
 
-    internal init(viewController: UIViewController) {
+    public init(viewController: UIViewController) {
         self.viewController = viewController
+    }
+
+    public var registry: ViewControllerRegistry {
+        return internalRegistry
+    }
+
+    public func change<VC: UIViewController>(to uiIdentifier: SinglePageUIIdentifier<VC>, with token: Any) -> Bool {
+        guard let delegate = delegate, let window = viewController.view.window else {
+            return false
+        }
+
+        return delegate.renderSinglePageUI(uiIdentifier, with: token, in: window)
+    }
+
+    public func change<VC: UIViewController>(to uiIdentifier: MultiPageUIIdentifier<VC>, with tokens: [Any]) -> Bool {
+        guard let delegate = delegate, let window = viewController.view.window else {
+            return false
+        }
+
+        return delegate.renderMultiPageUI(uiIdentifier, with: tokens, in: window)
+    }
+
+    public final func createNavigationToken(for viewController: UIViewController) -> NavigationToken {
+        return NavigationTokenImplementation(viewController: viewController)
     }
 }
 
-internal class MadogSinglePageUIContext<Token>: MadogUIContext {
-    internal func renderInitialView(with token: Token) -> Bool {
+open class MadogSinglePageUIContext<Token>: MadogUIContext<Token> {
+    open func renderInitialView(with token: Token) -> Bool {
         return false
     }
 }
 
-internal class MadogMultiPageUIContext<Token>: MadogUIContext {
-    internal func renderInitialViews(with tokens: [Token]) -> Bool {
+open class MadogMultiPageUIContext<Token>: MadogUIContext<Token> {
+    open func renderInitialViews(with tokens: [Token]) -> Bool {
         return false
     }
 }

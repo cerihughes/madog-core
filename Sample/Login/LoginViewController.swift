@@ -11,7 +11,7 @@ import UIKit
 
 class LoginViewController: UIViewController {
     var authenticator: Authenticator!
-    var navigationContext: (Context & ForwardBackNavigationContext)!
+    weak var navigationContext: (Context & ForwardBackNavigationContext)?
 
     @IBOutlet private var usernameField: UITextField!
     @IBOutlet private var passwordField: UITextField!
@@ -29,6 +29,10 @@ class LoginViewController: UIViewController {
     }
 
     override func viewDidAppear(_ animated: Bool) {
+        guard let navigationContext = navigationContext else {
+            return
+        }
+
         DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
             self.usernameField.text = "SomeUsername"
             self.passwordField.text = "SomePassword123"
@@ -40,7 +44,7 @@ class LoginViewController: UIViewController {
                 let tab1 = ResourceLocator.createPage1ResourceLocator()
                 let tab2 = ResourceLocator.createLogoutPageResourceLocator()
                 let identifier = MultiPageUIIdentifier.createTabBarControllerIdentifier()
-                _ = self.navigationContext.change(to: identifier, with: [tab1, tab2])
+                _ = navigationContext.change(to: identifier, with: [tab1, tab2])
             })
         }
     }

@@ -11,7 +11,7 @@ import UIKit
 
 class LogoutViewController: UIViewController {
     private let authenticator: Authenticator
-    private let context: Context
+    private weak var context: Context?
 
     init(authenticator: Authenticator, context: Context) {
         self.authenticator = authenticator
@@ -49,7 +49,7 @@ extension LogoutViewController {
             let identifier = SinglePageUIIdentifier.createNavigationControllerIdentifier { (navigationController) in
                 navigationController.isNavigationBarHidden = true
             }
-            _ = self.context.change(to: identifier, with: token)
+            _ = self.context?.change(to: identifier, with: token)
         }
     }
 }

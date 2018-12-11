@@ -8,19 +8,15 @@
 
 import UIKit
 
-internal protocol TabBarNavigationContext: class, Context, ModalContext, ForwardBackNavigationContext {}
+internal protocol TabBarNavigationContext: Context, ForwardBackNavigationContext {}
 
 /// A class that presents view controllers in a tab bar, and manages the navigation between them.
 ///
 /// At the moment, this is achieved with a UINavigationController that can be pushed / popped to / from.
 internal class TabBarNavigationUI<Token>: MadogMultiPageUIContext<Token>, TabBarNavigationContext {
     private let tabBarController = UITabBarController()
-    private let registry: ViewControllerRegistry
-    private let factory: MadogUIContextFactory<Token>
 
-    internal init(registry: ViewControllerRegistry, factory: MadogUIContextFactory<Token>) {
-        self.registry = registry
-        self.factory = factory
+    internal init() {
         super.init(viewController: tabBarController)
     }
 
@@ -34,28 +30,6 @@ internal class TabBarNavigationUI<Token>: MadogMultiPageUIContext<Token>, TabBar
         return true
     }
 
-    // MARK: - Context
-
-    internal func change<VC: UIViewController>(to uiIdentifier: SinglePageUIIdentifier<VC>, with token: Any) -> Bool {
-        guard let delegate = delegate, let window = viewController.view.window else {
-            return false
-        }
-
-        return delegate.renderSinglePageUI(uiIdentifier, with: token, in: window)
-    }
-
-    internal func change<VC: UIViewController>(to uiIdentifier: MultiPageUIIdentifier<VC>, with tokens: [Any]) -> Bool {
-        guard let delegate = delegate, let window = viewController.view.window else {
-            return false
-        }
-
-        return delegate.renderMultiPageUI(uiIdentifier, with: tokens, in: window)
-    }
-
-    internal func openModal<T>(with token: T, from fromViewController: UIViewController, animated: Bool) -> NavigationToken? {
-        return nil
-    }
-
     // MARK: - ForwardBackNavigationContext
 
     internal func navigateForward(with token: Any, animated: Bool) -> NavigationToken? {
@@ -65,7 +39,7 @@ internal class TabBarNavigationUI<Token>: MadogMultiPageUIContext<Token>, TabBar
         }
 
         navigationController.pushViewController(toViewController, animated: animated)
-        return NavigationTokenImplementation(viewController: toViewController)
+        return createNavigationToken(for: viewController)
     }
 
     internal func navigateBack(animated: Bool) -> Bool {

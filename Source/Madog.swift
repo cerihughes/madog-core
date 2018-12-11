@@ -13,7 +13,7 @@ public final class Madog<Token>: MadogUIContextDelegate {
     private let factory: MadogUIContextFactory<Token>
     private let pageRegistrar: PageRegistrar
 
-    private var currentContextUI: MadogUIContext?
+    private var currentContextUI: MadogUIContext<Token>?
 
     public init(resolver: Resolver) {
         registry = ViewControllerRegistry()
@@ -25,6 +25,14 @@ public final class Madog<Token>: MadogUIContextDelegate {
 
     deinit {
         pageRegistrar.unregisterPages(from: self.registry)
+    }
+
+    public func addSinglePageUICreationFunction(identifier: String, function: @escaping () -> MadogSinglePageUIContext<Token>) -> Bool {
+        return factory.addSinglePageUICreationFunction(identifier: identifier, function: function)
+    }
+
+    public func addMultiPageUICreationFunction(identifier: String, function: @escaping () -> MadogMultiPageUIContext<Token>) -> Bool {
+        return factory.addMultiPageUICreationFunction(identifier: identifier, function: function)
     }
 
     // MARK: - MadogUIContextDelegate

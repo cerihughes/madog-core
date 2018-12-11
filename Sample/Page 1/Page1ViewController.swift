@@ -11,7 +11,7 @@ import UIKit
 
 class Page1ViewController: UIViewController {
     private let state1: State1
-    private let navigationContext: ForwardBackNavigationContext
+    private weak var navigationContext: ForwardBackNavigationContext?
     private var pushCount = 0
 
     init(state1: State1, navigationContext: ForwardBackNavigationContext) {
@@ -47,6 +47,6 @@ extension Page1ViewController {
     private func buttonTapGesture(sender: UIButton) {
         pushCount += 1
         let token = ResourceLocator.createPage2ResourceLocator(pageData: String(pushCount))
-        _ = self.navigationContext.navigateForward(with: token, animated: true)
+        _ = self.navigationContext?.navigateForward(with: token, animated: true)
     }
 }

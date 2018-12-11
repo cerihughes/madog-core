@@ -8,7 +8,7 @@
 
 import UIKit
 
-internal protocol NavigationContext: class, Context, ForwardBackNavigationContext {}
+internal protocol NavigationContext: Context, ForwardBackNavigationContext {}
 
 /// A class that presents view controllers, and manages the navigation between them.
 ///

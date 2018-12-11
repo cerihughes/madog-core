@@ -12,7 +12,7 @@ import UIKit
 class Page2ViewController: UIViewController {
     private let state1: State1
     private let pageData: String
-    private let navigationContext: ForwardBackNavigationContext
+    private weak var navigationContext: ForwardBackNavigationContext?
 
     init(state1: State1, pageData:String, navigationContext: ForwardBackNavigationContext) {
         self.state1 = state1
@@ -38,7 +38,7 @@ class Page2ViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-            _ = self.navigationContext.navigateBack(animated: true)
+            _ = self.navigationContext?.navigateBack(animated: true)
         }
     }
 

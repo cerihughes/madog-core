@@ -30,7 +30,7 @@ public class MultiPageUIIdentifier<VC: UIViewController> {
     internal let value: String
     internal let customisation: (VC) -> Void
 
-    internal init(_ value: String, customisation: @escaping (VC) -> Void) {
+    public init(_ value: String, customisation: @escaping (VC) -> Void) {
         self.value = value
         self.customisation = customisation
     }

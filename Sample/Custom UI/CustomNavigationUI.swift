@@ -17,8 +17,8 @@ protocol CustomNavigationContext: class, Context, ForwardBackNavigationContext {
 class CustomNavigationUI<Token>: MadogSinglePageUIContext<Token>, CustomNavigationContext {
     private let navigationController = UINavigationController()
 
-    init(registry: ViewControllerRegistry) {
-        super.init(registry: registry, viewController: navigationController)
+    init() {
+        super.init(viewController: navigationController)
     }
 
     // MARK: - MadogSinglePageUIContext

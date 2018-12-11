@@ -16,8 +16,8 @@ internal protocol NavigationContext: class, Context, ForwardBackNavigationContex
 internal class NavigationUI<Token>: MadogSinglePageUIContext<Token>, NavigationContext {
     private let navigationController = UINavigationController()
 
-    internal init(registry: ViewControllerRegistry) {
-        super.init(registry: registry, viewController: navigationController)
+    internal init() {
+        super.init(viewController: navigationController)
     }
 
     // MARK: - MadogSinglePageUIContext

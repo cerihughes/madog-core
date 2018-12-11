@@ -16,11 +16,14 @@ internal protocol MadogUIContextDelegate: class {
 open class MadogUIContext<Token>: Context {
     internal weak var delegate: MadogUIContextDelegate?
     internal let viewController: UIViewController
-    public let registry: ViewControllerRegistry
+    internal var internalRegistry: ViewControllerRegistry!
 
-    public init(registry: ViewControllerRegistry, viewController: UIViewController) {
-        self.registry = registry
+    public init(viewController: UIViewController) {
         self.viewController = viewController
+    }
+
+    public var registry: ViewControllerRegistry {
+        return internalRegistry
     }
 
     public func change<VC: UIViewController>(to uiIdentifier: SinglePageUIIdentifier<VC>, with token: Any) -> Bool {

@@ -16,8 +16,8 @@ internal protocol TabBarNavigationContext: class, Context, ForwardBackNavigation
 internal class TabBarNavigationUI<Token>: MadogMultiPageUIContext<Token>, TabBarNavigationContext {
     private let tabBarController = UITabBarController()
 
-    internal init(registry: ViewControllerRegistry) {
-        super.init(registry: registry, viewController: tabBarController)
+    internal init() {
+        super.init(viewController: tabBarController)
     }
 
     // MARK: - MadogMultiPageUIContext

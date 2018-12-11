@@ -15,12 +15,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let madog = Madog<ResourceLocator>(resolver: RuntimeResolver())
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        let result = madog.addSinglePageUICreationFunction(identifier: splitViewControllerIdentifier) { return SplitUI() }
+        guard result == true else {
+            return false
+        }
+
         window.makeKeyAndVisible()
 
+
         let initialRL = ResourceLocator.createLoginPageResourceLocator()
-        let identifier = SinglePageUIIdentifier.createNavigationControllerIdentifier { (navigationController) in
-            navigationController.isNavigationBarHidden = true
+        let identifier = SinglePageUIIdentifier.createSplitViewControllerIdentifier { (splitController) in
+            splitController.preferredDisplayMode = .allVisible
+            splitController.presentsWithGesture = false
         }
         return madog.renderSinglePageUI(identifier, with: initialRL, in: window)
+    }
+}
+
+let splitViewControllerIdentifier = "splitViewControllerIdentifier"
+
+extension SinglePageUIIdentifier {
+    public static func createSplitViewControllerIdentifier(customisation: @escaping (UISplitViewController) -> Void = { _ in }) -> SinglePageUIIdentifier<UISplitViewController> {
+        return SinglePageUIIdentifier<UISplitViewController>(splitViewControllerIdentifier, customisation: customisation)
     }
 }

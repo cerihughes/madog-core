@@ -16,8 +16,24 @@ internal class MadogUIContextFactory<Token> {
     internal init(registry: ViewControllerRegistry) {
         self.registry = registry
 
-        singlePageUIRegistry[navigationControllerIdentifier] = { return NavigationUI<Token>() }
-        multiPageUIRegistry[tabBarControllerIdentifier] = { return TabBarNavigationUI<Token>() }
+        _ = addSinglePageUICreationFunction(identifier: navigationControllerIdentifier) { return NavigationUI<Token>() }
+        _ = addMultiPageUICreationFunction(identifier: tabBarControllerIdentifier) { return TabBarNavigationUI<Token>() }
+    }
+
+    internal func addSinglePageUICreationFunction(identifier: String, function: @escaping () -> MadogSinglePageUIContext<Token>) -> Bool {
+        guard singlePageUIRegistry[identifier] == nil else {
+            return false
+        }
+        singlePageUIRegistry[identifier] = function
+        return true
+    }
+
+    internal func addMultiPageUICreationFunction(identifier: String, function: @escaping () -> MadogMultiPageUIContext<Token>) -> Bool {
+        guard multiPageUIRegistry[identifier] == nil else {
+            return false
+        }
+        multiPageUIRegistry[identifier] = function
+        return true
     }
 
     internal func createSinglePageUI<VC: UIViewController>(_ uiIdentifier: SinglePageUIIdentifier<VC>) -> MadogSinglePageUIContext<Token>? {

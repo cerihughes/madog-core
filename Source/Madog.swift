@@ -27,6 +27,14 @@ public final class Madog<Token>: MadogUIContextDelegate {
         pageRegistrar.unregisterPages(from: self.registry)
     }
 
+    public func addSinglePageUICreationFunction(identifier: String, function: @escaping () -> MadogSinglePageUIContext<Token>) -> Bool {
+        return factory.addSinglePageUICreationFunction(identifier: identifier, function: function)
+    }
+
+    public func addMultiPageUICreationFunction(identifier: String, function: @escaping () -> MadogMultiPageUIContext<Token>) -> Bool {
+        return factory.addMultiPageUICreationFunction(identifier: identifier, function: function)
+    }
+
     // MARK: - MadogUIContextDelegate
 
     public func renderSinglePageUI<VC: UIViewController>(_ uiIdentifier: SinglePageUIIdentifier<VC>, with token: Any, in window: UIWindow) -> Bool {

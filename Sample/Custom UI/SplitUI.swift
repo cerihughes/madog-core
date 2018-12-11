@@ -1,5 +1,5 @@
 //
-//  CustomNavigationUI.swift
+//  SplitUI.swift
 //  MadogSample
 //
 //  Created by Ceri Hughes on 11/12/2018.
@@ -9,16 +9,13 @@
 import Madog
 import UIKit
 
-protocol CustomNavigationContext: class, Context, ForwardBackNavigationContext {}
+protocol SplitContext: Context, ForwardBackNavigationContext {}
 
-/// A class that presents view controllers, and manages the navigation between them.
-///
-/// At the moment, this is achieved with a UINavigationController that can be pushed / popped to / from.
-class CustomNavigationUI<Token>: MadogSinglePageUIContext<Token>, CustomNavigationContext {
-    private let navigationController = UINavigationController()
+class SplitUI<Token>: MadogSinglePageUIContext<Token>, SplitContext {
+    private let splitController = UISplitViewController()
 
     init() {
-        super.init(viewController: navigationController)
+        super.init(viewController: splitController)
     }
 
     // MARK: - MadogSinglePageUIContext
@@ -28,7 +25,7 @@ class CustomNavigationUI<Token>: MadogSinglePageUIContext<Token>, CustomNavigati
             return false
         }
 
-        navigationController.setViewControllers([viewController], animated: false)
+        splitController.viewControllers = [viewController]
         return true
     }
 
@@ -39,11 +36,15 @@ class CustomNavigationUI<Token>: MadogSinglePageUIContext<Token>, CustomNavigati
             return nil
         }
 
-        navigationController.pushViewController(viewController, animated: animated)
+        splitController.showDetailViewController(viewController, sender: splitController.viewControllers.first)
         return createNavigationToken(for: viewController)
     }
 
     internal func navigateBack(animated: Bool) -> Bool {
-        return navigationController.popViewController(animated: animated) != nil
+        guard let first = splitController.viewControllers.first else {
+            return false
+        }
+        splitController.viewControllers = [first]
+        return true
     }
 }

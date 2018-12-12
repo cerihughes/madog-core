@@ -45,4 +45,8 @@ internal class NavigationUI<Token>: MadogSinglePageUIContext<Token>, NavigationC
     internal func navigateBack(animated: Bool) -> Bool {
         return navigationController.popViewController(animated: animated) != nil
     }
+
+    internal func navigateBackToRoot(animated: Bool) -> Bool {
+        return navigationController.popToRootViewController(animated: true) != nil
+    }
 }

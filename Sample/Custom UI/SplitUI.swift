@@ -31,7 +31,7 @@ class SplitUI<Token>: MadogSinglePageUIContext<Token>, SplitContext {
 
     // MARK: - ForwardBackNavigationContext
 
-    internal func navigateForward(with token: Any, animated: Bool) -> NavigationToken? {
+    func navigateForward(with token: Any, animated: Bool) -> NavigationToken? {
         guard let viewController = registry.createViewController(from: token, context: self) else {
             return nil
         }
@@ -40,11 +40,15 @@ class SplitUI<Token>: MadogSinglePageUIContext<Token>, SplitContext {
         return createNavigationToken(for: viewController)
     }
 
-    internal func navigateBack(animated: Bool) -> Bool {
+    func navigateBack(animated: Bool) -> Bool {
         guard let first = splitController.viewControllers.first else {
             return false
         }
         splitController.viewControllers = [first]
         return true
+    }
+
+    func navigateBackToRoot(animated: Bool) -> Bool {
+        return navigateBack(animated: animated)
     }
 }

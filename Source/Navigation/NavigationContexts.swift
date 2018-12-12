@@ -20,4 +20,5 @@ public protocol ModalContext: class {
 public protocol ForwardBackNavigationContext: class {
     func navigateForward(with token: Any, animated: Bool) -> NavigationToken?
     func navigateBack(animated: Bool) -> Bool
+    func navigateBackToRoot(animated: Bool) -> Bool
 }

@@ -49,4 +49,13 @@ internal class TabBarNavigationUI<Token>: MadogMultiPageUIContext<Token>, TabBar
 
         return navigationController.popViewController(animated: animated) != nil
     }
+
+    internal func navigateBackToRoot(animated: Bool) -> Bool {
+        guard let navigationController = tabBarController.selectedViewController as? UINavigationController else {
+            return false
+        }
+
+        return navigationController.popToRootViewController(animated: true) != nil
+    }
+
 }

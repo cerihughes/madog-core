@@ -18,7 +18,7 @@ class PageRegistrarTests: XCTestCase {
         resolver = TestResolver(testPageCreationFunctions: testPageCreationFunctions,
                                 testStateCreationFunctions: testStateCreationFunctions)
         registry = ViewControllerRegistry()
-        pageRegistrar = PageRegistrar(resolver: resolver)
+        pageRegistrar = PageRegistrar()
     }
 
     override func tearDown() {
@@ -26,11 +26,11 @@ class PageRegistrarTests: XCTestCase {
         super.tearDown()
     }
 
-    func testLoadState() {
+    func testCreateState() {
         TestStateFactory.created = false
 
         XCTAssertEqual(pageRegistrar.states.count, 0)
-        pageRegistrar.loadState()
+        pageRegistrar.createState(functions: resolver.stateCreationFunctions())
 
         // Both factories create a state object with the same name, so we only get 1 object
         XCTAssertEqual(pageRegistrar.states.count, 1)
@@ -42,7 +42,7 @@ class PageRegistrarTests: XCTestCase {
         TestPageFactory.created = false
 
         XCTAssertEqual(pageRegistrar.pages.count, 0)
-        pageRegistrar.registerPages(with: registry)
+        pageRegistrar.registerPages(with: registry, functions: resolver.pageCreationFunctions())
         XCTAssertEqual(pageRegistrar.pages.count, 1)
 
         XCTAssertTrue(TestPageFactory.created)

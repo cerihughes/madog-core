@@ -12,7 +12,7 @@ import UIKit
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     let window = UIWindow()
-    let madog = Madog<ResourceLocator>()
+    let madog = Madog<SampleToken>()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         madog.resolve(resolver: RuntimeResolver(), launchOptions: launchOptions)
@@ -23,12 +23,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         window.makeKeyAndVisible()
 
-        let initialRL = ResourceLocator.loginResourceLocator
+        let initial = SampleToken.login
         let identifier = SingleUIIdentifier.createSplitViewControllerIdentifier { (splitController) in
             splitController.preferredDisplayMode = .allVisible
             splitController.presentsWithGesture = false
         }
-        return madog.renderSingleUI(identifier, with: initialRL, in: window)
+        return madog.renderSingleUI(identifier, with: initial, in: window)
     }
 
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
@@ -36,7 +36,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             return false
         }
 
-        let token = ResourceLocator.createVC2ResourceLocator(stringData: String(url.absoluteString.count))
+        let token = SampleToken.createVC2Identifier(stringData: String(url.absoluteString.count))
         if let navigationContext = currentContext as? ForwardBackNavigationContext {
             return navigationContext.navigateForward(with: token, animated: true) != nil
         } else {

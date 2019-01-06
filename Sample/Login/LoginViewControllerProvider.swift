@@ -38,8 +38,8 @@ class LoginViewControllerProvider: ViewControllerProviderObject {
     // MARK: Private
 
     private func createViewController(token: Any, context: Context) -> UIViewController? {
-        guard let rl = token as? ResourceLocator,
-            rl.identifier == loginIdentifier,
+        guard let sampleToken = token as? SampleToken,
+            sampleToken.identifier == loginIdentifier,
             let authenticator = authenticator,
             let navigationContext = context as? Context & ForwardBackNavigationContext else {
                 return nil
@@ -49,8 +49,8 @@ class LoginViewControllerProvider: ViewControllerProviderObject {
     }
 }
 
-extension ResourceLocator {
-    static var loginResourceLocator: ResourceLocator {
-        return ResourceLocator(identifier: loginIdentifier, data: [:])
+extension SampleToken {
+    static var login: SampleToken {
+        return SampleToken(identifier: loginIdentifier, data: [:])
     }
 }

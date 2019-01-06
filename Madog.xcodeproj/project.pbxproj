@@ -44,7 +44,7 @@
 		65A2511921A840EB0035FA0F /* Madog.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 658C851021A81D26006ECF6F /* Madog.framework */; };
 		65A2511C21A841760035FA0F /* ViewControllerProvider2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A2511B21A841760035FA0F /* ViewControllerProvider2.swift */; };
 		65A2511E21A841830035FA0F /* ViewController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A2511D21A841830035FA0F /* ViewController2.swift */; };
-		65A2512021A842C80035FA0F /* ResourceLocator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A2511F21A842C80035FA0F /* ResourceLocator.swift */; };
+		65A2512021A842C80035FA0F /* SampleToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A2511F21A842C80035FA0F /* SampleToken.swift */; };
 		65A2512221A843BC0035FA0F /* LabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A2512121A843BC0035FA0F /* LabelView.swift */; };
 		65BEBC8D21A8850800397E39 /* Registrar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BEBC8C21A8850800397E39 /* Registrar.swift */; };
 		65EC6C0921E22A66002D0902 /* ResourceProviderCreationContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65EC6C0821E22A66002D0902 /* ResourceProviderCreationContext.swift */; };
@@ -118,7 +118,7 @@
 		65A2511421A83C010035FA0F /* ViewController1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController1.swift; sourceTree = "<group>"; };
 		65A2511B21A841760035FA0F /* ViewControllerProvider2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerProvider2.swift; sourceTree = "<group>"; };
 		65A2511D21A841830035FA0F /* ViewController2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController2.swift; sourceTree = "<group>"; };
-		65A2511F21A842C80035FA0F /* ResourceLocator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResourceLocator.swift; sourceTree = "<group>"; };
+		65A2511F21A842C80035FA0F /* SampleToken.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleToken.swift; sourceTree = "<group>"; };
 		65A2512121A843BC0035FA0F /* LabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelView.swift; sourceTree = "<group>"; };
 		65BEBC8C21A8850800397E39 /* Registrar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Registrar.swift; sourceTree = "<group>"; };
 		65EC6C0821E22A66002D0902 /* ResourceProviderCreationContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceProviderCreationContext.swift; sourceTree = "<group>"; };
@@ -346,7 +346,7 @@
 			isa = PBXGroup;
 			children = (
 				65A250F121A836C50035FA0F /* AppDelegate.swift */,
-				65A2511F21A842C80035FA0F /* ResourceLocator.swift */,
+				65A2511F21A842C80035FA0F /* SampleToken.swift */,
 				6539420221C045F900D414D7 /* Custom UI */,
 				6509ABE921B40D5D004AD6E6 /* Views */,
 				655A46A221A9B22100CEC47F /* ResourceProvider */,
@@ -609,7 +609,7 @@
 				65A2511C21A841760035FA0F /* ViewControllerProvider2.swift in Sources */,
 				65A2511621A83C1A0035FA0F /* ViewController1Provider.swift in Sources */,
 				6509ABE421B3FE52004AD6E6 /* LoginViewControllerProvider.swift in Sources */,
-				65A2512021A842C80035FA0F /* ResourceLocator.swift in Sources */,
+				65A2512021A842C80035FA0F /* SampleToken.swift in Sources */,
 				655A46AC21A9B99F00CEC47F /* AuthenticatorProvider.swift in Sources */,
 				65A250F221A836C50035FA0F /* AppDelegate.swift in Sources */,
 				6509ABE321B3FE4A004AD6E6 /* LoginViewController.swift in Sources */,

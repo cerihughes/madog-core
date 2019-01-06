@@ -39,8 +39,8 @@ class LogoutViewControllerProvider: ViewControllerProviderObject {
 
     private func createViewController(token: Any, context: Context) -> UIViewController? {
         guard let authenticator = authenticator,
-            let rl = token as? ResourceLocator,
-            rl.identifier == logoutIdentifier else {
+            let sampleToken = token as? SampleToken,
+            sampleToken.identifier == logoutIdentifier else {
                 return nil
         }
 
@@ -50,8 +50,8 @@ class LogoutViewControllerProvider: ViewControllerProviderObject {
     }
 }
 
-extension ResourceLocator {
-    static var logoutResourceLocator: ResourceLocator {
-        return ResourceLocator(identifier: logoutIdentifier, data: [:])
+extension SampleToken {
+    static var logout: SampleToken {
+        return SampleToken(identifier: logoutIdentifier, data: [:])
     }
 }

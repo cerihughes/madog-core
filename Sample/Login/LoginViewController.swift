@@ -41,7 +41,7 @@ class LoginViewController: UIViewController {
             self.authenticator.login(username: "SomeUsername", password: "SomePassword123", completion: { (result) in
                 self.activityIndicator.stopAnimating()
 
-                let tokens: [ResourceLocator] = [.vc1ResourceLocator, .logoutResourceLocator]
+                let tokens: [SampleToken] = [.vc1, .logout]
                 let identifier = MultiUIIdentifier.createTabBarControllerIdentifier()
                 _ = navigationContext.change(to: identifier, with: tokens)
             })

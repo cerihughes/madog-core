@@ -39,8 +39,8 @@ class ViewController1Provider: ViewControllerProviderObject {
 
     private func createViewController(token: Any, context: Context) -> UIViewController? {
         guard let sharedResource = sharedResource,
-            let rl = token as? ResourceLocator,
-            rl.identifier == vc1Identifier,
+            let sampleToken = token as? SampleToken,
+            sampleToken.identifier == vc1Identifier,
             let navigationContext = context as? ForwardBackNavigationContext else {
                 return nil
         }
@@ -51,8 +51,8 @@ class ViewController1Provider: ViewControllerProviderObject {
     }
 }
 
-extension ResourceLocator {
-    static var vc1ResourceLocator: ResourceLocator {
-        return ResourceLocator(identifier: vc1Identifier, data: [:])
+extension SampleToken {
+    static var vc1: SampleToken {
+        return SampleToken(identifier: vc1Identifier, data: [:])
     }
 }

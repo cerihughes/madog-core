@@ -49,7 +49,7 @@ class LogoutPage: PageObject {
 }
 
 extension ResourceLocator {
-    static func createLogoutPageResourceLocator() -> ResourceLocator {
+    static var logoutPageResourceLocator: ResourceLocator {
         return ResourceLocator(identifier: logoutPageIdentifier, data: [:])
     }
 }

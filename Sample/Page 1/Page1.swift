@@ -50,7 +50,7 @@ class Page1: PageObject {
 }
 
 extension ResourceLocator {
-    static func createPage1ResourceLocator() -> ResourceLocator {
+    static var page1ResourceLocator: ResourceLocator {
         return ResourceLocator(identifier: page1Identifier, data: [:])
     }
 }

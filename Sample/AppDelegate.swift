@@ -22,13 +22,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         window.makeKeyAndVisible()
 
-
-        let initialRL = ResourceLocator.createLoginPageResourceLocator()
+        let initialRL = ResourceLocator.loginPageResourceLocator
         let identifier = SinglePageUIIdentifier.createSplitViewControllerIdentifier { (splitController) in
             splitController.preferredDisplayMode = .allVisible
             splitController.presentsWithGesture = false
         }
         return madog.renderSinglePageUI(identifier, with: initialRL, in: window)
+    }
+
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+        guard let currentContext = madog.currentContext else {
+            return false
+        }
+
+        let token = ResourceLocator.createPage2ResourceLocator(pageData: String(url.absoluteString.count))
+        if let navigationContext = currentContext as? ForwardBackNavigationContext {
+            return navigationContext.navigateForward(with: token, animated: true) != nil
+        } else {
+            let identifier = SinglePageUIIdentifier.createNavigationControllerIdentifier()
+            return currentContext.change(to: identifier, with: token)
+        }
     }
 }
 

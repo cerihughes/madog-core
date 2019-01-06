@@ -35,6 +35,10 @@ public final class Madog<Token>: MadogUIContextDelegate {
         return factory.addMultiPageUICreationFunction(identifier: identifier, function: function)
     }
 
+    public var currentContext: Context? {
+        return currentContextUI
+    }
+
     // MARK: - MadogUIContextDelegate
 
     public func renderSinglePageUI<VC: UIViewController>(_ uiIdentifier: SinglePageUIIdentifier<VC>, with token: Any, in window: UIWindow) -> Bool {

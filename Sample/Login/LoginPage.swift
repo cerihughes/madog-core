@@ -48,7 +48,7 @@ class LoginPage: PageObject {
 }
 
 extension ResourceLocator {
-    static func createLoginPageResourceLocator() -> ResourceLocator {
+    static var loginPageResourceLocator: ResourceLocator {
         return ResourceLocator(identifier: loginPageIdentifier, data: [:])
     }
 }

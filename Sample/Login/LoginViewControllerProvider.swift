@@ -1,5 +1,5 @@
 //
-//  LoginPage.swift
+//  LoginViewControllerProvider.swift
 //  Madog
 //
 //  Created by Ceri Hughes on 02/12/2018.
@@ -9,13 +9,13 @@
 import Madog
 import UIKit
 
-fileprivate let loginPageIdentifier = "loginPageIdentifier"
+fileprivate let loginIdentifier = "loginIdentifier"
 
-class LoginPage: PageObject {
+class LoginViewControllerProvider: ViewControllerProviderObject {
     private var authenticator: Authenticator?
     private var uuid: UUID?
 
-    // MARK: PageObject
+    // MARK: ViewControllerProviderObject
 
     override func register(with registry: ViewControllerRegistry) {
         uuid = registry.add(registryFunction: createViewController(token:context:))
@@ -39,7 +39,7 @@ class LoginPage: PageObject {
 
     private func createViewController(token: Any, context: Context) -> UIViewController? {
         guard let rl = token as? ResourceLocator,
-            rl.identifier == loginPageIdentifier,
+            rl.identifier == loginIdentifier,
             let authenticator = authenticator,
             let navigationContext = context as? Context & ForwardBackNavigationContext else {
                 return nil
@@ -50,7 +50,7 @@ class LoginPage: PageObject {
 }
 
 extension ResourceLocator {
-    static var loginPageResourceLocator: ResourceLocator {
-        return ResourceLocator(identifier: loginPageIdentifier, data: [:])
+    static var loginResourceLocator: ResourceLocator {
+        return ResourceLocator(identifier: loginIdentifier, data: [:])
     }
 }

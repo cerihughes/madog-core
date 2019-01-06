@@ -1,6 +1,6 @@
 //
-//  Page1.swift
-//  Madog
+//  ViewControllerProvider2.swift
+//  MadogSample
 //
 //  Created by Ceri Hughes on 23/11/2018.
 //  Copyright © 2018 Ceri Hughes. All rights reserved.
@@ -9,13 +9,13 @@
 import Madog
 import UIKit
 
-fileprivate let page1Identifier = "page1Identifier"
+fileprivate let vc2Identifier = "vc2Identifier"
 
-class Page1: PageObject {
+class ViewControllerProvider2: ViewControllerProviderObject {
     private var sharedResource: Any?
     private var uuid: UUID?
 
-    // MARK: PageObject
+    // MARK: ViewControllerProviderObject
 
     override func register(with registry: ViewControllerRegistry) {
         uuid = registry.add(registryFunction: createViewController(token:context:))
@@ -40,19 +40,28 @@ class Page1: PageObject {
     private func createViewController(token: Any, context: Context) -> UIViewController? {
         guard let sharedResource = sharedResource,
             let rl = token as? ResourceLocator,
-            rl.identifier == page1Identifier,
+            rl.identifier == vc2Identifier,
+            let stringData = rl.stringData,
             let navigationContext = context as? ForwardBackNavigationContext else {
                 return nil
         }
 
-        let viewController =  Page1ViewController(sharedResource: sharedResource, navigationContext: navigationContext)
-        viewController.tabBarItem = UITabBarItem.init(tabBarSystemItem: .bookmarks, tag: 0)
+        let viewController = ViewController2(sharedResource: sharedResource,
+                                                 stringData: stringData,
+                                                 navigationContext: navigationContext)
+        viewController.tabBarItem = UITabBarItem.init(tabBarSystemItem: .contacts, tag: 0)
         return viewController
     }
 }
 
 extension ResourceLocator {
-    static var page1ResourceLocator: ResourceLocator {
-        return ResourceLocator(identifier: page1Identifier, data: [:])
+    private static let stringDataKey = "stringData"
+
+    static func createVC2ResourceLocator(stringData: String) -> ResourceLocator {
+        return ResourceLocator(identifier: vc2Identifier, data: [stringDataKey : stringData])
+    }
+
+    var stringData: String? {
+        return data[ResourceLocator.stringDataKey] as? String
     }
 }

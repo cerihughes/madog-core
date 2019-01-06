@@ -10,34 +10,34 @@ import UIKit
 
 internal class MadogUIContextFactory<Token> {
     private let registry: ViewControllerRegistry
-    private var singlePageUIRegistry = [String: () -> MadogSinglePageUIContext<Token>]()
-    private var multiPageUIRegistry = [String: () -> MadogMultiPageUIContext<Token>]()
+    private var singleVCUIRegistry = [String: () -> MadogSingleUIContext<Token>]()
+    private var multiVCUIRegistry = [String: () -> MadogMultiUIContext<Token>]()
 
     internal init(registry: ViewControllerRegistry) {
         self.registry = registry
 
-        _ = addSinglePageUICreationFunction(identifier: navigationControllerIdentifier) { return NavigationUI<Token>() }
-        _ = addMultiPageUICreationFunction(identifier: tabBarControllerIdentifier) { return TabBarNavigationUI<Token>() }
+        _ = addSingleUICreationFunction(identifier: navigationControllerIdentifier) { return NavigationUI<Token>() }
+        _ = addMultiUICreationFunction(identifier: tabBarControllerIdentifier) { return TabBarNavigationUI<Token>() }
     }
 
-    internal func addSinglePageUICreationFunction(identifier: String, function: @escaping () -> MadogSinglePageUIContext<Token>) -> Bool {
-        guard singlePageUIRegistry[identifier] == nil else {
+    internal func addSingleUICreationFunction(identifier: String, function: @escaping () -> MadogSingleUIContext<Token>) -> Bool {
+        guard singleVCUIRegistry[identifier] == nil else {
             return false
         }
-        singlePageUIRegistry[identifier] = function
+        singleVCUIRegistry[identifier] = function
         return true
     }
 
-    internal func addMultiPageUICreationFunction(identifier: String, function: @escaping () -> MadogMultiPageUIContext<Token>) -> Bool {
-        guard multiPageUIRegistry[identifier] == nil else {
+    internal func addMultiUICreationFunction(identifier: String, function: @escaping () -> MadogMultiUIContext<Token>) -> Bool {
+        guard multiVCUIRegistry[identifier] == nil else {
             return false
         }
-        multiPageUIRegistry[identifier] = function
+        multiVCUIRegistry[identifier] = function
         return true
     }
 
-    internal func createSinglePageUI<VC: UIViewController>(_ uiIdentifier: SinglePageUIIdentifier<VC>) -> MadogSinglePageUIContext<Token>? {
-        guard let function = singlePageUIRegistry[uiIdentifier.value] else {
+    internal func createSingleUI<VC: UIViewController>(_ uiIdentifier: SingleUIIdentifier<VC>) -> MadogSingleUIContext<Token>? {
+        guard let function = singleVCUIRegistry[uiIdentifier.value] else {
             return nil
         }
 
@@ -46,8 +46,8 @@ internal class MadogUIContextFactory<Token> {
         return ui
     }
 
-    internal func createMultiPageUI<VC: UIViewController>(_ uiIdentifier: MultiPageUIIdentifier<VC>) -> MadogMultiPageUIContext<Token>? {
-        guard let function = multiPageUIRegistry[uiIdentifier.value] else {
+    internal func createMultiUI<VC: UIViewController>(_ uiIdentifier: MultiUIIdentifier<VC>) -> MadogMultiUIContext<Token>? {
+        guard let function = multiVCUIRegistry[uiIdentifier.value] else {
             return nil
         }
 

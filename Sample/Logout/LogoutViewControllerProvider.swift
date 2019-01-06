@@ -1,5 +1,5 @@
 //
-//  LogoutPage.swift
+//  LogoutViewControllerProvider.swift
 //  MadogSample
 //
 //  Created by Ceri Hughes on 02/12/2018.
@@ -9,13 +9,13 @@
 import Madog
 import UIKit
 
-fileprivate let logoutPageIdentifier = "logoutPageIdentifier"
+fileprivate let logoutIdentifier = "logoutIdentifier"
 
-class LogoutPage: PageObject {
+class LogoutViewControllerProvider: ViewControllerProviderObject {
     private var authenticator: Authenticator?
     private var uuid: UUID?
 
-    // MARK: PageObject
+    // MARK: ViewControllerProviderObject
 
     override func register(with registry: ViewControllerRegistry) {
         uuid = registry.add(registryFunction: createViewController(token:context:))
@@ -40,7 +40,7 @@ class LogoutPage: PageObject {
     private func createViewController(token: Any, context: Context) -> UIViewController? {
         guard let authenticator = authenticator,
             let rl = token as? ResourceLocator,
-            rl.identifier == logoutPageIdentifier else {
+            rl.identifier == logoutIdentifier else {
                 return nil
         }
 
@@ -51,7 +51,7 @@ class LogoutPage: PageObject {
 }
 
 extension ResourceLocator {
-    static var logoutPageResourceLocator: ResourceLocator {
-        return ResourceLocator(identifier: logoutPageIdentifier, data: [:])
+    static var logoutResourceLocator: ResourceLocator {
+        return ResourceLocator(identifier: logoutIdentifier, data: [:])
     }
 }

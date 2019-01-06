@@ -1,7 +1,7 @@
 import Foundation
 import Madog
 
-class TestPage: PageObject {
+class TestViewControllerProvider: ViewControllerProviderObject {
     var registered = false, unregistered = false
     var capturedResourceProviders: [String : ResourceProvider]? = nil
     override func register(with registry: ViewControllerRegistry) {
@@ -22,11 +22,11 @@ class TestResourceProvider: ResourceProviderObject {
     }
 }
 
-class TestPageFactory {
+class TestViewControllerProviderFactory {
     static var created = false
-    static func createPage() -> Page {
+    static func createViewControllerProvider() -> ViewControllerProvider {
         created = true
-        return TestPage()
+        return TestViewControllerProvider()
     }
 }
 

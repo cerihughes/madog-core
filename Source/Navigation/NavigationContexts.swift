@@ -9,8 +9,8 @@
 import UIKit
 
 public protocol Context: class {
-    func change<VC: UIViewController>(to uiIdentifier: SinglePageUIIdentifier<VC>, with token: Any) -> Bool
-    func change<VC: UIViewController>(to uiIdentifier: MultiPageUIIdentifier<VC>, with tokens: [Any]) -> Bool
+    func change<VC: UIViewController>(to uiIdentifier: SingleUIIdentifier<VC>, with token: Any) -> Bool
+    func change<VC: UIViewController>(to uiIdentifier: MultiUIIdentifier<VC>, with tokens: [Any]) -> Bool
 }
 
 public protocol ModalContext: class {

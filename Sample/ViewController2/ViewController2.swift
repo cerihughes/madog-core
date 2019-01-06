@@ -1,5 +1,5 @@
 //
-//  Page2ViewController.swift
+//  ViewController2.swift
 //  MadogSample
 //
 //  Created by Ceri Hughes on 23/11/2018.
@@ -9,14 +9,14 @@
 import Madog
 import UIKit
 
-class Page2ViewController: UIViewController {
+class ViewController2: UIViewController {
     private let sharedResource: Any
-    private let pageData: String
+    private let stringData: String
     private weak var navigationContext: ForwardBackNavigationContext?
 
-    init(sharedResource: Any, pageData:String, navigationContext: ForwardBackNavigationContext) {
+    init(sharedResource: Any, stringData: String, navigationContext: ForwardBackNavigationContext) {
         self.sharedResource = sharedResource
-        self.pageData = pageData
+        self.stringData = stringData
         self.navigationContext = navigationContext
 
         super.init(nibName: nil, bundle: nil)
@@ -31,7 +31,7 @@ class Page2ViewController: UIViewController {
             return
         }
 
-        view.label.text = pageData
+        view.label.text = stringData
 
         // Maybe do something with the shared resource at this point?
     }

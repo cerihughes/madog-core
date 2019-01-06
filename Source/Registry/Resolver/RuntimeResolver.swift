@@ -9,11 +9,11 @@
 import Foundation
 
 /// An implementation of Resolver which uses objc-runtime magic to find all loaded classes that
-/// subclass from PageObject and ResourceProviderObject respectively.
+/// subclass from ViewControllerProviderObject and ResourceProviderObject respectively.
 public final class RuntimeResolver: Resolver {
     private let bundle: Bundle
 
-    private var loadedPageCreationFunctions = [PageCreationFunction]()
+    private var loadedViewControllerProviderCreationFunctions = [ViewControllerProviderCreationFunction]()
     private var loadedResourceProviderCreationFunctions = [ResourceProviderCreationFunction]()
 
     convenience public init() {
@@ -28,8 +28,8 @@ public final class RuntimeResolver: Resolver {
 
     // MARK: Resolver
 
-    public func pageCreationFunctions() -> [PageCreationFunction] {
-        return loadedPageCreationFunctions
+    public func viewControllerProviderCreationFunctions() -> [ViewControllerProviderCreationFunction] {
+        return loadedViewControllerProviderCreationFunctions
     }
 
     public func resourceProviderCreationFunctions() -> [ResourceProviderCreationFunction] {
@@ -46,8 +46,8 @@ public final class RuntimeResolver: Resolver {
                 for i in 0 ..< classCount {
                     let className = classNames[Int(i)]
                     let name = String.init(cString: className)
-                    if let cls = NSClassFromString(name) as? PageObject.Type {
-                        loadedPageCreationFunctions.append { return cls.init() }
+                    if let cls = NSClassFromString(name) as? ViewControllerProviderObject.Type {
+                        loadedViewControllerProviderCreationFunctions.append { return cls.init() }
                     }
                     if let cls = NSClassFromString(name) as? ResourceProviderObject.Type {
                         loadedResourceProviderCreationFunctions.append { context in
@@ -60,13 +60,13 @@ public final class RuntimeResolver: Resolver {
             free(classNames);
 
             // Sort functions alphabetically by description
-            loadedPageCreationFunctions.sort { String(describing: $0) < String(describing: $1) }
+            loadedViewControllerProviderCreationFunctions.sort { String(describing: $0) < String(describing: $1) }
             loadedResourceProviderCreationFunctions.sort { String(describing: $0) < String(describing: $1) }
         }
     }
 }
 
-open class PageObject: Page {
+open class ViewControllerProviderObject: ViewControllerProvider {
     public required init() {}
     open func register(with registry: ViewControllerRegistry) {}
     open func unregister(from registry: ViewControllerRegistry) {}

@@ -1,5 +1,5 @@
 //
-//  Page.swift
+//  ViewControllerProvider.swift
 //  Madog
 //
 //  Created by Ceri Hughes on 23/11/2018.
@@ -8,9 +8,8 @@
 
 import Foundation
 
-/// A protocol that describes a page that wants to provide a VC (or a number of VCs) for a given token by registering
-/// with a ViewControllerRegistry.
-public protocol Page {
+/// A protocol that provides a VC (or a number of VCs) for a given token by registering with a ViewControllerRegistry.
+public protocol ViewControllerProvider {
     func register(with registry: ViewControllerRegistry)
     func unregister(from registry: ViewControllerRegistry)
     func configure(with resourceProviders: [String : ResourceProvider])

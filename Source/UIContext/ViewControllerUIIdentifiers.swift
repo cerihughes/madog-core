@@ -1,5 +1,5 @@
 //
-//  PageUIIdentifiers.swift
+//  ViewControllerUIIdentifiers.swift
 //  Madog
 //
 //  Created by Ceri Hughes on 02/12/2018.
@@ -10,7 +10,7 @@ import Foundation
 
 internal let navigationControllerIdentifier = "navigationControllerIdentifier"
 
-public class SinglePageUIIdentifier<VC: UIViewController> {
+public class SingleUIIdentifier<VC: UIViewController> {
     internal let value: String
     internal let customisation: (VC) -> Void
 
@@ -19,14 +19,14 @@ public class SinglePageUIIdentifier<VC: UIViewController> {
         self.customisation = customisation
     }
 
-    public static func createNavigationControllerIdentifier(customisation: @escaping (UINavigationController) -> Void = { _ in }) -> SinglePageUIIdentifier<UINavigationController> {
-        return SinglePageUIIdentifier<UINavigationController>(navigationControllerIdentifier, customisation: customisation)
+    public static func createNavigationControllerIdentifier(customisation: @escaping (UINavigationController) -> Void = { _ in }) -> SingleUIIdentifier<UINavigationController> {
+        return SingleUIIdentifier<UINavigationController>(navigationControllerIdentifier, customisation: customisation)
     }
 }
 
 internal let tabBarControllerIdentifier = "tabBarControllerIdentifier"
 
-public class MultiPageUIIdentifier<VC: UIViewController> {
+public class MultiUIIdentifier<VC: UIViewController> {
     internal let value: String
     internal let customisation: (VC) -> Void
 
@@ -35,7 +35,7 @@ public class MultiPageUIIdentifier<VC: UIViewController> {
         self.customisation = customisation
     }
 
-    public static func createTabBarControllerIdentifier(customisation: @escaping (UITabBarController) -> Void = { _ in }) -> MultiPageUIIdentifier<UITabBarController> {
-        return MultiPageUIIdentifier<UITabBarController>(tabBarControllerIdentifier, customisation: customisation)
+    public static func createTabBarControllerIdentifier(customisation: @escaping (UITabBarController) -> Void = { _ in }) -> MultiUIIdentifier<UITabBarController> {
+        return MultiUIIdentifier<UITabBarController>(tabBarControllerIdentifier, customisation: customisation)
     }
 }

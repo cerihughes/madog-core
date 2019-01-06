@@ -16,19 +16,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         madog.resolve(resolver: RuntimeResolver(), launchOptions: launchOptions)
-        let result = madog.addSinglePageUICreationFunction(identifier: splitViewControllerIdentifier) { return SplitUI() }
+        let result = madog.addSingleUICreationFunction(identifier: splitViewControllerIdentifier) { return SplitUI() }
         guard result == true else {
             return false
         }
 
         window.makeKeyAndVisible()
 
-        let initialRL = ResourceLocator.loginPageResourceLocator
-        let identifier = SinglePageUIIdentifier.createSplitViewControllerIdentifier { (splitController) in
+        let initialRL = ResourceLocator.loginResourceLocator
+        let identifier = SingleUIIdentifier.createSplitViewControllerIdentifier { (splitController) in
             splitController.preferredDisplayMode = .allVisible
             splitController.presentsWithGesture = false
         }
-        return madog.renderSinglePageUI(identifier, with: initialRL, in: window)
+        return madog.renderSingleUI(identifier, with: initialRL, in: window)
     }
 
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
@@ -36,11 +36,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             return false
         }
 
-        let token = ResourceLocator.createPage2ResourceLocator(pageData: String(url.absoluteString.count))
+        let token = ResourceLocator.createVC2ResourceLocator(stringData: String(url.absoluteString.count))
         if let navigationContext = currentContext as? ForwardBackNavigationContext {
             return navigationContext.navigateForward(with: token, animated: true) != nil
         } else {
-            let identifier = SinglePageUIIdentifier.createNavigationControllerIdentifier()
+            let identifier = SingleUIIdentifier.createNavigationControllerIdentifier()
             return currentContext.change(to: identifier, with: token)
         }
     }
@@ -48,8 +48,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 let splitViewControllerIdentifier = "splitViewControllerIdentifier"
 
-extension SinglePageUIIdentifier {
-    public static func createSplitViewControllerIdentifier(customisation: @escaping (UISplitViewController) -> Void = { _ in }) -> SinglePageUIIdentifier<UISplitViewController> {
-        return SinglePageUIIdentifier<UISplitViewController>(splitViewControllerIdentifier, customisation: customisation)
+extension SingleUIIdentifier {
+    public static func createSplitViewControllerIdentifier(customisation: @escaping (UISplitViewController) -> Void = { _ in }) -> SingleUIIdentifier<UISplitViewController> {
+        return SingleUIIdentifier<UISplitViewController>(splitViewControllerIdentifier, customisation: customisation)
     }
 }

@@ -11,7 +11,7 @@ import UIKit
 
 protocol SplitContext: Context, ForwardBackNavigationContext {}
 
-class SplitUI<Token>: MadogSingleUIContext<Token>, SplitContext {
+class SplitUI<Token>: MadogSingleUIContainer<Token>, SplitContext {
     private let splitController = UISplitViewController()
 
     init() {

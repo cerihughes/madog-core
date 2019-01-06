@@ -1,5 +1,5 @@
 //
-//  MadogUIContext.swift
+//  MadogUIContainer.swift
 //  Madog
 //
 //  Created by Ceri Hughes on 07/12/2018.
@@ -8,13 +8,13 @@
 
 import UIKit
 
-internal protocol MadogUIContextDelegate: class {
+internal protocol MadogUIContainerDelegate: class {
     func renderUI<VC: UIViewController>(identifier: SingleUIIdentifier<VC>, token: Any, in window: UIWindow) -> Bool
     func renderUI<VC: UIViewController>(identifier: MultiUIIdentifier<VC>, tokens: [Any], in window: UIWindow) -> Bool
 }
 
-open class MadogUIContext<Token>: Context {
-    internal weak var delegate: MadogUIContextDelegate?
+open class MadogUIContainer<Token>: Context {
+    internal weak var delegate: MadogUIContainerDelegate?
     internal let viewController: UIViewController
     internal var internalRegistry: ViewControllerRegistry!
 
@@ -47,13 +47,13 @@ open class MadogUIContext<Token>: Context {
     }
 }
 
-open class MadogSingleUIContext<Token>: MadogUIContext<Token> {
+open class MadogSingleUIContainer<Token>: MadogUIContainer<Token> {
     open func renderInitialView(with token: Token) -> Bool {
         return false
     }
 }
 
-open class MadogMultiUIContext<Token>: MadogUIContext<Token> {
+open class MadogMultiUIContainer<Token>: MadogUIContainer<Token> {
     open func renderInitialViews(with tokens: [Token]) -> Bool {
         return false
     }

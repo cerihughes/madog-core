@@ -8,16 +8,16 @@
 
 import UIKit
 
-public final class Madog<Token>: MadogUIContextDelegate {
+public final class Madog<Token>: MadogUIContainerDelegate {
     private let registry: ViewControllerRegistry
-    private let factory: MadogUIContextFactory<Token>
+    private let factory: MadogUIContainerFactory<Token>
     private let registrar: Registrar
 
-    private var currentContextUI: MadogUIContext<Token>?
+    private var currentContextUI: MadogUIContainer<Token>?
 
     public init() {
         registry = ViewControllerRegistry()
-        factory = MadogUIContextFactory<Token>(registry: registry)
+        factory = MadogUIContainerFactory<Token>(registry: registry)
         registrar = Registrar()
     }
 
@@ -32,11 +32,11 @@ public final class Madog<Token>: MadogUIContextDelegate {
         registrar.unregisterViewControllerProviders(from: self.registry)
     }
 
-    public func addSingleUICreationFunction(identifier: String, function: @escaping () -> MadogSingleUIContext<Token>) -> Bool {
+    public func addSingleUICreationFunction(identifier: String, function: @escaping () -> MadogSingleUIContainer<Token>) -> Bool {
         return factory.addSingleUICreationFunction(identifier: identifier, function: function)
     }
 
-    public func addMultiUICreationFunction(identifier: String, function: @escaping () -> MadogMultiUIContext<Token>) -> Bool {
+    public func addMultiUICreationFunction(identifier: String, function: @escaping () -> MadogMultiUIContainer<Token>) -> Bool {
         return factory.addMultiUICreationFunction(identifier: identifier, function: function)
     }
 

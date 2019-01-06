@@ -1,5 +1,5 @@
 //
-//  MadogUIContextFactory.swift
+//  MadogUIContainerFactory.swift
 //  Madog
 //
 //  Created by Ceri Hughes on 02/12/2018.
@@ -8,10 +8,10 @@
 
 import UIKit
 
-internal class MadogUIContextFactory<Token> {
+internal class MadogUIContainerFactory<Token> {
     private let registry: ViewControllerRegistry
-    private var singleVCUIRegistry = [String: () -> MadogSingleUIContext<Token>]()
-    private var multiVCUIRegistry = [String: () -> MadogMultiUIContext<Token>]()
+    private var singleVCUIRegistry = [String: () -> MadogSingleUIContainer<Token>]()
+    private var multiVCUIRegistry = [String: () -> MadogMultiUIContainer<Token>]()
 
     internal init(registry: ViewControllerRegistry) {
         self.registry = registry
@@ -20,7 +20,7 @@ internal class MadogUIContextFactory<Token> {
         _ = addMultiUICreationFunction(identifier: tabBarControllerIdentifier) { return TabBarNavigationUI<Token>() }
     }
 
-    internal func addSingleUICreationFunction(identifier: String, function: @escaping () -> MadogSingleUIContext<Token>) -> Bool {
+    internal func addSingleUICreationFunction(identifier: String, function: @escaping () -> MadogSingleUIContainer<Token>) -> Bool {
         guard singleVCUIRegistry[identifier] == nil else {
             return false
         }
@@ -28,7 +28,7 @@ internal class MadogUIContextFactory<Token> {
         return true
     }
 
-    internal func addMultiUICreationFunction(identifier: String, function: @escaping () -> MadogMultiUIContext<Token>) -> Bool {
+    internal func addMultiUICreationFunction(identifier: String, function: @escaping () -> MadogMultiUIContainer<Token>) -> Bool {
         guard multiVCUIRegistry[identifier] == nil else {
             return false
         }
@@ -36,7 +36,7 @@ internal class MadogUIContextFactory<Token> {
         return true
     }
 
-    internal func createSingleUI<VC: UIViewController>(identifier: SingleUIIdentifier<VC>) -> MadogSingleUIContext<Token>? {
+    internal func createSingleUI<VC: UIViewController>(identifier: SingleUIIdentifier<VC>) -> MadogSingleUIContainer<Token>? {
         guard let function = singleVCUIRegistry[identifier.value] else {
             return nil
         }
@@ -46,7 +46,7 @@ internal class MadogUIContextFactory<Token> {
         return ui
     }
 
-    internal func createMultiUI<VC: UIViewController>(identifier: MultiUIIdentifier<VC>) -> MadogMultiUIContext<Token>? {
+    internal func createMultiUI<VC: UIViewController>(identifier: MultiUIIdentifier<VC>) -> MadogMultiUIContainer<Token>? {
         guard let function = multiVCUIRegistry[identifier.value] else {
             return nil
         }

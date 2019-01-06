@@ -12,7 +12,7 @@ import UIKit
 fileprivate let page2Identifier = "page2Identifier"
 
 class Page2: PageObject {
-    private var state1: State1?
+    private var sharedResource: Any?
     private var uuid: UUID?
 
     // MARK: PageObject
@@ -29,14 +29,16 @@ class Page2: PageObject {
         registry.removeRegistryFunction(uuid: uuid)
     }
 
-    override func configure(with state: [String : State]) {
-        state1 = state[state1Name] as? State1
+    override func configure(with resourceProviders: [String : ResourceProvider]) {
+        if let resourceProvider = resourceProviders[resourceProvider1Name] as? ResourceProvider1 {
+            sharedResource = resourceProvider.somethingShared
+        }
     }
 
     // MARK: Private
 
     private func createViewController(token: Any, context: Context) -> UIViewController? {
-        guard let state1 = state1,
+        guard let sharedResource = sharedResource,
             let rl = token as? ResourceLocator,
             rl.identifier == page2Identifier,
             let pageData = rl.pageData,
@@ -44,7 +46,7 @@ class Page2: PageObject {
                 return nil
         }
 
-        let viewController = Page2ViewController(state1: state1,
+        let viewController = Page2ViewController(sharedResource: sharedResource,
                                                  pageData: pageData,
                                                  navigationContext: navigationContext)
         viewController.tabBarItem = UITabBarItem.init(tabBarSystemItem: .contacts, tag: 0)

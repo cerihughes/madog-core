@@ -10,12 +10,12 @@ import Madog
 import UIKit
 
 class Page1ViewController: UIViewController {
-    private let state1: State1
+    private let sharedResource: Any
     private weak var navigationContext: ForwardBackNavigationContext?
     private var pushCount = 0
 
-    init(state1: State1, navigationContext: ForwardBackNavigationContext) {
-        self.state1 = state1
+    init(sharedResource: Any, navigationContext: ForwardBackNavigationContext) {
+        self.sharedResource = sharedResource
         self.navigationContext = navigationContext
 
         super.init(nibName: nil, bundle: nil)

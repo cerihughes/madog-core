@@ -10,14 +10,14 @@ import Foundation
 
 /// A class that presents view controllers, and manages the navigation between them.
 internal class PageRegistrar {
-    internal var states = [String:State]()
+    internal var resourceProviders = [String : ResourceProvider]()
     internal var pages = [Page]()
 
-    internal func createState(functions: [StateCreationFunction], context: StateCreationContext) {
+    internal func createResourceProviders(functions: [ResourceProviderCreationFunction], context: ResourceProviderCreationContext) {
         for function in functions {
-            let state = function(context)
-            let name = state.name
-            states[name] = state
+            let resourceProvider = function(context)
+            let name = resourceProvider.name
+            resourceProviders[name] = resourceProvider
         }
     }
 
@@ -25,7 +25,7 @@ internal class PageRegistrar {
         for function in functions {
             let page = function()
             page.register(with: registry)
-            page.configure(with: states)
+            page.configure(with: resourceProviders)
             pages.append(page)
         }
     }

@@ -3,18 +3,18 @@ import Madog
 
 class TestResolver: Resolver {
     private let testPageCreationFunctions: [PageCreationFunction]
-    private let testStateCreationFunctions: [StateCreationFunction]
+    private let testResourceProviderCreationFunctions: [ResourceProviderCreationFunction]
 
-    init(testPageCreationFunctions: [PageCreationFunction], testStateCreationFunctions: [StateCreationFunction]) {
+    init(testPageCreationFunctions: [PageCreationFunction], testResourceProviderCreationFunctions: [ResourceProviderCreationFunction]) {
         self.testPageCreationFunctions = testPageCreationFunctions
-        self.testStateCreationFunctions = testStateCreationFunctions
+        self.testResourceProviderCreationFunctions = testResourceProviderCreationFunctions
     }
 
     func pageCreationFunctions() -> [PageCreationFunction] {
         return testPageCreationFunctions
     }
 
-    func stateCreationFunctions() -> [StateCreationFunction] {
-        return testStateCreationFunctions
+    func resourceProviderCreationFunctions() -> [ResourceProviderCreationFunction] {
+        return testResourceProviderCreationFunctions
     }
 }

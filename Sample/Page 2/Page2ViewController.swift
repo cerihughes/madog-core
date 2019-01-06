@@ -10,12 +10,12 @@ import Madog
 import UIKit
 
 class Page2ViewController: UIViewController {
-    private let state1: State1
+    private let sharedResource: Any
     private let pageData: String
     private weak var navigationContext: ForwardBackNavigationContext?
 
-    init(state1: State1, pageData:String, navigationContext: ForwardBackNavigationContext) {
-        self.state1 = state1
+    init(sharedResource: Any, pageData:String, navigationContext: ForwardBackNavigationContext) {
+        self.sharedResource = sharedResource
         self.pageData = pageData
         self.navigationContext = navigationContext
 
@@ -33,7 +33,7 @@ class Page2ViewController: UIViewController {
 
         view.label.text = pageData
 
-        // Maybe do something with the state at this point?
+        // Maybe do something with the shared resource at this point?
     }
 
     override func viewDidAppear(_ animated: Bool) {

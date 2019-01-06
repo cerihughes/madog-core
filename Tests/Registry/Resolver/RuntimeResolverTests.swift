@@ -22,7 +22,7 @@ class RuntimeResolverTests: XCTestCase {
         XCTAssertEqual(resolver.pageCreationFunctions().count, 1)
     }
 
-    func testNumberOfStateCreationFunctions() {
-        XCTAssertEqual(resolver.stateCreationFunctions().count, 1)
+    func testNumberOfResourceProviderCreationFunctions() {
+        XCTAssertEqual(resolver.resourceProviderCreationFunctions().count, 1)
     }
 }

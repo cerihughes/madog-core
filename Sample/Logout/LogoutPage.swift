@@ -12,7 +12,7 @@ import UIKit
 fileprivate let logoutPageIdentifier = "logoutPageIdentifier"
 
 class LogoutPage: PageObject {
-    private var authenticatorState: AuthenticatorState?
+    private var authenticator: Authenticator?
     private var uuid: UUID?
 
     // MARK: PageObject
@@ -29,14 +29,16 @@ class LogoutPage: PageObject {
         registry.removeRegistryFunction(uuid: uuid)
     }
 
-    override func configure(with state: [String : State]) {
-        authenticatorState = state[authenticatorStateName] as? AuthenticatorState
+    override func configure(with resourceProviders: [String : ResourceProvider]) {
+        if let authenticatorProvider = resourceProviders[authenticatorProviderName] as? AuthenticatorProvider {
+            authenticator = authenticatorProvider.authenticator
+        }
     }
 
     // MARK: Private
 
     private func createViewController(token: Any, context: Context) -> UIViewController? {
-        guard let authenticator = authenticatorState?.authenticator,
+        guard let authenticator = authenticator,
             let rl = token as? ResourceLocator,
             rl.identifier == logoutPageIdentifier else {
                 return nil

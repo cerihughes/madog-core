@@ -14,9 +14,9 @@ class PageRegistrarTests: XCTestCase {
     override func setUp() {
         super.setUp()
         let testPageCreationFunctions: [PageCreationFunction] = [TestPageFactory.createPage]
-        let testStateCreationFunctions: [StateCreationFunction] = [TestStateFactory.createState]
+        let testResourceProviderCreationFunctions: [ResourceProviderCreationFunction] = [TestResourceProviderFactory.createResourceProvider]
         resolver = TestResolver(testPageCreationFunctions: testPageCreationFunctions,
-                                testStateCreationFunctions: testStateCreationFunctions)
+                                testResourceProviderCreationFunctions: testResourceProviderCreationFunctions)
         registry = ViewControllerRegistry()
         pageRegistrar = PageRegistrar()
     }
@@ -26,16 +26,16 @@ class PageRegistrarTests: XCTestCase {
         super.tearDown()
     }
 
-    func testCreateState() {
-        TestStateFactory.created = false
+    func testCreateResourceProviders() {
+        TestResourceProviderFactory.created = false
 
-        XCTAssertEqual(pageRegistrar.states.count, 0)
-        pageRegistrar.createState(functions: resolver.stateCreationFunctions(), context: StateCreationContextImplementation())
+        XCTAssertEqual(pageRegistrar.resourceProviders.count, 0)
+        pageRegistrar.createResourceProviders(functions: resolver.resourceProviderCreationFunctions(), context: ResourceProviderCreationContextImplementation())
 
-        // Both factories create a state object with the same name, so we only get 1 object
-        XCTAssertEqual(pageRegistrar.states.count, 1)
+        // Both factories create a resource provider object with the same name, so we only get 1 object
+        XCTAssertEqual(pageRegistrar.resourceProviders.count, 1)
 
-        XCTAssertTrue(TestStateFactory.created)
+        XCTAssertTrue(TestResourceProviderFactory.created)
     }
 
     func testRegisterAndUnregisterPages() {

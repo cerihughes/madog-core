@@ -1,5 +1,5 @@
 //
-//  State.swift
+//  ResourceProvider.swift
 //  Madog
 //
 //  Created by Ceri Hughes on 24/11/2018.
@@ -8,6 +8,6 @@
 
 import Foundation
 
-public protocol State {
+public protocol ResourceProvider {
     var name: String {get}
 }

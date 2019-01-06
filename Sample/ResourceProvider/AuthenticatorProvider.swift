@@ -1,5 +1,5 @@
 //
-//  AuthenicatorState.swift
+//  AuthenticatorProvider.swift
 //  Madog
 //
 //  Created by Ceri Hughes on 24/11/2018.
@@ -9,16 +9,16 @@
 import Foundation
 import Madog
 
-let authenticatorStateName = "authenticatorStateName"
+let authenticatorProviderName = "authenticatorProviderName"
 
-class AuthenticatorState: StateObject {
+class AuthenticatorProvider: ResourceProviderObject {
     let authenticator = Authenticator()
 
-    // MARK: StateObject
+    // MARK: ResourceProviderObject
 
-    required init(stateCreationContext: StateCreationContext) {
-        super.init(stateCreationContext: stateCreationContext)
-        name = authenticatorStateName
+    required init(context: ResourceProviderCreationContext) {
+        super.init(context: context)
+        name = authenticatorProviderName
     }
 }
 

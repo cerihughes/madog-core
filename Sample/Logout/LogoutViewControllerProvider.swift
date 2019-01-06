@@ -1,5 +1,5 @@
 //
-//  LogoutPage.swift
+//  LogoutViewControllerProvider.swift
 //  MadogSample
 //
 //  Created by Ceri Hughes on 02/12/2018.
@@ -9,13 +9,13 @@
 import Madog
 import UIKit
 
-fileprivate let logoutPageIdentifier = "logoutPageIdentifier"
+fileprivate let logoutIdentifier = "logoutIdentifier"
 
-class LogoutPage: PageObject {
-    private var authenticatorState: AuthenticatorState?
+class LogoutViewControllerProvider: ViewControllerProviderObject {
+    private var authenticator: Authenticator?
     private var uuid: UUID?
 
-    // MARK: PageObject
+    // MARK: ViewControllerProviderObject
 
     override func register(with registry: ViewControllerRegistry) {
         uuid = registry.add(registryFunction: createViewController(token:context:))
@@ -29,16 +29,18 @@ class LogoutPage: PageObject {
         registry.removeRegistryFunction(uuid: uuid)
     }
 
-    override func configure(with state: [String : State]) {
-        authenticatorState = state[authenticatorStateName] as? AuthenticatorState
+    override func configure(with resourceProviders: [String : ResourceProvider]) {
+        if let authenticatorProvider = resourceProviders[authenticatorProviderName] as? AuthenticatorProvider {
+            authenticator = authenticatorProvider.authenticator
+        }
     }
 
     // MARK: Private
 
     private func createViewController(token: Any, context: Context) -> UIViewController? {
-        guard let authenticator = authenticatorState?.authenticator,
-            let rl = token as? ResourceLocator,
-            rl.identifier == logoutPageIdentifier else {
+        guard let authenticator = authenticator,
+            let sampleToken = token as? SampleToken,
+            sampleToken.identifier == logoutIdentifier else {
                 return nil
         }
 
@@ -48,8 +50,8 @@ class LogoutPage: PageObject {
     }
 }
 
-extension ResourceLocator {
-    static var logoutPageResourceLocator: ResourceLocator {
-        return ResourceLocator(identifier: logoutPageIdentifier, data: [:])
+extension SampleToken {
+    static var logout: SampleToken {
+        return SampleToken(identifier: logoutIdentifier, data: [:])
     }
 }

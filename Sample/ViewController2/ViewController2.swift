@@ -1,5 +1,5 @@
 //
-//  Page2ViewController.swift
+//  ViewController2.swift
 //  MadogSample
 //
 //  Created by Ceri Hughes on 23/11/2018.
@@ -9,14 +9,14 @@
 import Madog
 import UIKit
 
-class Page2ViewController: UIViewController {
-    private let state1: State1
-    private let pageData: String
+class ViewController2: UIViewController {
+    private let sharedResource: Any
+    private let stringData: String
     private weak var navigationContext: ForwardBackNavigationContext?
 
-    init(state1: State1, pageData:String, navigationContext: ForwardBackNavigationContext) {
-        self.state1 = state1
-        self.pageData = pageData
+    init(sharedResource: Any, stringData: String, navigationContext: ForwardBackNavigationContext) {
+        self.sharedResource = sharedResource
+        self.stringData = stringData
         self.navigationContext = navigationContext
 
         super.init(nibName: nil, bundle: nil)
@@ -31,9 +31,9 @@ class Page2ViewController: UIViewController {
             return
         }
 
-        view.label.text = pageData
+        view.label.text = stringData
 
-        // Maybe do something with the state at this point?
+        // Maybe do something with the shared resource at this point?
     }
 
     override func viewDidAppear(_ animated: Bool) {

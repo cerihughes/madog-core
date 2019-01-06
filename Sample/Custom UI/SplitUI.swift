@@ -11,14 +11,14 @@ import UIKit
 
 protocol SplitContext: Context, ForwardBackNavigationContext {}
 
-class SplitUI<Token>: MadogSinglePageUIContext<Token>, SplitContext {
+class SplitUI<Token>: MadogSingleUIContainer<Token>, SplitContext {
     private let splitController = UISplitViewController()
 
     init() {
         super.init(viewController: splitController)
     }
 
-    // MARK: - MadogSinglePageUIContext
+    // MARK: - MadogSingleUIContext
 
     override func renderInitialView(with token: Token) -> Bool {
         guard let viewController = registry.createViewController(from: token, context: self) else {
@@ -31,7 +31,7 @@ class SplitUI<Token>: MadogSinglePageUIContext<Token>, SplitContext {
 
     // MARK: - ForwardBackNavigationContext
 
-    func navigateForward(with token: Any, animated: Bool) -> NavigationToken? {
+    func navigateForward(token: Any, animated: Bool) -> NavigationToken? {
         guard let viewController = registry.createViewController(from: token, context: self) else {
             return nil
         }

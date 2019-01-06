@@ -1,5 +1,5 @@
 //
-//  MadogUIContext.swift
+//  MadogUIContainer.swift
 //  Madog
 //
 //  Created by Ceri Hughes on 07/12/2018.
@@ -8,13 +8,13 @@
 
 import UIKit
 
-internal protocol MadogUIContextDelegate: class {
-    func renderSinglePageUI<VC: UIViewController>(_ uiIdentifier: SinglePageUIIdentifier<VC>, with token: Any, in window: UIWindow) -> Bool
-    func renderMultiPageUI<VC: UIViewController>(_ uiIdentifier: MultiPageUIIdentifier<VC>, with tokens: [Any], in window: UIWindow) -> Bool
+internal protocol MadogUIContainerDelegate: class {
+    func renderUI<VC: UIViewController>(identifier: SingleUIIdentifier<VC>, token: Any, in window: UIWindow) -> Bool
+    func renderUI<VC: UIViewController>(identifier: MultiUIIdentifier<VC>, tokens: [Any], in window: UIWindow) -> Bool
 }
 
-open class MadogUIContext<Token>: Context {
-    internal weak var delegate: MadogUIContextDelegate?
+open class MadogUIContainer<Token>: Context {
+    internal weak var delegate: MadogUIContainerDelegate?
     internal let viewController: UIViewController
     internal var internalRegistry: ViewControllerRegistry!
 
@@ -26,20 +26,20 @@ open class MadogUIContext<Token>: Context {
         return internalRegistry
     }
 
-    public func change<VC: UIViewController>(to uiIdentifier: SinglePageUIIdentifier<VC>, with token: Any) -> Bool {
+    public func change<VC: UIViewController>(to identifier: SingleUIIdentifier<VC>, token: Any) -> Bool {
         guard let delegate = delegate, let window = viewController.view.window else {
             return false
         }
 
-        return delegate.renderSinglePageUI(uiIdentifier, with: token, in: window)
+        return delegate.renderUI(identifier: identifier, token: token, in: window)
     }
 
-    public func change<VC: UIViewController>(to uiIdentifier: MultiPageUIIdentifier<VC>, with tokens: [Any]) -> Bool {
+    public func change<VC: UIViewController>(to identifier: MultiUIIdentifier<VC>, tokens: [Any]) -> Bool {
         guard let delegate = delegate, let window = viewController.view.window else {
             return false
         }
 
-        return delegate.renderMultiPageUI(uiIdentifier, with: tokens, in: window)
+        return delegate.renderUI(identifier: identifier, tokens: tokens, in: window)
     }
 
     public final func createNavigationToken(for viewController: UIViewController) -> NavigationToken {
@@ -47,13 +47,13 @@ open class MadogUIContext<Token>: Context {
     }
 }
 
-open class MadogSinglePageUIContext<Token>: MadogUIContext<Token> {
+open class MadogSingleUIContainer<Token>: MadogUIContainer<Token> {
     open func renderInitialView(with token: Token) -> Bool {
         return false
     }
 }
 
-open class MadogMultiPageUIContext<Token>: MadogUIContext<Token> {
+open class MadogMultiUIContainer<Token>: MadogUIContainer<Token> {
     open func renderInitialViews(with tokens: [Token]) -> Bool {
         return false
     }

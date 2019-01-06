@@ -2,19 +2,20 @@ import Foundation
 import Madog
 
 class TestResolver: Resolver {
-    private let testPageCreationFunctions: [PageCreationFunction]
-    private let testStateCreationFunctions: [StateCreationFunction]
+    private let testViewControllerProviderCreationFunctions: [ViewControllerProviderCreationFunction]
+    private let testResourceProviderCreationFunctions: [ResourceProviderCreationFunction]
 
-    init(testPageCreationFunctions: [PageCreationFunction], testStateCreationFunctions: [StateCreationFunction]) {
-        self.testPageCreationFunctions = testPageCreationFunctions
-        self.testStateCreationFunctions = testStateCreationFunctions
+    init(testViewControllerProviderCreationFunctions: [ViewControllerProviderCreationFunction],
+         testResourceProviderCreationFunctions: [ResourceProviderCreationFunction]) {
+        self.testViewControllerProviderCreationFunctions = testViewControllerProviderCreationFunctions
+        self.testResourceProviderCreationFunctions = testResourceProviderCreationFunctions
     }
 
-    func pageCreationFunctions() -> [PageCreationFunction] {
-        return testPageCreationFunctions
+    func viewControllerProviderCreationFunctions() -> [ViewControllerProviderCreationFunction] {
+        return testViewControllerProviderCreationFunctions
     }
 
-    func stateCreationFunctions() -> [StateCreationFunction] {
-        return testStateCreationFunctions
+    func resourceProviderCreationFunctions() -> [ResourceProviderCreationFunction] {
+        return testResourceProviderCreationFunctions
     }
 }

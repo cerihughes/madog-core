@@ -1,5 +1,5 @@
 //
-//  Page1.swift
+//  ViewController1Provider.swift
 //  Madog
 //
 //  Created by Ceri Hughes on 23/11/2018.
@@ -9,13 +9,13 @@
 import Madog
 import UIKit
 
-fileprivate let page1Identifier = "page1Identifier"
+fileprivate let vc1Identifier = "vc1Identifier"
 
-class Page1: PageObject {
-    private var state1: State1?
+class ViewController1Provider: ViewControllerProviderObject {
+    private var sharedResource: Any?
     private var uuid: UUID?
 
-    // MARK: PageObject
+    // MARK: ViewControllerProviderObject
 
     override func register(with registry: ViewControllerRegistry) {
         uuid = registry.add(registryFunction: createViewController(token:context:))
@@ -29,28 +29,30 @@ class Page1: PageObject {
         registry.removeRegistryFunction(uuid: uuid)
     }
 
-    override func configure(with state: [String : State]) {
-        state1 = state[state1Name] as? State1
+    override func configure(with resourceProviders: [String : ResourceProvider]) {
+        if let resourceProvider = resourceProviders[resourceProvider1Name] as? ResourceProvider1 {
+            sharedResource = resourceProvider.somethingShared
+        }
     }
 
     // MARK: Private
 
     private func createViewController(token: Any, context: Context) -> UIViewController? {
-        guard let state1 = state1,
-            let rl = token as? ResourceLocator,
-            rl.identifier == page1Identifier,
+        guard let sharedResource = sharedResource,
+            let sampleToken = token as? SampleToken,
+            sampleToken.identifier == vc1Identifier,
             let navigationContext = context as? ForwardBackNavigationContext else {
                 return nil
         }
 
-        let viewController =  Page1ViewController(state1: state1, navigationContext: navigationContext)
+        let viewController =  ViewController1(sharedResource: sharedResource, navigationContext: navigationContext)
         viewController.tabBarItem = UITabBarItem.init(tabBarSystemItem: .bookmarks, tag: 0)
         return viewController
     }
 }
 
-extension ResourceLocator {
-    static var page1ResourceLocator: ResourceLocator {
-        return ResourceLocator(identifier: page1Identifier, data: [:])
+extension SampleToken {
+    static var vc1: SampleToken {
+        return SampleToken(identifier: vc1Identifier, data: [:])
     }
 }

@@ -9,12 +9,12 @@
 import Foundation
 
 /// An implementation of Resolver which uses objc-runtime magic to find all loaded classes that
-/// implement PageFactory and StateFactory respectively.
+/// subclass from ViewControllerProviderObject and ResourceProviderObject respectively.
 public final class RuntimeResolver: Resolver {
     private let bundle: Bundle
 
-    private var loadedPageCreationFunctions = [PageCreationFunction]()
-    private var loadedStateCreationFunctions = [StateCreationFunction]()
+    private var loadedViewControllerProviderCreationFunctions = [ViewControllerProviderCreationFunction]()
+    private var loadedResourceProviderCreationFunctions = [ResourceProviderCreationFunction]()
 
     convenience public init() {
         self.init(bundle: Bundle.main)
@@ -28,12 +28,12 @@ public final class RuntimeResolver: Resolver {
 
     // MARK: Resolver
 
-    public func pageCreationFunctions() -> [PageCreationFunction] {
-        return loadedPageCreationFunctions
+    public func viewControllerProviderCreationFunctions() -> [ViewControllerProviderCreationFunction] {
+        return loadedViewControllerProviderCreationFunctions
     }
 
-    public func stateCreationFunctions() -> [StateCreationFunction] {
-        return loadedStateCreationFunctions
+    public func resourceProviderCreationFunctions() -> [ResourceProviderCreationFunction] {
+        return loadedResourceProviderCreationFunctions
     }
 
     // MARK: Private
@@ -46,12 +46,12 @@ public final class RuntimeResolver: Resolver {
                 for i in 0 ..< classCount {
                     let className = classNames[Int(i)]
                     let name = String.init(cString: className)
-                    if let cls = NSClassFromString(name) as? PageObject.Type {
-                        loadedPageCreationFunctions.append { return cls.init() }
+                    if let cls = NSClassFromString(name) as? ViewControllerProviderObject.Type {
+                        loadedViewControllerProviderCreationFunctions.append { return cls.init() }
                     }
-                    if let cls = NSClassFromString(name) as? StateObject.Type {
-                        loadedStateCreationFunctions.append { stateCreationContext in
-                            return cls.init(stateCreationContext: stateCreationContext)
+                    if let cls = NSClassFromString(name) as? ResourceProviderObject.Type {
+                        loadedResourceProviderCreationFunctions.append { context in
+                            return cls.init(context: context)
                         }
                     }
                 }
@@ -60,20 +60,20 @@ public final class RuntimeResolver: Resolver {
             free(classNames);
 
             // Sort functions alphabetically by description
-            loadedPageCreationFunctions.sort { String(describing: $0) < String(describing: $1) }
-            loadedStateCreationFunctions.sort { String(describing: $0) < String(describing: $1) }
+            loadedViewControllerProviderCreationFunctions.sort { String(describing: $0) < String(describing: $1) }
+            loadedResourceProviderCreationFunctions.sort { String(describing: $0) < String(describing: $1) }
         }
     }
 }
 
-open class PageObject: Page {
+open class ViewControllerProviderObject: ViewControllerProvider {
     public required init() {}
     open func register(with registry: ViewControllerRegistry) {}
     open func unregister(from registry: ViewControllerRegistry) {}
-    open func configure(with state: [String:State]) {}
+    open func configure(with resourceProviders: [String : ResourceProvider]) {}
 }
 
-open class StateObject: State {
+open class ResourceProviderObject: ResourceProvider {
     public var name: String = "Default"
-    public required init(stateCreationContext: StateCreationContext) {}
+    public required init(context: ResourceProviderCreationContext) {}
 }

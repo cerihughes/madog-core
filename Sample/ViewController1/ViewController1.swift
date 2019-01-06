@@ -1,5 +1,5 @@
 //
-//  Page1ViewController.swift
+//  ViewController1.swift
 //  Madog
 //
 //  Created by Ceri Hughes on 23/11/2018.
@@ -9,13 +9,13 @@
 import Madog
 import UIKit
 
-class Page1ViewController: UIViewController {
-    private let state1: State1
+class ViewController1: UIViewController {
+    private let sharedResource: Any
     private weak var navigationContext: ForwardBackNavigationContext?
     private var pushCount = 0
 
-    init(state1: State1, navigationContext: ForwardBackNavigationContext) {
-        self.state1 = state1
+    init(sharedResource: Any, navigationContext: ForwardBackNavigationContext) {
+        self.sharedResource = sharedResource
         self.navigationContext = navigationContext
 
         super.init(nibName: nil, bundle: nil)
@@ -39,14 +39,14 @@ class Page1ViewController: UIViewController {
     }
 }
 
-extension Page1ViewController {
+extension ViewController1 {
 
     // MARK: UIButton interactions
 
     @objc
     private func buttonTapGesture(sender: UIButton) {
         pushCount += 1
-        let token = ResourceLocator.createPage2ResourceLocator(pageData: String(pushCount))
-        _ = self.navigationContext?.navigateForward(with: token, animated: true)
+        let token = SampleToken.createVC2Identifier(stringData: String(pushCount))
+        _ = self.navigationContext?.navigateForward(token: token, animated: true)
     }
 }

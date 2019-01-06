@@ -8,36 +8,36 @@
 
 import UIKit
 
-public final class Madog<Token>: MadogUIContextDelegate {
+public final class Madog<Token>: MadogUIContainerDelegate {
     private let registry: ViewControllerRegistry
-    private let factory: MadogUIContextFactory<Token>
-    private let pageRegistrar: PageRegistrar
+    private let factory: MadogUIContainerFactory<Token>
+    private let registrar: Registrar
 
-    private var currentContextUI: MadogUIContext<Token>?
+    private var currentContextUI: MadogUIContainer<Token>?
 
     public init() {
         registry = ViewControllerRegistry()
-        factory = MadogUIContextFactory<Token>(registry: registry)
-        pageRegistrar = PageRegistrar()
+        factory = MadogUIContainerFactory<Token>(registry: registry)
+        registrar = Registrar()
     }
 
     public func resolve(resolver: Resolver, launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) {
-        let stateCreationContext = StateCreationContextImplementation()
-        stateCreationContext.launchOptions = launchOptions
-        pageRegistrar.createState(functions: resolver.stateCreationFunctions(), context: stateCreationContext)
-        pageRegistrar.registerPages(with: registry, functions: resolver.pageCreationFunctions())
+        let context = ResourceProviderCreationContextImplementation()
+        context.launchOptions = launchOptions
+        registrar.createResourceProviders(functions: resolver.resourceProviderCreationFunctions(), context: context)
+        registrar.registerViewControllerProviders(with: registry, functions: resolver.viewControllerProviderCreationFunctions())
     }
 
     deinit {
-        pageRegistrar.unregisterPages(from: self.registry)
+        registrar.unregisterViewControllerProviders(from: self.registry)
     }
 
-    public func addSinglePageUICreationFunction(identifier: String, function: @escaping () -> MadogSinglePageUIContext<Token>) -> Bool {
-        return factory.addSinglePageUICreationFunction(identifier: identifier, function: function)
+    public func addSingleUICreationFunction(identifier: String, function: @escaping () -> MadogSingleUIContainer<Token>) -> Bool {
+        return factory.addSingleUICreationFunction(identifier: identifier, function: function)
     }
 
-    public func addMultiPageUICreationFunction(identifier: String, function: @escaping () -> MadogMultiPageUIContext<Token>) -> Bool {
-        return factory.addMultiPageUICreationFunction(identifier: identifier, function: function)
+    public func addMultiUICreationFunction(identifier: String, function: @escaping () -> MadogMultiUIContainer<Token>) -> Bool {
+        return factory.addMultiUICreationFunction(identifier: identifier, function: function)
     }
 
     public var currentContext: Context? {
@@ -46,9 +46,9 @@ public final class Madog<Token>: MadogUIContextDelegate {
 
     // MARK: - MadogUIContextDelegate
 
-    public func renderSinglePageUI<VC: UIViewController>(_ uiIdentifier: SinglePageUIIdentifier<VC>, with token: Any, in window: UIWindow) -> Bool {
+    public func renderUI<VC: UIViewController>(identifier: SingleUIIdentifier<VC>, token: Any, in window: UIWindow) -> Bool {
         guard let token = token as? Token,
-            let contextUI = factory.createSinglePageUI(uiIdentifier),
+            let contextUI = factory.createSingleUI(identifier: identifier),
             contextUI.renderInitialView(with: token) == true else {
                 return false
         }
@@ -59,15 +59,15 @@ public final class Madog<Token>: MadogUIContextDelegate {
         guard let viewController = contextUI.viewController as? VC else {
             return false
         }
-        uiIdentifier.customisation(viewController)
+        identifier.customisation(viewController)
 
         window.rootViewController = viewController
         return true
     }
 
-    public func renderMultiPageUI<VC: UIViewController>(_ uiIdentifier: MultiPageUIIdentifier<VC>, with tokens: [Any], in window: UIWindow) -> Bool {
+    public func renderUI<VC: UIViewController>(identifier: MultiUIIdentifier<VC>, tokens: [Any], in window: UIWindow) -> Bool {
         guard let tokens = tokens as? [Token],
-            let contextUI = factory.createMultiPageUI(uiIdentifier),
+            let contextUI = factory.createMultiUI(identifier: identifier),
             contextUI.renderInitialViews(with: tokens) == true else {
                 return false
         }
@@ -78,7 +78,7 @@ public final class Madog<Token>: MadogUIContextDelegate {
         guard let viewController = contextUI.viewController as? VC else {
             return false
         }
-        uiIdentifier.customisation(viewController)
+        identifier.customisation(viewController)
 
         window.rootViewController = viewController
         return true

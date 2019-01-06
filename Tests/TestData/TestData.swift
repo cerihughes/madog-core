@@ -1,39 +1,39 @@
 import Foundation
 import Madog
 
-class TestPage: PageObject {
+class TestViewControllerProvider: ViewControllerProviderObject {
     var registered = false, unregistered = false
-    var capturedState: [String:State]? = nil
+    var capturedResourceProviders: [String : ResourceProvider]? = nil
     override func register(with registry: ViewControllerRegistry) {
         registered = true
     }
     override func unregister(from registry: ViewControllerRegistry) {
         unregistered = true
     }
-    override func configure(with state: [String:State]) {
-        capturedState = state
+    override func configure(with resourceProviders: [String : ResourceProvider]) {
+        capturedResourceProviders = resourceProviders
     }
 }
 
-class TestState: StateObject {
-    required init(stateCreationContext: StateCreationContext) {
-        super.init(stateCreationContext: stateCreationContext)
-        name = String(describing: TestState.self)
+class TestResourceProvider: ResourceProviderObject {
+    required init(context: ResourceProviderCreationContext) {
+        super.init(context: context)
+        name = String(describing: TestResourceProvider.self)
     }
 }
 
-class TestPageFactory {
+class TestViewControllerProviderFactory {
     static var created = false
-    static func createPage() -> Page {
+    static func createViewControllerProvider() -> ViewControllerProvider {
         created = true
-        return TestPage()
+        return TestViewControllerProvider()
     }
 }
 
-class TestStateFactory {
+class TestResourceProviderFactory {
     static var created = false
-    static func createState(stateCreationContext: StateCreationContext) -> State {
+    static func createResourceProvider(context: ResourceProviderCreationContext) -> ResourceProvider {
         created = true
-        return TestState(stateCreationContext: stateCreationContext)
+        return TestResourceProvider(context: context)
     }
 }

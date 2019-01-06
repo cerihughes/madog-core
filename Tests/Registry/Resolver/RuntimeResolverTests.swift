@@ -18,11 +18,11 @@ class RuntimeResolverTests: XCTestCase {
         super.tearDown()
     }
 
-    func testNumberOfPageCreationFunctions() {
-        XCTAssertEqual(resolver.pageCreationFunctions().count, 1)
+    func testNumberOfVCProviderCreationFunctions() {
+        XCTAssertEqual(resolver.viewControllerProviderCreationFunctions().count, 1)
     }
 
-    func testNumberOfStateCreationFunctions() {
-        XCTAssertEqual(resolver.stateCreationFunctions().count, 1)
+    func testNumberOfResourceProviderCreationFunctions() {
+        XCTAssertEqual(resolver.resourceProviderCreationFunctions().count, 1)
     }
 }

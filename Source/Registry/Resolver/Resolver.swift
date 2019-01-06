@@ -20,7 +20,7 @@ import UIKit
 /// them via a plist.
 
 public typealias PageCreationFunction = () -> Page
-public typealias StateCreationFunction = () -> State
+public typealias StateCreationFunction = (StateCreationContext) -> State
 
 public protocol Resolver {
     func pageCreationFunctions() -> [PageCreationFunction]

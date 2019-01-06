@@ -15,12 +15,17 @@ public final class Madog<Token>: MadogUIContextDelegate {
 
     private var currentContextUI: MadogUIContext<Token>?
 
-    public init(resolver: Resolver) {
+    public init() {
         registry = ViewControllerRegistry()
         factory = MadogUIContextFactory<Token>(registry: registry)
-        pageRegistrar = PageRegistrar(resolver: resolver)
-        pageRegistrar.loadState()
-        pageRegistrar.registerPages(with: registry)
+        pageRegistrar = PageRegistrar()
+    }
+
+    public func resolve(resolver: Resolver, launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) {
+        let stateCreationContext = StateCreationContextImplementation()
+        stateCreationContext.launchOptions = launchOptions
+        pageRegistrar.createState(functions: resolver.stateCreationFunctions(), context: stateCreationContext)
+        pageRegistrar.registerPages(with: registry, functions: resolver.pageCreationFunctions())
     }
 
     deinit {

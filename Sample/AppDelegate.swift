@@ -12,9 +12,10 @@ import UIKit
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     let window = UIWindow()
-    let madog = Madog<ResourceLocator>(resolver: RuntimeResolver())
+    let madog = Madog<ResourceLocator>()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        madog.resolve(resolver: RuntimeResolver(), launchOptions: launchOptions)
         let result = madog.addSinglePageUICreationFunction(identifier: splitViewControllerIdentifier) { return SplitUI() }
         guard result == true else {
             return false

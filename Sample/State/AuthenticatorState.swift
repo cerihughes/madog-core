@@ -16,8 +16,8 @@ class AuthenticatorState: StateObject {
 
     // MARK: StateObject
 
-    required init() {
-        super.init()
+    required init(stateCreationContext: StateCreationContext) {
+        super.init(stateCreationContext: stateCreationContext)
         name = authenticatorStateName
     }
 }

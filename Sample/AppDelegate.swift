@@ -28,7 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             splitController.preferredDisplayMode = .allVisible
             splitController.presentsWithGesture = false
         }
-        return madog.renderSingleUI(identifier, with: initial, in: window)
+        return madog.renderUI(identifier: identifier, token: initial, in: window)
     }
 
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
@@ -38,10 +38,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         let token = SampleToken.createVC2Identifier(stringData: String(url.absoluteString.count))
         if let navigationContext = currentContext as? ForwardBackNavigationContext {
-            return navigationContext.navigateForward(with: token, animated: true) != nil
+            return navigationContext.navigateForward(token: token, animated: true) != nil
         } else {
             let identifier = SingleUIIdentifier.createNavigationControllerIdentifier()
-            return currentContext.change(to: identifier, with: token)
+            return currentContext.change(to: identifier, token: token)
         }
     }
 }

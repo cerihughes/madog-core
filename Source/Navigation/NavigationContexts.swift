@@ -9,16 +9,16 @@
 import UIKit
 
 public protocol Context: class {
-    func change<VC: UIViewController>(to uiIdentifier: SingleUIIdentifier<VC>, with token: Any) -> Bool
-    func change<VC: UIViewController>(to uiIdentifier: MultiUIIdentifier<VC>, with tokens: [Any]) -> Bool
+    func change<VC: UIViewController>(to identifier: SingleUIIdentifier<VC>, token: Any) -> Bool
+    func change<VC: UIViewController>(to identifier: MultiUIIdentifier<VC>, tokens: [Any]) -> Bool
 }
 
 public protocol ModalContext: class {
-    func openModal(with token: Any, from fromViewController: UIViewController, animated: Bool) -> NavigationToken?
+    func openModal(token: Any, from fromViewController: UIViewController, animated: Bool) -> NavigationToken?
 }
 
 public protocol ForwardBackNavigationContext: class {
-    func navigateForward(with token: Any, animated: Bool) -> NavigationToken?
+    func navigateForward(token: Any, animated: Bool) -> NavigationToken?
     func navigateBack(animated: Bool) -> Bool
     func navigateBackToRoot(animated: Bool) -> Bool
 }

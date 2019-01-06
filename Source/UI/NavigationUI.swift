@@ -33,7 +33,7 @@ internal class NavigationUI<Token>: MadogSingleUIContext<Token>, NavigationConte
 
     // MARK: - ForwardBackNavigationContext
 
-    internal func navigateForward(with token: Any, animated: Bool) -> NavigationToken? {
+    internal func navigateForward(token: Any, animated: Bool) -> NavigationToken? {
         guard let viewController = registry.createViewController(from: token, context: self) else {
             return nil
         }

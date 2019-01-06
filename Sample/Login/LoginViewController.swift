@@ -43,7 +43,7 @@ class LoginViewController: UIViewController {
 
                 let tokens: [SampleToken] = [.vc1, .logout]
                 let identifier = MultiUIIdentifier.createTabBarControllerIdentifier()
-                _ = navigationContext.change(to: identifier, with: tokens)
+                _ = navigationContext.change(to: identifier, tokens: tokens)
             })
         }
     }

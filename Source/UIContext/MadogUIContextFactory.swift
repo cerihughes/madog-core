@@ -36,8 +36,8 @@ internal class MadogUIContextFactory<Token> {
         return true
     }
 
-    internal func createSingleUI<VC: UIViewController>(_ uiIdentifier: SingleUIIdentifier<VC>) -> MadogSingleUIContext<Token>? {
-        guard let function = singleVCUIRegistry[uiIdentifier.value] else {
+    internal func createSingleUI<VC: UIViewController>(identifier: SingleUIIdentifier<VC>) -> MadogSingleUIContext<Token>? {
+        guard let function = singleVCUIRegistry[identifier.value] else {
             return nil
         }
 
@@ -46,8 +46,8 @@ internal class MadogUIContextFactory<Token> {
         return ui
     }
 
-    internal func createMultiUI<VC: UIViewController>(_ uiIdentifier: MultiUIIdentifier<VC>) -> MadogMultiUIContext<Token>? {
-        guard let function = multiVCUIRegistry[uiIdentifier.value] else {
+    internal func createMultiUI<VC: UIViewController>(identifier: MultiUIIdentifier<VC>) -> MadogMultiUIContext<Token>? {
+        guard let function = multiVCUIRegistry[identifier.value] else {
             return nil
         }
 

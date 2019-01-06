@@ -46,9 +46,9 @@ public final class Madog<Token>: MadogUIContextDelegate {
 
     // MARK: - MadogUIContextDelegate
 
-    public func renderSingleUI<VC: UIViewController>(_ uiIdentifier: SingleUIIdentifier<VC>, with token: Any, in window: UIWindow) -> Bool {
+    public func renderUI<VC: UIViewController>(identifier: SingleUIIdentifier<VC>, token: Any, in window: UIWindow) -> Bool {
         guard let token = token as? Token,
-            let contextUI = factory.createSingleUI(uiIdentifier),
+            let contextUI = factory.createSingleUI(identifier: identifier),
             contextUI.renderInitialView(with: token) == true else {
                 return false
         }
@@ -59,15 +59,15 @@ public final class Madog<Token>: MadogUIContextDelegate {
         guard let viewController = contextUI.viewController as? VC else {
             return false
         }
-        uiIdentifier.customisation(viewController)
+        identifier.customisation(viewController)
 
         window.rootViewController = viewController
         return true
     }
 
-    public func renderMultiUI<VC: UIViewController>(_ uiIdentifier: MultiUIIdentifier<VC>, with tokens: [Any], in window: UIWindow) -> Bool {
+    public func renderUI<VC: UIViewController>(identifier: MultiUIIdentifier<VC>, tokens: [Any], in window: UIWindow) -> Bool {
         guard let tokens = tokens as? [Token],
-            let contextUI = factory.createMultiUI(uiIdentifier),
+            let contextUI = factory.createMultiUI(identifier: identifier),
             contextUI.renderInitialViews(with: tokens) == true else {
                 return false
         }
@@ -78,7 +78,7 @@ public final class Madog<Token>: MadogUIContextDelegate {
         guard let viewController = contextUI.viewController as? VC else {
             return false
         }
-        uiIdentifier.customisation(viewController)
+        identifier.customisation(viewController)
 
         window.rootViewController = viewController
         return true

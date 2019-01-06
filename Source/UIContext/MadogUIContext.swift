@@ -9,8 +9,8 @@
 import UIKit
 
 internal protocol MadogUIContextDelegate: class {
-    func renderSingleUI<VC: UIViewController>(_ uiIdentifier: SingleUIIdentifier<VC>, with token: Any, in window: UIWindow) -> Bool
-    func renderMultiUI<VC: UIViewController>(_ uiIdentifier: MultiUIIdentifier<VC>, with tokens: [Any], in window: UIWindow) -> Bool
+    func renderUI<VC: UIViewController>(identifier: SingleUIIdentifier<VC>, token: Any, in window: UIWindow) -> Bool
+    func renderUI<VC: UIViewController>(identifier: MultiUIIdentifier<VC>, tokens: [Any], in window: UIWindow) -> Bool
 }
 
 open class MadogUIContext<Token>: Context {
@@ -26,20 +26,20 @@ open class MadogUIContext<Token>: Context {
         return internalRegistry
     }
 
-    public func change<VC: UIViewController>(to uiIdentifier: SingleUIIdentifier<VC>, with token: Any) -> Bool {
+    public func change<VC: UIViewController>(to identifier: SingleUIIdentifier<VC>, token: Any) -> Bool {
         guard let delegate = delegate, let window = viewController.view.window else {
             return false
         }
 
-        return delegate.renderSingleUI(uiIdentifier, with: token, in: window)
+        return delegate.renderUI(identifier: identifier, token: token, in: window)
     }
 
-    public func change<VC: UIViewController>(to uiIdentifier: MultiUIIdentifier<VC>, with tokens: [Any]) -> Bool {
+    public func change<VC: UIViewController>(to identifier: MultiUIIdentifier<VC>, tokens: [Any]) -> Bool {
         guard let delegate = delegate, let window = viewController.view.window else {
             return false
         }
 
-        return delegate.renderMultiUI(uiIdentifier, with: tokens, in: window)
+        return delegate.renderUI(identifier: identifier, tokens: tokens, in: window)
     }
 
     public final func createNavigationToken(for viewController: UIViewController) -> NavigationToken {

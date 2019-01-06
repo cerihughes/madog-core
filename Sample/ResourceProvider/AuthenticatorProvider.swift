@@ -1,9 +1,9 @@
 //
 //  AuthenticatorProvider.swift
-//  Madog
+//  MadogSample
 //
 //  Created by Ceri Hughes on 24/11/2018.
-//  Copyright © 2018 Ceri Hughes. All rights reserved.
+//  Copyright © 2019 Ceri Hughes. All rights reserved.
 //
 
 import Foundation

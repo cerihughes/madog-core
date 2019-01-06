@@ -3,7 +3,7 @@
 //  MadogSample
 //
 //  Created by Ceri Hughes on 02/12/2018.
-//  Copyright © 2018 Ceri Hughes. All rights reserved.
+//  Copyright © 2019 Ceri Hughes. All rights reserved.
 //
 
 import UIKit

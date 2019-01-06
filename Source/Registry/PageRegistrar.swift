@@ -13,9 +13,9 @@ internal class PageRegistrar {
     internal var states = [String:State]()
     internal var pages = [Page]()
 
-    internal func createState(functions: [StateCreationFunction]) {
+    internal func createState(functions: [StateCreationFunction], context: StateCreationContext) {
         for function in functions {
-            let state = function()
+            let state = function(context)
             let name = state.name
             states[name] = state
         }

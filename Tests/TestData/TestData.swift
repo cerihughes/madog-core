@@ -16,8 +16,8 @@ class TestPage: PageObject {
 }
 
 class TestState: StateObject {
-    required init() {
-        super.init()
+    required init(stateCreationContext: StateCreationContext) {
+        super.init(stateCreationContext: stateCreationContext)
         name = String(describing: TestState.self)
     }
 }
@@ -32,8 +32,8 @@ class TestPageFactory {
 
 class TestStateFactory {
     static var created = false
-    static func createState() -> State {
+    static func createState(stateCreationContext: StateCreationContext) -> State {
         created = true
-        return TestState()
+        return TestState(stateCreationContext: stateCreationContext)
     }
 }

@@ -21,8 +21,10 @@ public final class Madog<Token>: MadogUIContextDelegate {
         pageRegistrar = PageRegistrar()
     }
 
-    public func resolve(resolver: Resolver) {
-        pageRegistrar.createState(functions: resolver.stateCreationFunctions())
+    public func resolve(resolver: Resolver, launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) {
+        let stateCreationContext = StateCreationContextImplementation()
+        stateCreationContext.launchOptions = launchOptions
+        pageRegistrar.createState(functions: resolver.stateCreationFunctions(), context: stateCreationContext)
         pageRegistrar.registerPages(with: registry, functions: resolver.pageCreationFunctions())
     }
 

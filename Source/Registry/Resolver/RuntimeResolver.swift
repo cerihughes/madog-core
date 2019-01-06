@@ -50,7 +50,9 @@ public final class RuntimeResolver: Resolver {
                         loadedPageCreationFunctions.append { return cls.init() }
                     }
                     if let cls = NSClassFromString(name) as? StateObject.Type {
-                        loadedStateCreationFunctions.append { return cls.init() }
+                        loadedStateCreationFunctions.append { stateCreationContext in
+                            return cls.init(stateCreationContext: stateCreationContext)
+                        }
                     }
                 }
             }
@@ -73,6 +75,5 @@ open class PageObject: Page {
 
 open class StateObject: State {
     public var name: String = "Default"
-    public required init() {}
+    public required init(stateCreationContext: StateCreationContext) {}
 }
-

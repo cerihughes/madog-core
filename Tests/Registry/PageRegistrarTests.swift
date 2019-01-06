@@ -30,7 +30,7 @@ class PageRegistrarTests: XCTestCase {
         TestStateFactory.created = false
 
         XCTAssertEqual(pageRegistrar.states.count, 0)
-        pageRegistrar.createState(functions: resolver.stateCreationFunctions())
+        pageRegistrar.createState(functions: resolver.stateCreationFunctions(), context: StateCreationContextImplementation())
 
         // Both factories create a state object with the same name, so we only get 1 object
         XCTAssertEqual(pageRegistrar.states.count, 1)

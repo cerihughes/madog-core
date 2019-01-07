@@ -9,27 +9,19 @@
 import UIKit
 
 public final class Madog<Token>: MadogUIContainerDelegate {
-    private let registry: ViewControllerRegistry
-    private let factory: MadogUIContainerFactory<Token>
+    private let registry = ViewControllerRegistry()
     private let registrar: Registrar
+    private let factory: MadogUIContainerFactory<Token>
 
     private var currentContextUI: MadogUIContainer<Token>?
 
     public init() {
-        registry = ViewControllerRegistry()
+        registrar = Registrar(registry: registry)
         factory = MadogUIContainerFactory<Token>(registry: registry)
-        registrar = Registrar()
     }
 
     public func resolve(resolver: Resolver, launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) {
-        let context = ResourceProviderCreationContextImplementation()
-        context.launchOptions = launchOptions
-        registrar.createResourceProviders(functions: resolver.resourceProviderCreationFunctions(), context: context)
-        registrar.registerViewControllerProviders(with: registry, functions: resolver.viewControllerProviderCreationFunctions())
-    }
-
-    deinit {
-        registrar.unregisterViewControllerProviders(from: self.registry)
+        registrar.resolve(resolver: resolver, launchOptions: launchOptions)
     }
 
     public func addSingleUICreationFunction(identifier: String, function: @escaping () -> MadogSingleUIContainer<Token>) -> Bool {

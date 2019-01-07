@@ -8,9 +8,26 @@
 
 import Foundation
 
-internal class Registrar {
-    internal var resourceProviders = [String : ResourceProvider]()
-    internal var viewControllerProviders = [ViewControllerProvider]()
+public class Registrar {
+    public let registry: ViewControllerRegistry
+
+    public private(set) var resourceProviders = [String : ResourceProvider]()
+    internal private(set) var viewControllerProviders = [ViewControllerProvider]()
+
+    public init(registry: ViewControllerRegistry) {
+        self.registry = registry
+    }
+
+    deinit {
+        unregisterViewControllerProviders(from: registry)
+    }
+
+    public func resolve(resolver: Resolver, launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) {
+        let context = ResourceProviderCreationContextImplementation()
+        context.launchOptions = launchOptions
+        createResourceProviders(functions: resolver.resourceProviderCreationFunctions(), context: context)
+        registerViewControllerProviders(with: registry, functions: resolver.viewControllerProviderCreationFunctions())
+    }
 
     internal func createResourceProviders(functions: [ResourceProviderCreationFunction], context: ResourceProviderCreationContext) {
         for function in functions {

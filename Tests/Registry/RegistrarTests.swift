@@ -26,11 +26,13 @@ class RegistrarTests: XCTestCase {
         resolver = TestResolver(testViewControllerProviderCreationFunctions: testViewControllerProviderCreationFunctions,
                                 testResourceProviderCreationFunctions: testResourceProviderCreationFunctions)
         registry = ViewControllerRegistry()
-        registrar = Registrar()
+        registrar = Registrar(registry: registry)
     }
 
     override func tearDown() {
         registrar = nil
+        resolver = nil
+        registry = nil
         super.tearDown()
     }
 

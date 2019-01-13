@@ -12,7 +12,7 @@ import UIKit
 fileprivate let vc2Identifier = "vc2Identifier"
 
 class ViewControllerProvider2: ViewControllerProviderObject {
-    private var sharedResource: Any?
+    private var sharedService: Any?
     private var uuid: UUID?
 
     // MARK: ViewControllerProviderObject
@@ -29,16 +29,16 @@ class ViewControllerProvider2: ViewControllerProviderObject {
         registry.removeRegistryFunction(uuid: uuid)
     }
 
-    override func configure(with resourceProviders: [String : ResourceProvider]) {
-        if let resourceProvider = resourceProviders[resourceProvider1Name] as? ResourceProvider1 {
-            sharedResource = resourceProvider.somethingShared
+    override func configure(with serviceProviders: [String : ServiceProvider]) {
+        if let serviceProvider = serviceProviders[serviceProvider1Name] as? ServiceProvider1 {
+            sharedService = serviceProvider.somethingShared
         }
     }
 
     // MARK: Private
 
     private func createViewController(token: Any, context: Context) -> UIViewController? {
-        guard let sharedResource = sharedResource,
+        guard let sharedService = sharedService,
             let sampleToken = token as? SampleToken,
             sampleToken.identifier == vc2Identifier,
             let stringData = sampleToken.stringData,
@@ -46,7 +46,7 @@ class ViewControllerProvider2: ViewControllerProviderObject {
                 return nil
         }
 
-        let viewController = ViewController2(sharedResource: sharedResource,
+        let viewController = ViewController2(sharedService: sharedService,
                                                  stringData: stringData,
                                                  navigationContext: navigationContext)
         viewController.tabBarItem = UITabBarItem.init(tabBarSystemItem: .contacts, tag: 0)

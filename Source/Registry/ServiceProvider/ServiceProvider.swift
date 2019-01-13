@@ -1,5 +1,5 @@
 //
-//  ResourceProvider.swift
+//  ServiceProvider.swift
 //  Madog
 //
 //  Created by Ceri Hughes on 24/11/2018.
@@ -8,6 +8,6 @@
 
 import Foundation
 
-public protocol ResourceProvider {
+public protocol ServiceProvider {
     var name: String {get}
 }

@@ -22,9 +22,9 @@ class RegistrarTests: XCTestCase {
     override func setUp() {
         super.setUp()
         let testViewControllerProviderCreationFunctions: [ViewControllerProviderCreationFunction] = [TestViewControllerProviderFactory.createViewControllerProvider]
-        let testResourceProviderCreationFunctions: [ResourceProviderCreationFunction] = [TestResourceProviderFactory.createResourceProvider]
+        let testServiceProviderCreationFunctions: [ServiceProviderCreationFunction] = [TestServiceProviderFactory.createServiceProvider]
         resolver = TestResolver(testViewControllerProviderCreationFunctions: testViewControllerProviderCreationFunctions,
-                                testResourceProviderCreationFunctions: testResourceProviderCreationFunctions)
+                                testServiceProviderCreationFunctions: testServiceProviderCreationFunctions)
         registry = ViewControllerRegistry()
         registrar = Registrar(registry: registry)
     }
@@ -36,16 +36,16 @@ class RegistrarTests: XCTestCase {
         super.tearDown()
     }
 
-    func testCreateResourceProviders() {
-        TestResourceProviderFactory.created = false
+    func testCreateServiceProviders() {
+        TestServiceProviderFactory.created = false
 
-        XCTAssertEqual(registrar.resourceProviders.count, 0)
-        registrar.createResourceProviders(functions: resolver.resourceProviderCreationFunctions(), context: ResourceProviderCreationContextImplementation())
+        XCTAssertEqual(registrar.serviceProviders.count, 0)
+        registrar.createServiceProviders(functions: resolver.serviceProviderCreationFunctions(), context: ServiceProviderCreationContextImplementation())
 
-        // Both factories create a resource provider object with the same name, so we only get 1 object
-        XCTAssertEqual(registrar.resourceProviders.count, 1)
+        // Both factories create a service provider object with the same name, so we only get 1 object
+        XCTAssertEqual(registrar.serviceProviders.count, 1)
 
-        XCTAssertTrue(TestResourceProviderFactory.created)
+        XCTAssertTrue(TestServiceProviderFactory.created)
     }
 
     func testRegisterAndUnregisterViewControllerProviders() {

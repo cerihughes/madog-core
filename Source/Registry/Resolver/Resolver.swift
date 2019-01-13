@@ -9,10 +9,10 @@
 import UIKit
 
 /// Implementations of Resolver should return arrays of functions that can create instances of ViewControllerProvider
-/// and ResourceProvider.
+/// and ServiceProvider.
 ///
 /// At the moment, the only implementation is the RuntimeResolver which uses Runtime magic to find all loaded classes
-/// that implement ViewControllerProviderObject and ResourceProviderObject.
+/// that implement ViewControllerProviderObject and ServiceProviderObject.
 ///
 /// This might not be a long term solution, especially if Swift moves away from the Obj-C runtime, but it does serve as
 /// a nice example of accessing the Obj-C runtime from Swift.
@@ -21,9 +21,9 @@ import UIKit
 /// them via a plist.
 
 public typealias ViewControllerProviderCreationFunction = () -> ViewControllerProvider
-public typealias ResourceProviderCreationFunction = (ResourceProviderCreationContext) -> ResourceProvider
+public typealias ServiceProviderCreationFunction = (ServiceProviderCreationContext) -> ServiceProvider
 
 public protocol Resolver {
     func viewControllerProviderCreationFunctions() -> [ViewControllerProviderCreationFunction]
-    func resourceProviderCreationFunctions() -> [ResourceProviderCreationFunction]
+    func serviceProviderCreationFunctions() -> [ServiceProviderCreationFunction]
 }

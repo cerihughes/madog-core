@@ -11,12 +11,12 @@ import Madog
 
 let authenticatorProviderName = "authenticatorProviderName"
 
-class AuthenticatorProvider: ResourceProviderObject {
+class AuthenticatorProvider: ServiceProviderObject {
     let authenticator = Authenticator()
 
-    // MARK: ResourceProviderObject
+    // MARK: ServiceProviderObject
 
-    required init(context: ResourceProviderCreationContext) {
+    required init(context: ServiceProviderCreationContext) {
         super.init(context: context)
         name = authenticatorProviderName
     }

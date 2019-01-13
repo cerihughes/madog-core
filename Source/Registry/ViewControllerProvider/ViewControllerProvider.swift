@@ -12,5 +12,5 @@ import Foundation
 public protocol ViewControllerProvider {
     func register(with registry: ViewControllerRegistry)
     func unregister(from registry: ViewControllerRegistry)
-    func configure(with resourceProviders: [String : ResourceProvider])
+    func configure(with serviceProviders: [String : ServiceProvider])
 }

@@ -11,7 +11,7 @@ import Foundation
 public class Registrar {
     public let registry: ViewControllerRegistry
 
-    public private(set) var resourceProviders = [String : ResourceProvider]()
+    public private(set) var serviceProviders = [String : ServiceProvider]()
     internal private(set) var viewControllerProviders = [ViewControllerProvider]()
 
     public init(registry: ViewControllerRegistry) {
@@ -23,17 +23,17 @@ public class Registrar {
     }
 
     public func resolve(resolver: Resolver, launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) {
-        let context = ResourceProviderCreationContextImplementation()
+        let context = ServiceProviderCreationContextImplementation()
         context.launchOptions = launchOptions
-        createResourceProviders(functions: resolver.resourceProviderCreationFunctions(), context: context)
+        createServiceProviders(functions: resolver.serviceProviderCreationFunctions(), context: context)
         registerViewControllerProviders(with: registry, functions: resolver.viewControllerProviderCreationFunctions())
     }
 
-    internal func createResourceProviders(functions: [ResourceProviderCreationFunction], context: ResourceProviderCreationContext) {
+    internal func createServiceProviders(functions: [ServiceProviderCreationFunction], context: ServiceProviderCreationContext) {
         for function in functions {
-            let resourceProvider = function(context)
-            let name = resourceProvider.name
-            resourceProviders[name] = resourceProvider
+            let serviceProvider = function(context)
+            let name = serviceProvider.name
+            serviceProviders[name] = serviceProvider
         }
     }
 
@@ -41,7 +41,7 @@ public class Registrar {
         for function in functions {
             let viewControllerProvider = function()
             viewControllerProvider.register(with: registry)
-            viewControllerProvider.configure(with: resourceProviders)
+            viewControllerProvider.configure(with: serviceProviders)
             viewControllerProviders.append(viewControllerProvider)
         }
     }

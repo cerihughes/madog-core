@@ -30,7 +30,7 @@ class RuntimeResolverTests: XCTestCase {
         XCTAssertEqual(resolver.viewControllerProviderCreationFunctions().count, 1)
     }
 
-    func testNumberOfResourceProviderCreationFunctions() {
-        XCTAssertEqual(resolver.resourceProviderCreationFunctions().count, 1)
+    func testNumberOfServiceProviderCreationFunctions() {
+        XCTAssertEqual(resolver.serviceProviderCreationFunctions().count, 1)
     }
 }

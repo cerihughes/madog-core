@@ -9,12 +9,12 @@
 import Foundation
 
 /// An implementation of Resolver which uses objc-runtime magic to find all loaded classes that
-/// subclass from ViewControllerProviderObject and ResourceProviderObject respectively.
+/// subclass from ViewControllerProviderObject and ServiceProviderObject respectively.
 public final class RuntimeResolver: Resolver {
     private let bundle: Bundle
 
     private var loadedViewControllerProviderCreationFunctions = [ViewControllerProviderCreationFunction]()
-    private var loadedResourceProviderCreationFunctions = [ResourceProviderCreationFunction]()
+    private var loadedServiceProviderCreationFunctions = [ServiceProviderCreationFunction]()
 
     convenience public init() {
         self.init(bundle: Bundle.main)
@@ -32,8 +32,8 @@ public final class RuntimeResolver: Resolver {
         return loadedViewControllerProviderCreationFunctions
     }
 
-    public func resourceProviderCreationFunctions() -> [ResourceProviderCreationFunction] {
-        return loadedResourceProviderCreationFunctions
+    public func serviceProviderCreationFunctions() -> [ServiceProviderCreationFunction] {
+        return loadedServiceProviderCreationFunctions
     }
 
     // MARK: Private
@@ -49,8 +49,8 @@ public final class RuntimeResolver: Resolver {
                     if let cls = NSClassFromString(name) as? ViewControllerProviderObject.Type {
                         loadedViewControllerProviderCreationFunctions.append { return cls.init() }
                     }
-                    if let cls = NSClassFromString(name) as? ResourceProviderObject.Type {
-                        loadedResourceProviderCreationFunctions.append { context in
+                    if let cls = NSClassFromString(name) as? ServiceProviderObject.Type {
+                        loadedServiceProviderCreationFunctions.append { context in
                             return cls.init(context: context)
                         }
                     }
@@ -61,7 +61,7 @@ public final class RuntimeResolver: Resolver {
 
             // Sort functions alphabetically by description
             loadedViewControllerProviderCreationFunctions.sort { String(describing: $0) < String(describing: $1) }
-            loadedResourceProviderCreationFunctions.sort { String(describing: $0) < String(describing: $1) }
+            loadedServiceProviderCreationFunctions.sort { String(describing: $0) < String(describing: $1) }
         }
     }
 }
@@ -70,10 +70,10 @@ open class ViewControllerProviderObject: ViewControllerProvider {
     public required init() {}
     open func register(with registry: ViewControllerRegistry) {}
     open func unregister(from registry: ViewControllerRegistry) {}
-    open func configure(with resourceProviders: [String : ResourceProvider]) {}
+    open func configure(with serviceProviders: [String : ServiceProvider]) {}
 }
 
-open class ResourceProviderObject: ResourceProvider {
+open class ServiceProviderObject: ServiceProvider {
     public var name: String = "Default"
-    public required init(context: ResourceProviderCreationContext) {}
+    public required init(context: ServiceProviderCreationContext) {}
 }

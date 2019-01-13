@@ -29,8 +29,8 @@ class LogoutViewControllerProvider: ViewControllerProviderObject {
         registry.removeRegistryFunction(uuid: uuid)
     }
 
-    override func configure(with resourceProviders: [String : ResourceProvider]) {
-        if let authenticatorProvider = resourceProviders[authenticatorProviderName] as? AuthenticatorProvider {
+    override func configure(with serviceProviders: [String : ServiceProvider]) {
+        if let authenticatorProvider = serviceProviders[authenticatorProviderName] as? AuthenticatorProvider {
             authenticator = authenticatorProvider.authenticator
         }
     }

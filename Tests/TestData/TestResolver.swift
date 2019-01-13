@@ -11,19 +11,19 @@ import Madog
 
 class TestResolver: Resolver {
     private let testViewControllerProviderCreationFunctions: [ViewControllerProviderCreationFunction]
-    private let testResourceProviderCreationFunctions: [ResourceProviderCreationFunction]
+    private let testServiceProviderCreationFunctions: [ServiceProviderCreationFunction]
 
     init(testViewControllerProviderCreationFunctions: [ViewControllerProviderCreationFunction],
-         testResourceProviderCreationFunctions: [ResourceProviderCreationFunction]) {
+         testServiceProviderCreationFunctions: [ServiceProviderCreationFunction]) {
         self.testViewControllerProviderCreationFunctions = testViewControllerProviderCreationFunctions
-        self.testResourceProviderCreationFunctions = testResourceProviderCreationFunctions
+        self.testServiceProviderCreationFunctions = testServiceProviderCreationFunctions
     }
 
     func viewControllerProviderCreationFunctions() -> [ViewControllerProviderCreationFunction] {
         return testViewControllerProviderCreationFunctions
     }
 
-    func resourceProviderCreationFunctions() -> [ResourceProviderCreationFunction] {
-        return testResourceProviderCreationFunctions
+    func serviceProviderCreationFunctions() -> [ServiceProviderCreationFunction] {
+        return testServiceProviderCreationFunctions
     }
 }

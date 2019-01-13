@@ -1,5 +1,5 @@
 //
-//  ResourceProviderCreationContext.swift
+//  ServiceProviderCreationContext.swift
 //  Madog
 //
 //  Created by Ceri Hughes on 06/01/2019.
@@ -8,10 +8,10 @@
 
 import UIKit
 
-public protocol ResourceProviderCreationContext {
+public protocol ServiceProviderCreationContext {
     var launchOptions: [UIApplication.LaunchOptionsKey : Any]? {get}
 }
 
-internal class ResourceProviderCreationContextImplementation: ResourceProviderCreationContext {
+internal class ServiceProviderCreationContextImplementation: ServiceProviderCreationContext {
     internal var launchOptions: [UIApplication.LaunchOptionsKey : Any]?
 }

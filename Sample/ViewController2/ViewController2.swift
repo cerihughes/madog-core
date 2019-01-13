@@ -10,12 +10,12 @@ import Madog
 import UIKit
 
 class ViewController2: UIViewController {
-    private let sharedResource: Any
+    private let sharedService: Any
     private let stringData: String
     private weak var navigationContext: ForwardBackNavigationContext?
 
-    init(sharedResource: Any, stringData: String, navigationContext: ForwardBackNavigationContext) {
-        self.sharedResource = sharedResource
+    init(sharedService: Any, stringData: String, navigationContext: ForwardBackNavigationContext) {
+        self.sharedService = sharedService
         self.stringData = stringData
         self.navigationContext = navigationContext
 
@@ -33,7 +33,7 @@ class ViewController2: UIViewController {
 
         view.label.text = stringData
 
-        // Maybe do something with the shared resource at this point?
+        // Maybe do something with the shared service at this point?
     }
 
     override func viewDidAppear(_ animated: Bool) {

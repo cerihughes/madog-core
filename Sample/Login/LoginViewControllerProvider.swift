@@ -37,7 +37,7 @@ class LoginViewControllerProvider: ViewControllerProviderObject {
 
     // MARK: Private
 
-    private func createViewController(token: Any, context: Context) -> UIViewController? {
+    private func createViewController(token: Any, context: Context?) -> UIViewController? {
         guard let sampleToken = token as? SampleToken,
             sampleToken.identifier == loginIdentifier,
             let authenticator = authenticator,

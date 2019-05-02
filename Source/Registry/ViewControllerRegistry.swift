@@ -17,7 +17,7 @@ import UIKit
 /// Note that registrants should make sure they don't "overlap" - if more than 1 registrant could potentially return a
 /// VC for the same token, behaviour is undefined - there's no guarantee which will be returned first.
 public class ViewControllerRegistry: NSObject {
-    public typealias RegistryFunction = (Any, Context) -> UIViewController?
+    public typealias RegistryFunction = (Any, Context?) -> UIViewController?
 
     private var registry: [UUID:RegistryFunction] = [:]
 
@@ -31,7 +31,7 @@ public class ViewControllerRegistry: NSObject {
         registry.removeValue(forKey: uuid)
     }
 
-    public func createViewController(from token: Any, context: Context) -> UIViewController? {
+    public func createViewController(from token: Any, context: Context?) -> UIViewController? {
         for function in registry.values {
             if let result = function(token, context) {
                 return result

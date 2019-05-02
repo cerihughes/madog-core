@@ -37,7 +37,7 @@ class ViewController1Provider: ViewControllerProviderObject {
 
     // MARK: Private
 
-    private func createViewController(token: Any, context: Context) -> UIViewController? {
+    private func createViewController(token: Any, context: Context?) -> UIViewController? {
         guard let sharedService = sharedService,
             let sampleToken = token as? SampleToken,
             sampleToken.identifier == vc1Identifier,

@@ -37,9 +37,10 @@ class LogoutViewControllerProvider: ViewControllerProviderObject {
 
     // MARK: Private
 
-    private func createViewController(token: Any, context: Context) -> UIViewController? {
+    private func createViewController(token: Any, context: Context?) -> UIViewController? {
         guard let authenticator = authenticator,
             let sampleToken = token as? SampleToken,
+            let context = context,
             sampleToken.identifier == logoutIdentifier else {
                 return nil
         }

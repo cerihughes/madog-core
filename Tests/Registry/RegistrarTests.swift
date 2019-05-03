@@ -52,7 +52,7 @@ class RegistrarTests: XCTestCase {
         TestViewControllerProviderFactory.created = false
 
         XCTAssertEqual(registrar.viewControllerProviders.count, 0)
-        registrar.registerViewControllerProviders(with: registry, functions: resolver.viewControllerProviderCreationFunctions())
+        registrar.registerViewControllerProviders(functions: resolver.viewControllerProviderCreationFunctions())
         XCTAssertEqual(registrar.viewControllerProviders.count, 1)
 
         XCTAssertTrue(TestViewControllerProviderFactory.created)
@@ -63,7 +63,7 @@ class RegistrarTests: XCTestCase {
             XCTAssertFalse(testViewControllerProvider.unregistered)
         }
 
-        registrar.unregisterViewControllerProviders(from: registry)
+        registrar.unregisterViewControllerProviders()
         XCTAssertEqual(registrar.viewControllerProviders.count, 0)
 
         for viewControllerProvider in registrar.viewControllerProviders {

@@ -19,14 +19,14 @@ public class Registrar {
     }
 
     deinit {
-        unregisterViewControllerProviders(from: registry)
+        unregisterViewControllerProviders()
     }
 
     public func resolve(resolver: Resolver, launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) {
         let context = ServiceProviderCreationContextImplementation()
         context.launchOptions = launchOptions
         createServiceProviders(functions: resolver.serviceProviderCreationFunctions(), context: context)
-        registerViewControllerProviders(with: registry, functions: resolver.viewControllerProviderCreationFunctions())
+        registerViewControllerProviders(functions: resolver.viewControllerProviderCreationFunctions())
     }
 
     internal func createServiceProviders(functions: [ServiceProviderCreationFunction], context: ServiceProviderCreationContext) {
@@ -37,7 +37,7 @@ public class Registrar {
         }
     }
 
-    internal func registerViewControllerProviders(with registry: ViewControllerRegistry, functions: [ViewControllerProviderCreationFunction]) {
+    internal func registerViewControllerProviders(functions: [ViewControllerProviderCreationFunction]) {
         for function in functions {
             let viewControllerProvider = function()
             viewControllerProvider.register(with: registry)
@@ -46,7 +46,7 @@ public class Registrar {
         }
     }
 
-    internal func unregisterViewControllerProviders(from registry: ViewControllerRegistry) {
+    internal func unregisterViewControllerProviders() {
         for viewControllerProvider in viewControllerProviders {
             viewControllerProvider.unregister(from: registry)
         }

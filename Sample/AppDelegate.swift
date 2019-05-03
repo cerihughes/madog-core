@@ -18,9 +18,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Some code to make sure the API is correct (until we have multiple sample apps)
         let registry = ViewControllerRegistry<SampleToken, Context>()
         let registrar = Registrar(registry: registry)
-        registrar.resolve(resolver: RuntimeResolver(), launchOptions: launchOptions)
+        registrar.resolve(resolver: Resolver(), launchOptions: launchOptions)
 
-        madog.resolve(resolver: RuntimeResolver(), launchOptions: launchOptions)
+        madog.resolve(resolver: SampleResolver(), launchOptions: launchOptions)
         let result = madog.addSingleUICreationFunction(identifier: splitViewControllerIdentifier) { return SplitUI() }
         guard result == true else {
             return false

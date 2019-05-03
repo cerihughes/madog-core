@@ -18,6 +18,7 @@
 		6518E79221A9FCAA0036F553 /* RegistrarTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6518E79121A9FCAA0036F553 /* RegistrarTests.swift */; };
 		6527EC4621BAC5210032B70D /* MadogUIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6527EC4521BAC5210032B70D /* MadogUIContainer.swift */; };
 		6539420421C0461D00D414D7 /* SplitUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6539420321C0461D00D414D7 /* SplitUI.swift */; };
+		654D509A227CBB5F00E5032D /* SampleResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654D5099227CBB5F00E5032D /* SampleResolver.swift */; };
 		655A469D21A9B18400CEC47F /* ServiceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655A469C21A9B18400CEC47F /* ServiceProvider.swift */; };
 		655A46AA21A9B7E800CEC47F /* ResourceProvider1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655A46A421A9B23E00CEC47F /* ResourceProvider1.swift */; };
 		655A46AC21A9B99F00CEC47F /* AuthenticatorProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655A46A621A9B29C00CEC47F /* AuthenticatorProvider.swift */; };
@@ -27,9 +28,7 @@
 		65744CF2227C8CE600641CF6 /* ViewControllerRegistryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65744CF1227C8CE600641CF6 /* ViewControllerRegistryTests.swift */; };
 		657E7439227C9DF00067EAE3 /* Madog.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 658C851021A81D26006ECF6F /* Madog.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		658C851A21A81D26006ECF6F /* Madog.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 658C851021A81D26006ECF6F /* Madog.framework */; };
-		658C851F21A81D26006ECF6F /* RuntimeResolverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658C851E21A81D26006ECF6F /* RuntimeResolverTests.swift */; };
 		658C852121A81D26006ECF6F /* Madog.h in Headers */ = {isa = PBXBuildFile; fileRef = 658C851321A81D26006ECF6F /* Madog.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		65A250D221A81FBF0035FA0F /* RuntimeResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A250CB21A81FBE0035FA0F /* RuntimeResolver.swift */; };
 		65A250D421A81FBF0035FA0F /* Resolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A250CD21A81FBF0035FA0F /* Resolver.swift */; };
 		65A250D521A81FBF0035FA0F /* NavigationUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A250CE21A81FBF0035FA0F /* NavigationUI.swift */; };
 		65A250D621A81FBF0035FA0F /* ViewControllerProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A250CF21A81FBF0035FA0F /* ViewControllerProvider.swift */; };
@@ -101,6 +100,7 @@
 		6518E79121A9FCAA0036F553 /* RegistrarTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrarTests.swift; sourceTree = "<group>"; };
 		6527EC4521BAC5210032B70D /* MadogUIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MadogUIContainer.swift; sourceTree = "<group>"; };
 		6539420321C0461D00D414D7 /* SplitUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitUI.swift; sourceTree = "<group>"; };
+		654D5099227CBB5F00E5032D /* SampleResolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleResolver.swift; sourceTree = "<group>"; };
 		655A469C21A9B18400CEC47F /* ServiceProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceProvider.swift; sourceTree = "<group>"; };
 		655A46A421A9B23E00CEC47F /* ResourceProvider1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceProvider1.swift; sourceTree = "<group>"; };
 		655A46A621A9B29C00CEC47F /* AuthenticatorProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticatorProvider.swift; sourceTree = "<group>"; };
@@ -112,9 +112,7 @@
 		658C851321A81D26006ECF6F /* Madog.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Madog.h; sourceTree = "<group>"; };
 		658C851421A81D26006ECF6F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		658C851921A81D26006ECF6F /* MadogTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MadogTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		658C851E21A81D26006ECF6F /* RuntimeResolverTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RuntimeResolverTests.swift; sourceTree = "<group>"; };
 		658C852021A81D26006ECF6F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		65A250CB21A81FBE0035FA0F /* RuntimeResolver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RuntimeResolver.swift; sourceTree = "<group>"; };
 		65A250CD21A81FBF0035FA0F /* Resolver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Resolver.swift; sourceTree = "<group>"; };
 		65A250CE21A81FBF0035FA0F /* NavigationUI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationUI.swift; sourceTree = "<group>"; };
 		65A250CF21A81FBF0035FA0F /* ViewControllerProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewControllerProvider.swift; sourceTree = "<group>"; };
@@ -201,14 +199,6 @@
 			path = Logout;
 			sourceTree = "<group>";
 		};
-		6518E77D21A9F06A0036F553 /* Resolver */ = {
-			isa = PBXGroup;
-			children = (
-				658C851E21A81D26006ECF6F /* RuntimeResolverTests.swift */,
-			);
-			path = Resolver;
-			sourceTree = "<group>";
-		};
 		6518E78F21A9FB500036F553 /* TestData */ = {
 			isa = PBXGroup;
 			children = (
@@ -221,7 +211,6 @@
 		6518E79021A9FC910036F553 /* Registry */ = {
 			isa = PBXGroup;
 			children = (
-				6518E77D21A9F06A0036F553 /* Resolver */,
 				6518E79121A9FCAA0036F553 /* RegistrarTests.swift */,
 				65744CF1227C8CE600641CF6 /* ViewControllerRegistryTests.swift */,
 			);
@@ -323,7 +312,6 @@
 			isa = PBXGroup;
 			children = (
 				65A250CD21A81FBF0035FA0F /* Resolver.swift */,
-				65A250CB21A81FBE0035FA0F /* RuntimeResolver.swift */,
 			);
 			path = Resolver;
 			sourceTree = "<group>";
@@ -363,6 +351,7 @@
 			children = (
 				65A250F121A836C50035FA0F /* AppDelegate.swift */,
 				65A2511F21A842C80035FA0F /* SampleToken.swift */,
+				654D5099227CBB5F00E5032D /* SampleResolver.swift */,
 				6539420221C045F900D414D7 /* Custom UI */,
 				6509ABE921B40D5D004AD6E6 /* Views */,
 				655A46A221A9B22100CEC47F /* ServiceProvider */,
@@ -587,7 +576,6 @@
 				65BEBC8D21A8850800397E39 /* Registrar.swift in Sources */,
 				65EC6C0921E22A66002D0902 /* ServiceProviderCreationContext.swift in Sources */,
 				6560D4A021B3F20A00EA9BE3 /* ViewControllerUIIdentifiers.swift in Sources */,
-				65A250D221A81FBF0035FA0F /* RuntimeResolver.swift in Sources */,
 				65A250E721A82C6D0035FA0F /* ViewControllerRegistry.swift in Sources */,
 				655A469D21A9B18400CEC47F /* ServiceProvider.swift in Sources */,
 				6527EC4621BAC5210032B70D /* MadogUIContainer.swift in Sources */,
@@ -610,7 +598,6 @@
 				6518E79221A9FCAA0036F553 /* RegistrarTests.swift in Sources */,
 				6518E78E21A9FB2C0036F553 /* TestResolver.swift in Sources */,
 				6518E78021A9F2360036F553 /* TestData.swift in Sources */,
-				658C851F21A81D26006ECF6F /* RuntimeResolverTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -621,6 +608,7 @@
 				65A2511E21A841830035FA0F /* ViewController2.swift in Sources */,
 				655A46AA21A9B7E800CEC47F /* ResourceProvider1.swift in Sources */,
 				65A2511721A83C1D0035FA0F /* ViewController1.swift in Sources */,
+				654D509A227CBB5F00E5032D /* SampleResolver.swift in Sources */,
 				6509ABE821B40A58004AD6E6 /* ButtonView.swift in Sources */,
 				6509ABEE21B40DC5004AD6E6 /* LogoutViewController.swift in Sources */,
 				6509ABEC21B40DB8004AD6E6 /* LogoutViewControllerProvider.swift in Sources */,

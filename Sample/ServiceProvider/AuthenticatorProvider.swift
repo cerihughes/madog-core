@@ -11,7 +11,7 @@ import Madog
 
 let authenticatorProviderName = "authenticatorProviderName"
 
-class AuthenticatorProvider: ServiceProviderObject {
+class AuthenticatorProvider: ServiceProvider {
     let authenticator = Authenticator()
 
     // MARK: ServiceProviderObject

@@ -9,11 +9,11 @@
 import UIKit
 
 internal class MadogUIContainerFactory<Token> {
-    private let registry: ViewControllerRegistry
+    private let registry: ViewControllerRegistry<Token, Context>
     private var singleVCUIRegistry = [String: () -> MadogSingleUIContainer<Token>]()
     private var multiVCUIRegistry = [String: () -> MadogMultiUIContainer<Token>]()
 
-    internal init(registry: ViewControllerRegistry) {
+    internal init(registry: ViewControllerRegistry<Token, Context>) {
         self.registry = registry
 
         _ = addSingleUICreationFunction(identifier: navigationControllerIdentifier) { return NavigationUI<Token>() }

@@ -9,13 +9,13 @@
 import Foundation
 import Madog
 
-class TestViewControllerProvider: ViewControllerProviderObject {
+class TestViewControllerProvider: ViewControllerProvider<String, Void> {
     var registered = false, unregistered = false
     var capturedServiceProviders: [String : ServiceProvider]? = nil
-    override func register(with registry: ViewControllerRegistry) {
+    override func register(with registry: ViewControllerRegistry<String, Void>) {
         registered = true
     }
-    override func unregister(from registry: ViewControllerRegistry) {
+    override func unregister(from registry: ViewControllerRegistry<String, Void>) {
         unregistered = true
     }
     override func configure(with serviceProviders: [String : ServiceProvider]) {
@@ -23,7 +23,7 @@ class TestViewControllerProvider: ViewControllerProviderObject {
     }
 }
 
-class TestServiceProvider: ServiceProviderObject {
+class TestServiceProvider: ServiceProvider {
     required init(context: ServiceProviderCreationContext) {
         super.init(context: context)
         name = String(describing: TestServiceProvider.self)
@@ -32,7 +32,7 @@ class TestServiceProvider: ServiceProviderObject {
 
 class TestViewControllerProviderFactory {
     static var created = false
-    static func createViewControllerProvider() -> ViewControllerProvider {
+    static func createViewControllerProvider() -> ViewControllerProvider<String, Void> {
         created = true
         return TestViewControllerProvider()
     }

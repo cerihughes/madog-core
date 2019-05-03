@@ -32,8 +32,9 @@ class SplitUI<Token>: MadogSingleUIContainer<Token>, SplitContext {
     // MARK: - ForwardBackNavigationContext
 
     func navigateForward(token: Any, animated: Bool) -> NavigationToken? {
-        guard let viewController = registry.createViewController(from: token, context: self) else {
-            return nil
+        guard let token = token as? Token,
+            let viewController = registry.createViewController(from: token, context: self) else {
+                return nil
         }
 
         splitController.showDetailViewController(viewController, sender: splitController.viewControllers.first)

@@ -11,7 +11,7 @@ import Madog
 
 let serviceProvider1Name = "serviceProvider1Name"
 
-class ServiceProvider1: ServiceProviderObject {
+class ServiceProvider1: ServiceProvider {
 
     // MARK: ServiceProviderObject
 

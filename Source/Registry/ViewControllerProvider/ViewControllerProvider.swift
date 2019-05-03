@@ -8,9 +8,10 @@
 
 import Foundation
 
-/// A protocol that provides a VC (or a number of VCs) for a given token by registering with a ViewControllerRegistry.
-public protocol ViewControllerProvider {
-    func register(with registry: ViewControllerRegistry)
-    func unregister(from registry: ViewControllerRegistry)
-    func configure(with serviceProviders: [String : ServiceProvider])
+/// A class that provides a VC (or a number of VCs) for a given token by registering with a ViewControllerRegistry.
+open class ViewControllerProvider<T, C> {
+    public required init() {}
+    open func register(with registry: ViewControllerRegistry<T, C>) {}
+    open func unregister(from registry: ViewControllerRegistry<T, C>) {}
+    open func configure(with serviceProviders: [String : ServiceProvider]) {}
 }

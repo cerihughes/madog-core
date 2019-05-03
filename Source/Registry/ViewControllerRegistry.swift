@@ -15,28 +15,58 @@ import UIKit
 /// registered functions along with the <Context>, and the 1st non-nil VC that comes back is used as the return value.
 ///
 /// Note that registrants should make sure they don't "overlap" - if more than 1 registrant could potentially return a
-/// VC for the same token, behaviour is undefined - there's no guarantee which will be returned first.
+/// VC for the same token, functions that register with a context will return first, and if there are still multiple,
+/// the function that was registered first will return first.
 public class ViewControllerRegistry: NSObject {
-    public typealias RegistryFunction = (Any, Context?) -> UIViewController?
+    public typealias RegistryFunction = (Any) -> UIViewController?
+    public typealias RegistryFunctionWithContext = (Any, Context) -> UIViewController?
 
-    private var registry: [UUID:RegistryFunction] = [:]
+    private var orderedFunctionUUIDs = [UUID]()
+    private var orderedFunctions = [RegistryFunction]()
+
+    private var orderedFunctionWithContextUUIDs = [UUID]()
+    private var orderedFunctionsWithContext = [RegistryFunctionWithContext]()
 
     public func add(registryFunction: @escaping RegistryFunction) -> UUID {
         let uuid = UUID()
-        registry[uuid] = registryFunction
+        orderedFunctionUUIDs.append(uuid)
+        orderedFunctions.append(registryFunction)
+        return uuid
+    }
+
+    public func add(registryFunctionWithContext: @escaping RegistryFunctionWithContext) -> UUID {
+        let uuid = UUID()
+        orderedFunctionWithContextUUIDs.append(uuid)
+        orderedFunctionsWithContext.append(registryFunctionWithContext)
         return uuid
     }
 
     public func removeRegistryFunction(uuid: UUID) {
-        registry.removeValue(forKey: uuid)
+        if let index = orderedFunctionUUIDs.index(of: uuid) {
+            _ = orderedFunctionUUIDs.remove(at: index)
+            _ = orderedFunctions.remove(at: index)
+        }
+        if let index = orderedFunctionWithContextUUIDs.index(of: uuid) {
+            _ = orderedFunctionWithContextUUIDs.remove(at: index)
+            _ = orderedFunctionsWithContext.remove(at: index)
+        }
     }
 
-    public func createViewController(from token: Any, context: Context?) -> UIViewController? {
-        for function in registry.values {
-            if let result = function(token, context) {
+    public func createViewController(from token: Any, context: Context? = nil) -> UIViewController? {
+        if let context = context {
+            for function in orderedFunctionsWithContext {
+                if let result = function(token, context) {
+                    return result
+                }
+            }
+        }
+
+        for function in orderedFunctions {
+            if let result = function(token) {
                 return result
             }
         }
+
         return nil
     }
 }

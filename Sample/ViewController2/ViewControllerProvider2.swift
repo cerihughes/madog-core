@@ -18,7 +18,7 @@ class ViewControllerProvider2: ViewControllerProviderObject {
     // MARK: ViewControllerProviderObject
 
     override func register(with registry: ViewControllerRegistry) {
-        uuid = registry.add(registryFunction: createViewController(token:context:))
+        uuid = registry.add(registryFunctionWithContext: createViewController(token:context:))
     }
 
     override func unregister(from registry: ViewControllerRegistry) {
@@ -37,7 +37,7 @@ class ViewControllerProvider2: ViewControllerProviderObject {
 
     // MARK: Private
 
-    private func createViewController(token: Any, context: Context?) -> UIViewController? {
+    private func createViewController(token: Any, context: Context) -> UIViewController? {
         guard let sharedService = sharedService,
             let sampleToken = token as? SampleToken,
             sampleToken.identifier == vc2Identifier,

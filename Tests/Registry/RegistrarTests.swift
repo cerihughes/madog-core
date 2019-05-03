@@ -13,16 +13,16 @@ import XCTest
 class RegistrarTests: XCTestCase {
 
     // MARK: CUT
-    private var registrar: Registrar!
+    private var registrar: Registrar<String, Void>!
 
     // MARK: Test Data
     private var resolver: TestResolver!
-    private var registry: ViewControllerRegistry!
+    private var registry: ViewControllerRegistry<String, Void>!
 
     override func setUp() {
         super.setUp()
-        let testViewControllerProviderCreationFunctions: [ViewControllerProviderCreationFunction] = [TestViewControllerProviderFactory.createViewControllerProvider]
-        let testServiceProviderCreationFunctions: [ServiceProviderCreationFunction] = [TestServiceProviderFactory.createServiceProvider]
+        let testViewControllerProviderCreationFunctions: [() -> ViewControllerProvider<String, Void>] = [TestViewControllerProviderFactory.createViewControllerProvider]
+        let testServiceProviderCreationFunctions: [(ServiceProviderCreationContext) -> ServiceProvider] = [TestServiceProviderFactory.createServiceProvider]
         resolver = TestResolver(testViewControllerProviderCreationFunctions: testViewControllerProviderCreationFunctions,
                                 testServiceProviderCreationFunctions: testServiceProviderCreationFunctions)
         registry = ViewControllerRegistry()
@@ -52,7 +52,7 @@ class RegistrarTests: XCTestCase {
         TestViewControllerProviderFactory.created = false
 
         XCTAssertEqual(registrar.viewControllerProviders.count, 0)
-        registrar.registerViewControllerProviders(with: registry, functions: resolver.viewControllerProviderCreationFunctions())
+        registrar.registerViewControllerProviders(functions: resolver.viewControllerProviderCreationFunctions())
         XCTAssertEqual(registrar.viewControllerProviders.count, 1)
 
         XCTAssertTrue(TestViewControllerProviderFactory.created)
@@ -63,7 +63,7 @@ class RegistrarTests: XCTestCase {
             XCTAssertFalse(testViewControllerProvider.unregistered)
         }
 
-        registrar.unregisterViewControllerProviders(from: registry)
+        registrar.unregisterViewControllerProviders()
         XCTAssertEqual(registrar.viewControllerProviders.count, 0)
 
         for viewControllerProvider in registrar.viewControllerProviders {

@@ -20,11 +20,8 @@ import UIKit
 /// Other implementations can be written that (e.g.) manually instantiate the required implementations, or maybe load
 /// them via a plist.
 
-public typealias ViewControllerProviderCreationFunction = () -> ViewControllerProvider
-public typealias ServiceProviderCreationFunction = (ServiceProviderCreationContext) -> ServiceProvider
-
-open class Resolver {
+open class Resolver<T, C> {
     public init() {}
-    open func viewControllerProviderCreationFunctions() -> [ViewControllerProviderCreationFunction] { return [] }
-    open func serviceProviderCreationFunctions() -> [ServiceProviderCreationFunction] { return [] }
+    open func viewControllerProviderCreationFunctions() -> [() -> ViewControllerProvider<T, C>] { return [] }
+    open func serviceProviderCreationFunctions() -> [(ServiceProviderCreationContext) -> ServiceProvider] { return [] }
 }

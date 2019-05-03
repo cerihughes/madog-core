@@ -10,11 +10,11 @@ import Foundation
 
 /// An implementation of Resolver which uses objc-runtime magic to find all loaded classes that
 /// subclass from ViewControllerProvider and ServiceProvider respectively.
-public final class RuntimeResolver: Resolver {
+public final class RuntimeResolver<T, C>: Resolver<T, C> {
     private let bundle: Bundle
 
-    private var loadedViewControllerProviderCreationFunctions = [ViewControllerProviderCreationFunction]()
-    private var loadedServiceProviderCreationFunctions = [ServiceProviderCreationFunction]()
+    private var loadedViewControllerProviderCreationFunctions = [() -> ViewControllerProvider<T, C>]()
+    private var loadedServiceProviderCreationFunctions = [(ServiceProviderCreationContext) -> ServiceProvider]()
 
     convenience override public init() {
         self.init(bundle: Bundle.main)
@@ -30,11 +30,11 @@ public final class RuntimeResolver: Resolver {
 
     // MARK: Resolver
 
-    public override func viewControllerProviderCreationFunctions() -> [ViewControllerProviderCreationFunction] {
+    public override func viewControllerProviderCreationFunctions() -> [() -> ViewControllerProvider<T, C>] {
         return loadedViewControllerProviderCreationFunctions
     }
 
-    public override func serviceProviderCreationFunctions() -> [ServiceProviderCreationFunction] {
+    public override func serviceProviderCreationFunctions() -> [(ServiceProviderCreationContext) -> ServiceProvider] {
         return loadedServiceProviderCreationFunctions
     }
 
@@ -48,7 +48,8 @@ public final class RuntimeResolver: Resolver {
                 for i in 0 ..< classCount {
                     let className = classNames[Int(i)]
                     let name = String.init(cString: className)
-                    if let cls = NSClassFromString(name) as? ViewControllerProvider.Type {
+                    print(name)
+                    if let cls = NSClassFromString(name) as? ViewControllerProvider<T, C>.Type {
                         loadedViewControllerProviderCreationFunctions.append { return cls.init() }
                     }
                     if let cls = NSClassFromString(name) as? ServiceProvider.Type {

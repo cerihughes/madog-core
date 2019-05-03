@@ -16,7 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Some code to make sure the API is correct (until we have multiple sample apps)
-        let registry = ViewControllerRegistry()
+        let registry = ViewControllerRegistry<SampleToken, Context>()
         let registrar = Registrar(registry: registry)
         registrar.resolve(resolver: RuntimeResolver(), launchOptions: launchOptions)
 

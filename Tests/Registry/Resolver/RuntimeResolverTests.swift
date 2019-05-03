@@ -13,7 +13,7 @@ import XCTest
 class RuntimeResolverTests: XCTestCase {
 
     // MARK: CUT
-    private var resolver: RuntimeResolver!
+    private var resolver: RuntimeResolver<String, Void>!
 
     override func setUp() {
         super.setUp()

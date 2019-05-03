@@ -12,7 +12,7 @@ import XCTest
 
 class ViewControllerRegistryTests: XCTestCase {
 
-    private var registry: ViewControllerRegistry!
+    private var registry: ViewControllerRegistry<Int, String>!
 
     override func setUp() {
         super.setUp()
@@ -36,18 +36,18 @@ class ViewControllerRegistryTests: XCTestCase {
 
     func testRegisterFunction_providingContext() {
         let uuid = registry.add(registryFunction: createFunction(limit: 10))
-        XCTAssertNotNil(registry.createViewController(from: 1, context: TestContext()))
+        XCTAssertNotNil(registry.createViewController(from: 1, context: "Things"))
 
         registry.removeRegistryFunction(uuid: uuid)
-        XCTAssertNil(registry.createViewController(from: 1, context: TestContext()))
+        XCTAssertNil(registry.createViewController(from: 1, context: "Things"))
     }
 
     func testRegisterFunctionWithContext() {
         let uuid = registry.add(registryFunctionWithContext: createFunctionWithContext(limit: 10))
-        XCTAssertNotNil(registry.createViewController(from: 1, context: TestContext()))
+        XCTAssertNotNil(registry.createViewController(from: 1, context: "Things"))
 
         registry.removeRegistryFunction(uuid: uuid)
-        XCTAssertNil(registry.createViewController(from: 1, context: TestContext()))
+        XCTAssertNil(registry.createViewController(from: 1, context: "Things"))
     }
 
     func testRegisterFunctionWithContext_withoutProvidingContext() {
@@ -77,15 +77,15 @@ class ViewControllerRegistryTests: XCTestCase {
         let uuid1 = registry.add(registryFunctionWithContext: createFunctionWithContext(limit: 0))
         let uuid2 = registry.add(registryFunctionWithContext: createFunctionWithContext(limit: 1))
 
-        let vc = registry.createViewController(from: 1, context: TestContext())
+        let vc = registry.createViewController(from: 1, context: "Things")
         XCTAssertNotNil(vc)
         XCTAssertEqual(vc!.title, "functionWithContext 1")
 
         registry.removeRegistryFunction(uuid: uuid2)
-        XCTAssertNil(registry.createViewController(from: 1, context: TestContext()))
+        XCTAssertNil(registry.createViewController(from: 1, context: "Things"))
 
         registry.removeRegistryFunction(uuid: uuid1)
-        XCTAssertNil(registry.createViewController(from: 1, context: TestContext()))
+        XCTAssertNil(registry.createViewController(from: 1, context: "Things"))
     }
 
     func testRegisterFunctions_allValid_usesFirstRegistered() {
@@ -107,26 +107,26 @@ class ViewControllerRegistryTests: XCTestCase {
         let uuid1 = registry.add(registryFunctionWithContext: createFunctionWithContext(limit: 0))
         let uuid2 = registry.add(registryFunctionWithContext: createFunctionWithContext(limit: 1))
 
-        let vc = registry.createViewController(from: 0, context: TestContext())
+        let vc = registry.createViewController(from: 0, context: "Things")
         XCTAssertNotNil(vc)
         XCTAssertEqual(vc!.title, "functionWithContext 0")
 
         registry.removeRegistryFunction(uuid: uuid2)
-        XCTAssertNotNil(registry.createViewController(from: 0, context: TestContext()))
+        XCTAssertNotNil(registry.createViewController(from: 0, context: "Things"))
 
         registry.removeRegistryFunction(uuid: uuid1)
-        XCTAssertNil(registry.createViewController(from: 0, context: TestContext()))
+        XCTAssertNil(registry.createViewController(from: 0, context: "Things"))
     }
 
     func testRegisterMixedFunctions_functionsWithContextsReturnFirst() {
         let uuid1 = registry.add(registryFunctionWithContext: createFunctionWithContext(limit: 0))
         let uuid2 = registry.add(registryFunction: createFunction(limit: 0))
 
-        var vc = registry.createViewController(from: 0, context: TestContext())
+        var vc = registry.createViewController(from: 0, context: "Things")
         XCTAssertEqual(vc!.title, "functionWithContext 0")
         registry.removeRegistryFunction(uuid: uuid1)
 
-        vc = registry.createViewController(from: 0, context: TestContext())
+        vc = registry.createViewController(from: 0, context: "Things")
         XCTAssertEqual(vc!.title, "function 0")
         registry.removeRegistryFunction(uuid: uuid2)
     }
@@ -137,19 +137,19 @@ class ViewControllerRegistryTests: XCTestCase {
         let uuid3 = registry.add(registryFunction: createFunction(limit: 0))
         let uuid4 = registry.add(registryFunction: createFunction(limit: 1))
 
-        var vc = registry.createViewController(from: 0, context: TestContext())
+        var vc = registry.createViewController(from: 0, context: "Things")
         XCTAssertEqual(vc!.title, "functionWithContext 0")
         registry.removeRegistryFunction(uuid: uuid1)
 
-        vc = registry.createViewController(from: 0, context: TestContext())
+        vc = registry.createViewController(from: 0, context: "Things")
         XCTAssertEqual(vc!.title, "functionWithContext 1")
         registry.removeRegistryFunction(uuid: uuid2)
 
-        vc = registry.createViewController(from: 0, context: TestContext())
+        vc = registry.createViewController(from: 0, context: "Things")
         XCTAssertEqual(vc!.title, "function 0")
         registry.removeRegistryFunction(uuid: uuid3)
 
-        vc = registry.createViewController(from: 0, context: TestContext())
+        vc = registry.createViewController(from: 0, context: "Things")
         XCTAssertEqual(vc!.title, "function 1")
         registry.removeRegistryFunction(uuid: uuid4)
     }}
@@ -158,11 +158,10 @@ private extension ViewControllerRegistryTests {
 
     // MARK: - Test functions
 
-    func createFunction(limit: Int) -> (Any) -> UIViewController? {
+    func createFunction(limit: Int) -> (Int) -> UIViewController? {
         return { token in
-            guard let token = token as? Int,
-                token <= limit else {
-                    return nil
+            guard token <= limit else {
+                return nil
             }
 
             let vc = UIViewController()
@@ -171,26 +170,15 @@ private extension ViewControllerRegistryTests {
         }
     }
 
-    func createFunctionWithContext(limit: Int) -> (Any, Context) -> UIViewController? {
+    func createFunctionWithContext(limit: Int) -> (Int, String) -> UIViewController? {
         return { token, context in
-            guard let token = token as? Int,
-                token <= limit else {
-                    return nil
+            guard token <= limit else {
+                return nil
             }
 
             let vc = UIViewController()
             vc.title = "functionWithContext \(limit)"
             return vc
         }
-    }
-}
-
-fileprivate class TestContext: Context {
-    func change<VC>(to identifier: SingleUIIdentifier<VC>, token: Any) -> Bool where VC : UIViewController {
-        return true
-    }
-
-    func change<VC>(to identifier: MultiUIIdentifier<VC>, tokens: [Any]) -> Bool where VC : UIViewController {
-        return true
     }
 }

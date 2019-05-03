@@ -18,7 +18,7 @@ class LogoutViewControllerProvider: ViewControllerProviderObject {
     // MARK: ViewControllerProviderObject
 
     override func register(with registry: ViewControllerRegistry) {
-        uuid = registry.add(registryFunction: createViewController(token:context:))
+        uuid = registry.add(registryFunctionWithContext: createViewController(token:context:))
     }
 
     override func unregister(from registry: ViewControllerRegistry) {
@@ -37,10 +37,9 @@ class LogoutViewControllerProvider: ViewControllerProviderObject {
 
     // MARK: Private
 
-    private func createViewController(token: Any, context: Context?) -> UIViewController? {
+    private func createViewController(token: Any, context: Context) -> UIViewController? {
         guard let authenticator = authenticator,
             let sampleToken = token as? SampleToken,
-            let context = context,
             sampleToken.identifier == logoutIdentifier else {
                 return nil
         }

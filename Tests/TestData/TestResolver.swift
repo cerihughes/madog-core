@@ -17,13 +17,15 @@ class TestResolver: Resolver {
          testServiceProviderCreationFunctions: [ServiceProviderCreationFunction]) {
         self.testViewControllerProviderCreationFunctions = testViewControllerProviderCreationFunctions
         self.testServiceProviderCreationFunctions = testServiceProviderCreationFunctions
+
+        super.init()
     }
 
-    func viewControllerProviderCreationFunctions() -> [ViewControllerProviderCreationFunction] {
+    override func viewControllerProviderCreationFunctions() -> [ViewControllerProviderCreationFunction] {
         return testViewControllerProviderCreationFunctions
     }
 
-    func serviceProviderCreationFunctions() -> [ServiceProviderCreationFunction] {
+    override func serviceProviderCreationFunctions() -> [ServiceProviderCreationFunction] {
         return testServiceProviderCreationFunctions
     }
 }

@@ -11,7 +11,7 @@ import UIKit
 
 fileprivate let loginIdentifier = "loginIdentifier"
 
-class LoginViewControllerProvider: ViewControllerProviderObject {
+class LoginViewControllerProvider: ViewControllerProvider {
     private var authenticator: Authenticator?
     private var uuid: UUID?
 

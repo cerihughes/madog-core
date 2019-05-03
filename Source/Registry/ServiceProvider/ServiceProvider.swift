@@ -8,6 +8,7 @@
 
 import Foundation
 
-public protocol ServiceProvider {
-    var name: String {get}
+open class ServiceProvider {
+    public var name: String = "Default"
+    public required init(context: ServiceProviderCreationContext) {}
 }

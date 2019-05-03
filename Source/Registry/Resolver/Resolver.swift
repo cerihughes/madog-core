@@ -12,7 +12,7 @@ import UIKit
 /// and ServiceProvider.
 ///
 /// At the moment, the only implementation is the RuntimeResolver which uses Runtime magic to find all loaded classes
-/// that implement ViewControllerProviderObject and ServiceProviderObject.
+/// that extend these superclasses.
 ///
 /// This might not be a long term solution, especially if Swift moves away from the Obj-C runtime, but it does serve as
 /// a nice example of accessing the Obj-C runtime from Swift.
@@ -23,7 +23,8 @@ import UIKit
 public typealias ViewControllerProviderCreationFunction = () -> ViewControllerProvider
 public typealias ServiceProviderCreationFunction = (ServiceProviderCreationContext) -> ServiceProvider
 
-public protocol Resolver {
-    func viewControllerProviderCreationFunctions() -> [ViewControllerProviderCreationFunction]
-    func serviceProviderCreationFunctions() -> [ServiceProviderCreationFunction]
+open class Resolver {
+    public init() {}
+    open func viewControllerProviderCreationFunctions() -> [ViewControllerProviderCreationFunction] { return [] }
+    open func serviceProviderCreationFunctions() -> [ServiceProviderCreationFunction] { return [] }
 }

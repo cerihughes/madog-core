@@ -11,7 +11,7 @@ import UIKit
 
 fileprivate let logoutIdentifier = "logoutIdentifier"
 
-class LogoutViewControllerProvider: ViewControllerProviderObject {
+class LogoutViewControllerProvider: ViewControllerProvider {
     private var authenticator: Authenticator?
     private var uuid: UUID?
 

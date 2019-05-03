@@ -11,7 +11,7 @@ import UIKit
 
 fileprivate let vc1Identifier = "vc1Identifier"
 
-class ViewController1Provider: ViewControllerProviderObject {
+class ViewController1Provider: ViewControllerProvider {
     private var sharedService: Any?
     private var uuid: UUID?
 

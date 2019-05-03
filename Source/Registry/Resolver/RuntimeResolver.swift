@@ -9,30 +9,32 @@
 import Foundation
 
 /// An implementation of Resolver which uses objc-runtime magic to find all loaded classes that
-/// subclass from ViewControllerProviderObject and ServiceProviderObject respectively.
+/// subclass from ViewControllerProvider and ServiceProvider respectively.
 public final class RuntimeResolver: Resolver {
     private let bundle: Bundle
 
     private var loadedViewControllerProviderCreationFunctions = [ViewControllerProviderCreationFunction]()
     private var loadedServiceProviderCreationFunctions = [ServiceProviderCreationFunction]()
 
-    convenience public init() {
+    convenience override public init() {
         self.init(bundle: Bundle.main)
     }
 
     public init(bundle: Bundle) {
         self.bundle = bundle
 
+        super.init()
+
         inspectLoadedClasses()
     }
 
     // MARK: Resolver
 
-    public func viewControllerProviderCreationFunctions() -> [ViewControllerProviderCreationFunction] {
+    public override func viewControllerProviderCreationFunctions() -> [ViewControllerProviderCreationFunction] {
         return loadedViewControllerProviderCreationFunctions
     }
 
-    public func serviceProviderCreationFunctions() -> [ServiceProviderCreationFunction] {
+    public override func serviceProviderCreationFunctions() -> [ServiceProviderCreationFunction] {
         return loadedServiceProviderCreationFunctions
     }
 
@@ -46,10 +48,10 @@ public final class RuntimeResolver: Resolver {
                 for i in 0 ..< classCount {
                     let className = classNames[Int(i)]
                     let name = String.init(cString: className)
-                    if let cls = NSClassFromString(name) as? ViewControllerProviderObject.Type {
+                    if let cls = NSClassFromString(name) as? ViewControllerProvider.Type {
                         loadedViewControllerProviderCreationFunctions.append { return cls.init() }
                     }
-                    if let cls = NSClassFromString(name) as? ServiceProviderObject.Type {
+                    if let cls = NSClassFromString(name) as? ServiceProvider.Type {
                         loadedServiceProviderCreationFunctions.append { context in
                             return cls.init(context: context)
                         }
@@ -64,16 +66,4 @@ public final class RuntimeResolver: Resolver {
             loadedServiceProviderCreationFunctions.sort { String(describing: $0) < String(describing: $1) }
         }
     }
-}
-
-open class ViewControllerProviderObject: ViewControllerProvider {
-    public required init() {}
-    open func register(with registry: ViewControllerRegistry) {}
-    open func unregister(from registry: ViewControllerRegistry) {}
-    open func configure(with serviceProviders: [String : ServiceProvider]) {}
-}
-
-open class ServiceProviderObject: ServiceProvider {
-    public var name: String = "Default"
-    public required init(context: ServiceProviderCreationContext) {}
 }

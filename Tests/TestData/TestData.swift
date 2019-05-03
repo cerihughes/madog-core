@@ -9,7 +9,7 @@
 import Foundation
 import Madog
 
-class TestViewControllerProvider: ViewControllerProviderObject {
+class TestViewControllerProvider: ViewControllerProvider {
     var registered = false, unregistered = false
     var capturedServiceProviders: [String : ServiceProvider]? = nil
     override func register(with registry: ViewControllerRegistry) {
@@ -23,7 +23,7 @@ class TestViewControllerProvider: ViewControllerProviderObject {
     }
 }
 
-class TestServiceProvider: ServiceProviderObject {
+class TestServiceProvider: ServiceProvider {
     required init(context: ServiceProviderCreationContext) {
         super.init(context: context)
         name = String(describing: TestServiceProvider.self)

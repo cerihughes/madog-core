@@ -7,6 +7,8 @@
 //
 
 import Madog
+import class Registry.Registrar
+import class Registry.ViewControllerRegistry
 import UIKit
 
 @UIApplicationMain

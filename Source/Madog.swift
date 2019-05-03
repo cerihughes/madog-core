@@ -6,10 +6,11 @@
 //  Copyright © 2019 Ceri Hughes. All rights reserved.
 //
 
+import Registry
 import UIKit
 
 public final class Madog<Token>: MadogUIContainerDelegate {
-    private let registry = ViewControllerRegistry<Token, Context>()
+    private let registry = ViewControllerRegistry<Token>()
     private let registrar: Registrar<Token, Context>
     private let factory: MadogUIContainerFactory<Token>
 
@@ -20,7 +21,7 @@ public final class Madog<Token>: MadogUIContainerDelegate {
         factory = MadogUIContainerFactory<Token>(registry: registry)
     }
 
-    public func resolve(resolver: Resolver<Token, Context>, launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) {
+    public func resolve(resolver: Resolver<Token>, launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) {
         registrar.resolve(resolver: resolver, launchOptions: launchOptions)
     }
 

@@ -19,7 +19,7 @@ import UIKit
 /// Note that registrants should make sure they don't "overlap" - if more than 1 registrant could potentially return a
 /// VC for the same token, functions that register with a context will return first, and if there are still multiple,
 /// the function that was registered first will return first.
-public class ViewControllerRegistry<T, C> {
+open class ViewControllerRegistry<T, C> {
     public typealias RegistryFunction = (T) -> UIViewController?
     public typealias RegistryFunctionWithContext = (T, C) -> UIViewController?
 

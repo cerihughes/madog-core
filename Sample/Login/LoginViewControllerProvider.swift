@@ -11,17 +11,17 @@ import UIKit
 
 fileprivate let loginIdentifier = "loginIdentifier"
 
-class LoginViewControllerProvider: ViewControllerProvider<SampleToken, Context> {
+class LoginViewControllerProvider: ViewControllerProvider<SampleToken> {
     private var authenticator: Authenticator?
     private var uuid: UUID?
 
     // MARK: ViewControllerProviderObject
 
-    override func register(with registry: ViewControllerRegistry<SampleToken, Context>) {
+    override func register(with registry: ViewControllerRegistry<SampleToken>) {
         uuid = registry.add(registryFunctionWithContext: createViewController(token:context:))
     }
 
-    override func unregister(from registry: ViewControllerRegistry<SampleToken, Context>) {
+    override func unregister(from registry: ViewControllerRegistry<SampleToken>) {
         guard let uuid = uuid else {
             return
         }

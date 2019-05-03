@@ -8,8 +8,8 @@
 
 import Madog
 
-class SampleResolver: Resolver<SampleToken, Context> {
-    override func viewControllerProviderCreationFunctions() -> [() -> ViewControllerProvider<SampleToken, Context>] {
+class SampleResolver: Resolver<SampleToken> {
+    override func viewControllerProviderCreationFunctions() -> [() -> ViewControllerProvider<SampleToken>] {
         let login = { return LoginViewControllerProvider() }
         let vc1 = { return ViewController1Provider() }
         let vc2 = { return ViewControllerProvider2() }

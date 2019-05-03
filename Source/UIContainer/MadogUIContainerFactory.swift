@@ -6,14 +6,15 @@
 //  Copyright © 2019 Ceri Hughes. All rights reserved.
 //
 
+import Registry
 import UIKit
 
 internal class MadogUIContainerFactory<Token> {
-    private let registry: ViewControllerRegistry<Token, Context>
+    private let registry: Registry.ViewControllerRegistry<Token, Context>
     private var singleVCUIRegistry = [String: () -> MadogSingleUIContainer<Token>]()
     private var multiVCUIRegistry = [String: () -> MadogMultiUIContainer<Token>]()
 
-    internal init(registry: ViewControllerRegistry<Token, Context>) {
+    internal init(registry: Registry.ViewControllerRegistry<Token, Context>) {
         self.registry = registry
 
         _ = addSingleUICreationFunction(identifier: navigationControllerIdentifier) { return NavigationUI<Token>() }

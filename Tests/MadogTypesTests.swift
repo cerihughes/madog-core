@@ -28,7 +28,7 @@ class MadogTypesTests: XCTestCase {
 
     func testMadogRegistry() {
         let context = TestContext()
-        let uuid = registry.add(registryFunctionWithContext: createFunction(limit: 0))
+        let uuid = registry.add(registryFunction: createFunction(limit: 0))
 
         XCTAssertNotNil(registry.createViewController(from: 0, context: context))
         XCTAssertNil(registry.createViewController(from: 1, context: context))
@@ -64,7 +64,7 @@ private class TestViewControllerProvider: ViewControllerProvider<Int> {
     private var uuid: UUID? = nil
 
     override func register(with registry: Registry<Int>) {
-        uuid = registry.add(registryFunctionWithContext: createFunction(limit: 0))
+        uuid = registry.add(registryFunction: createFunction(limit: 0))
     }
 
     override func unregister(from registry: Registry<Int>) {

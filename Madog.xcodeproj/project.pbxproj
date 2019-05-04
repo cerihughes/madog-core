@@ -51,6 +51,7 @@
 		65A2511E21A841830035FA0F /* ViewController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A2511D21A841830035FA0F /* ViewController2.swift */; };
 		65A2512021A842C80035FA0F /* SampleToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A2511F21A842C80035FA0F /* SampleToken.swift */; };
 		65A2512221A843BC0035FA0F /* LabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A2512121A843BC0035FA0F /* LabelView.swift */; };
+		65F8B673227DBA0D007EEBAF /* Provident.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65F8B672227DBA0C007EEBAF /* Provident.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -156,6 +157,7 @@
 		65A2512121A843BC0035FA0F /* LabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelView.swift; sourceTree = "<group>"; };
 		65BEBC8C21A8850800397E39 /* Registrar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Registrar.swift; sourceTree = "<group>"; };
 		65EC6C0821E22A66002D0902 /* ServiceProviderCreationContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceProviderCreationContext.swift; sourceTree = "<group>"; };
+		65F8B672227DBA0C007EEBAF /* Provident.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Provident.framework; path = Carthage/Build/iOS/Provident.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -163,6 +165,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				65F8B673227DBA0D007EEBAF /* Provident.framework in Frameworks */,
 				6595DCE3227CD1E4003AC2FD /* Registry.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -426,6 +429,7 @@
 		65A2511821A840EB0035FA0F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				65F8B672227DBA0C007EEBAF /* Provident.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -921,6 +925,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = Source/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -948,6 +956,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = Source/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (

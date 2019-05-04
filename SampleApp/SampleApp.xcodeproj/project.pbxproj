@@ -29,6 +29,7 @@
 		651C7D0B227DEEBB002B72EC /* LogoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651C7CFA227DEE05002B72EC /* LogoutViewController.swift */; };
 		651C7D0D227DEED7002B72EC /* Provident.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 651C7D0C227DEED7002B72EC /* Provident.framework */; };
 		651C7D0E227DEEEB002B72EC /* Madog.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 651C7CDD227DED7E002B72EC /* Madog.framework */; };
+		651C7D10227DF24D002B72EC /* LoginViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 651C7CF1227DEE05002B72EC /* LoginViewController.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -97,8 +98,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				651C7D0E227DEEEB002B72EC /* Madog.framework in Frameworks */,
 				651C7D0D227DEED7002B72EC /* Provident.framework in Frameworks */,
+				651C7D0E227DEEEB002B72EC /* Madog.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -349,6 +350,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				651C7CA2227DECBC002B72EC /* LaunchScreen.storyboard in Resources */,
+				651C7D10227DF24D002B72EC /* LoginViewController.storyboard in Resources */,
 				651C7C9F227DECBC002B72EC /* Assets.xcassets in Resources */,
 				651C7C9D227DECBA002B72EC /* Main.storyboard in Resources */,
 			);
@@ -574,6 +576,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Y56955G4Q8;
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../Carthage/Build/iOS";
 				INFOPLIST_FILE = SampleApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -592,6 +595,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Y56955G4Q8;
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../Carthage/Build/iOS";
 				INFOPLIST_FILE = SampleApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

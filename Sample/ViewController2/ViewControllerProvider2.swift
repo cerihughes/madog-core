@@ -11,17 +11,17 @@ import UIKit
 
 fileprivate let vc2Identifier = "vc2Identifier"
 
-class ViewControllerProvider2: ViewControllerProvider<SampleToken, Context> {
+class ViewControllerProvider2: ViewControllerProvider<SampleToken> {
     private var sharedService: Any?
     private var uuid: UUID?
 
     // MARK: ViewControllerProviderObject
 
-    override func register(with registry: ViewControllerRegistry<SampleToken, Context>) {
+    override func register(with registry: Registry<SampleToken>) {
         uuid = registry.add(registryFunctionWithContext: createViewController(token:context:))
     }
 
-    override func unregister(from registry: ViewControllerRegistry<SampleToken, Context>) {
+    override func unregister(from registry: Registry<SampleToken>) {
         guard let uuid = uuid else {
             return
         }

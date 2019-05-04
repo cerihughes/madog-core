@@ -6,38 +6,38 @@
 //  Copyright © 2019 Ceri Hughes. All rights reserved.
 //
 
-import Registry
+import Provident
 
-public class ViewControllerRegistry<Token>: Registry.ViewControllerRegistry<Token, Context> {}
+public class Registry<Token>: Provident.Registry<Token, Context> {}
 
-open class ViewControllerProvider<Token>: Registry.ViewControllerProvider<Token, Context> {
-    override public final func register(with registry: Registry.ViewControllerRegistry<Token, Context>) {
-        guard let registry = registry as? ViewControllerRegistry else {
+open class ViewControllerProvider<Token>: Provident.ViewControllerProvider<Token, Context> {
+    override public final func register(with registry: Provident.Registry<Token, Context>) {
+        guard let registry = registry as? Registry else {
             return
         }
 
         register(with: registry)
     }
 
-    override public final func unregister(from registry: Registry.ViewControllerRegistry<Token, Context>) {
-        guard let registry = registry as? ViewControllerRegistry else {
+    override public final func unregister(from registry: Provident.Registry<Token, Context>) {
+        guard let registry = registry as? Registry else {
             return
         }
 
         unregister(from: registry)
     }
 
-    open func register(with registry: ViewControllerRegistry<Token>) {}
-    open func unregister(from registry: ViewControllerRegistry<Token>) {}
+    open func register(with registry: Registry<Token>) {}
+    open func unregister(from registry: Registry<Token>) {}
 }
 
-open class Resolver<Token>: Registry.Resolver<Token, Context> {
-    override public final func viewControllerProviderCreationFunctions() -> [() -> Registry.ViewControllerProvider<Token, Context>] {
+open class Resolver<Token>: Provident.Resolver<Token, Context> {
+    override public final func viewControllerProviderCreationFunctions() -> [() -> Provident.ViewControllerProvider<Token, Context>] {
         let functions: [() -> ViewControllerProvider<Token>] = viewControllerProviderCreationFunctions()
         return functions.map(convert)
     }
 
-    private func convert(input: @escaping () -> ViewControllerProvider<Token>) -> (() -> Registry.ViewControllerProvider<Token, Context>) {
+    private func convert(input: @escaping () -> ViewControllerProvider<Token>) -> (() -> Provident.ViewControllerProvider<Token, Context>) {
         return {
             return input()
         }
@@ -46,5 +46,5 @@ open class Resolver<Token>: Registry.Resolver<Token, Context> {
     open func viewControllerProviderCreationFunctions() -> [() -> ViewControllerProvider<Token>] { return [] }
 }
 
-public typealias ServiceProvider = Registry.ServiceProvider
-public typealias ServiceProviderCreationContext = Registry.ServiceProviderCreationContext
+public typealias ServiceProvider = Provident.ServiceProvider
+public typealias ServiceProviderCreationContext = Provident.ServiceProviderCreationContext

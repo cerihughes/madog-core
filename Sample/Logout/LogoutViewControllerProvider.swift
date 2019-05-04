@@ -17,11 +17,11 @@ class LogoutViewControllerProvider: ViewControllerProvider<SampleToken> {
 
     // MARK: ViewControllerProviderObject
 
-    override func register(with registry: ViewControllerRegistry<SampleToken>) {
+    override func register(with registry: Registry<SampleToken>) {
         uuid = registry.add(registryFunctionWithContext: createViewController(token:context:))
     }
 
-    override func unregister(from registry: ViewControllerRegistry<SampleToken>) {
+    override func unregister(from registry: Registry<SampleToken>) {
         guard let uuid = uuid else {
             return
         }

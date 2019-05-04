@@ -24,18 +24,6 @@
 		657E7439227C9DF00067EAE3 /* Madog.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 658C851021A81D26006ECF6F /* Madog.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		658C851A21A81D26006ECF6F /* Madog.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 658C851021A81D26006ECF6F /* Madog.framework */; };
 		658C852121A81D26006ECF6F /* Madog.h in Headers */ = {isa = PBXBuildFile; fileRef = 658C851321A81D26006ECF6F /* Madog.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		6595DCBB227CCF88003AC2FD /* Registrar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BEBC8C21A8850800397E39 /* Registrar.swift */; };
-		6595DCBC227CCF88003AC2FD /* ServiceProviderCreationContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65EC6C0821E22A66002D0902 /* ServiceProviderCreationContext.swift */; };
-		6595DCBE227CCF88003AC2FD /* ViewControllerRegistry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A250E621A82C6D0035FA0F /* ViewControllerRegistry.swift */; };
-		6595DCBF227CCF88003AC2FD /* ServiceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655A469C21A9B18400CEC47F /* ServiceProvider.swift */; };
-		6595DCC2227CCF88003AC2FD /* Resolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A250CD21A81FBF0035FA0F /* Resolver.swift */; };
-		6595DCC5227CCF88003AC2FD /* ViewControllerProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A250CF21A81FBF0035FA0F /* ViewControllerProvider.swift */; };
-		6595DCD4227CD062003AC2FD /* ViewControllerRegistryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65744CF1227C8CE600641CF6 /* ViewControllerRegistryTests.swift */; };
-		6595DCD5227CD062003AC2FD /* RegistrarTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6518E79121A9FCAA0036F553 /* RegistrarTests.swift */; };
-		6595DCD6227CD062003AC2FD /* TestResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6518E78D21A9FB2C0036F553 /* TestResolver.swift */; };
-		6595DCD7227CD062003AC2FD /* TestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6518E77E21A9F2330036F553 /* TestData.swift */; };
-		6595DCE3227CD1E4003AC2FD /* Registry.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6595DCCE227CCF88003AC2FD /* Registry.framework */; };
-		6595DCE6227CD3CC003AC2FD /* Registry.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6595DCCE227CCF88003AC2FD /* Registry.framework */; };
 		6595DCE8227CD826003AC2FD /* MadogTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6595DCE7227CD826003AC2FD /* MadogTypes.swift */; };
 		65A250D521A81FBF0035FA0F /* NavigationUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A250CE21A81FBF0035FA0F /* NavigationUI.swift */; };
 		65A250DE21A8212F0035FA0F /* NavigationContexts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A250DD21A8212F0035FA0F /* NavigationContexts.swift */; };
@@ -61,20 +49,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = 658C850F21A81D26006ECF6F;
 			remoteInfo = Madog;
-		};
-		6595DCE1227CD161003AC2FD /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 658C850721A81D26006ECF6F /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 6595DCB7227CCF88003AC2FD;
-			remoteInfo = Registry;
-		};
-		6595DCE4227CD3C5003AC2FD /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 658C850721A81D26006ECF6F /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 6595DCB7227CCF88003AC2FD;
-			remoteInfo = Registry;
 		};
 		65A2510321A836C90035FA0F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -113,34 +87,24 @@
 		6509ABE721B40A58004AD6E6 /* ButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonView.swift; sourceTree = "<group>"; };
 		6509ABEB21B40DB8004AD6E6 /* LogoutViewControllerProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutViewControllerProvider.swift; sourceTree = "<group>"; };
 		6509ABED21B40DC5004AD6E6 /* LogoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutViewController.swift; sourceTree = "<group>"; };
-		6518E77E21A9F2330036F553 /* TestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestData.swift; sourceTree = "<group>"; };
-		6518E78D21A9FB2C0036F553 /* TestResolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestResolver.swift; sourceTree = "<group>"; };
-		6518E79121A9FCAA0036F553 /* RegistrarTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrarTests.swift; sourceTree = "<group>"; };
 		6527EC4521BAC5210032B70D /* MadogUIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MadogUIContainer.swift; sourceTree = "<group>"; };
 		6539420321C0461D00D414D7 /* SplitUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitUI.swift; sourceTree = "<group>"; };
 		654D5099227CBB5F00E5032D /* SampleResolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleResolver.swift; sourceTree = "<group>"; };
-		655A469C21A9B18400CEC47F /* ServiceProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceProvider.swift; sourceTree = "<group>"; };
 		655A46A421A9B23E00CEC47F /* ResourceProvider1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceProvider1.swift; sourceTree = "<group>"; };
 		655A46A621A9B29C00CEC47F /* AuthenticatorProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticatorProvider.swift; sourceTree = "<group>"; };
 		6560D49F21B3F20A00EA9BE3 /* ViewControllerUIIdentifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerUIIdentifiers.swift; sourceTree = "<group>"; };
 		6560D4A121B3F24600EA9BE3 /* MadogUIContainerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MadogUIContainerFactory.swift; sourceTree = "<group>"; };
 		6560D4A321B3F2EB00EA9BE3 /* Madog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Madog.swift; sourceTree = "<group>"; };
-		65744CF1227C8CE600641CF6 /* ViewControllerRegistryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerRegistryTests.swift; sourceTree = "<group>"; };
 		658C851021A81D26006ECF6F /* Madog.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Madog.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		658C851321A81D26006ECF6F /* Madog.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Madog.h; sourceTree = "<group>"; };
 		658C851421A81D26006ECF6F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		658C851921A81D26006ECF6F /* MadogTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MadogTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		658C852021A81D26006ECF6F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		6595DCCE227CCF88003AC2FD /* Registry.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Registry.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		6595DCDE227CD062003AC2FD /* RegistryTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RegistryTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6595DCE7227CD826003AC2FD /* MadogTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MadogTypes.swift; sourceTree = "<group>"; };
-		65A250CD21A81FBF0035FA0F /* Resolver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Resolver.swift; sourceTree = "<group>"; };
 		65A250CE21A81FBF0035FA0F /* NavigationUI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationUI.swift; sourceTree = "<group>"; };
-		65A250CF21A81FBF0035FA0F /* ViewControllerProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewControllerProvider.swift; sourceTree = "<group>"; };
 		65A250DD21A8212F0035FA0F /* NavigationContexts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationContexts.swift; sourceTree = "<group>"; };
 		65A250E221A822990035FA0F /* TabBarNavigationUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarNavigationUI.swift; sourceTree = "<group>"; };
 		65A250E421A822DF0035FA0F /* NavigationToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationToken.swift; sourceTree = "<group>"; };
-		65A250E621A82C6D0035FA0F /* ViewControllerRegistry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerRegistry.swift; sourceTree = "<group>"; };
 		65A250EF21A836C50035FA0F /* MadogSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MadogSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		65A250F121A836C50035FA0F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		65A250F821A836C80035FA0F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -155,8 +119,6 @@
 		65A2511D21A841830035FA0F /* ViewController2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController2.swift; sourceTree = "<group>"; };
 		65A2511F21A842C80035FA0F /* SampleToken.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleToken.swift; sourceTree = "<group>"; };
 		65A2512121A843BC0035FA0F /* LabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelView.swift; sourceTree = "<group>"; };
-		65BEBC8C21A8850800397E39 /* Registrar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Registrar.swift; sourceTree = "<group>"; };
-		65EC6C0821E22A66002D0902 /* ServiceProviderCreationContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceProviderCreationContext.swift; sourceTree = "<group>"; };
 		65F8B672227DBA0C007EEBAF /* Provident.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Provident.framework; path = Carthage/Build/iOS/Provident.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -166,7 +128,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				65F8B673227DBA0D007EEBAF /* Provident.framework in Frameworks */,
-				6595DCE3227CD1E4003AC2FD /* Registry.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -175,21 +136,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				658C851A21A81D26006ECF6F /* Madog.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		6595DCC9227CCF88003AC2FD /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		6595DCD8227CD062003AC2FD /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				6595DCE6227CD3CC003AC2FD /* Registry.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -238,39 +184,12 @@
 			path = Logout;
 			sourceTree = "<group>";
 		};
-		6518E78F21A9FB500036F553 /* TestData */ = {
-			isa = PBXGroup;
-			children = (
-				6518E77E21A9F2330036F553 /* TestData.swift */,
-				6518E78D21A9FB2C0036F553 /* TestResolver.swift */,
-			);
-			path = TestData;
-			sourceTree = "<group>";
-		};
-		6518E79021A9FC910036F553 /* Registry */ = {
-			isa = PBXGroup;
-			children = (
-				6518E79121A9FCAA0036F553 /* RegistrarTests.swift */,
-				65744CF1227C8CE600641CF6 /* ViewControllerRegistryTests.swift */,
-			);
-			path = Registry;
-			sourceTree = "<group>";
-		};
 		6539420221C045F900D414D7 /* Custom UI */ = {
 			isa = PBXGroup;
 			children = (
 				6539420321C0461D00D414D7 /* SplitUI.swift */,
 			);
 			path = "Custom UI";
-			sourceTree = "<group>";
-		};
-		655A469B21A9B0E200CEC47F /* ServiceProvider */ = {
-			isa = PBXGroup;
-			children = (
-				65EC6C0821E22A66002D0902 /* ServiceProviderCreationContext.swift */,
-				655A469C21A9B18400CEC47F /* ServiceProvider.swift */,
-			);
-			path = ServiceProvider;
 			sourceTree = "<group>";
 		};
 		655A46A221A9B22100CEC47F /* ServiceProvider */ = {
@@ -301,8 +220,6 @@
 				658C851921A81D26006ECF6F /* MadogTests.xctest */,
 				65A250EF21A836C50035FA0F /* MadogSample.app */,
 				65A2510221A836C90035FA0F /* MadogSampleUITests.xctest */,
-				6595DCCE227CCF88003AC2FD /* Registry.framework */,
-				6595DCDE227CD062003AC2FD /* RegistryTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -310,7 +227,6 @@
 		658C851221A81D26006ECF6F /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				65A250E821A82EC00035FA0F /* Registry */,
 				65A250DB21A820100035FA0F /* Navigation */,
 				659766B621BAC1F300308080 /* UIContainer */,
 				65A250E121A822810035FA0F /* UI */,
@@ -325,8 +241,6 @@
 		658C851D21A81D26006ECF6F /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				6518E79021A9FC910036F553 /* Registry */,
-				6518E78F21A9FB500036F553 /* TestData */,
 				658C852021A81D26006ECF6F /* Info.plist */,
 			);
 			path = Tests;
@@ -340,22 +254,6 @@
 				6560D4A121B3F24600EA9BE3 /* MadogUIContainerFactory.swift */,
 			);
 			path = UIContainer;
-			sourceTree = "<group>";
-		};
-		65A250D921A81FF50035FA0F /* ViewControllerProvider */ = {
-			isa = PBXGroup;
-			children = (
-				65A250CF21A81FBF0035FA0F /* ViewControllerProvider.swift */,
-			);
-			path = ViewControllerProvider;
-			sourceTree = "<group>";
-		};
-		65A250DA21A81FFA0035FA0F /* Resolver */ = {
-			isa = PBXGroup;
-			children = (
-				65A250CD21A81FBF0035FA0F /* Resolver.swift */,
-			);
-			path = Resolver;
 			sourceTree = "<group>";
 		};
 		65A250DB21A820100035FA0F /* Navigation */ = {
@@ -374,18 +272,6 @@
 				65A250E221A822990035FA0F /* TabBarNavigationUI.swift */,
 			);
 			path = UI;
-			sourceTree = "<group>";
-		};
-		65A250E821A82EC00035FA0F /* Registry */ = {
-			isa = PBXGroup;
-			children = (
-				655A469B21A9B0E200CEC47F /* ServiceProvider */,
-				65A250D921A81FF50035FA0F /* ViewControllerProvider */,
-				65A250DA21A81FFA0035FA0F /* Resolver */,
-				65BEBC8C21A8850800397E39 /* Registrar.swift */,
-				65A250E621A82C6D0035FA0F /* ViewControllerRegistry.swift */,
-			);
-			path = Registry;
 			sourceTree = "<group>";
 		};
 		65A250F021A836C50035FA0F /* Sample */ = {
@@ -454,13 +340,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		6595DCB8227CCF88003AC2FD /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
@@ -476,7 +355,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				6595DCE2227CD161003AC2FD /* PBXTargetDependency */,
 			);
 			name = Madog;
 			productName = Madog;
@@ -499,42 +377,6 @@
 			name = MadogTests;
 			productName = MadogTests;
 			productReference = 658C851921A81D26006ECF6F /* MadogTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		6595DCB7227CCF88003AC2FD /* Registry */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 6595DCCB227CCF88003AC2FD /* Build configuration list for PBXNativeTarget "Registry" */;
-			buildPhases = (
-				6595DCB8227CCF88003AC2FD /* Headers */,
-				6595DCBA227CCF88003AC2FD /* Sources */,
-				6595DCC9227CCF88003AC2FD /* Frameworks */,
-				6595DCCA227CCF88003AC2FD /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = Registry;
-			productName = Madog;
-			productReference = 6595DCCE227CCF88003AC2FD /* Registry.framework */;
-			productType = "com.apple.product-type.framework";
-		};
-		6595DCD0227CD062003AC2FD /* RegistryTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 6595DCDB227CD062003AC2FD /* Build configuration list for PBXNativeTarget "RegistryTests" */;
-			buildPhases = (
-				6595DCD3227CD062003AC2FD /* Sources */,
-				6595DCD8227CD062003AC2FD /* Frameworks */,
-				6595DCDA227CD062003AC2FD /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				6595DCE5227CD3C5003AC2FD /* PBXTargetDependency */,
-			);
-			name = RegistryTests;
-			productName = MadogTests;
-			productReference = 6595DCDE227CD062003AC2FD /* RegistryTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		65A250EE21A836C50035FA0F /* MadogSample */ = {
@@ -615,8 +457,6 @@
 			targets = (
 				658C850F21A81D26006ECF6F /* Madog */,
 				658C851821A81D26006ECF6F /* MadogTests */,
-				6595DCB7227CCF88003AC2FD /* Registry */,
-				6595DCD0227CD062003AC2FD /* RegistryTests */,
 				65A250EE21A836C50035FA0F /* MadogSample */,
 				65A2510121A836C90035FA0F /* MadogSampleUITests */,
 			);
@@ -632,20 +472,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		658C851721A81D26006ECF6F /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		6595DCCA227CCF88003AC2FD /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		6595DCDA227CD062003AC2FD /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -695,30 +521,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		6595DCBA227CCF88003AC2FD /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				6595DCBB227CCF88003AC2FD /* Registrar.swift in Sources */,
-				6595DCBC227CCF88003AC2FD /* ServiceProviderCreationContext.swift in Sources */,
-				6595DCBE227CCF88003AC2FD /* ViewControllerRegistry.swift in Sources */,
-				6595DCBF227CCF88003AC2FD /* ServiceProvider.swift in Sources */,
-				6595DCC2227CCF88003AC2FD /* Resolver.swift in Sources */,
-				6595DCC5227CCF88003AC2FD /* ViewControllerProvider.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		6595DCD3227CD062003AC2FD /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				6595DCD4227CD062003AC2FD /* ViewControllerRegistryTests.swift in Sources */,
-				6595DCD5227CD062003AC2FD /* RegistrarTests.swift in Sources */,
-				6595DCD6227CD062003AC2FD /* TestResolver.swift in Sources */,
-				6595DCD7227CD062003AC2FD /* TestData.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		65A250EB21A836C50035FA0F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -757,16 +559,6 @@
 			isa = PBXTargetDependency;
 			target = 658C850F21A81D26006ECF6F /* Madog */;
 			targetProxy = 658C851B21A81D26006ECF6F /* PBXContainerItemProxy */;
-		};
-		6595DCE2227CD161003AC2FD /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 6595DCB7227CCF88003AC2FD /* Registry */;
-			targetProxy = 6595DCE1227CD161003AC2FD /* PBXContainerItemProxy */;
-		};
-		6595DCE5227CD3C5003AC2FD /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 6595DCB7227CCF88003AC2FD /* Registry */;
-			targetProxy = 6595DCE4227CD3C5003AC2FD /* PBXContainerItemProxy */;
 		};
 		65A2510421A836C90035FA0F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1013,97 +805,6 @@
 			};
 			name = Release;
 		};
-		6595DCCC227CCF88003AC2FD /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "";
-				CODE_SIGN_STYLE = Automatic;
-				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = Y56955G4Q8;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "$(SRCROOT)/Source/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = uk.co.cerihughes.Madog;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		6595DCCD227CCF88003AC2FD /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "";
-				CODE_SIGN_STYLE = Automatic;
-				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = Y56955G4Q8;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "$(SRCROOT)/Source/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = uk.co.cerihughes.Madog;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
-		6595DCDC227CD062003AC2FD /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = Y56955G4Q8;
-				INFOPLIST_FILE = Tests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = uk.co.cerihughes.MadogTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		6595DCDD227CD062003AC2FD /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = Y56955G4Q8;
-				INFOPLIST_FILE = Tests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = uk.co.cerihughes.MadogTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
 		65A2510A21A836C90035FA0F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1210,24 +911,6 @@
 			buildConfigurations = (
 				658C852821A81D26006ECF6F /* Debug */,
 				658C852921A81D26006ECF6F /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		6595DCCB227CCF88003AC2FD /* Build configuration list for PBXNativeTarget "Registry" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				6595DCCC227CCF88003AC2FD /* Debug */,
-				6595DCCD227CCF88003AC2FD /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		6595DCDB227CD062003AC2FD /* Build configuration list for PBXNativeTarget "RegistryTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				6595DCDC227CD062003AC2FD /* Debug */,
-				6595DCDD227CD062003AC2FD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

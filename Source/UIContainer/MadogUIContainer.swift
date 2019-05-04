@@ -6,7 +6,6 @@
 //  Copyright © 2019 Ceri Hughes. All rights reserved.
 //
 
-import Registry
 import UIKit
 
 internal protocol MadogUIContainerDelegate: class {
@@ -17,13 +16,13 @@ internal protocol MadogUIContainerDelegate: class {
 open class MadogUIContainer<Token>: Context {
     internal weak var delegate: MadogUIContainerDelegate?
     internal let viewController: UIViewController
-    internal var internalRegistry: Registry.ViewControllerRegistry<Token, Context>!
+    internal var internalRegistry: Registry<Token>!
 
     public init(viewController: UIViewController) {
         self.viewController = viewController
     }
 
-    public var registry: Registry.ViewControllerRegistry<Token, Context> {
+    public var registry: Registry<Token> {
         return internalRegistry
     }
 

@@ -1,14 +1,14 @@
 //
-//  MadogSampleUITests.swift
-//  MadogSampleUITests
+//  SampleAppUITests.swift
+//  SampleAppUITests
 //
-//  Created by Ceri Hughes on 23/11/2018.
+//  Created by Ceri Hughes on 04/05/2019.
 //  Copyright © 2019 Ceri Hughes. All rights reserved.
 //
 
 import XCTest
 
-class MadogSampleUITests: XCTestCase {
+class SampleAppUITests: XCTestCase {
 
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.

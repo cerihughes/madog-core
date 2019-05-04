@@ -8,22 +8,30 @@
 
 /* Begin PBXBuildFile section */
 		651C7C98227DECBA002B72EC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651C7C97227DECBA002B72EC /* AppDelegate.swift */; };
-		651C7C9A227DECBA002B72EC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651C7C99227DECBA002B72EC /* ViewController.swift */; };
 		651C7C9D227DECBA002B72EC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 651C7C9B227DECBA002B72EC /* Main.storyboard */; };
 		651C7C9F227DECBC002B72EC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 651C7C9E227DECBC002B72EC /* Assets.xcassets */; };
 		651C7CA2227DECBC002B72EC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 651C7CA0227DECBC002B72EC /* LaunchScreen.storyboard */; };
-		651C7CAD227DECBD002B72EC /* SampleAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651C7CAC227DECBD002B72EC /* SampleAppTests.swift */; };
 		651C7CB8227DECBD002B72EC /* SampleAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651C7CB7227DECBD002B72EC /* SampleAppUITests.swift */; };
+		651C7CE8227DEDC4002B72EC /* SampleToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651C7CE6227DEDC3002B72EC /* SampleToken.swift */; };
+		651C7CE9227DEDC4002B72EC /* SampleResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651C7CE7227DEDC4002B72EC /* SampleResolver.swift */; };
+		651C7CFF227DEE86002B72EC /* SplitUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651C7CEA227DEE05002B72EC /* SplitUI.swift */; };
+		651C7D00227DEE8F002B72EC /* ButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651C7CEC227DEE05002B72EC /* ButtonView.swift */; };
+		651C7D01227DEE91002B72EC /* LabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651C7CED227DEE05002B72EC /* LabelView.swift */; };
+		651C7D02227DEE95002B72EC /* ResourceProvider1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651C7CFC227DEE05002B72EC /* ResourceProvider1.swift */; };
+		651C7D03227DEE97002B72EC /* AuthenticatorProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651C7CFD227DEE05002B72EC /* AuthenticatorProvider.swift */; };
+		651C7D04227DEE9D002B72EC /* LoginViewControllerProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651C7CEF227DEE05002B72EC /* LoginViewControllerProvider.swift */; };
+		651C7D05227DEE9F002B72EC /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651C7CF0227DEE05002B72EC /* LoginViewController.swift */; };
+		651C7D06227DEEA9002B72EC /* ViewController1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651C7CF7227DEE05002B72EC /* ViewController1.swift */; };
+		651C7D07227DEEAD002B72EC /* ViewController1Provider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651C7CF6227DEE05002B72EC /* ViewController1Provider.swift */; };
+		651C7D08227DEEB1002B72EC /* ViewControllerProvider2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651C7CF3227DEE05002B72EC /* ViewControllerProvider2.swift */; };
+		651C7D09227DEEB3002B72EC /* ViewController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651C7CF4227DEE05002B72EC /* ViewController2.swift */; };
+		651C7D0A227DEEB8002B72EC /* LogoutViewControllerProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651C7CF9227DEE05002B72EC /* LogoutViewControllerProvider.swift */; };
+		651C7D0B227DEEBB002B72EC /* LogoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651C7CFA227DEE05002B72EC /* LogoutViewController.swift */; };
+		651C7D0D227DEED7002B72EC /* Provident.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 651C7D0C227DEED7002B72EC /* Provident.framework */; };
+		651C7D0E227DEEEB002B72EC /* Madog.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 651C7CDD227DED7E002B72EC /* Madog.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		651C7CA9227DECBD002B72EC /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 651C7C8C227DECBA002B72EC /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 651C7C93227DECBA002B72EC;
-			remoteInfo = SampleApp;
-		};
 		651C7CB4227DECBD002B72EC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 651C7C8C227DECBA002B72EC /* Project object */;
@@ -31,22 +39,57 @@
 			remoteGlobalIDString = 651C7C93227DECBA002B72EC;
 			remoteInfo = SampleApp;
 		};
+		651C7CDC227DED7E002B72EC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 651C7CD5227DED7E002B72EC /* Madog.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 658C851021A81D26006ECF6F;
+			remoteInfo = Madog;
+		};
+		651C7CDE227DED7E002B72EC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 651C7CD5227DED7E002B72EC /* Madog.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 652B1B5E227DDF12004E79A9;
+			remoteInfo = MadogTests;
+		};
+		651C7CE4227DEDA0002B72EC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 651C7CD5227DED7E002B72EC /* Madog.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 658C850F21A81D26006ECF6F;
+			remoteInfo = Madog;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		651C7C94227DECBA002B72EC /* SampleApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SampleApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		651C7C97227DECBA002B72EC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		651C7C99227DECBA002B72EC /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		651C7C9C227DECBA002B72EC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		651C7C9E227DECBC002B72EC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		651C7CA1227DECBC002B72EC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		651C7CA3227DECBC002B72EC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		651C7CA8227DECBD002B72EC /* SampleAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SampleAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		651C7CAC227DECBD002B72EC /* SampleAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleAppTests.swift; sourceTree = "<group>"; };
-		651C7CAE227DECBD002B72EC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		651C7CB3227DECBD002B72EC /* SampleAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SampleAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		651C7CB7227DECBD002B72EC /* SampleAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleAppUITests.swift; sourceTree = "<group>"; };
 		651C7CB9227DECBD002B72EC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		651C7CD5227DED7E002B72EC /* Madog.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Madog.xcodeproj; path = ../Madog.xcodeproj; sourceTree = "<group>"; };
+		651C7CE6227DEDC3002B72EC /* SampleToken.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleToken.swift; sourceTree = "<group>"; };
+		651C7CE7227DEDC4002B72EC /* SampleResolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleResolver.swift; sourceTree = "<group>"; };
+		651C7CEA227DEE05002B72EC /* SplitUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitUI.swift; sourceTree = "<group>"; };
+		651C7CEC227DEE05002B72EC /* ButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonView.swift; sourceTree = "<group>"; };
+		651C7CED227DEE05002B72EC /* LabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelView.swift; sourceTree = "<group>"; };
+		651C7CEF227DEE05002B72EC /* LoginViewControllerProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewControllerProvider.swift; sourceTree = "<group>"; };
+		651C7CF0227DEE05002B72EC /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		651C7CF1227DEE05002B72EC /* LoginViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LoginViewController.storyboard; sourceTree = "<group>"; };
+		651C7CF3227DEE05002B72EC /* ViewControllerProvider2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerProvider2.swift; sourceTree = "<group>"; };
+		651C7CF4227DEE05002B72EC /* ViewController2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController2.swift; sourceTree = "<group>"; };
+		651C7CF6227DEE05002B72EC /* ViewController1Provider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController1Provider.swift; sourceTree = "<group>"; };
+		651C7CF7227DEE05002B72EC /* ViewController1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController1.swift; sourceTree = "<group>"; };
+		651C7CF9227DEE05002B72EC /* LogoutViewControllerProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutViewControllerProvider.swift; sourceTree = "<group>"; };
+		651C7CFA227DEE05002B72EC /* LogoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutViewController.swift; sourceTree = "<group>"; };
+		651C7CFC227DEE05002B72EC /* ResourceProvider1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceProvider1.swift; sourceTree = "<group>"; };
+		651C7CFD227DEE05002B72EC /* AuthenticatorProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticatorProvider.swift; sourceTree = "<group>"; };
+		651C7D0C227DEED7002B72EC /* Provident.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Provident.framework; path = ../Carthage/Build/iOS/Provident.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,13 +97,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		651C7CA5227DECBD002B72EC /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
+				651C7D0E227DEEEB002B72EC /* Madog.framework in Frameworks */,
+				651C7D0D227DEED7002B72EC /* Provident.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,7 +116,6 @@
 			isa = PBXGroup;
 			children = (
 				651C7C96227DECBA002B72EC /* SampleApp */,
-				651C7CAB227DECBD002B72EC /* SampleAppTests */,
 				651C7CB6227DECBD002B72EC /* SampleAppUITests */,
 				651C7CC5227DECFB002B72EC /* Frameworks */,
 				651C7C95227DECBA002B72EC /* Products */,
@@ -89,7 +126,6 @@
 			isa = PBXGroup;
 			children = (
 				651C7C94227DECBA002B72EC /* SampleApp.app */,
-				651C7CA8227DECBD002B72EC /* SampleAppTests.xctest */,
 				651C7CB3227DECBD002B72EC /* SampleAppUITests.xctest */,
 			);
 			name = Products;
@@ -98,23 +134,22 @@
 		651C7C96227DECBA002B72EC /* SampleApp */ = {
 			isa = PBXGroup;
 			children = (
+				651C7CEB227DEE05002B72EC /* Custom UI */,
+				651C7CEE227DEE05002B72EC /* Views */,
+				651C7CFE227DEE05002B72EC /* ServiceProvider */,
+				651C7CF2227DEE05002B72EC /* Login */,
+				651C7CF8227DEE05002B72EC /* ViewController1 */,
+				651C7CF5227DEE05002B72EC /* ViewController2 */,
+				651C7CFB227DEE05002B72EC /* Logout */,
 				651C7C97227DECBA002B72EC /* AppDelegate.swift */,
-				651C7C99227DECBA002B72EC /* ViewController.swift */,
+				651C7CE6227DEDC3002B72EC /* SampleToken.swift */,
+				651C7CE7227DEDC4002B72EC /* SampleResolver.swift */,
 				651C7C9B227DECBA002B72EC /* Main.storyboard */,
 				651C7C9E227DECBC002B72EC /* Assets.xcassets */,
 				651C7CA0227DECBC002B72EC /* LaunchScreen.storyboard */,
 				651C7CA3227DECBC002B72EC /* Info.plist */,
 			);
 			path = SampleApp;
-			sourceTree = "<group>";
-		};
-		651C7CAB227DECBD002B72EC /* SampleAppTests */ = {
-			isa = PBXGroup;
-			children = (
-				651C7CAC227DECBD002B72EC /* SampleAppTests.swift */,
-				651C7CAE227DECBD002B72EC /* Info.plist */,
-			);
-			path = SampleAppTests;
 			sourceTree = "<group>";
 		};
 		651C7CB6227DECBD002B72EC /* SampleAppUITests */ = {
@@ -129,8 +164,82 @@
 		651C7CC5227DECFB002B72EC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				651C7D0C227DEED7002B72EC /* Provident.framework */,
+				651C7CD5227DED7E002B72EC /* Madog.xcodeproj */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		651C7CD6227DED7E002B72EC /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				651C7CDD227DED7E002B72EC /* Madog.framework */,
+				651C7CDF227DED7E002B72EC /* MadogTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		651C7CEB227DEE05002B72EC /* Custom UI */ = {
+			isa = PBXGroup;
+			children = (
+				651C7CEA227DEE05002B72EC /* SplitUI.swift */,
+			);
+			path = "Custom UI";
+			sourceTree = "<group>";
+		};
+		651C7CEE227DEE05002B72EC /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				651C7CEC227DEE05002B72EC /* ButtonView.swift */,
+				651C7CED227DEE05002B72EC /* LabelView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		651C7CF2227DEE05002B72EC /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				651C7CEF227DEE05002B72EC /* LoginViewControllerProvider.swift */,
+				651C7CF0227DEE05002B72EC /* LoginViewController.swift */,
+				651C7CF1227DEE05002B72EC /* LoginViewController.storyboard */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		651C7CF5227DEE05002B72EC /* ViewController2 */ = {
+			isa = PBXGroup;
+			children = (
+				651C7CF3227DEE05002B72EC /* ViewControllerProvider2.swift */,
+				651C7CF4227DEE05002B72EC /* ViewController2.swift */,
+			);
+			path = ViewController2;
+			sourceTree = "<group>";
+		};
+		651C7CF8227DEE05002B72EC /* ViewController1 */ = {
+			isa = PBXGroup;
+			children = (
+				651C7CF6227DEE05002B72EC /* ViewController1Provider.swift */,
+				651C7CF7227DEE05002B72EC /* ViewController1.swift */,
+			);
+			path = ViewController1;
+			sourceTree = "<group>";
+		};
+		651C7CFB227DEE05002B72EC /* Logout */ = {
+			isa = PBXGroup;
+			children = (
+				651C7CF9227DEE05002B72EC /* LogoutViewControllerProvider.swift */,
+				651C7CFA227DEE05002B72EC /* LogoutViewController.swift */,
+			);
+			path = Logout;
+			sourceTree = "<group>";
+		};
+		651C7CFE227DEE05002B72EC /* ServiceProvider */ = {
+			isa = PBXGroup;
+			children = (
+				651C7CFC227DEE05002B72EC /* ResourceProvider1.swift */,
+				651C7CFD227DEE05002B72EC /* AuthenticatorProvider.swift */,
+			);
+			path = ServiceProvider;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -143,33 +252,17 @@
 				651C7C90227DECBA002B72EC /* Sources */,
 				651C7C91227DECBA002B72EC /* Frameworks */,
 				651C7C92227DECBA002B72EC /* Resources */,
+				651C7D0F227DEEFE002B72EC /* Copy Carthage Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				651C7CE5227DEDA0002B72EC /* PBXTargetDependency */,
 			);
 			name = SampleApp;
 			productName = SampleApp;
 			productReference = 651C7C94227DECBA002B72EC /* SampleApp.app */;
 			productType = "com.apple.product-type.application";
-		};
-		651C7CA7227DECBD002B72EC /* SampleAppTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 651C7CBF227DECBD002B72EC /* Build configuration list for PBXNativeTarget "SampleAppTests" */;
-			buildPhases = (
-				651C7CA4227DECBD002B72EC /* Sources */,
-				651C7CA5227DECBD002B72EC /* Frameworks */,
-				651C7CA6227DECBD002B72EC /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				651C7CAA227DECBD002B72EC /* PBXTargetDependency */,
-			);
-			name = SampleAppTests;
-			productName = SampleAppTests;
-			productReference = 651C7CA8227DECBD002B72EC /* SampleAppTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		651C7CB2227DECBD002B72EC /* SampleAppUITests */ = {
 			isa = PBXNativeTarget;
@@ -202,10 +295,6 @@
 					651C7C93227DECBA002B72EC = {
 						CreatedOnToolsVersion = 10.2.1;
 					};
-					651C7CA7227DECBD002B72EC = {
-						CreatedOnToolsVersion = 10.2.1;
-						TestTargetID = 651C7C93227DECBA002B72EC;
-					};
 					651C7CB2227DECBD002B72EC = {
 						CreatedOnToolsVersion = 10.2.1;
 						TestTargetID = 651C7C93227DECBA002B72EC;
@@ -223,14 +312,36 @@
 			mainGroup = 651C7C8B227DECBA002B72EC;
 			productRefGroup = 651C7C95227DECBA002B72EC /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 651C7CD6227DED7E002B72EC /* Products */;
+					ProjectRef = 651C7CD5227DED7E002B72EC /* Madog.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				651C7C93227DECBA002B72EC /* SampleApp */,
-				651C7CA7227DECBD002B72EC /* SampleAppTests */,
 				651C7CB2227DECBD002B72EC /* SampleAppUITests */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		651C7CDD227DED7E002B72EC /* Madog.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Madog.framework;
+			remoteRef = 651C7CDC227DED7E002B72EC /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		651C7CDF227DED7E002B72EC /* MadogTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = MadogTests.xctest;
+			remoteRef = 651C7CDE227DED7E002B72EC /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		651C7C92227DECBA002B72EC /* Resources */ = {
@@ -243,13 +354,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		651C7CA6227DECBD002B72EC /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		651C7CB1227DECBD002B72EC /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -259,21 +363,49 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		651C7D0F227DEEFE002B72EC /* Copy Carthage Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/../Carthage/Build/iOS/Provident.framework",
+			);
+			name = "Copy Carthage Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		651C7C90227DECBA002B72EC /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				651C7C9A227DECBA002B72EC /* ViewController.swift in Sources */,
 				651C7C98227DECBA002B72EC /* AppDelegate.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		651C7CA4227DECBD002B72EC /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				651C7CAD227DECBD002B72EC /* SampleAppTests.swift in Sources */,
+				651C7CE8227DEDC4002B72EC /* SampleToken.swift in Sources */,
+				651C7D06227DEEA9002B72EC /* ViewController1.swift in Sources */,
+				651C7D00227DEE8F002B72EC /* ButtonView.swift in Sources */,
+				651C7CFF227DEE86002B72EC /* SplitUI.swift in Sources */,
+				651C7D03227DEE97002B72EC /* AuthenticatorProvider.swift in Sources */,
+				651C7D08227DEEB1002B72EC /* ViewControllerProvider2.swift in Sources */,
+				651C7D09227DEEB3002B72EC /* ViewController2.swift in Sources */,
+				651C7D04227DEE9D002B72EC /* LoginViewControllerProvider.swift in Sources */,
+				651C7D07227DEEAD002B72EC /* ViewController1Provider.swift in Sources */,
+				651C7CE9227DEDC4002B72EC /* SampleResolver.swift in Sources */,
+				651C7D02227DEE95002B72EC /* ResourceProvider1.swift in Sources */,
+				651C7D0A227DEEB8002B72EC /* LogoutViewControllerProvider.swift in Sources */,
+				651C7D05227DEE9F002B72EC /* LoginViewController.swift in Sources */,
+				651C7D0B227DEEBB002B72EC /* LogoutViewController.swift in Sources */,
+				651C7D01227DEE91002B72EC /* LabelView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -288,15 +420,15 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		651C7CAA227DECBD002B72EC /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 651C7C93227DECBA002B72EC /* SampleApp */;
-			targetProxy = 651C7CA9227DECBD002B72EC /* PBXContainerItemProxy */;
-		};
 		651C7CB5227DECBD002B72EC /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 651C7C93227DECBA002B72EC /* SampleApp */;
 			targetProxy = 651C7CB4227DECBD002B72EC /* PBXContainerItemProxy */;
+		};
+		651C7CE5227DEDA0002B72EC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Madog;
+			targetProxy = 651C7CE4227DEDA0002B72EC /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -472,48 +604,6 @@
 			};
 			name = Release;
 		};
-		651C7CC0227DECBD002B72EC /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = Y56955G4Q8;
-				INFOPLIST_FILE = SampleAppTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = uk.co.cerihughes.SampleAppTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SampleApp.app/SampleApp";
-			};
-			name = Debug;
-		};
-		651C7CC1227DECBD002B72EC /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = Y56955G4Q8;
-				INFOPLIST_FILE = SampleAppTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = uk.co.cerihughes.SampleAppTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SampleApp.app/SampleApp";
-			};
-			name = Release;
-		};
 		651C7CC3227DECBD002B72EC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -571,15 +661,6 @@
 			buildConfigurations = (
 				651C7CBD227DECBD002B72EC /* Debug */,
 				651C7CBE227DECBD002B72EC /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		651C7CBF227DECBD002B72EC /* Build configuration list for PBXNativeTarget "SampleAppTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				651C7CC0227DECBD002B72EC /* Debug */,
-				651C7CC1227DECBD002B72EC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

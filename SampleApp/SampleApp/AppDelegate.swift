@@ -1,46 +1,55 @@
 //
 //  AppDelegate.swift
-//  SampleApp
+//  MadogSample
 //
-//  Created by Ceri Hughes on 04/05/2019.
+//  Created by Ceri Hughes on 23/11/2018.
 //  Copyright © 2019 Ceri Hughes. All rights reserved.
 //
 
+import Madog
 import UIKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
-    var window: UIWindow?
-
+    let window = UIWindow()
+    let madog = Madog<SampleToken>()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
-        return true
+        madog.resolve(resolver: SampleResolver(), launchOptions: launchOptions)
+        let result = madog.addSingleUICreationFunction(identifier: splitViewControllerIdentifier) { return SplitUI() }
+        guard result == true else {
+            return false
+        }
+
+        window.makeKeyAndVisible()
+
+        let initial = SampleToken.login
+        let identifier = SingleUIIdentifier.createSplitViewControllerIdentifier { (splitController) in
+            splitController.preferredDisplayMode = .allVisible
+            splitController.presentsWithGesture = false
+        }
+        return madog.renderUI(identifier: identifier, token: initial, in: window)
     }
 
-    func applicationWillResignActive(_ application: UIApplication) {
-        // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
-        // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+        guard let currentContext = madog.currentContext else {
+            return false
+        }
+
+        let token = SampleToken.createVC2Identifier(stringData: String(url.absoluteString.count))
+        if let navigationContext = currentContext as? ForwardBackNavigationContext {
+            return navigationContext.navigateForward(token: token, animated: true) != nil
+        } else {
+            let identifier = SingleUIIdentifier.createNavigationControllerIdentifier()
+            return currentContext.change(to: identifier, token: token)
+        }
     }
-
-    func applicationDidEnterBackground(_ application: UIApplication) {
-        // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
-        // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-    }
-
-    func applicationWillEnterForeground(_ application: UIApplication) {
-        // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
-    }
-
-    func applicationDidBecomeActive(_ application: UIApplication) {
-        // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-    }
-
-    func applicationWillTerminate(_ application: UIApplication) {
-        // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-    }
-
-
 }
 
+let splitViewControllerIdentifier = "splitViewControllerIdentifier"
+
+extension SingleUIIdentifier {
+    public static func createSplitViewControllerIdentifier(customisation: @escaping (UISplitViewController) -> Void = { _ in }) -> SingleUIIdentifier<UISplitViewController> {
+        return SingleUIIdentifier<UISplitViewController>(splitViewControllerIdentifier, customisation: customisation)
+    }
+}

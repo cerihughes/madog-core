@@ -14,6 +14,7 @@
 		6509ABEC21B40DB8004AD6E6 /* LogoutViewControllerProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6509ABEB21B40DB8004AD6E6 /* LogoutViewControllerProvider.swift */; };
 		6509ABEE21B40DC5004AD6E6 /* LogoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6509ABED21B40DC5004AD6E6 /* LogoutViewController.swift */; };
 		6527EC4621BAC5210032B70D /* MadogUIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6527EC4521BAC5210032B70D /* MadogUIContainer.swift */; };
+		652B1B63227DDF12004E79A9 /* Madog.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 658C851021A81D26006ECF6F /* Madog.framework */; };
 		6539420421C0461D00D414D7 /* SplitUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6539420321C0461D00D414D7 /* SplitUI.swift */; };
 		654D509A227CBB5F00E5032D /* SampleResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654D5099227CBB5F00E5032D /* SampleResolver.swift */; };
 		655A46AA21A9B7E800CEC47F /* ResourceProvider1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655A46A421A9B23E00CEC47F /* ResourceProvider1.swift */; };
@@ -22,7 +23,6 @@
 		6560D4A221B3F24600EA9BE3 /* MadogUIContainerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6560D4A121B3F24600EA9BE3 /* MadogUIContainerFactory.swift */; };
 		6560D4A421B3F2EB00EA9BE3 /* Madog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6560D4A321B3F2EB00EA9BE3 /* Madog.swift */; };
 		657E7439227C9DF00067EAE3 /* Madog.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 658C851021A81D26006ECF6F /* Madog.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		658C851A21A81D26006ECF6F /* Madog.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 658C851021A81D26006ECF6F /* Madog.framework */; };
 		658C852121A81D26006ECF6F /* Madog.h in Headers */ = {isa = PBXBuildFile; fileRef = 658C851321A81D26006ECF6F /* Madog.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6595DCE8227CD826003AC2FD /* MadogTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6595DCE7227CD826003AC2FD /* MadogTypes.swift */; };
 		65A250D521A81FBF0035FA0F /* NavigationUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A250CE21A81FBF0035FA0F /* NavigationUI.swift */; };
@@ -39,11 +39,14 @@
 		65A2511E21A841830035FA0F /* ViewController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A2511D21A841830035FA0F /* ViewController2.swift */; };
 		65A2512021A842C80035FA0F /* SampleToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A2511F21A842C80035FA0F /* SampleToken.swift */; };
 		65A2512221A843BC0035FA0F /* LabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A2512121A843BC0035FA0F /* LabelView.swift */; };
+		65E89480227DDFF400EA7F11 /* MadogTypesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E8947F227DDFF400EA7F11 /* MadogTypesTests.swift */; };
+		65E89481227DE06000EA7F11 /* Provident.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65F8B672227DBA0C007EEBAF /* Provident.framework */; };
+		65E89483227DE0F900EA7F11 /* Provident.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 65F8B672227DBA0C007EEBAF /* Provident.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		65F8B673227DBA0D007EEBAF /* Provident.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65F8B672227DBA0C007EEBAF /* Provident.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		658C851B21A81D26006ECF6F /* PBXContainerItemProxy */ = {
+		652B1B64227DDF12004E79A9 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 658C850721A81D26006ECF6F /* Project object */;
 			proxyType = 1;
@@ -78,6 +81,16 @@
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		65E89482227DE0EF00EA7F11 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				65E89483227DE0F900EA7F11 /* Provident.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
@@ -88,6 +101,8 @@
 		6509ABEB21B40DB8004AD6E6 /* LogoutViewControllerProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutViewControllerProvider.swift; sourceTree = "<group>"; };
 		6509ABED21B40DC5004AD6E6 /* LogoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutViewController.swift; sourceTree = "<group>"; };
 		6527EC4521BAC5210032B70D /* MadogUIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MadogUIContainer.swift; sourceTree = "<group>"; };
+		652B1B5E227DDF12004E79A9 /* MadogTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MadogTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		652B1B62227DDF12004E79A9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6539420321C0461D00D414D7 /* SplitUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitUI.swift; sourceTree = "<group>"; };
 		654D5099227CBB5F00E5032D /* SampleResolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleResolver.swift; sourceTree = "<group>"; };
 		655A46A421A9B23E00CEC47F /* ResourceProvider1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceProvider1.swift; sourceTree = "<group>"; };
@@ -98,8 +113,6 @@
 		658C851021A81D26006ECF6F /* Madog.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Madog.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		658C851321A81D26006ECF6F /* Madog.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Madog.h; sourceTree = "<group>"; };
 		658C851421A81D26006ECF6F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		658C851921A81D26006ECF6F /* MadogTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MadogTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		658C852021A81D26006ECF6F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6595DCE7227CD826003AC2FD /* MadogTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MadogTypes.swift; sourceTree = "<group>"; };
 		65A250CE21A81FBF0035FA0F /* NavigationUI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationUI.swift; sourceTree = "<group>"; };
 		65A250DD21A8212F0035FA0F /* NavigationContexts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationContexts.swift; sourceTree = "<group>"; };
@@ -119,23 +132,25 @@
 		65A2511D21A841830035FA0F /* ViewController2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController2.swift; sourceTree = "<group>"; };
 		65A2511F21A842C80035FA0F /* SampleToken.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleToken.swift; sourceTree = "<group>"; };
 		65A2512121A843BC0035FA0F /* LabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelView.swift; sourceTree = "<group>"; };
+		65E8947F227DDFF400EA7F11 /* MadogTypesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MadogTypesTests.swift; sourceTree = "<group>"; };
 		65F8B672227DBA0C007EEBAF /* Provident.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Provident.framework; path = Carthage/Build/iOS/Provident.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		652B1B5B227DDF12004E79A9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				65E89481227DE06000EA7F11 /* Provident.framework in Frameworks */,
+				652B1B63227DDF12004E79A9 /* Madog.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		658C850D21A81D26006ECF6F /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				65F8B673227DBA0D007EEBAF /* Provident.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		658C851621A81D26006ECF6F /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				658C851A21A81D26006ECF6F /* Madog.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -184,6 +199,15 @@
 			path = Logout;
 			sourceTree = "<group>";
 		};
+		652B1B5F227DDF12004E79A9 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				652B1B62227DDF12004E79A9 /* Info.plist */,
+				65E8947F227DDFF400EA7F11 /* MadogTypesTests.swift */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
 		6539420221C045F900D414D7 /* Custom UI */ = {
 			isa = PBXGroup;
 			children = (
@@ -205,9 +229,9 @@
 			isa = PBXGroup;
 			children = (
 				658C851221A81D26006ECF6F /* Source */,
-				658C851D21A81D26006ECF6F /* Tests */,
 				65A250F021A836C50035FA0F /* Sample */,
 				65A2510521A836C90035FA0F /* SampleUITests */,
+				652B1B5F227DDF12004E79A9 /* Tests */,
 				658C851121A81D26006ECF6F /* Products */,
 				65A2511821A840EB0035FA0F /* Frameworks */,
 			);
@@ -217,9 +241,9 @@
 			isa = PBXGroup;
 			children = (
 				658C851021A81D26006ECF6F /* Madog.framework */,
-				658C851921A81D26006ECF6F /* MadogTests.xctest */,
 				65A250EF21A836C50035FA0F /* MadogSample.app */,
 				65A2510221A836C90035FA0F /* MadogSampleUITests.xctest */,
+				652B1B5E227DDF12004E79A9 /* MadogTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -236,14 +260,6 @@
 				658C851421A81D26006ECF6F /* Info.plist */,
 			);
 			path = Source;
-			sourceTree = "<group>";
-		};
-		658C851D21A81D26006ECF6F /* Tests */ = {
-			isa = PBXGroup;
-			children = (
-				658C852021A81D26006ECF6F /* Info.plist */,
-			);
-			path = Tests;
 			sourceTree = "<group>";
 		};
 		659766B621BAC1F300308080 /* UIContainer */ = {
@@ -343,6 +359,25 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		652B1B5D227DDF12004E79A9 /* MadogTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 652B1B66227DDF12004E79A9 /* Build configuration list for PBXNativeTarget "MadogTests" */;
+			buildPhases = (
+				652B1B5A227DDF12004E79A9 /* Sources */,
+				652B1B5B227DDF12004E79A9 /* Frameworks */,
+				652B1B5C227DDF12004E79A9 /* Resources */,
+				65E89482227DE0EF00EA7F11 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				652B1B65227DDF12004E79A9 /* PBXTargetDependency */,
+			);
+			name = MadogTests;
+			productName = Tests;
+			productReference = 652B1B5E227DDF12004E79A9 /* MadogTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		658C850F21A81D26006ECF6F /* Madog */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 658C852421A81D26006ECF6F /* Build configuration list for PBXNativeTarget "Madog" */;
@@ -360,24 +395,6 @@
 			productName = Madog;
 			productReference = 658C851021A81D26006ECF6F /* Madog.framework */;
 			productType = "com.apple.product-type.framework";
-		};
-		658C851821A81D26006ECF6F /* MadogTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 658C852721A81D26006ECF6F /* Build configuration list for PBXNativeTarget "MadogTests" */;
-			buildPhases = (
-				658C851521A81D26006ECF6F /* Sources */,
-				658C851621A81D26006ECF6F /* Frameworks */,
-				658C851721A81D26006ECF6F /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				658C851C21A81D26006ECF6F /* PBXTargetDependency */,
-			);
-			name = MadogTests;
-			productName = MadogTests;
-			productReference = 658C851921A81D26006ECF6F /* MadogTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		65A250EE21A836C50035FA0F /* MadogSample */ = {
 			isa = PBXNativeTarget;
@@ -423,16 +440,17 @@
 		658C850721A81D26006ECF6F /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1010;
+				LastSwiftUpdateCheck = 1020;
 				LastUpgradeCheck = 1010;
 				ORGANIZATIONNAME = "Ceri Hughes";
 				TargetAttributes = {
+					652B1B5D227DDF12004E79A9 = {
+						CreatedOnToolsVersion = 10.2.1;
+						LastSwiftMigration = 1020;
+					};
 					658C850F21A81D26006ECF6F = {
 						CreatedOnToolsVersion = 10.1;
 						LastSwiftMigration = 1010;
-					};
-					658C851821A81D26006ECF6F = {
-						CreatedOnToolsVersion = 10.1;
 					};
 					65A250EE21A836C50035FA0F = {
 						CreatedOnToolsVersion = 10.1;
@@ -457,7 +475,7 @@
 			projectRoot = "";
 			targets = (
 				658C850F21A81D26006ECF6F /* Madog */,
-				658C851821A81D26006ECF6F /* MadogTests */,
+				652B1B5D227DDF12004E79A9 /* MadogTests */,
 				65A250EE21A836C50035FA0F /* MadogSample */,
 				65A2510121A836C90035FA0F /* MadogSampleUITests */,
 			);
@@ -465,14 +483,14 @@
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		658C850E21A81D26006ECF6F /* Resources */ = {
+		652B1B5C227DDF12004E79A9 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		658C851721A81D26006ECF6F /* Resources */ = {
+		658C850E21A81D26006ECF6F /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -521,6 +539,14 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		652B1B5A227DDF12004E79A9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				65E89480227DDFF400EA7F11 /* MadogTypesTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		658C850C21A81D26006ECF6F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -534,13 +560,6 @@
 				6560D4A421B3F2EB00EA9BE3 /* Madog.swift in Sources */,
 				65A250E321A822990035FA0F /* TabBarNavigationUI.swift in Sources */,
 				65A250DE21A8212F0035FA0F /* NavigationContexts.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		658C851521A81D26006ECF6F /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -578,10 +597,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		658C851C21A81D26006ECF6F /* PBXTargetDependency */ = {
+		652B1B65227DDF12004E79A9 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 658C850F21A81D26006ECF6F /* Madog */;
-			targetProxy = 658C851B21A81D26006ECF6F /* PBXContainerItemProxy */;
+			targetProxy = 652B1B64227DDF12004E79A9 /* PBXContainerItemProxy */;
 		};
 		65A2510421A836C90035FA0F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -607,6 +626,55 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		652B1B67227DDF12004E79A9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = Y56955G4Q8;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
+				INFOPLIST_FILE = Tests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = uk.co.cerihughes.Tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		652B1B68227DDF12004E79A9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = Y56955G4Q8;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
+				INFOPLIST_FILE = Tests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = uk.co.cerihughes.Tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		658C852221A81D26006ECF6F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -790,53 +858,6 @@
 			};
 			name = Release;
 		};
-		658C852821A81D26006ECF6F /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = Y56955G4Q8;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
-				INFOPLIST_FILE = Tests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = uk.co.cerihughes.MadogTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		658C852921A81D26006ECF6F /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = Y56955G4Q8;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
-				INFOPLIST_FILE = Tests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = uk.co.cerihughes.MadogTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
 		65A2510A21A836C90035FA0F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -920,6 +941,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		652B1B66227DDF12004E79A9 /* Build configuration list for PBXNativeTarget "MadogTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				652B1B67227DDF12004E79A9 /* Debug */,
+				652B1B68227DDF12004E79A9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		658C850A21A81D26006ECF6F /* Build configuration list for PBXProject "Madog" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -934,15 +964,6 @@
 			buildConfigurations = (
 				658C852521A81D26006ECF6F /* Debug */,
 				658C852621A81D26006ECF6F /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		658C852721A81D26006ECF6F /* Build configuration list for PBXNativeTarget "MadogTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				658C852821A81D26006ECF6F /* Debug */,
-				658C852921A81D26006ECF6F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

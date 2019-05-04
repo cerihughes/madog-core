@@ -38,9 +38,7 @@ open class Resolver<Token>: Provident.Resolver<Token, Context> {
     }
 
     private func convert(input: @escaping () -> ViewControllerProvider<Token>) -> (() -> Provident.ViewControllerProvider<Token, Context>) {
-        return {
-            return input()
-        }
+        return { return input() }
     }
 
     open func viewControllerProviderCreationFunctions() -> [() -> ViewControllerProvider<Token>] { return [] }

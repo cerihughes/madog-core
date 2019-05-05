@@ -8,7 +8,7 @@ cache:
 env:
   global:
     - PROJECT_NAME="Madog.xcodeproj"
-    - SCHEME_IOS_FRAMEWORK="Provident"
+    - SCHEME_IOS_FRAMEWORK="Madog"
     - IOS_SDK=iphonesimulator12.2
   matrix:
     - DESTINATION="OS=12.2,name=iPhone X" SCHEME="$SCHEME_IOS_FRAMEWORK" SDK="$IOS_SDK"

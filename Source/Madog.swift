@@ -54,7 +54,7 @@ public final class Madog<Token>: MadogUIContainerDelegate {
         }
         identifier.customisation(viewController)
 
-        window.rootViewController = viewController
+        window.setRootViewController(viewController, transition: transition)
         return true
     }
 
@@ -73,7 +73,7 @@ public final class Madog<Token>: MadogUIContainerDelegate {
         }
         identifier.customisation(viewController)
 
-        window.rootViewController = viewController
+        window.setRootViewController(viewController, transition: transition)
         return true
     }
 }

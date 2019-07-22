@@ -39,7 +39,7 @@ public final class Madog<Token>: MadogUIContainerDelegate {
 
     // MARK: - MadogUIContextDelegate
 
-    public func renderUI<VC: UIViewController>(identifier: SingleUIIdentifier<VC>, token: Any, in window: UIWindow) -> Bool {
+    public func renderUI<VC: UIViewController>(identifier: SingleUIIdentifier<VC>, token: Any, in window: UIWindow, transition: Transition? = nil) -> Bool {
         guard let token = token as? Token,
             let contextUI = factory.createSingleUI(identifier: identifier),
             contextUI.renderInitialView(with: token) == true else {
@@ -58,7 +58,7 @@ public final class Madog<Token>: MadogUIContainerDelegate {
         return true
     }
 
-    public func renderUI<VC: UIViewController>(identifier: MultiUIIdentifier<VC>, tokens: [Any], in window: UIWindow) -> Bool {
+    public func renderUI<VC: UIViewController>(identifier: MultiUIIdentifier<VC>, tokens: [Any], in window: UIWindow, transition: Transition? = nil) -> Bool {
         guard let tokens = tokens as? [Token],
             let contextUI = factory.createMultiUI(identifier: identifier),
             contextUI.renderInitialViews(with: tokens) == true else {
@@ -75,5 +75,19 @@ public final class Madog<Token>: MadogUIContainerDelegate {
 
         window.rootViewController = viewController
         return true
+    }
+}
+
+extension UIWindow {
+    func setRootViewController(_ viewController: UIViewController, transition: Transition?) {
+        let closure: () -> Void = { [weak self] in
+            self?.rootViewController = viewController
+        }
+
+        if let transition = transition {
+            UIView.transition(with: self, duration: transition.duration, options: transition.options, animations: closure)
+        } else {
+            closure()
+        }
     }
 }

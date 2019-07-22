@@ -92,6 +92,6 @@ private class TestResolver: Resolver<Int> {
 }
 
 private class TestContext: Context {
-    func change<VC>(to identifier: SingleUIIdentifier<VC>, token: Any) -> Bool where VC : UIViewController { return false }
-    func change<VC>(to identifier: MultiUIIdentifier<VC>, tokens: [Any]) -> Bool where VC : UIViewController { return false }
+    func change<VC>(to identifier: SingleUIIdentifier<VC>, token: Any, transition: Transition?) -> Bool where VC : UIViewController { return false }
+    func change<VC>(to identifier: MultiUIIdentifier<VC>, tokens: [Any], transition: Transition?) -> Bool where VC : UIViewController { return false }
 }

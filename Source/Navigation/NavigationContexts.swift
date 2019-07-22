@@ -11,6 +11,11 @@ import UIKit
 public struct Transition {
     public let duration: TimeInterval
     public let options: UIView.AnimationOptions
+
+    public init(duration: TimeInterval, options: UIView.AnimationOptions) {
+        self.duration = duration
+        self.options = options
+    }
 }
 
 public protocol Context: class {

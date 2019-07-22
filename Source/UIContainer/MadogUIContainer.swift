@@ -16,13 +16,13 @@ internal protocol MadogUIContainerDelegate: class {
 open class MadogUIContainer<Token>: Context {
     internal weak var delegate: MadogUIContainerDelegate?
     internal let viewController: UIViewController
-    internal var internalRegistry: ViewControllerRegistry!
+    internal var internalRegistry: Registry<Token>!
 
     public init(viewController: UIViewController) {
         self.viewController = viewController
     }
 
-    public var registry: ViewControllerRegistry {
+    public var registry: Registry<Token> {
         return internalRegistry
     }
 

@@ -39,42 +39,42 @@ public final class Madog<Token>: MadogUIContainerDelegate {
 
     // MARK: - MadogUIContextDelegate
 
-    public func renderUI<VC: UIViewController>(identifier: SingleUIIdentifier<VC>, token: Any, in window: UIWindow, transition: Transition? = nil) -> Bool {
+    public func renderUI<VC: UIViewController>(identifier: SingleUIIdentifier<VC>, token: Any, in window: UIWindow, transition: Transition? = nil) -> Context? {
         guard let token = token as? Token,
             let contextUI = factory.createSingleUI(identifier: identifier),
             contextUI.renderInitialView(with: token) == true else {
-                return false
+                return nil
         }
 
         contextUI.delegate = self
         currentContextUI = contextUI
 
         guard let viewController = contextUI.viewController as? VC else {
-            return false
+            return nil
         }
         identifier.customisation(viewController)
 
         window.setRootViewController(viewController, transition: transition)
-        return true
+        return contextUI
     }
 
-    public func renderUI<VC: UIViewController>(identifier: MultiUIIdentifier<VC>, tokens: [Any], in window: UIWindow, transition: Transition? = nil) -> Bool {
+    public func renderUI<VC: UIViewController>(identifier: MultiUIIdentifier<VC>, tokens: [Any], in window: UIWindow, transition: Transition? = nil) -> Context? {
         guard let tokens = tokens as? [Token],
             let contextUI = factory.createMultiUI(identifier: identifier),
             contextUI.renderInitialViews(with: tokens) == true else {
-                return false
+                return nil
         }
 
         contextUI.delegate = self
         currentContextUI = contextUI
 
         guard let viewController = contextUI.viewController as? VC else {
-            return false
+            return nil
         }
         identifier.customisation(viewController)
 
         window.setRootViewController(viewController, transition: transition)
-        return true
+        return contextUI
     }
 }
 

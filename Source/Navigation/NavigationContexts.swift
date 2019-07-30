@@ -43,6 +43,7 @@ public protocol ModalContext: class {
                    from fromViewController: UIViewController?,
                    presentationStyle: UIModalPresentationStyle?,
                    transitionStyle: UIModalTransitionStyle?,
+                   popoverAnchor: Any?,
                    animated: Bool,
                    completion: (() -> Void)?) -> NavigationToken?
 }

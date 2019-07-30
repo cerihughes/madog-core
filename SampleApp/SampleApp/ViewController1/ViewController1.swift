@@ -47,6 +47,6 @@ extension ViewController1 {
     private func buttonTapGesture(sender: UIButton) {
         pushCount += 1
         let token = SampleToken.createVC2Identifier(stringData: String(pushCount))
-        _ = self.navigationContext?.navigateForward(token: token, animated: true)
+        self.navigationContext?.navigateForward(token: token, animated: true)
     }
 }

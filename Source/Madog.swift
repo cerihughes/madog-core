@@ -25,10 +25,12 @@ public final class Madog<Token>: MadogUIContainerDelegate {
         registrar.resolve(resolver: resolver, launchOptions: launchOptions)
     }
 
+    @discardableResult
     public func addSingleUICreationFunction(identifier: String, function: @escaping () -> MadogSingleUIContainer<Token>) -> Bool {
         return factory.addSingleUICreationFunction(identifier: identifier, function: function)
     }
 
+    @discardableResult
     public func addMultiUICreationFunction(identifier: String, function: @escaping () -> MadogMultiUIContainer<Token>) -> Bool {
         return factory.addMultiUICreationFunction(identifier: identifier, function: function)
     }
@@ -39,6 +41,7 @@ public final class Madog<Token>: MadogUIContainerDelegate {
 
     // MARK: - MadogUIContextDelegate
 
+    @discardableResult
     public func renderUI<VC: UIViewController>(identifier: SingleUIIdentifier<VC>, token: Any, in window: UIWindow, transition: Transition? = nil) -> Context? {
         guard let token = token as? Token,
             let contextUI = factory.createSingleUI(identifier: identifier),
@@ -58,6 +61,7 @@ public final class Madog<Token>: MadogUIContainerDelegate {
         return contextUI
     }
 
+    @discardableResult
     public func renderUI<VC: UIViewController>(identifier: MultiUIIdentifier<VC>, tokens: [Any], in window: UIWindow, transition: Transition? = nil) -> Context? {
         guard let tokens = tokens as? [Token],
             let contextUI = factory.createMultiUI(identifier: identifier),

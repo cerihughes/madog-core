@@ -38,7 +38,7 @@ class ViewController2: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-            _ = self.navigationContext?.navigateBack(animated: true)
+            self.navigationContext?.navigateBack(animated: true)
         }
     }
 

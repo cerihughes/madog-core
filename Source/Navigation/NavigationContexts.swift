@@ -39,7 +39,12 @@ public extension Context {
 
 public protocol ModalContext: class {
     @discardableResult
-    func openModal(token: Any, from fromViewController: UIViewController, animated: Bool) -> NavigationToken?
+    func openModal(token: Any,
+                   from fromViewController: UIViewController?,
+                   presentationStyle: UIModalPresentationStyle?,
+                   transitionStyle: UIModalTransitionStyle?,
+                   animated: Bool,
+                   completion: (() -> Void)?) -> NavigationToken?
 }
 
 public protocol ForwardBackNavigationContext: class {

@@ -49,7 +49,7 @@ extension LogoutViewController {
             let identifier = SingleUIIdentifier.createNavigationControllerIdentifier { (navigationController) in
                 navigationController.isNavigationBarHidden = true
             }
-            _ = self.context?.change(to: identifier, token: token)
+            self.context?.change(to: identifier, token: token)
         }
     }
 }

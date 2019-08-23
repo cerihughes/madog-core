@@ -27,7 +27,7 @@ class MadogTypesTests: XCTestCase {
     }
 
     func testMadogRegistry() {
-        let context = TestContext()
+        let context = MadogTypesTests_TestContext()
         let uuid = registry.add(registryFunction: createFunction(limit: 0))
 
         XCTAssertNotNil(registry.createViewController(from: 0, context: context))
@@ -40,7 +40,7 @@ class MadogTypesTests: XCTestCase {
     func testMadogResolver() {
         // This mostly tests that the code compiles as expected... Don't need to exercise it much.
 
-        let resolver = TestResolver()
+        let resolver = MadogTypesTests_TestResolver()
         XCTAssertEqual(resolver.serviceProviderCreationFunctions().count, 1)
         XCTAssertEqual(resolver.viewControllerProviderCreationFunctions().count, 1)
     }
@@ -60,7 +60,7 @@ fileprivate func createFunction(limit: Int) -> (Int, Context) -> UIViewControlle
     }
 }
 
-private class TestViewControllerProvider: ViewControllerProvider<Int> {
+private class MadogTypesTests_TestViewControllerProvider: ViewControllerProvider<Int> {
     private var uuid: UUID? = nil
 
     override func register(with registry: Registry<Int>) {
@@ -76,22 +76,22 @@ private class TestViewControllerProvider: ViewControllerProvider<Int> {
     }
 }
 
-private class TestServiceProvider: ServiceProvider {
+private class MadogTypesTests_TestServiceProvider: ServiceProvider {
 }
 
-private class TestResolver: Resolver<Int> {
+private class MadogTypesTests_TestResolver: Resolver<Int> {
     override func viewControllerProviderCreationFunctions() -> [() -> ViewControllerProvider<Int>] {
-        let viewControllerProvider = { return TestViewControllerProvider() }
+        let viewControllerProvider = { return MadogTypesTests_TestViewControllerProvider() }
         return [viewControllerProvider]
     }
 
     override func serviceProviderCreationFunctions() -> [(ServiceProviderCreationContext) -> ServiceProvider] {
-        let serviceProvider = { context in return TestServiceProvider(context: context) }
+        let serviceProvider = { context in return MadogTypesTests_TestServiceProvider(context: context) }
         return [serviceProvider]
     }
 }
 
-private class TestContext: Context {
+private class MadogTypesTests_TestContext: Context {
     func change<VC>(to identifier: SingleUIIdentifier<VC>, token: Any, transition: Transition?) -> Context? where VC : UIViewController { return nil }
     func change<VC>(to identifier: MultiUIIdentifier<VC>, tokens: [Any], transition: Transition?) -> Context? where VC : UIViewController { return nil }
 }

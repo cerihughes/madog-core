@@ -22,6 +22,8 @@
 		65E89481227DE06000EA7F11 /* Provident.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65F8B672227DBA0C007EEBAF /* Provident.framework */; };
 		65E89483227DE0F900EA7F11 /* Provident.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 65F8B672227DBA0C007EEBAF /* Provident.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		65F8B673227DBA0D007EEBAF /* Provident.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65F8B672227DBA0C007EEBAF /* Provident.framework */; };
+		C2F8826C230FFAB90093604A /* MadogTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2F8826B230FFAB90093604A /* MadogTests.swift */; };
+		C2F8826E230FFD380093604A /* TestViewControllerProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2F8826D230FFD380093604A /* TestViewControllerProvider.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,7 +55,7 @@
 		652B1B62227DDF12004E79A9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6560D49F21B3F20A00EA9BE3 /* ViewControllerUIIdentifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerUIIdentifiers.swift; sourceTree = "<group>"; };
 		6560D4A121B3F24600EA9BE3 /* MadogUIContainerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MadogUIContainerFactory.swift; sourceTree = "<group>"; };
-		6560D4A321B3F2EB00EA9BE3 /* Madog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Madog.swift; sourceTree = "<group>"; };
+		6560D4A321B3F2EB00EA9BE3 /* Madog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Madog.swift; sourceTree = "<group>"; usesTabs = 0; };
 		658C851021A81D26006ECF6F /* Madog.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Madog.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		658C851321A81D26006ECF6F /* Madog.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Madog.h; sourceTree = "<group>"; };
 		658C851421A81D26006ECF6F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -62,8 +64,10 @@
 		65A250DD21A8212F0035FA0F /* NavigationContexts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationContexts.swift; sourceTree = "<group>"; };
 		65A250E221A822990035FA0F /* TabBarNavigationUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarNavigationUI.swift; sourceTree = "<group>"; };
 		65A250E421A822DF0035FA0F /* NavigationToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationToken.swift; sourceTree = "<group>"; };
-		65E8947F227DDFF400EA7F11 /* MadogTypesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MadogTypesTests.swift; sourceTree = "<group>"; };
+		65E8947F227DDFF400EA7F11 /* MadogTypesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MadogTypesTests.swift; sourceTree = "<group>"; usesTabs = 0; };
 		65F8B672227DBA0C007EEBAF /* Provident.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Provident.framework; path = Carthage/Build/iOS/Provident.framework; sourceTree = "<group>"; };
+		C2F8826B230FFAB90093604A /* MadogTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MadogTests.swift; sourceTree = "<group>"; usesTabs = 0; };
+		C2F8826D230FFD380093604A /* TestViewControllerProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewControllerProvider.swift; sourceTree = "<group>"; usesTabs = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +96,8 @@
 			children = (
 				652B1B62227DDF12004E79A9 /* Info.plist */,
 				65E8947F227DDFF400EA7F11 /* MadogTypesTests.swift */,
+				C2F8826B230FFAB90093604A /* MadogTests.swift */,
+				C2F8826D230FFD380093604A /* TestViewControllerProvider.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -277,7 +283,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C2F8826C230FFAB90093604A /* MadogTests.swift in Sources */,
 				65E89480227DDFF400EA7F11 /* MadogTypesTests.swift in Sources */,
+				C2F8826E230FFD380093604A /* TestViewControllerProvider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

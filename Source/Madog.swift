@@ -84,14 +84,10 @@ public final class Madog<Token>: MadogUIContainerDelegate {
 
 extension UIWindow {
     func setRootViewController(_ viewController: UIViewController, transition: Transition?) {
-        let closure: () -> Void = { [weak self] in
-            self?.rootViewController = viewController
-        }
+		rootViewController = viewController
 
         if let transition = transition {
-            UIView.transition(with: self, duration: transition.duration, options: transition.options, animations: closure)
-        } else {
-            closure()
+			UIView.transition(with: self, duration: transition.duration, options: transition.options, animations: {})
         }
     }
 }

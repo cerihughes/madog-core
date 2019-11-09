@@ -14,8 +14,9 @@ env:
     - DESTINATION="OS=13.0,name=iPhone 11" SCHEME="$SCHEME_IOS_FRAMEWORK" SDK="$IOS_SDK"
 
 before_install:
-  - brew install carthage || true
+  - brew install carthage swiftlint || true
   - brew outdated carthage || brew upgrade carthage
+  - brew outdated swiftlint || brew upgrade swiftlint
   - gem install xcpretty-travis-formatter --quiet
 
 before_script:
@@ -23,6 +24,7 @@ before_script:
 
 script:
   - set -o pipefail
+  - swiftlint
   - xcodebuild clean test -project "$PROJECT_NAME" -scheme "$SCHEME" -destination "$DESTINATION" -sdk "$SDK" CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=NO | xcpretty -f `xcpretty-travis-formatter`
 
 after_success:

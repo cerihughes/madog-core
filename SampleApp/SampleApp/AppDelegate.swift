@@ -14,9 +14,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let window = UIWindow()
     let madog = Madog<SampleToken>()
 
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+    func application(_: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         madog.resolve(resolver: SampleResolver(), launchOptions: launchOptions)
-        let result = madog.addSingleUICreationFunction(identifier: splitViewControllerIdentifier) { return SplitUI() }
+        let result = madog.addSingleUICreationFunction(identifier: splitViewControllerIdentifier) { SplitUI() }
         guard result == true else {
             return false
         }
@@ -24,14 +24,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window.makeKeyAndVisible()
 
         let initial = SampleToken.login
-        let identifier = SingleUIIdentifier.createSplitViewControllerIdentifier { (splitController) in
+        let identifier = SingleUIIdentifier.createSplitViewControllerIdentifier { splitController in
             splitController.preferredDisplayMode = .allVisible
             splitController.presentsWithGesture = false
         }
         return madog.renderUI(identifier: identifier, token: initial, in: window) != nil
     }
 
-    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+    func application(_: UIApplication, open url: URL, options _: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
         guard let currentContext = madog.currentContext else {
             return false
         }

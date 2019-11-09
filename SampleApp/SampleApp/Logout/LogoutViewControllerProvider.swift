@@ -9,7 +9,7 @@
 import Madog
 import UIKit
 
-fileprivate let logoutIdentifier = "logoutIdentifier"
+private let logoutIdentifier = "logoutIdentifier"
 
 class LogoutViewControllerProvider: ViewControllerProvider<SampleToken> {
     private var authenticator: Authenticator?
@@ -29,7 +29,7 @@ class LogoutViewControllerProvider: ViewControllerProvider<SampleToken> {
         registry.removeRegistryFunction(uuid: uuid)
     }
 
-    override func configure(with serviceProviders: [String : ServiceProvider]) {
+    override func configure(with serviceProviders: [String: ServiceProvider]) {
         if let authenticatorProvider = serviceProviders[authenticatorProviderName] as? AuthenticatorProvider {
             authenticator = authenticatorProvider.authenticator
         }
@@ -41,11 +41,11 @@ class LogoutViewControllerProvider: ViewControllerProvider<SampleToken> {
         guard let authenticator = authenticator,
             let sampleToken = token as? SampleToken,
             sampleToken.identifier == logoutIdentifier else {
-                return nil
+            return nil
         }
 
-        let viewController =  LogoutViewController(authenticator: authenticator, context: context)
-        viewController.tabBarItem = UITabBarItem.init(tabBarSystemItem: .history, tag: 0)
+        let viewController = LogoutViewController(authenticator: authenticator, context: context)
+        viewController.tabBarItem = UITabBarItem(tabBarSystemItem: .history, tag: 0)
         return viewController
     }
 }

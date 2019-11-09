@@ -11,7 +11,6 @@ import XCTest
 @testable import Madog
 
 class MadogTests: XCTestCase {
-
     private var madog: Madog<String>!
 
     override func setUp() {
@@ -61,9 +60,8 @@ class MadogTests: XCTestCase {
 }
 
 private class MadogTests_Resolver: Resolver<String> {
-
     override func viewControllerProviderCreationFunctions() -> [() -> ViewControllerProvider<String>] {
-        return [ { TestViewControllerProvider(matchString: "match") } ]
+        return [{ TestViewControllerProvider(matchString: "match") }]
     }
 }
 
@@ -76,6 +74,6 @@ private class MadogTests_MadogDelegate: MadogDelegate {
     }
 
     func madogDidNotCreateViewControllerFrom(_ token: Any) {
-        unsuccessfulCreations.append((token as! String))
+        unsuccessfulCreations.append(token as! String)
     }
 }

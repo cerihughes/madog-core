@@ -33,7 +33,7 @@ class TestViewControllerProvider: ViewControllerProvider<String> {
         registry.removeRegistryFunction(uuid: uuid)
     }
 
-    func createViewController(token: String, context: Context) -> UIViewController? {
+    func createViewController(token: String, context _: Context) -> UIViewController? {
         if token == matchString {
             return UIViewController()
         }

@@ -22,7 +22,7 @@ internal class NavigationUI<Token>: MadogSingleUIContainer<Token>, NavigationCon
 
     // MARK: - MadogSingleUIContext
 
-    override internal func renderInitialView(with token: Token) -> Bool {
+    internal override func renderInitialView(with token: Token) -> Bool {
         guard let viewController = registry.createViewController(from: token, context: self) else {
             return false
         }
@@ -36,7 +36,7 @@ internal class NavigationUI<Token>: MadogSingleUIContainer<Token>, NavigationCon
     internal func navigateForward(token: Any, animated: Bool) -> NavigationToken? {
         guard let token = token as? Token,
             let viewController = registry.createViewController(from: token, context: self) else {
-                return nil
+            return nil
         }
 
         navigationController.pushViewController(viewController, animated: animated)
@@ -47,7 +47,7 @@ internal class NavigationUI<Token>: MadogSingleUIContainer<Token>, NavigationCon
         return navigationController.popViewController(animated: animated) != nil
     }
 
-    internal func navigateBackToRoot(animated: Bool) -> Bool {
+    internal func navigateBackToRoot(animated _: Bool) -> Bool {
         return navigationController.popToRootViewController(animated: true) != nil
     }
 }

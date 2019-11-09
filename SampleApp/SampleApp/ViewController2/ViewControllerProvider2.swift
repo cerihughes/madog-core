@@ -9,7 +9,7 @@
 import Madog
 import UIKit
 
-fileprivate let vc2Identifier = "vc2Identifier"
+private let vc2Identifier = "vc2Identifier"
 
 class ViewControllerProvider2: ViewControllerProvider<SampleToken> {
     private var sharedService: Any?
@@ -29,7 +29,7 @@ class ViewControllerProvider2: ViewControllerProvider<SampleToken> {
         registry.removeRegistryFunction(uuid: uuid)
     }
 
-    override func configure(with serviceProviders: [String : ServiceProvider]) {
+    override func configure(with serviceProviders: [String: ServiceProvider]) {
         if let serviceProvider = serviceProviders[serviceProvider1Name] as? ServiceProvider1 {
             sharedService = serviceProvider.somethingShared
         }
@@ -43,13 +43,13 @@ class ViewControllerProvider2: ViewControllerProvider<SampleToken> {
             sampleToken.identifier == vc2Identifier,
             let stringData = sampleToken.stringData,
             let navigationContext = context as? ForwardBackNavigationContext else {
-                return nil
+            return nil
         }
 
         let viewController = ViewController2(sharedService: sharedService,
-                                                 stringData: stringData,
-                                                 navigationContext: navigationContext)
-        viewController.tabBarItem = UITabBarItem.init(tabBarSystemItem: .contacts, tag: 0)
+                                             stringData: stringData,
+                                             navigationContext: navigationContext)
+        viewController.tabBarItem = UITabBarItem(tabBarSystemItem: .contacts, tag: 0)
         return viewController
     }
 }
@@ -58,7 +58,7 @@ extension SampleToken {
     private static let stringDataKey = "stringData"
 
     static func createVC2Identifier(stringData: String) -> SampleToken {
-        return SampleToken(identifier: vc2Identifier, data: [stringDataKey : stringData])
+        return SampleToken(identifier: vc2Identifier, data: [stringDataKey: stringData])
     }
 
     var stringData: String? {

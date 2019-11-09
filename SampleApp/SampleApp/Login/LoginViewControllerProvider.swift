@@ -9,7 +9,7 @@
 import Madog
 import UIKit
 
-fileprivate let loginIdentifier = "loginIdentifier"
+private let loginIdentifier = "loginIdentifier"
 
 class LoginViewControllerProvider: ViewControllerProvider<SampleToken> {
     private var authenticator: Authenticator?
@@ -29,7 +29,7 @@ class LoginViewControllerProvider: ViewControllerProvider<SampleToken> {
         registry.removeRegistryFunction(uuid: uuid)
     }
 
-    override func configure(with serviceProviders: [String : ServiceProvider]) {
+    override func configure(with serviceProviders: [String: ServiceProvider]) {
         if let authenticatorProvider = serviceProviders[authenticatorProviderName] as? AuthenticatorProvider {
             authenticator = authenticatorProvider.authenticator
         }
@@ -42,7 +42,7 @@ class LoginViewControllerProvider: ViewControllerProvider<SampleToken> {
             sampleToken.identifier == loginIdentifier,
             let authenticator = authenticator,
             let navigationContext = context as? Context & ForwardBackNavigationContext else {
-                return nil
+            return nil
         }
 
         return LoginViewController.createLoginViewController(authenticator: authenticator, navigationContext: navigationContext)

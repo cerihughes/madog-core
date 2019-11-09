@@ -9,7 +9,7 @@
 import Madog
 import UIKit
 
-fileprivate let vc1Identifier = "vc1Identifier"
+private let vc1Identifier = "vc1Identifier"
 
 class ViewController1Provider: ViewControllerProvider<SampleToken> {
     private var sharedService: Any?
@@ -29,7 +29,7 @@ class ViewController1Provider: ViewControllerProvider<SampleToken> {
         registry.removeRegistryFunction(uuid: uuid)
     }
 
-    override func configure(with serviceProviders: [String : ServiceProvider]) {
+    override func configure(with serviceProviders: [String: ServiceProvider]) {
         if let serviceProvider = serviceProviders[serviceProvider1Name] as? ServiceProvider1 {
             sharedService = serviceProvider.somethingShared
         }
@@ -42,11 +42,11 @@ class ViewController1Provider: ViewControllerProvider<SampleToken> {
             let sampleToken = token as? SampleToken,
             sampleToken.identifier == vc1Identifier,
             let navigationContext = context as? ForwardBackNavigationContext else {
-                return nil
+            return nil
         }
 
-        let viewController =  ViewController1(sharedService: sharedService, navigationContext: navigationContext)
-        viewController.tabBarItem = UITabBarItem.init(tabBarSystemItem: .bookmarks, tag: 0)
+        let viewController = ViewController1(sharedService: sharedService, navigationContext: navigationContext)
+        viewController.tabBarItem = UITabBarItem(tabBarSystemItem: .bookmarks, tag: 0)
         return viewController
     }
 }

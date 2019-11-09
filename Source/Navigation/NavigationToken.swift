@@ -8,9 +8,7 @@
 
 import UIKit
 
-public protocol NavigationToken {
-
-}
+public protocol NavigationToken {}
 
 internal class NavigationTokenImplementation: NavigationToken {
     private let viewController: UIViewController

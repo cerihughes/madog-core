@@ -28,7 +28,7 @@ class LoginViewController: UIViewController {
         return loginViewController
     }
 
-    override func viewDidAppear(_ animated: Bool) {
+    override func viewDidAppear(_: Bool) {
         guard let navigationContext = navigationContext else {
             return
         }
@@ -38,7 +38,7 @@ class LoginViewController: UIViewController {
             self.passwordField.text = "SomePassword123"
             self.activityIndicator.startAnimating()
 
-            self.authenticator.login(username: "SomeUsername", password: "SomePassword123", completion: { (result) in
+            self.authenticator.login(username: "SomeUsername", password: "SomePassword123", completion: { _ in
                 self.activityIndicator.stopAnimating()
 
                 let tokens: [SampleToken] = [.vc1, .logout]

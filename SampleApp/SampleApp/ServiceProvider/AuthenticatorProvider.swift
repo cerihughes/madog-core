@@ -23,7 +23,7 @@ class AuthenticatorProvider: ServiceProvider {
 }
 
 class Authenticator {
-    func login(username: String, password: String, completion: @escaping (Bool) -> Void) {
+    func login(username _: String, password _: String, completion: @escaping (Bool) -> Void) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
             completion(true)
         }

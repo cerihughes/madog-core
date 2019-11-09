@@ -48,13 +48,13 @@ open class MadogUIContainer<Token>: Context {
 }
 
 open class MadogSingleUIContainer<Token>: MadogUIContainer<Token> {
-    open func renderInitialView(with token: Token) -> Bool {
+    open func renderInitialView(with _: Token) -> Bool {
         return false
     }
 }
 
 open class MadogMultiUIContainer<Token>: MadogUIContainer<Token> {
-    open func renderInitialViews(with tokens: [Token]) -> Bool {
+    open func renderInitialViews(with _: [Token]) -> Bool {
         return false
     }
 }

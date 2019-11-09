@@ -55,7 +55,7 @@ public final class Madog<Token>: MadogUIContainerDelegate {
         guard let token = token as? Token,
             let contextUI = factory.createSingleUI(identifier: identifier),
             contextUI.renderInitialView(with: token) == true else {
-                return nil
+            return nil
         }
 
         contextUI.delegate = self
@@ -75,7 +75,7 @@ public final class Madog<Token>: MadogUIContainerDelegate {
         guard let tokens = tokens as? [Token],
             let contextUI = factory.createMultiUI(identifier: identifier),
             contextUI.renderInitialViews(with: tokens) == true else {
-                return nil
+            return nil
         }
 
         contextUI.delegate = self
@@ -92,11 +92,11 @@ public final class Madog<Token>: MadogUIContainerDelegate {
 }
 
 extension Madog: RegistryDelegate {
-    public func registryDidCreateViewController(_ viewController: UIViewController, from token: Any, context: Any?) {
+    public func registryDidCreateViewController(_ viewController: UIViewController, from token: Any, context _: Any?) {
         delegate?.madogDidCreateViewController(viewController, from: token)
     }
 
-    public func registryDidNotCreateViewControllerFrom(_ token: Any, context: Any?) {
+    public func registryDidNotCreateViewControllerFrom(_ token: Any, context _: Any?) {
         delegate?.madogDidNotCreateViewControllerFrom(token)
     }
 }

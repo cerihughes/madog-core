@@ -20,7 +20,7 @@ class LogoutViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
     }
 
-    required init?(coder aDecoder: NSCoder) {
+    required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
@@ -39,14 +39,13 @@ class LogoutViewController: UIViewController {
 }
 
 extension LogoutViewController {
-
     // MARK: UIButton interactions
 
     @objc
-    private func buttonTapGesture(sender: UIButton) {
-        authenticator.logout { (result) in
+    private func buttonTapGesture(sender _: UIButton) {
+        authenticator.logout { _ in
             let token = SampleToken.login
-            let identifier = SingleUIIdentifier.createNavigationControllerIdentifier { (navigationController) in
+            let identifier = SingleUIIdentifier.createNavigationControllerIdentifier { navigationController in
                 navigationController.isNavigationBarHidden = true
             }
             self.context?.change(to: identifier, token: token)

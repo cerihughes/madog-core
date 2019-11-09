@@ -11,7 +11,6 @@ import XCTest
 @testable import Madog
 
 class MadogTypesTests: XCTestCase {
-
     private var registry: Registry<Int>!
 
     override func setUp() {
@@ -48,8 +47,8 @@ class MadogTypesTests: XCTestCase {
 
 // MARK: - Test functions
 
-fileprivate func createFunction(limit: Int) -> (Int, Context) -> UIViewController? {
-    return { token, context in
+private func createFunction(limit: Int) -> (Int, Context) -> UIViewController? {
+    return { token, _ in
         guard token <= limit else {
             return nil
         }
@@ -61,7 +60,7 @@ fileprivate func createFunction(limit: Int) -> (Int, Context) -> UIViewControlle
 }
 
 private class MadogTypesTests_TestViewControllerProvider: ViewControllerProvider<Int> {
-    private var uuid: UUID? = nil
+    private var uuid: UUID?
 
     override func register(with registry: Registry<Int>) {
         uuid = registry.add(registryFunction: createFunction(limit: 0))
@@ -76,22 +75,21 @@ private class MadogTypesTests_TestViewControllerProvider: ViewControllerProvider
     }
 }
 
-private class MadogTypesTests_TestServiceProvider: ServiceProvider {
-}
+private class MadogTypesTests_TestServiceProvider: ServiceProvider {}
 
 private class MadogTypesTests_TestResolver: Resolver<Int> {
     override func viewControllerProviderCreationFunctions() -> [() -> ViewControllerProvider<Int>] {
-        let viewControllerProvider = { return MadogTypesTests_TestViewControllerProvider() }
+        let viewControllerProvider = { MadogTypesTests_TestViewControllerProvider() }
         return [viewControllerProvider]
     }
 
     override func serviceProviderCreationFunctions() -> [(ServiceProviderCreationContext) -> ServiceProvider] {
-        let serviceProvider = { context in return MadogTypesTests_TestServiceProvider(context: context) }
+        let serviceProvider = { context in MadogTypesTests_TestServiceProvider(context: context) }
         return [serviceProvider]
     }
 }
 
 private class MadogTypesTests_TestContext: Context {
-    func change<VC>(to identifier: SingleUIIdentifier<VC>, token: Any, transition: Transition?) -> Context? where VC : UIViewController { return nil }
-    func change<VC>(to identifier: MultiUIIdentifier<VC>, tokens: [Any], transition: Transition?) -> Context? where VC : UIViewController { return nil }
+    func change<VC>(to _: SingleUIIdentifier<VC>, token _: Any, transition _: Transition?) -> Context? where VC: UIViewController { return nil }
+    func change<VC>(to _: MultiUIIdentifier<VC>, tokens _: [Any], transition _: Transition?) -> Context? where VC: UIViewController { return nil }
 }

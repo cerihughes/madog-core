@@ -20,8 +20,8 @@ class ViewController1: UIViewController {
 
         super.init(nibName: nil, bundle: nil)
     }
-    
-    required init?(coder aDecoder: NSCoder) {
+
+    required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
@@ -40,13 +40,12 @@ class ViewController1: UIViewController {
 }
 
 extension ViewController1 {
-
     // MARK: UIButton interactions
 
     @objc
-    private func buttonTapGesture(sender: UIButton) {
+    private func buttonTapGesture(sender _: UIButton) {
         pushCount += 1
         let token = SampleToken.createVC2Identifier(stringData: String(pushCount))
-        self.navigationContext?.navigateForward(token: token, animated: true)
+        navigationContext?.navigateForward(token: token, animated: true)
     }
 }

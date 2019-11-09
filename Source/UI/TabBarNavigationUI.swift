@@ -22,7 +22,7 @@ internal class TabBarNavigationUI<Token>: MadogMultiUIContainer<Token>, TabBarNa
 
     // MARK: - MadogMultiUIContext
 
-    override internal func renderInitialViews(with tokens: [Token]) -> Bool {
+    internal override func renderInitialViews(with tokens: [Token]) -> Bool {
         let viewControllers = tokens.compactMap { registry.createViewController(from: $0, context: self) }
             .map { UINavigationController(rootViewController: $0) }
 
@@ -36,7 +36,7 @@ internal class TabBarNavigationUI<Token>: MadogMultiUIContainer<Token>, TabBarNa
         guard let token = token as? Token,
             let toViewController = registry.createViewController(from: token, context: self),
             let navigationController = tabBarController.selectedViewController as? UINavigationController else {
-                return nil
+            return nil
         }
 
         navigationController.pushViewController(toViewController, animated: animated)
@@ -51,12 +51,11 @@ internal class TabBarNavigationUI<Token>: MadogMultiUIContainer<Token>, TabBarNa
         return navigationController.popViewController(animated: animated) != nil
     }
 
-    internal func navigateBackToRoot(animated: Bool) -> Bool {
+    internal func navigateBackToRoot(animated _: Bool) -> Bool {
         guard let navigationController = tabBarController.selectedViewController as? UINavigationController else {
             return false
         }
 
         return navigationController.popToRootViewController(animated: true) != nil
     }
-
 }

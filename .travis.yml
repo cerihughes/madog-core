@@ -24,4 +24,6 @@ before_script:
 script:
   - set -o pipefail
   - xcodebuild clean test -project "$PROJECT_NAME" -scheme "$SCHEME" -destination "$DESTINATION" -sdk "$SDK" CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=NO | xcpretty -f `xcpretty-travis-formatter`
-  
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)

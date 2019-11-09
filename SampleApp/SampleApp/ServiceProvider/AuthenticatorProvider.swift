@@ -16,7 +16,7 @@ class AuthenticatorProvider: ServiceProvider {
 
     // MARK: ServiceProviderObject
 
-    required init(context: ServiceProviderCreationContext) {
+    override init(context: ServiceProviderCreationContext) {
         super.init(context: context)
         name = authenticatorProviderName
     }

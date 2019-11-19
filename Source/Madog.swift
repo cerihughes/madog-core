@@ -48,6 +48,10 @@ public final class Madog<Token>: MadogUIContainerDelegate {
         return currentContextUI
     }
 
+    public var serviceProviders: [String: ServiceProvider] {
+        return registrar.serviceProviders
+    }
+
     // MARK: - MadogUIContextDelegate
 
     @discardableResult

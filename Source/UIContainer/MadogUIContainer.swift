@@ -56,6 +56,28 @@ open class TypedMadogUIContainer<Token>: MadogUIContainer, ModalContext {
 	// MARK: - ModalContext
 
 	// swiftlint:disable function_parameter_count
+	public func openModal(token: Any,
+						  from fromViewController: UIViewController?,
+						  presentationStyle: UIModalPresentationStyle?,
+						  transitionStyle: UIModalTransitionStyle?,
+						  popoverAnchor: Any?,
+						  animated: Bool,
+						  completion: (() -> Void)?) -> NavigationToken? {
+		guard let token = token as? Token,
+			let viewController = registry.createViewController(from: token, context: self) else {
+			return nil
+		}
+
+		let sourceViewController = fromViewController ?? viewController
+		sourceViewController.madog_presentModally(viewController: viewController,
+												  presentationStyle: presentationStyle,
+												  transitionStyle: transitionStyle,
+												  popoverAnchor: popoverAnchor,
+												  animated: animated,
+												  completion: completion)
+		return createNavigationToken(for: viewController)
+	}
+
 	public func openModal<VC: UIViewController>(identifier: SingleUIIdentifier<VC>,
 												token: Any,
 												from fromViewController: UIViewController?,
@@ -103,6 +125,10 @@ open class TypedMadogUIContainer<Token>: MadogUIContainer, ModalContext {
 	}
 
 	// swiftlint:enable function_parameter_count
+
+	public final func createNavigationToken(for viewController: UIViewController) -> NavigationToken {
+		return NavigationTokenImplementation(viewController: viewController)
+	}
 }
 
 open class MadogSingleUIContainer<Token>: TypedMadogUIContainer<Token> {

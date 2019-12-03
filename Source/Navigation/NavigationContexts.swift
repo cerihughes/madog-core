@@ -40,6 +40,15 @@ public extension Context {
 public protocol ModalContext: AnyObject {
 	// swiftlint:disable function_parameter_count
 	@discardableResult
+	func openModal(token: Any,
+				   from fromViewController: UIViewController?,
+				   presentationStyle: UIModalPresentationStyle?,
+				   transitionStyle: UIModalTransitionStyle?,
+				   popoverAnchor: Any?,
+				   animated: Bool,
+				   completion: (() -> Void)?) -> NavigationToken?
+
+	@discardableResult
 	func openModal<VC: UIViewController>(identifier: SingleUIIdentifier<VC>,
 										 token: Any,
 										 from fromViewController: UIViewController?,
@@ -62,6 +71,23 @@ public protocol ModalContext: AnyObject {
 }
 
 public extension ModalContext {
+	@discardableResult
+	func openModal(token: Any,
+				   from fromViewController: UIViewController? = nil,
+				   presentationStyle: UIModalPresentationStyle? = nil,
+				   transitionStyle: UIModalTransitionStyle? = nil,
+				   popoverAnchor: Any? = nil,
+				   animated: Bool,
+				   completion: (() -> Void)? = nil) -> NavigationToken? {
+		return openModal(token: token,
+						 from: fromViewController,
+						 presentationStyle: presentationStyle,
+						 transitionStyle: transitionStyle,
+						 popoverAnchor: popoverAnchor,
+						 animated: animated,
+						 completion: completion)
+	}
+
 	@discardableResult
 	func openModal<VC: UIViewController>(identifier: SingleUIIdentifier<VC>,
 										 token: Any,
@@ -103,7 +129,7 @@ public extension ModalContext {
 
 public protocol ForwardBackNavigationContext: AnyObject {
 	@discardableResult
-	func navigateForward(token: Any, animated: Bool) -> Bool
+	func navigateForward(token: Any, animated: Bool) -> NavigationToken?
 	@discardableResult
 	func navigateBack(animated: Bool) -> Bool
 	@discardableResult

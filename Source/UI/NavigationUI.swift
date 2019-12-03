@@ -8,12 +8,10 @@
 
 import UIKit
 
-internal protocol NavigationContext: Context, ModalContext, ForwardBackNavigationContext {}
-
 /// A class that presents view controllers, and manages the navigation between them.
 ///
 /// At the moment, this is achieved with a UINavigationController that can be pushed / popped to / from.
-internal class NavigationUI<Token>: MadogSingleUIContainer<Token>, NavigationContext {
+internal class NavigationUI<Token>: MadogSingleUIContainer<Token>, NavigationModalContext {
 	private let navigationController = UINavigationController()
 
 	internal init() {

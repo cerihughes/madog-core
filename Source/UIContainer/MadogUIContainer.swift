@@ -8,6 +8,8 @@
 
 import UIKit
 
+public protocol NavigationModalContext: Context, ModalContext, ForwardBackNavigationContext {}
+
 internal protocol MadogUIContainerDelegate: AnyObject {
 	func createUI<VC: UIViewController>(identifier: SingleUIIdentifier<VC>, token: Any) -> MadogUIContainer?
 	func createUI<VC: UIViewController>(identifier: MultiUIIdentifier<VC>, tokens: [Any]) -> MadogUIContainer?
@@ -44,7 +46,7 @@ open class MadogUIContainer: Context {
 	}
 }
 
-open class TypedMadogUIContainer<Token>: MadogUIContainer {
+open class TypedMadogUIContainer<Token>: MadogUIContainer, ModalContext {
 	internal var internalRegistry: Registry<Token>!
 
 	public var registry: Registry<Token> {
@@ -53,26 +55,50 @@ open class TypedMadogUIContainer<Token>: MadogUIContainer {
 
 	// MARK: - ModalContext
 
-	func openModal(token: Any,
-				   from fromViewController: UIViewController?,
-				   presentationStyle: UIModalPresentationStyle?,
-				   transitionStyle: UIModalTransitionStyle?,
-				   popoverAnchor: Any?,
-				   animated: Bool,
-				   completion: (() -> Void)?) -> Bool {
-		guard let token = token as? Token,
-			let viewController = registry.createViewController(from: token, context: self) else {
-			return false
+	public func openModal<VC: UIViewController>(identifier: SingleUIIdentifier<VC>,
+												token: Any,
+												from fromViewController: UIViewController?,
+												presentationStyle: UIModalPresentationStyle?,
+												transitionStyle: UIModalTransitionStyle?,
+												popoverAnchor: Any?,
+												animated: Bool,
+												completion: (() -> Void)?) -> Context? {
+		guard let delegate = delegate,
+			let container = delegate.createUI(identifier: identifier, token: token) else {
+			return nil
 		}
 
 		let sourceViewController = fromViewController ?? viewController
-		sourceViewController.madog_presentModally(viewController: viewController,
+		sourceViewController.madog_presentModally(viewController: container.viewController,
 												  presentationStyle: presentationStyle,
 												  transitionStyle: transitionStyle,
 												  popoverAnchor: popoverAnchor,
 												  animated: animated,
 												  completion: completion)
-		return true
+		return container
+	}
+
+	public func openModal<VC: UIViewController>(identifier: MultiUIIdentifier<VC>,
+												tokens: [Any],
+												from fromViewController: UIViewController?,
+												presentationStyle: UIModalPresentationStyle?,
+												transitionStyle: UIModalTransitionStyle?,
+												popoverAnchor: Any?,
+												animated: Bool,
+												completion: (() -> Void)?) -> Context? {
+		guard let delegate = delegate,
+			let container = delegate.createUI(identifier: identifier, tokens: tokens) else {
+			return nil
+		}
+
+		let sourceViewController = fromViewController ?? viewController
+		sourceViewController.madog_presentModally(viewController: container.viewController,
+												  presentationStyle: presentationStyle,
+												  transitionStyle: transitionStyle,
+												  popoverAnchor: popoverAnchor,
+												  animated: animated,
+												  completion: completion)
+		return container
 	}
 }
 

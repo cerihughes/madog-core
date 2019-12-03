@@ -8,12 +8,10 @@
 
 import UIKit
 
-internal protocol TabBarNavigationContext: Context, ModalContext, ForwardBackNavigationContext {}
-
 /// A class that presents view controllers in a tab bar, and manages the navigation between them.
 ///
 /// At the moment, this is achieved with a UINavigationController that can be pushed / popped to / from.
-internal class TabBarNavigationUI<Token>: MadogMultiUIContainer<Token>, TabBarNavigationContext {
+internal class TabBarNavigationUI<Token>: MadogMultiUIContainer<Token>, NavigationModalContext {
 	private let tabBarController = UITabBarController()
 
 	internal init() {

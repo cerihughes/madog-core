@@ -11,8 +11,8 @@ import UIKit
 public protocol NavigationModalContext: Context, ModalContext, ForwardBackNavigationContext {}
 
 internal protocol MadogUIContainerDelegate: AnyObject {
-	func createUI<VC: UIViewController>(identifier: SingleUIIdentifier<VC>, token: Any) -> MadogUIContainer?
-	func createUI<VC: UIViewController>(identifier: MultiUIIdentifier<VC>, tokens: [Any]) -> MadogUIContainer?
+	func createUI<VC: UIViewController>(identifier: SingleUIIdentifier<VC>, token: Any, isModal: Bool) -> MadogUIContainer?
+	func createUI<VC: UIViewController>(identifier: MultiUIIdentifier<VC>, tokens: [Any], isModal: Bool) -> MadogUIContainer?
 }
 
 open class MadogUIContainer: Context {
@@ -26,7 +26,7 @@ open class MadogUIContainer: Context {
 	public func change<VC: UIViewController>(to identifier: SingleUIIdentifier<VC>, token: Any, transition: Transition?) -> Context? {
 		guard let delegate = delegate,
 			let window = viewController.view.window,
-			let container = delegate.createUI(identifier: identifier, token: token) else {
+			let container = delegate.createUI(identifier: identifier, token: token, isModal: false) else {
 			return nil
 		}
 
@@ -37,7 +37,7 @@ open class MadogUIContainer: Context {
 	public func change<VC: UIViewController>(to identifier: MultiUIIdentifier<VC>, tokens: [Any], transition: Transition?) -> Context? {
 		guard let delegate = delegate,
 			let window = viewController.view.window,
-			let container = delegate.createUI(identifier: identifier, tokens: tokens) else {
+			let container = delegate.createUI(identifier: identifier, tokens: tokens, isModal: false) else {
 			return nil
 		}
 
@@ -65,7 +65,7 @@ open class TypedMadogUIContainer<Token>: MadogUIContainer, ModalContext {
 												animated: Bool,
 												completion: (() -> Void)?) -> Context? {
 		guard let delegate = delegate,
-			let container = delegate.createUI(identifier: identifier, token: token) else {
+			let container = delegate.createUI(identifier: identifier, token: token, isModal: true) else {
 			return nil
 		}
 
@@ -88,7 +88,7 @@ open class TypedMadogUIContainer<Token>: MadogUIContainer, ModalContext {
 												animated: Bool,
 												completion: (() -> Void)?) -> Context? {
 		guard let delegate = delegate,
-			let container = delegate.createUI(identifier: identifier, tokens: tokens) else {
+			let container = delegate.createUI(identifier: identifier, tokens: tokens, isModal: true) else {
 			return nil
 		}
 

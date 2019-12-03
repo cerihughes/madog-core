@@ -20,6 +20,7 @@ public final class Madog<Token>: MadogUIContainerDelegate {
 	private let factory: MadogUIContainerFactory<Token>
 
 	private var currentContextUI: TypedMadogUIContainer<Token>?
+	private var modalContextUIs = [TypedMadogUIContainer<Token>]()
 
 	public weak var delegate: MadogDelegate?
 
@@ -46,7 +47,7 @@ public final class Madog<Token>: MadogUIContainerDelegate {
 
 	@discardableResult
 	public func renderUI<VC: UIViewController>(identifier: SingleUIIdentifier<VC>, token: Any, in window: UIWindow, transition: Transition? = nil) -> Context? {
-		guard let context = createUI(identifier: identifier, token: token) else {
+		guard let context = createUI(identifier: identifier, token: token, isModal: false) else {
 			return nil
 		}
 		window.setRootViewController(context.viewController, transition: transition)
@@ -55,7 +56,7 @@ public final class Madog<Token>: MadogUIContainerDelegate {
 
 	@discardableResult
 	public func renderUI<VC: UIViewController>(identifier: MultiUIIdentifier<VC>, tokens: [Any], in window: UIWindow, transition: Transition? = nil) -> Context? {
-		guard let context = createUI(identifier: identifier, tokens: tokens) else {
+		guard let context = createUI(identifier: identifier, tokens: tokens, isModal: false) else {
 			return nil
 		}
 		window.setRootViewController(context.viewController, transition: transition)
@@ -70,9 +71,9 @@ public final class Madog<Token>: MadogUIContainerDelegate {
 		return registrar.serviceProviders
 	}
 
-	// MARK: - MadogUIContextDelegate
+	// MARK: - MadogUIContainerDelegate
 
-	func createUI<VC>(identifier: SingleUIIdentifier<VC>, token: Any) -> MadogUIContainer? where VC: UIViewController {
+	func createUI<VC: UIViewController>(identifier: SingleUIIdentifier<VC>, token: Any, isModal: Bool) -> MadogUIContainer? {
 		guard let token = token as? Token,
 			let contextUI = factory.createSingleUI(identifier: identifier),
 			contextUI.renderInitialView(with: token) == true else {
@@ -80,7 +81,7 @@ public final class Madog<Token>: MadogUIContainerDelegate {
 		}
 
 		contextUI.delegate = self
-		currentContextUI = contextUI
+		persist(contextUI: contextUI, isModal: isModal)
 
 		guard let viewController = contextUI.viewController as? VC else {
 			return nil
@@ -89,7 +90,7 @@ public final class Madog<Token>: MadogUIContainerDelegate {
 		return contextUI
 	}
 
-	func createUI<VC>(identifier: MultiUIIdentifier<VC>, tokens: [Any]) -> MadogUIContainer? where VC: UIViewController {
+	func createUI<VC: UIViewController>(identifier: MultiUIIdentifier<VC>, tokens: [Any], isModal: Bool) -> MadogUIContainer? {
 		guard let tokens = tokens as? [Token],
 			let contextUI = factory.createMultiUI(identifier: identifier),
 			contextUI.renderInitialViews(with: tokens) == true else {
@@ -97,13 +98,23 @@ public final class Madog<Token>: MadogUIContainerDelegate {
 		}
 
 		contextUI.delegate = self
-		currentContextUI = contextUI
+		persist(contextUI: contextUI, isModal: isModal)
 
 		guard let viewController = contextUI.viewController as? VC else {
 			return nil
 		}
 		identifier.customisation(viewController)
 		return contextUI
+	}
+
+	// MARK: - Private
+
+	private func persist(contextUI: TypedMadogUIContainer<Token>, isModal: Bool) {
+		if isModal {
+			modalContextUIs.append(contextUI)
+		} else {
+			currentContextUI = contextUI
+		}
 	}
 }
 

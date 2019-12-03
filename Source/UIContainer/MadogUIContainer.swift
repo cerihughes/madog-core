@@ -21,12 +21,6 @@ open class MadogUIContainer: Context {
 
 	public init(viewController: UIViewController) {
 		self.viewController = viewController
-
-		print("init called on \(self) with \(viewController)")
-	}
-
-	deinit {
-		print("deinit called on \(self) with \(viewController)")
 	}
 
 	public func change<VC: UIViewController>(to identifier: SingleUIIdentifier<VC>, token: Any, transition: Transition?) -> Context? {

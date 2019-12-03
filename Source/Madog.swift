@@ -20,7 +20,6 @@ public final class Madog<Token>: MadogUIContainerDelegate {
 	private let factory: MadogUIContainerFactory<Token>
 
 	private var currentContextUI: TypedMadogUIContainer<Token>?
-	private var modalContextUIs = [TypedMadogUIContainer<Token>]()
 
 	public weak var delegate: MadogDelegate?
 
@@ -110,9 +109,7 @@ public final class Madog<Token>: MadogUIContainerDelegate {
 	// MARK: - Private
 
 	private func persist(contextUI: TypedMadogUIContainer<Token>, isModal: Bool) {
-		if isModal {
-			modalContextUIs.append(contextUI)
-		} else {
+		if !isModal {
 			currentContextUI = contextUI
 		}
 	}

@@ -44,6 +44,24 @@ public final class Madog<Token>: MadogUIContainerDelegate {
 		return factory.addMultiUICreationFunction(identifier: identifier, function: function)
 	}
 
+	@discardableResult
+	public func renderUI<VC: UIViewController>(identifier: SingleUIIdentifier<VC>, token: Any, in window: UIWindow, transition: Transition? = nil) -> Context? {
+		guard let context = createUI(identifier: identifier, token: token) else {
+			return nil
+		}
+		window.setRootViewController(context.viewController, transition: transition)
+		return context
+	}
+
+	@discardableResult
+	public func renderUI<VC: UIViewController>(identifier: MultiUIIdentifier<VC>, tokens: [Any], in window: UIWindow, transition: Transition? = nil) -> Context? {
+		guard let context = createUI(identifier: identifier, tokens: tokens) else {
+			return nil
+		}
+		window.setRootViewController(context.viewController, transition: transition)
+		return context
+	}
+
 	public var currentContext: Context? {
 		return currentContextUI
 	}
@@ -54,8 +72,7 @@ public final class Madog<Token>: MadogUIContainerDelegate {
 
 	// MARK: - MadogUIContextDelegate
 
-	@discardableResult
-	public func renderUI<VC: UIViewController>(identifier: SingleUIIdentifier<VC>, token: Any, in window: UIWindow, transition: Transition? = nil) -> Context? {
+	func createUI<VC>(identifier: SingleUIIdentifier<VC>, token: Any) -> MadogUIContainer? where VC: UIViewController {
 		guard let token = token as? Token,
 			let contextUI = factory.createSingleUI(identifier: identifier),
 			contextUI.renderInitialView(with: token) == true else {
@@ -69,13 +86,10 @@ public final class Madog<Token>: MadogUIContainerDelegate {
 			return nil
 		}
 		identifier.customisation(viewController)
-
-		window.setRootViewController(viewController, transition: transition)
 		return contextUI
 	}
 
-	@discardableResult
-	public func renderUI<VC: UIViewController>(identifier: MultiUIIdentifier<VC>, tokens: [Any], in window: UIWindow, transition: Transition? = nil) -> Context? {
+	func createUI<VC>(identifier: MultiUIIdentifier<VC>, tokens: [Any]) -> MadogUIContainer? where VC: UIViewController {
 		guard let tokens = tokens as? [Token],
 			let contextUI = factory.createMultiUI(identifier: identifier),
 			contextUI.renderInitialViews(with: tokens) == true else {
@@ -89,8 +103,6 @@ public final class Madog<Token>: MadogUIContainerDelegate {
 			return nil
 		}
 		identifier.customisation(viewController)
-
-		window.setRootViewController(viewController, transition: transition)
 		return contextUI
 	}
 }

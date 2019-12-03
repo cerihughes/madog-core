@@ -9,8 +9,8 @@
 import UIKit
 
 internal protocol MadogUIContainerDelegate: AnyObject {
-	func renderUI<VC: UIViewController>(identifier: SingleUIIdentifier<VC>, token: Any, in window: UIWindow, transition: Transition?) -> Context?
-	func renderUI<VC: UIViewController>(identifier: MultiUIIdentifier<VC>, tokens: [Any], in window: UIWindow, transition: Transition?) -> Context?
+	func createUI<VC: UIViewController>(identifier: SingleUIIdentifier<VC>, token: Any) -> MadogUIContainer?
+	func createUI<VC: UIViewController>(identifier: MultiUIIdentifier<VC>, tokens: [Any]) -> MadogUIContainer?
 }
 
 open class MadogUIContainer: Context {
@@ -22,19 +22,25 @@ open class MadogUIContainer: Context {
 	}
 
 	public func change<VC: UIViewController>(to identifier: SingleUIIdentifier<VC>, token: Any, transition: Transition?) -> Context? {
-		guard let delegate = delegate, let window = viewController.view.window else {
+		guard let delegate = delegate,
+			let window = viewController.view.window,
+			let container = delegate.createUI(identifier: identifier, token: token) else {
 			return nil
 		}
 
-		return delegate.renderUI(identifier: identifier, token: token, in: window, transition: transition)
+		window.setRootViewController(viewController, transition: transition)
+		return container
 	}
 
 	public func change<VC: UIViewController>(to identifier: MultiUIIdentifier<VC>, tokens: [Any], transition: Transition?) -> Context? {
-		guard let delegate = delegate, let window = viewController.view.window else {
+		guard let delegate = delegate,
+			let window = viewController.view.window,
+			let container = delegate.createUI(identifier: identifier, tokens: tokens) else {
 			return nil
 		}
 
-		return delegate.renderUI(identifier: identifier, tokens: tokens, in: window, transition: transition)
+		window.setRootViewController(viewController, transition: transition)
+		return container
 	}
 }
 

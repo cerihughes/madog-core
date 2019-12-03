@@ -45,7 +45,7 @@ public protocol ModalContext: class {
 				   transitionStyle: UIModalTransitionStyle?,
 				   popoverAnchor: Any?,
 				   animated: Bool,
-				   completion: (() -> Void)?) -> NavigationToken?
+				   completion: (() -> Void)?) -> Bool
 }
 
 public extension ModalContext {
@@ -56,7 +56,7 @@ public extension ModalContext {
 				   transitionStyle: UIModalTransitionStyle? = nil,
 				   popoverAnchor: Any? = nil,
 				   animated: Bool,
-				   completion: (() -> Void)? = nil) -> NavigationToken? {
+				   completion: (() -> Void)? = nil) -> Bool {
 		return openModal(token: token,
 						 from: fromViewController,
 						 presentationStyle: presentationStyle,
@@ -69,7 +69,7 @@ public extension ModalContext {
 
 public protocol ForwardBackNavigationContext: class {
 	@discardableResult
-	func navigateForward(token: Any, animated: Bool) -> NavigationToken?
+	func navigateForward(token: Any, animated: Bool) -> Bool
 	@discardableResult
 	func navigateBack(animated: Bool) -> Bool
 	@discardableResult

@@ -38,10 +38,10 @@ internal class TabBarNavigationUI<Token>: MadogMultiUIContainer<Token>, TabBarNa
 				   transitionStyle: UIModalTransitionStyle?,
 				   popoverAnchor: Any?,
 				   animated: Bool,
-				   completion: (() -> Void)?) -> NavigationToken? {
+				   completion: (() -> Void)?) -> Bool {
 		guard let token = token as? Token,
 			let viewController = registry.createViewController(from: token, context: self) else {
-			return nil
+			return false
 		}
 
 		let sourceViewController = fromViewController ?? tabBarController
@@ -51,20 +51,20 @@ internal class TabBarNavigationUI<Token>: MadogMultiUIContainer<Token>, TabBarNa
 												  popoverAnchor: popoverAnchor,
 												  animated: animated,
 												  completion: completion)
-		return createNavigationToken(for: viewController)
+		return true
 	}
 
 	// MARK: - ForwardBackNavigationContext
 
-	internal func navigateForward(token: Any, animated: Bool) -> NavigationToken? {
+	internal func navigateForward(token: Any, animated: Bool) -> Bool {
 		guard let token = token as? Token,
 			let toViewController = registry.createViewController(from: token, context: self),
 			let navigationController = tabBarController.selectedViewController as? UINavigationController else {
-			return nil
+			return false
 		}
 
 		navigationController.pushViewController(toViewController, animated: animated)
-		return createNavigationToken(for: viewController)
+		return true
 	}
 
 	internal func navigateBack(animated: Bool) -> Bool {

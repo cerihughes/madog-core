@@ -41,10 +41,6 @@ open class MadogUIContainer<Token>: Context {
 
 		return delegate.renderUI(identifier: identifier, tokens: tokens, in: window, transition: transition)
 	}
-
-	public final func createNavigationToken(for viewController: UIViewController) -> NavigationToken {
-		return NavigationTokenImplementation(viewController: viewController)
-	}
 }
 
 open class MadogSingleUIContainer<Token>: MadogUIContainer<Token> {

@@ -11,7 +11,7 @@ import UIKit
 /// A class that presents view controllers, and manages the navigation between them.
 ///
 /// At the moment, this is achieved with a UINavigationController that can be pushed / popped to / from.
-internal class NavigationUI<Token>: MadogSingleUIContainer<Token>, NavigationModalContext {
+internal class NavigationUI<Token>: MadogSingleUIContainer<Token>, ForwardBackNavigationContext {
 	private let navigationController = UINavigationController()
 
 	internal init() {

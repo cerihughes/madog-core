@@ -8,7 +8,7 @@
 
 import UIKit
 
-public protocol NavigationModalContext: Context, ModalContext, ForwardBackNavigationContext {}
+public typealias NavigationModalContext = ForwardBackNavigationContext & ModalContext & Context
 
 internal protocol MadogUIContainerDelegate: AnyObject {
 	func createUI<VC: UIViewController>(identifier: SingleUIIdentifier<VC>, token: Any, isModal: Bool) -> MadogUIContainer?

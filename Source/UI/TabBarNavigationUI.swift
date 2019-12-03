@@ -14,72 +14,72 @@ internal protocol TabBarNavigationContext: Context, ModalContext, ForwardBackNav
 ///
 /// At the moment, this is achieved with a UINavigationController that can be pushed / popped to / from.
 internal class TabBarNavigationUI<Token>: MadogMultiUIContainer<Token>, TabBarNavigationContext {
-    private let tabBarController = UITabBarController()
+	private let tabBarController = UITabBarController()
 
-    internal init() {
-        super.init(viewController: tabBarController)
-    }
+	internal init() {
+		super.init(viewController: tabBarController)
+	}
 
-    // MARK: - MadogMultiUIContext
+	// MARK: - MadogMultiUIContext
 
-    internal override func renderInitialViews(with tokens: [Token]) -> Bool {
-        let viewControllers = tokens.compactMap { registry.createViewController(from: $0, context: self) }
-            .map { UINavigationController(rootViewController: $0) }
+	internal override func renderInitialViews(with tokens: [Token]) -> Bool {
+		let viewControllers = tokens.compactMap { registry.createViewController(from: $0, context: self) }
+			.map { UINavigationController(rootViewController: $0) }
 
-        tabBarController.viewControllers = viewControllers
-        return true
-    }
+		tabBarController.viewControllers = viewControllers
+		return true
+	}
 
-    // MARK: - ModalContext
+	// MARK: - ModalContext
 
-    func openModal(token: Any,
-                   from fromViewController: UIViewController?,
-                   presentationStyle: UIModalPresentationStyle?,
-                   transitionStyle: UIModalTransitionStyle?,
-                   popoverAnchor: Any?,
-                   animated: Bool,
-                   completion: (() -> Void)?) -> NavigationToken? {
-        guard let token = token as? Token,
-            let viewController = registry.createViewController(from: token, context: self) else {
-            return nil
-        }
+	func openModal(token: Any,
+				   from fromViewController: UIViewController?,
+				   presentationStyle: UIModalPresentationStyle?,
+				   transitionStyle: UIModalTransitionStyle?,
+				   popoverAnchor: Any?,
+				   animated: Bool,
+				   completion: (() -> Void)?) -> NavigationToken? {
+		guard let token = token as? Token,
+			let viewController = registry.createViewController(from: token, context: self) else {
+			return nil
+		}
 
-        let sourceViewController = fromViewController ?? tabBarController
-        sourceViewController.madog_presentModally(viewController: viewController,
-                                                  presentationStyle: presentationStyle,
-                                                  transitionStyle: transitionStyle,
-                                                  popoverAnchor: popoverAnchor,
-                                                  animated: animated,
-                                                  completion: completion)
-        return createNavigationToken(for: viewController)
-    }
+		let sourceViewController = fromViewController ?? tabBarController
+		sourceViewController.madog_presentModally(viewController: viewController,
+												  presentationStyle: presentationStyle,
+												  transitionStyle: transitionStyle,
+												  popoverAnchor: popoverAnchor,
+												  animated: animated,
+												  completion: completion)
+		return createNavigationToken(for: viewController)
+	}
 
-    // MARK: - ForwardBackNavigationContext
+	// MARK: - ForwardBackNavigationContext
 
-    internal func navigateForward(token: Any, animated: Bool) -> NavigationToken? {
-        guard let token = token as? Token,
-            let toViewController = registry.createViewController(from: token, context: self),
-            let navigationController = tabBarController.selectedViewController as? UINavigationController else {
-            return nil
-        }
+	internal func navigateForward(token: Any, animated: Bool) -> NavigationToken? {
+		guard let token = token as? Token,
+			let toViewController = registry.createViewController(from: token, context: self),
+			let navigationController = tabBarController.selectedViewController as? UINavigationController else {
+			return nil
+		}
 
-        navigationController.pushViewController(toViewController, animated: animated)
-        return createNavigationToken(for: viewController)
-    }
+		navigationController.pushViewController(toViewController, animated: animated)
+		return createNavigationToken(for: viewController)
+	}
 
-    internal func navigateBack(animated: Bool) -> Bool {
-        guard let navigationController = tabBarController.selectedViewController as? UINavigationController else {
-            return false
-        }
+	internal func navigateBack(animated: Bool) -> Bool {
+		guard let navigationController = tabBarController.selectedViewController as? UINavigationController else {
+			return false
+		}
 
-        return navigationController.popViewController(animated: animated) != nil
-    }
+		return navigationController.popViewController(animated: animated) != nil
+	}
 
-    internal func navigateBackToRoot(animated _: Bool) -> Bool {
-        guard let navigationController = tabBarController.selectedViewController as? UINavigationController else {
-            return false
-        }
+	internal func navigateBackToRoot(animated _: Bool) -> Bool {
+		guard let navigationController = tabBarController.selectedViewController as? UINavigationController else {
+			return false
+		}
 
-        return navigationController.popToRootViewController(animated: true) != nil
-    }
+		return navigationController.popToRootViewController(animated: true) != nil
+	}
 }

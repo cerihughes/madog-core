@@ -12,44 +12,44 @@ import UIKit
 protocol SplitContext: Context, ForwardBackNavigationContext {}
 
 class SplitUI<Token>: MadogSingleUIContainer<Token>, SplitContext {
-    private let splitController = UISplitViewController()
+	private let splitController = UISplitViewController()
 
-    init() {
-        super.init(viewController: splitController)
-    }
+	init() {
+		super.init(viewController: splitController)
+	}
 
-    // MARK: - MadogSingleUIContext
+	// MARK: - MadogSingleUIContext
 
-    override func renderInitialView(with token: Token) -> Bool {
-        guard let viewController = registry.createViewController(from: token, context: self) else {
-            return false
-        }
+	override func renderInitialView(with token: Token) -> Bool {
+		guard let viewController = registry.createViewController(from: token, context: self) else {
+			return false
+		}
 
-        splitController.viewControllers = [viewController]
-        return true
-    }
+		splitController.viewControllers = [viewController]
+		return true
+	}
 
-    // MARK: - ForwardBackNavigationContext
+	// MARK: - ForwardBackNavigationContext
 
-    func navigateForward(token: Any, animated _: Bool) -> NavigationToken? {
-        guard let token = token as? Token,
-            let viewController = registry.createViewController(from: token, context: self) else {
-            return nil
-        }
+	func navigateForward(token: Any, animated _: Bool) -> NavigationToken? {
+		guard let token = token as? Token,
+			let viewController = registry.createViewController(from: token, context: self) else {
+			return nil
+		}
 
-        splitController.showDetailViewController(viewController, sender: splitController.viewControllers.first)
-        return createNavigationToken(for: viewController)
-    }
+		splitController.showDetailViewController(viewController, sender: splitController.viewControllers.first)
+		return createNavigationToken(for: viewController)
+	}
 
-    func navigateBack(animated _: Bool) -> Bool {
-        guard let first = splitController.viewControllers.first else {
-            return false
-        }
-        splitController.viewControllers = [first]
-        return true
-    }
+	func navigateBack(animated _: Bool) -> Bool {
+		guard let first = splitController.viewControllers.first else {
+			return false
+		}
+		splitController.viewControllers = [first]
+		return true
+	}
 
-    func navigateBackToRoot(animated: Bool) -> Bool {
-        return navigateBack(animated: animated)
-    }
+	func navigateBackToRoot(animated: Bool) -> Bool {
+		return navigateBack(animated: animated)
+	}
 }

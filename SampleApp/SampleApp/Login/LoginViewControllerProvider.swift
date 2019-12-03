@@ -12,45 +12,45 @@ import UIKit
 private let loginIdentifier = "loginIdentifier"
 
 class LoginViewControllerProvider: ViewControllerProvider<SampleToken> {
-    private var authenticator: Authenticator?
-    private var uuid: UUID?
+	private var authenticator: Authenticator?
+	private var uuid: UUID?
 
-    // MARK: ViewControllerProviderObject
+	// MARK: ViewControllerProviderObject
 
-    override func register(with registry: Registry<SampleToken>) {
-        uuid = registry.add(registryFunction: createViewController(token:context:))
-    }
+	override func register(with registry: Registry<SampleToken>) {
+		uuid = registry.add(registryFunction: createViewController(token:context:))
+	}
 
-    override func unregister(from registry: Registry<SampleToken>) {
-        guard let uuid = uuid else {
-            return
-        }
+	override func unregister(from registry: Registry<SampleToken>) {
+		guard let uuid = uuid else {
+			return
+		}
 
-        registry.removeRegistryFunction(uuid: uuid)
-    }
+		registry.removeRegistryFunction(uuid: uuid)
+	}
 
-    override func configure(with serviceProviders: [String: ServiceProvider]) {
-        if let authenticatorProvider = serviceProviders[authenticatorProviderName] as? AuthenticatorProvider {
-            authenticator = authenticatorProvider.authenticator
-        }
-    }
+	override func configure(with serviceProviders: [String: ServiceProvider]) {
+		if let authenticatorProvider = serviceProviders[authenticatorProviderName] as? AuthenticatorProvider {
+			authenticator = authenticatorProvider.authenticator
+		}
+	}
 
-    // MARK: Private
+	// MARK: Private
 
-    private func createViewController(token: Any, context: Context) -> UIViewController? {
-        guard let sampleToken = token as? SampleToken,
-            sampleToken.identifier == loginIdentifier,
-            let authenticator = authenticator,
-            let navigationContext = context as? Context & ForwardBackNavigationContext else {
-            return nil
-        }
+	private func createViewController(token: Any, context: Context) -> UIViewController? {
+		guard let sampleToken = token as? SampleToken,
+			sampleToken.identifier == loginIdentifier,
+			let authenticator = authenticator,
+			let navigationContext = context as? Context & ForwardBackNavigationContext else {
+			return nil
+		}
 
-        return LoginViewController.createLoginViewController(authenticator: authenticator, navigationContext: navigationContext)
-    }
+		return LoginViewController.createLoginViewController(authenticator: authenticator, navigationContext: navigationContext)
+	}
 }
 
 extension SampleToken {
-    static var login: SampleToken {
-        return SampleToken(identifier: loginIdentifier, data: [:])
-    }
+	static var login: SampleToken {
+		return SampleToken(identifier: loginIdentifier, data: [:])
+	}
 }

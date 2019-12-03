@@ -9,50 +9,50 @@
 import UIKit
 
 internal class MadogUIContainerFactory<Token> {
-    private let registry: Registry<Token>
-    private var singleVCUIRegistry = [String: () -> MadogSingleUIContainer<Token>]()
-    private var multiVCUIRegistry = [String: () -> MadogMultiUIContainer<Token>]()
+	private let registry: Registry<Token>
+	private var singleVCUIRegistry = [String: () -> MadogSingleUIContainer<Token>]()
+	private var multiVCUIRegistry = [String: () -> MadogMultiUIContainer<Token>]()
 
-    internal init(registry: Registry<Token>) {
-        self.registry = registry
+	internal init(registry: Registry<Token>) {
+		self.registry = registry
 
-        _ = addSingleUICreationFunction(identifier: navigationControllerIdentifier) { NavigationUI<Token>() }
-        _ = addMultiUICreationFunction(identifier: tabBarControllerIdentifier) { TabBarNavigationUI<Token>() }
-    }
+		_ = addSingleUICreationFunction(identifier: navigationControllerIdentifier) { NavigationUI<Token>() }
+		_ = addMultiUICreationFunction(identifier: tabBarControllerIdentifier) { TabBarNavigationUI<Token>() }
+	}
 
-    internal func addSingleUICreationFunction(identifier: String, function: @escaping () -> MadogSingleUIContainer<Token>) -> Bool {
-        guard singleVCUIRegistry[identifier] == nil else {
-            return false
-        }
-        singleVCUIRegistry[identifier] = function
-        return true
-    }
+	internal func addSingleUICreationFunction(identifier: String, function: @escaping () -> MadogSingleUIContainer<Token>) -> Bool {
+		guard singleVCUIRegistry[identifier] == nil else {
+			return false
+		}
+		singleVCUIRegistry[identifier] = function
+		return true
+	}
 
-    internal func addMultiUICreationFunction(identifier: String, function: @escaping () -> MadogMultiUIContainer<Token>) -> Bool {
-        guard multiVCUIRegistry[identifier] == nil else {
-            return false
-        }
-        multiVCUIRegistry[identifier] = function
-        return true
-    }
+	internal func addMultiUICreationFunction(identifier: String, function: @escaping () -> MadogMultiUIContainer<Token>) -> Bool {
+		guard multiVCUIRegistry[identifier] == nil else {
+			return false
+		}
+		multiVCUIRegistry[identifier] = function
+		return true
+	}
 
-    internal func createSingleUI<VC: UIViewController>(identifier: SingleUIIdentifier<VC>) -> MadogSingleUIContainer<Token>? {
-        guard let function = singleVCUIRegistry[identifier.value] else {
-            return nil
-        }
+	internal func createSingleUI<VC: UIViewController>(identifier: SingleUIIdentifier<VC>) -> MadogSingleUIContainer<Token>? {
+		guard let function = singleVCUIRegistry[identifier.value] else {
+			return nil
+		}
 
-        let ui = function()
-        ui.internalRegistry = registry
-        return ui
-    }
+		let ui = function()
+		ui.internalRegistry = registry
+		return ui
+	}
 
-    internal func createMultiUI<VC: UIViewController>(identifier: MultiUIIdentifier<VC>) -> MadogMultiUIContainer<Token>? {
-        guard let function = multiVCUIRegistry[identifier.value] else {
-            return nil
-        }
+	internal func createMultiUI<VC: UIViewController>(identifier: MultiUIIdentifier<VC>) -> MadogMultiUIContainer<Token>? {
+		guard let function = multiVCUIRegistry[identifier.value] else {
+			return nil
+		}
 
-        let ui = function()
-        ui.internalRegistry = registry
-        return ui
-    }
+		let ui = function()
+		ui.internalRegistry = registry
+		return ui
+	}
 }

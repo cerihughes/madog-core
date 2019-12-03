@@ -9,28 +9,28 @@
 import UIKit
 
 class LabelView: UIView {
-    let label = UILabel()
+	let label = UILabel()
 
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+	override init(frame: CGRect) {
+		super.init(frame: frame)
 
-        backgroundColor = .white
+		backgroundColor = .white
 
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.textAlignment = .center
-        addSubview(label)
+		label.translatesAutoresizingMaskIntoConstraints = false
+		label.textAlignment = .center
+		addSubview(label)
 
-        var constraints = [NSLayoutConstraint]()
+		var constraints = [NSLayoutConstraint]()
 
-        constraints.append(label.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor))
-        constraints.append(label.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor))
-        constraints.append(label.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor))
-        constraints.append(label.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor))
+		constraints.append(label.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor))
+		constraints.append(label.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor))
+		constraints.append(label.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor))
+		constraints.append(label.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor))
 
-        NSLayoutConstraint.activate(constraints)
-    }
+		NSLayoutConstraint.activate(constraints)
+	}
 
-    required init?(coder _: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+	required init?(coder _: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
 }

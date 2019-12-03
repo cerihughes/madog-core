@@ -8,12 +8,10 @@
 
 import UIKit
 
-internal protocol TabBarNavigationContext: Context, ModalContext, ForwardBackNavigationContext {}
-
 /// A class that presents view controllers in a tab bar, and manages the navigation between them.
 ///
 /// At the moment, this is achieved with a UINavigationController that can be pushed / popped to / from.
-internal class TabBarNavigationUI<Token>: MadogMultiUIContainer<Token>, TabBarNavigationContext {
+internal class TabBarNavigationUI<Token>: MadogMultiUIContainer<Token>, ForwardBackNavigationContext {
 	private let tabBarController = UITabBarController()
 
 	internal init() {
@@ -28,30 +26,6 @@ internal class TabBarNavigationUI<Token>: MadogMultiUIContainer<Token>, TabBarNa
 
 		tabBarController.viewControllers = viewControllers
 		return true
-	}
-
-	// MARK: - ModalContext
-
-	func openModal(token: Any,
-				   from fromViewController: UIViewController?,
-				   presentationStyle: UIModalPresentationStyle?,
-				   transitionStyle: UIModalTransitionStyle?,
-				   popoverAnchor: Any?,
-				   animated: Bool,
-				   completion: (() -> Void)?) -> NavigationToken? {
-		guard let token = token as? Token,
-			let viewController = registry.createViewController(from: token, context: self) else {
-			return nil
-		}
-
-		let sourceViewController = fromViewController ?? tabBarController
-		sourceViewController.madog_presentModally(viewController: viewController,
-												  presentationStyle: presentationStyle,
-												  transitionStyle: transitionStyle,
-												  popoverAnchor: popoverAnchor,
-												  animated: animated,
-												  completion: completion)
-		return createNavigationToken(for: viewController)
 	}
 
 	// MARK: - ForwardBackNavigationContext

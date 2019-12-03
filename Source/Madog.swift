@@ -52,7 +52,7 @@ public final class Madog<Token>: MadogUIContainerDelegate {
 		return registrar.serviceProviders
 	}
 
-	// MARK: - MadogUIContextDelegate
+	// MARK: - MadogUIContainerDelegate
 
 	@discardableResult
 	public func renderUI<VC: UIViewController>(identifier: SingleUIIdentifier<VC>, token: Any, in window: UIWindow, transition: Transition? = nil) -> Context? {

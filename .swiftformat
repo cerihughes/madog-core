@@ -1,0 +1,12 @@
+--exclude Carthage
+
+--indent tab
+--ifdef no-indent
+--stripunusedargs closure-only
+
+--wraparguments after-first
+--wrapcollections before-first
+
+--enable isEmpty
+--disable trailingCommas
+--tabwidth 4

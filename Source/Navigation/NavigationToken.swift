@@ -11,9 +11,9 @@ import UIKit
 public protocol NavigationToken {}
 
 internal class NavigationTokenImplementation: NavigationToken {
-    private let viewController: UIViewController
+	private let viewController: UIViewController
 
-    internal init(viewController: UIViewController) {
-        self.viewController = viewController
-    }
+	internal init(viewController: UIViewController) {
+		self.viewController = viewController
+	}
 }

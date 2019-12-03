@@ -10,39 +10,39 @@ import Madog
 import UIKit
 
 class ViewController2: UIViewController {
-    private let sharedService: Any
-    private let stringData: String
-    private weak var navigationContext: ForwardBackNavigationContext?
+	private let sharedService: Any
+	private let stringData: String
+	private weak var navigationContext: ForwardBackNavigationContext?
 
-    init(sharedService: Any, stringData: String, navigationContext: ForwardBackNavigationContext) {
-        self.sharedService = sharedService
-        self.stringData = stringData
-        self.navigationContext = navigationContext
+	init(sharedService: Any, stringData: String, navigationContext: ForwardBackNavigationContext) {
+		self.sharedService = sharedService
+		self.stringData = stringData
+		self.navigationContext = navigationContext
 
-        super.init(nibName: nil, bundle: nil)
-    }
+		super.init(nibName: nil, bundle: nil)
+	}
 
-    override func loadView() {
-        view = LabelView()
-    }
+	override func loadView() {
+		view = LabelView()
+	}
 
-    override func viewDidLoad() {
-        guard let view = view as? LabelView else {
-            return
-        }
+	override func viewDidLoad() {
+		guard let view = view as? LabelView else {
+			return
+		}
 
-        view.label.text = stringData
+		view.label.text = stringData
 
-        // Maybe do something with the shared service at this point?
-    }
+		// Maybe do something with the shared service at this point?
+	}
 
-    override func viewDidAppear(_: Bool) {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-            self.navigationContext?.navigateBack(animated: true)
-        }
-    }
+	override func viewDidAppear(_: Bool) {
+		DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+			self.navigationContext?.navigateBack(animated: true)
+		}
+	}
 
-    required init?(coder _: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+	required init?(coder _: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
 }

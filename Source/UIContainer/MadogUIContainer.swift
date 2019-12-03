@@ -68,7 +68,7 @@ open class MadogUIContainer<Token>: MadogUIContext, ModalContext {
 			return nil
 		}
 
-		let sourceViewController = fromViewController ?? viewController
+		let sourceViewController = fromViewController ?? self.viewController
 		sourceViewController.madog_presentModally(viewController: viewController,
 												  presentationStyle: presentationStyle,
 												  transitionStyle: transitionStyle,

@@ -19,7 +19,7 @@ public final class Madog<Token>: MadogUIContainerDelegate {
 	private let registrar: Registrar<Token, Context>
 	private let factory: MadogUIContainerFactory<Token>
 
-	private var currentContextUI: TypedMadogUIContainer<Token>?
+	private var currentContextUI: MadogUIContainer<Token>?
 
 	public weak var delegate: MadogDelegate?
 
@@ -72,7 +72,7 @@ public final class Madog<Token>: MadogUIContainerDelegate {
 
 	// MARK: - MadogUIContainerDelegate
 
-	func createUI<VC: UIViewController>(identifier: SingleUIIdentifier<VC>, token: Any, isModal: Bool) -> MadogUIContainer? {
+	func createUI<VC: UIViewController>(identifier: SingleUIIdentifier<VC>, token: Any, isModal: Bool) -> MadogUIContext? {
 		guard let token = token as? Token,
 			let contextUI = factory.createSingleUI(identifier: identifier),
 			contextUI.renderInitialView(with: token) == true else {
@@ -89,7 +89,7 @@ public final class Madog<Token>: MadogUIContainerDelegate {
 		return contextUI
 	}
 
-	func createUI<VC: UIViewController>(identifier: MultiUIIdentifier<VC>, tokens: [Any], isModal: Bool) -> MadogUIContainer? {
+	func createUI<VC: UIViewController>(identifier: MultiUIIdentifier<VC>, tokens: [Any], isModal: Bool) -> MadogUIContext? {
 		guard let tokens = tokens as? [Token],
 			let contextUI = factory.createMultiUI(identifier: identifier),
 			contextUI.renderInitialViews(with: tokens) == true else {
@@ -108,7 +108,7 @@ public final class Madog<Token>: MadogUIContainerDelegate {
 
 	// MARK: - Private
 
-	private func persist(contextUI: TypedMadogUIContainer<Token>, isModal: Bool) {
+	private func persist(contextUI: MadogUIContainer<Token>, isModal: Bool) {
 		if !isModal {
 			currentContextUI = contextUI
 		}

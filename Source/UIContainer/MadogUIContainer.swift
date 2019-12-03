@@ -11,11 +11,11 @@ import UIKit
 public typealias NavigationModalContext = ForwardBackNavigationContext & ModalContext & Context
 
 internal protocol MadogUIContainerDelegate: AnyObject {
-	func createUI<VC: UIViewController>(identifier: SingleUIIdentifier<VC>, token: Any, isModal: Bool) -> MadogUIContainer?
-	func createUI<VC: UIViewController>(identifier: MultiUIIdentifier<VC>, tokens: [Any], isModal: Bool) -> MadogUIContainer?
+	func createUI<VC: UIViewController>(identifier: SingleUIIdentifier<VC>, token: Any, isModal: Bool) -> MadogUIContext?
+	func createUI<VC: UIViewController>(identifier: MultiUIIdentifier<VC>, tokens: [Any], isModal: Bool) -> MadogUIContext?
 }
 
-open class MadogUIContainer: Context {
+open class MadogUIContext: Context {
 	internal weak var delegate: MadogUIContainerDelegate?
 	internal let viewController: UIViewController
 
@@ -46,7 +46,7 @@ open class MadogUIContainer: Context {
 	}
 }
 
-open class TypedMadogUIContainer<Token>: MadogUIContainer, ModalContext {
+open class MadogUIContainer<Token>: MadogUIContext, ModalContext {
 	internal var internalRegistry: Registry<Token>!
 
 	public var registry: Registry<Token> {
@@ -131,13 +131,13 @@ open class TypedMadogUIContainer<Token>: MadogUIContainer, ModalContext {
 	}
 }
 
-open class MadogSingleUIContainer<Token>: TypedMadogUIContainer<Token> {
+open class MadogSingleUIContainer<Token>: MadogUIContainer<Token> {
 	open func renderInitialView(with _: Token) -> Bool {
 		return false
 	}
 }
 
-open class MadogMultiUIContainer<Token>: TypedMadogUIContainer<Token> {
+open class MadogMultiUIContainer<Token>: MadogUIContainer<Token> {
 	open func renderInitialViews(with _: [Token]) -> Bool {
 		return false
 	}

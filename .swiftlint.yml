@@ -3,7 +3,7 @@ included:
 
 identifier_name:
   excluded:
-    - id
+    - ui
     
 opt_in_rules:
   - empty_count

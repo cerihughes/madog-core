@@ -38,6 +38,7 @@ public extension Context {
 }
 
 public protocol ModalContext: AnyObject {
+	// swiftlint:disable function_parameter_count
 	@discardableResult
 	func openModal<VC: UIViewController>(identifier: SingleUIIdentifier<VC>,
 										 token: Any,
@@ -57,48 +58,49 @@ public protocol ModalContext: AnyObject {
 										 popoverAnchor: Any?,
 										 animated: Bool,
 										 completion: (() -> Void)?) -> Context?
+	// swiftlint:enable function_parameter_count
 }
 
-// public extension ModalContext {
-//	@discardableResult
-//	func openModal<VC: UIViewController>(identifier: SingleUIIdentifier<VC>,
-//										 token: Any,
-//										 from fromViewController: UIViewController? = nil,
-//										 presentationStyle: UIModalPresentationStyle? = nil,
-//										 transitionStyle: UIModalTransitionStyle? = nil,
-//										 popoverAnchor: Any? = nil,
-//										 animated: Bool,
-//										 completion: (() -> Void)? = nil) -> Context? {
-//		return openModal(identifier: identifier,
-//						 token: token,
-//						 from: fromViewController,
-//						 presentationStyle: presentationStyle,
-//						 transitionStyle: transitionStyle,
-//						 popoverAnchor: popoverAnchor,
-//						 animated: animated,
-//						 completion: completion)
-//	}
-//
-//	@discardableResult
-//	func openModal<VC: UIViewController>(identifier: MultiUIIdentifier<VC>,
-//										 tokens: [Any],
-//										 from fromViewController: UIViewController? = nil,
-//										 presentationStyle: UIModalPresentationStyle? = nil,
-//										 transitionStyle: UIModalTransitionStyle? = nil,
-//										 popoverAnchor: Any? = nil,
-//										 animated: Bool,
-//										 completion: (() -> Void)? = nil) -> Context? {
-//		return openModal(identifier: identifier,
-//						 tokens: tokens,
-//						 from: fromViewController,
-//						 presentationStyle: presentationStyle,
-//						 transitionStyle: transitionStyle,
-//						 popoverAnchor: popoverAnchor,
-//						 animated: animated,
-//						 completion: completion)
-//	}
-// }
-//
+public extension ModalContext {
+	@discardableResult
+	func openModal<VC: UIViewController>(identifier: SingleUIIdentifier<VC>,
+										 token: Any,
+										 from fromViewController: UIViewController? = nil,
+										 presentationStyle: UIModalPresentationStyle? = nil,
+										 transitionStyle: UIModalTransitionStyle? = nil,
+										 popoverAnchor: Any? = nil,
+										 animated: Bool,
+										 completion: (() -> Void)? = nil) -> Context? {
+		return openModal(identifier: identifier,
+						 token: token,
+						 from: fromViewController,
+						 presentationStyle: presentationStyle,
+						 transitionStyle: transitionStyle,
+						 popoverAnchor: popoverAnchor,
+						 animated: animated,
+						 completion: completion)
+	}
+
+	@discardableResult
+	func openModal<VC: UIViewController>(identifier: MultiUIIdentifier<VC>,
+										 tokens: [Any],
+										 from fromViewController: UIViewController? = nil,
+										 presentationStyle: UIModalPresentationStyle? = nil,
+										 transitionStyle: UIModalTransitionStyle? = nil,
+										 popoverAnchor: Any? = nil,
+										 animated: Bool,
+										 completion: (() -> Void)? = nil) -> Context? {
+		return openModal(identifier: identifier,
+						 tokens: tokens,
+						 from: fromViewController,
+						 presentationStyle: presentationStyle,
+						 transitionStyle: transitionStyle,
+						 popoverAnchor: popoverAnchor,
+						 animated: animated,
+						 completion: completion)
+	}
+}
+
 public protocol ForwardBackNavigationContext: AnyObject {
 	@discardableResult
 	func navigateForward(token: Any, animated: Bool) -> Bool

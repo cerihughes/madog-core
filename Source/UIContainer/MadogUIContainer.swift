@@ -55,6 +55,7 @@ open class TypedMadogUIContainer<Token>: MadogUIContainer, ModalContext {
 
 	// MARK: - ModalContext
 
+	// swiftlint:disable function_parameter_count
 	public func openModal<VC: UIViewController>(identifier: SingleUIIdentifier<VC>,
 												token: Any,
 												from fromViewController: UIViewController?,
@@ -100,6 +101,8 @@ open class TypedMadogUIContainer<Token>: MadogUIContainer, ModalContext {
 												  completion: completion)
 		return container
 	}
+
+	// swiftlint:enable function_parameter_count
 }
 
 open class MadogSingleUIContainer<Token>: TypedMadogUIContainer<Token> {

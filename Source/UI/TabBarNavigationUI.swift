@@ -30,30 +30,6 @@ internal class TabBarNavigationUI<Token>: MadogMultiUIContainer<Token>, TabBarNa
 		return true
 	}
 
-	// MARK: - ModalContext
-
-	func openModal(token: Any,
-				   from fromViewController: UIViewController?,
-				   presentationStyle: UIModalPresentationStyle?,
-				   transitionStyle: UIModalTransitionStyle?,
-				   popoverAnchor: Any?,
-				   animated: Bool,
-				   completion: (() -> Void)?) -> Bool {
-		guard let token = token as? Token,
-			let viewController = registry.createViewController(from: token, context: self) else {
-			return false
-		}
-
-		let sourceViewController = fromViewController ?? tabBarController
-		sourceViewController.madog_presentModally(viewController: viewController,
-												  presentationStyle: presentationStyle,
-												  transitionStyle: transitionStyle,
-												  popoverAnchor: popoverAnchor,
-												  animated: animated,
-												  completion: completion)
-		return true
-	}
-
 	// MARK: - ForwardBackNavigationContext
 
 	internal func navigateForward(token: Any, animated: Bool) -> Bool {

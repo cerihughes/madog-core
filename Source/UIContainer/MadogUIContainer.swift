@@ -8,7 +8,7 @@
 
 import UIKit
 
-internal protocol MadogUIContainerDelegate: class {
+internal protocol MadogUIContainerDelegate: AnyObject {
 	func renderUI<VC: UIViewController>(identifier: SingleUIIdentifier<VC>, token: Any, in window: UIWindow, transition: Transition?) -> Context?
 	func renderUI<VC: UIViewController>(identifier: MultiUIIdentifier<VC>, tokens: [Any], in window: UIWindow, transition: Transition?) -> Context?
 }

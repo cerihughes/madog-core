@@ -19,7 +19,7 @@ public final class Madog<Token>: MadogUIContainerDelegate {
 	private let registrar: Registrar<Token, Context>
 	private let factory: MadogUIContainerFactory<Token>
 
-	private var currentContextUI: MadogUIContainer<Token>?
+	private var currentContextUI: TypedMadogUIContainer<Token>?
 
 	public weak var delegate: MadogDelegate?
 

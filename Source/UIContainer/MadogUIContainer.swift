@@ -13,17 +13,12 @@ internal protocol MadogUIContainerDelegate: AnyObject {
 	func renderUI<VC: UIViewController>(identifier: MultiUIIdentifier<VC>, tokens: [Any], in window: UIWindow, transition: Transition?) -> Context?
 }
 
-open class MadogUIContainer<Token>: Context {
+open class MadogUIContainer: Context {
 	internal weak var delegate: MadogUIContainerDelegate?
 	internal let viewController: UIViewController
-	internal var internalRegistry: Registry<Token>!
 
 	public init(viewController: UIViewController) {
 		self.viewController = viewController
-	}
-
-	public var registry: Registry<Token> {
-		return internalRegistry
 	}
 
 	public func change<VC: UIViewController>(to identifier: SingleUIIdentifier<VC>, token: Any, transition: Transition?) -> Context? {
@@ -40,6 +35,14 @@ open class MadogUIContainer<Token>: Context {
 		}
 
 		return delegate.renderUI(identifier: identifier, tokens: tokens, in: window, transition: transition)
+	}
+}
+
+open class TypedMadogUIContainer<Token>: MadogUIContainer {
+	internal var internalRegistry: Registry<Token>!
+
+	public var registry: Registry<Token> {
+		return internalRegistry
 	}
 
 	// MARK: - ModalContext
@@ -67,13 +70,13 @@ open class MadogUIContainer<Token>: Context {
 	}
 }
 
-open class MadogSingleUIContainer<Token>: MadogUIContainer<Token> {
+open class MadogSingleUIContainer<Token>: TypedMadogUIContainer<Token> {
 	open func renderInitialView(with _: Token) -> Bool {
 		return false
 	}
 }
 
-open class MadogMultiUIContainer<Token>: MadogUIContainer<Token> {
+open class MadogMultiUIContainer<Token>: TypedMadogUIContainer<Token> {
 	open func renderInitialViews(with _: [Token]) -> Bool {
 		return false
 	}

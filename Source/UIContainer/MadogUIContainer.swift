@@ -36,7 +36,7 @@ open class MadogUIContainer: Context {
 			return nil
 		}
 
-		window.setRootViewController(viewController, transition: transition)
+		window.setRootViewController(container.viewController, transition: transition)
 		return container
 	}
 
@@ -47,7 +47,7 @@ open class MadogUIContainer: Context {
 			return nil
 		}
 
-		window.setRootViewController(viewController, transition: transition)
+		window.setRootViewController(container.viewController, transition: transition)
 		return container
 	}
 }

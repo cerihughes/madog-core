@@ -17,12 +17,12 @@
 		65A250D521A81FBF0035FA0F /* NavigationUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A250CE21A81FBF0035FA0F /* NavigationUI.swift */; };
 		65A250DE21A8212F0035FA0F /* NavigationContexts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A250DD21A8212F0035FA0F /* NavigationContexts.swift */; };
 		65A250E321A822990035FA0F /* TabBarNavigationUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A250E221A822990035FA0F /* TabBarNavigationUI.swift */; };
+		65A250E521A822DF0035FA0F /* NavigationToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A250E421A822DF0035FA0F /* NavigationToken.swift */; };
 		65E89480227DDFF400EA7F11 /* MadogTypesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E8947F227DDFF400EA7F11 /* MadogTypesTests.swift */; };
 		65E89481227DE06000EA7F11 /* Provident.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65F8B672227DBA0C007EEBAF /* Provident.framework */; };
 		65E89483227DE0F900EA7F11 /* Provident.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 65F8B672227DBA0C007EEBAF /* Provident.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		65F8B673227DBA0D007EEBAF /* Provident.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65F8B672227DBA0C007EEBAF /* Provident.framework */; };
 		C29A0A222382E7280059104A /* UIViewController+MadogModalPresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29A0A212382E7280059104A /* UIViewController+MadogModalPresentation.swift */; };
-		C2BB5E342396CBCD00AE1568 /* NavigationToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2BB5E332396CBCD00AE1568 /* NavigationToken.swift */; };
 		C2F8826C230FFAB90093604A /* MadogTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2F8826B230FFAB90093604A /* MadogTests.swift */; };
 		C2F8826E230FFD380093604A /* TestViewControllerProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2F8826D230FFD380093604A /* TestViewControllerProvider.swift */; };
 /* End PBXBuildFile section */
@@ -64,10 +64,10 @@
 		65A250CE21A81FBF0035FA0F /* NavigationUI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationUI.swift; sourceTree = "<group>"; };
 		65A250DD21A8212F0035FA0F /* NavigationContexts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationContexts.swift; sourceTree = "<group>"; };
 		65A250E221A822990035FA0F /* TabBarNavigationUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarNavigationUI.swift; sourceTree = "<group>"; };
+		65A250E421A822DF0035FA0F /* NavigationToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationToken.swift; sourceTree = "<group>"; };
 		65E8947F227DDFF400EA7F11 /* MadogTypesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MadogTypesTests.swift; sourceTree = "<group>"; usesTabs = 0; };
 		65F8B672227DBA0C007EEBAF /* Provident.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Provident.framework; path = Carthage/Build/iOS/Provident.framework; sourceTree = "<group>"; };
 		C29A0A212382E7280059104A /* UIViewController+MadogModalPresentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+MadogModalPresentation.swift"; sourceTree = "<group>"; };
-		C2BB5E332396CBCD00AE1568 /* NavigationToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationToken.swift; sourceTree = "<group>"; };
 		C2F8826B230FFAB90093604A /* MadogTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MadogTests.swift; sourceTree = "<group>"; usesTabs = 0; };
 		C2F8826D230FFD380093604A /* TestViewControllerProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewControllerProvider.swift; sourceTree = "<group>"; usesTabs = 0; };
 /* End PBXFileReference section */
@@ -151,7 +151,7 @@
 			isa = PBXGroup;
 			children = (
 				65A250DD21A8212F0035FA0F /* NavigationContexts.swift */,
-				C2BB5E332396CBCD00AE1568 /* NavigationToken.swift */,
+				65A250E421A822DF0035FA0F /* NavigationToken.swift */,
 			);
 			path = Navigation;
 			sourceTree = "<group>";
@@ -321,11 +321,11 @@
 				6560D4A021B3F20A00EA9BE3 /* ViewControllerUIIdentifiers.swift in Sources */,
 				6527EC4621BAC5210032B70D /* MadogUIContainer.swift in Sources */,
 				6595DCE8227CD826003AC2FD /* MadogTypes.swift in Sources */,
+				65A250E521A822DF0035FA0F /* NavigationToken.swift in Sources */,
 				6560D4A221B3F24600EA9BE3 /* MadogUIContainerFactory.swift in Sources */,
 				65A250D521A81FBF0035FA0F /* NavigationUI.swift in Sources */,
 				6560D4A421B3F2EB00EA9BE3 /* Madog.swift in Sources */,
 				C29A0A222382E7280059104A /* UIViewController+MadogModalPresentation.swift in Sources */,
-				C2BB5E342396CBCD00AE1568 /* NavigationToken.swift in Sources */,
 				65A250E321A822990035FA0F /* TabBarNavigationUI.swift in Sources */,
 				65A250DE21A8212F0035FA0F /* NavigationContexts.swift in Sources */,
 			);

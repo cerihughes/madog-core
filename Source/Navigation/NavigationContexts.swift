@@ -38,6 +38,7 @@ public extension Context {
 }
 
 public protocol ModalContext: AnyObject {
+	// swiftlint:disable function_parameter_count
 	@discardableResult
 	func openModal(token: Any,
 				   from fromViewController: UIViewController?,
@@ -46,6 +47,7 @@ public protocol ModalContext: AnyObject {
 				   popoverAnchor: Any?,
 				   animated: Bool,
 				   completion: (() -> Void)?) -> NavigationToken?
+	// swiftlint:enable function_parameter_count
 }
 
 public extension ModalContext {

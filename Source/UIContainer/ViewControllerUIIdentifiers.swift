@@ -19,9 +19,12 @@ public class SingleUIIdentifier<VC: UIViewController> {
 		self.customisation = customisation
 	}
 
+	// swiftlint:disable line_length
 	public static func createNavigationControllerIdentifier(customisation: @escaping (UINavigationController) -> Void = { _ in }) -> SingleUIIdentifier<UINavigationController> {
 		return SingleUIIdentifier<UINavigationController>(navigationControllerIdentifier, customisation: customisation)
 	}
+
+	// swiftlint:enable line_length
 }
 
 internal let tabBarControllerIdentifier = "tabBarControllerIdentifier"
@@ -35,7 +38,10 @@ public class MultiUIIdentifier<VC: UIViewController> {
 		self.customisation = customisation
 	}
 
+	// swiftlint:disable line_length
 	public static func createTabBarControllerIdentifier(customisation: @escaping (UITabBarController) -> Void = { _ in }) -> MultiUIIdentifier<UITabBarController> {
 		return MultiUIIdentifier<UITabBarController>(tabBarControllerIdentifier, customisation: customisation)
 	}
+
+	// swiftlint:enable line_length
 }

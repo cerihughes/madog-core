@@ -8,12 +8,10 @@
 
 import UIKit
 
-internal protocol NavigationContext: Context, ModalContext, ForwardBackNavigationContext {}
-
 /// A class that presents view controllers, and manages the navigation between them.
 ///
 /// At the moment, this is achieved with a UINavigationController that can be pushed / popped to / from.
-internal class NavigationUI<Token>: MadogSingleUIContainer<Token>, NavigationContext {
+internal class NavigationUI<Token>: MadogSingleUIContainer<Token>, ForwardBackNavigationContext {
 	private let navigationController = UINavigationController()
 
 	internal init() {
@@ -29,30 +27,6 @@ internal class NavigationUI<Token>: MadogSingleUIContainer<Token>, NavigationCon
 
 		navigationController.setViewControllers([viewController], animated: false)
 		return true
-	}
-
-	// MARK: - ModalContext
-
-	func openModal(token: Any,
-				   from fromViewController: UIViewController?,
-				   presentationStyle: UIModalPresentationStyle?,
-				   transitionStyle: UIModalTransitionStyle?,
-				   popoverAnchor: Any?,
-				   animated: Bool,
-				   completion: (() -> Void)?) -> NavigationToken? {
-		guard let token = token as? Token,
-			let viewController = registry.createViewController(from: token, context: self) else {
-			return nil
-		}
-
-		let sourceViewController = fromViewController ?? navigationController
-		sourceViewController.madog_presentModally(viewController: viewController,
-												  presentationStyle: presentationStyle,
-												  transitionStyle: transitionStyle,
-												  popoverAnchor: popoverAnchor,
-												  animated: animated,
-												  completion: completion)
-		return createNavigationToken(for: viewController)
 	}
 
 	// MARK: - ForwardBackNavigationContext

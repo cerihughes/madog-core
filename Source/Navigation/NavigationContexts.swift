@@ -18,7 +18,7 @@ public struct Transition {
 	}
 }
 
-public protocol Context: class {
+public protocol Context: AnyObject {
 	@discardableResult
 	func change<VC: UIViewController>(to identifier: SingleUIIdentifier<VC>, token: Any, transition: Transition?) -> Context?
 	@discardableResult
@@ -37,7 +37,7 @@ public extension Context {
 	}
 }
 
-public protocol ModalContext: class {
+public protocol ModalContext: AnyObject {
 	@discardableResult
 	func openModal(token: Any,
 				   from fromViewController: UIViewController?,
@@ -67,7 +67,7 @@ public extension ModalContext {
 	}
 }
 
-public protocol ForwardBackNavigationContext: class {
+public protocol ForwardBackNavigationContext: AnyObject {
 	@discardableResult
 	func navigateForward(token: Any, animated: Bool) -> Bool
 	@discardableResult

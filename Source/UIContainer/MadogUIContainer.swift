@@ -11,8 +11,8 @@ import UIKit
 public typealias NavigationModalContext = ForwardBackNavigationContext & ModalContext & Context
 
 internal protocol MadogUIContainerDelegate: AnyObject {
-	func renderUI<VC: UIViewController>(identifier: SingleUIIdentifier<VC>, token: Any, in window: UIWindow, transition: Transition?) -> Context?
-	func renderUI<VC: UIViewController>(identifier: MultiUIIdentifier<VC>, tokens: [Any], in window: UIWindow, transition: Transition?) -> Context?
+	func createUI<VC: UIViewController>(identifier: SingleUIIdentifier<VC>, token: Any, isModal: Bool) -> MadogUIContext?
+	func createUI<VC: UIViewController>(identifier: MultiUIIdentifier<VC>, tokens: [Any], isModal: Bool) -> MadogUIContext?
 }
 
 open class MadogUIContext: Context {
@@ -24,19 +24,25 @@ open class MadogUIContext: Context {
 	}
 
 	public func change<VC: UIViewController>(to identifier: SingleUIIdentifier<VC>, token: Any, transition: Transition?) -> Context? {
-		guard let delegate = delegate, let window = viewController.view.window else {
+		guard let delegate = delegate,
+			let window = viewController.view.window,
+			let container = delegate.createUI(identifier: identifier, token: token, isModal: false) else {
 			return nil
 		}
 
-		return delegate.renderUI(identifier: identifier, token: token, in: window, transition: transition)
+		window.setRootViewController(container.viewController, transition: transition)
+		return container
 	}
 
 	public func change<VC: UIViewController>(to identifier: MultiUIIdentifier<VC>, tokens: [Any], transition: Transition?) -> Context? {
-		guard let delegate = delegate, let window = viewController.view.window else {
+		guard let delegate = delegate,
+			let window = viewController.view.window,
+			let container = delegate.createUI(identifier: identifier, tokens: tokens, isModal: false) else {
 			return nil
 		}
 
-		return delegate.renderUI(identifier: identifier, tokens: tokens, in: window, transition: transition)
+		window.setRootViewController(container.viewController, transition: transition)
+		return container
 	}
 }
 
@@ -70,6 +76,52 @@ open class MadogUIContainer<Token>: MadogUIContext, ModalContext {
 												  animated: animated,
 												  completion: completion)
 		return createNavigationToken(for: viewController)
+	}
+
+	public func openModal<VC: UIViewController>(identifier: SingleUIIdentifier<VC>,
+												token: Any,
+												from fromViewController: UIViewController?,
+												presentationStyle: UIModalPresentationStyle?,
+												transitionStyle: UIModalTransitionStyle?,
+												popoverAnchor: Any?,
+												animated: Bool,
+												completion: (() -> Void)?) -> Context? {
+		guard let delegate = delegate,
+			let container = delegate.createUI(identifier: identifier, token: token, isModal: true) else {
+			return nil
+		}
+
+		let sourceViewController = fromViewController ?? viewController
+		sourceViewController.madog_presentModally(viewController: container.viewController,
+												  presentationStyle: presentationStyle,
+												  transitionStyle: transitionStyle,
+												  popoverAnchor: popoverAnchor,
+												  animated: animated,
+												  completion: completion)
+		return container
+	}
+
+	public func openModal<VC: UIViewController>(identifier: MultiUIIdentifier<VC>,
+												tokens: [Any],
+												from fromViewController: UIViewController?,
+												presentationStyle: UIModalPresentationStyle?,
+												transitionStyle: UIModalTransitionStyle?,
+												popoverAnchor: Any?,
+												animated: Bool,
+												completion: (() -> Void)?) -> Context? {
+		guard let delegate = delegate,
+			let container = delegate.createUI(identifier: identifier, tokens: tokens, isModal: true) else {
+			return nil
+		}
+
+		let sourceViewController = fromViewController ?? viewController
+		sourceViewController.madog_presentModally(viewController: container.viewController,
+												  presentationStyle: presentationStyle,
+												  transitionStyle: transitionStyle,
+												  popoverAnchor: popoverAnchor,
+												  animated: animated,
+												  completion: completion)
+		return container
 	}
 
 	// swiftlint:enable function_parameter_count

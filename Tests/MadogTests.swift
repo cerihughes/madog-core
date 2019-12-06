@@ -17,7 +17,7 @@ class MadogTests: XCTestCase {
 		super.setUp()
 
 		madog = Madog()
-		madog.resolve(resolver: MadogTests_Resolver())
+		madog.resolve(resolver: TestResolver())
 	}
 
 	override func tearDown() {
@@ -27,7 +27,7 @@ class MadogTests: XCTestCase {
 	}
 
 	func testMadogDelegateHeldWeakly() {
-		var delegate: MadogTests_MadogDelegate? = MadogTests_MadogDelegate()
+		var delegate: MadogTestDelegate? = MadogTestDelegate()
 		madog.delegate = delegate
 
 		XCTAssertNotNil(madog.delegate)
@@ -38,7 +38,7 @@ class MadogTests: XCTestCase {
 	}
 
 	func testMadogDelegate_singleUIIdentifier() {
-		let delegate = MadogTests_MadogDelegate()
+		let delegate = MadogTestDelegate()
 		madog.delegate = delegate
 
 		let window = UIWindow()
@@ -59,13 +59,15 @@ class MadogTests: XCTestCase {
 	}
 }
 
-private class MadogTests_Resolver: Resolver<String> {
+private class TestResolver: Resolver<String> {
 	override func viewControllerProviderCreationFunctions() -> [() -> ViewControllerProvider<String>] {
-		return [{ TestViewControllerProvider(matchString: "match") }]
+		return [
+			{ TestViewControllerProvider(matchString: "match") }
+		]
 	}
 }
 
-private class MadogTests_MadogDelegate: MadogDelegate {
+private class MadogTestDelegate: MadogDelegate {
 	var successfulCreations = [(UIViewController, String)]()
 	var unsuccessfulCreations = [String]()
 
@@ -75,5 +77,22 @@ private class MadogTests_MadogDelegate: MadogDelegate {
 
 	func madogDidNotCreateViewControllerFrom(_ token: Any) {
 		unsuccessfulCreations.append(token as! String)
+	}
+}
+
+private class TestViewControllerProvider: BaseViewControllerProvider {
+	private let matchString: String
+
+	init(matchString: String) {
+		self.matchString = matchString
+		super.init()
+	}
+
+	override func createViewController(token: String, context: Context) -> UIViewController? {
+		if token == matchString {
+			return UIViewController()
+		}
+
+		return super.createViewController(token: token, context: context)
 	}
 }

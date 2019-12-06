@@ -35,6 +35,7 @@ class TabBarNavigationUITests: KIFTestCase {
 
 	func testRenderInitialUI() {
 		context = renderUIAndAssert(tokens: ["vc1", "vc2"])
+		XCTAssertEqual(context.selectedIndex, 0)
 		XCTAssertNotNil(context)
 	}
 

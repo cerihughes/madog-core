@@ -84,8 +84,8 @@
 			isa = PBXGroup;
 			children = (
 				652B1B62227DDF12004E79A9 /* Info.plist */,
-				65E8947F227DDFF400EA7F11 /* MadogTypesTests.swift */,
 				C2F8826B230FFAB90093604A /* MadogTests.swift */,
+				65E8947F227DDFF400EA7F11 /* MadogTypesTests.swift */,
 				C2F8826D230FFD380093604A /* TestViewControllerProvider.swift */,
 			);
 			path = Tests;
@@ -113,13 +113,13 @@
 		658C851221A81D26006ECF6F /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				65A250DB21A820100035FA0F /* Navigation */,
-				659766B621BAC1F300308080 /* UIContainer */,
-				65A250E121A822810035FA0F /* UI */,
-				6560D4A321B3F2EB00EA9BE3 /* Madog.swift */,
-				6595DCE7227CD826003AC2FD /* MadogTypes.swift */,
 				658C851321A81D26006ECF6F /* Madog.h */,
 				658C851421A81D26006ECF6F /* Info.plist */,
+				6560D4A321B3F2EB00EA9BE3 /* Madog.swift */,
+				6595DCE7227CD826003AC2FD /* MadogTypes.swift */,
+				65A250DB21A820100035FA0F /* Navigation */,
+				65A250E121A822810035FA0F /* UI */,
+				659766B621BAC1F300308080 /* UIContainer */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -127,9 +127,9 @@
 		659766B621BAC1F300308080 /* UIContainer */ = {
 			isa = PBXGroup;
 			children = (
-				6560D49F21B3F20A00EA9BE3 /* ViewControllerUIIdentifiers.swift */,
 				6527EC4521BAC5210032B70D /* MadogUIContainer.swift */,
 				6560D4A121B3F24600EA9BE3 /* MadogUIContainerFactory.swift */,
+				6560D49F21B3F20A00EA9BE3 /* ViewControllerUIIdentifiers.swift */,
 			);
 			path = UIContainer;
 			sourceTree = "<group>";

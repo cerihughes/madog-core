@@ -1,23 +1,17 @@
 //
-//  TestViewControllerProvider.swift
+//  BaseViewControllerProvider.swift
 //  MadogTests
 //
-//  Created by Ceri Hughes on 23/08/2019.
+//  Created by Ceri Hughes on 06/12/2019.
 //  Copyright © 2019 Ceri Hughes. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 @testable import Madog
 
-class TestViewControllerProvider: ViewControllerProvider<String> {
-	private let matchString: String
+class BaseViewControllerProvider: ViewControllerProvider<String> {
 	private var uuid: UUID?
-
-	init(matchString: String) {
-		self.matchString = matchString
-		super.init()
-	}
 
 	final override func register(with registry: Registry<String>) {
 		super.register(with: registry)
@@ -34,10 +28,6 @@ class TestViewControllerProvider: ViewControllerProvider<String> {
 	}
 
 	func createViewController(token: String, context _: Context) -> UIViewController? {
-		if token == matchString {
-			return UIViewController()
-		}
-
 		return nil
 	}
 }

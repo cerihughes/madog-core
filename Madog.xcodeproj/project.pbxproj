@@ -12,6 +12,13 @@
 		6560D4A021B3F20A00EA9BE3 /* ViewControllerUIIdentifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6560D49F21B3F20A00EA9BE3 /* ViewControllerUIIdentifiers.swift */; };
 		6560D4A221B3F24600EA9BE3 /* MadogUIContainerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6560D4A121B3F24600EA9BE3 /* MadogUIContainerFactory.swift */; };
 		6560D4A421B3F2EB00EA9BE3 /* Madog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6560D4A321B3F2EB00EA9BE3 /* Madog.swift */; };
+		6576C1FE239A944A00F6AD07 /* KIF.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6576C1FD239A944A00F6AD07 /* KIF.framework */; };
+		6576C204239A95FB00F6AD07 /* NavigationUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6576C203239A95FB00F6AD07 /* NavigationUITests.swift */; };
+		6576C206239A99ED00F6AD07 /* BaseViewControllerProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6576C205239A99ED00F6AD07 /* BaseViewControllerProvider.swift */; };
+		6576C208239A9B5900F6AD07 /* XCTestCase+KIF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6576C207239A9B5900F6AD07 /* XCTestCase+KIF.swift */; };
+		6576C210239A9C3300F6AD07 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6576C20F239A9C3300F6AD07 /* AppDelegate.swift */; };
+		6576C219239A9C3A00F6AD07 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6576C218239A9C3A00F6AD07 /* Assets.xcassets */; };
+		6576C21C239A9C3A00F6AD07 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6576C21A239A9C3A00F6AD07 /* LaunchScreen.storyboard */; };
 		658C852121A81D26006ECF6F /* Madog.h in Headers */ = {isa = PBXBuildFile; fileRef = 658C851321A81D26006ECF6F /* Madog.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6595DCE8227CD826003AC2FD /* MadogTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6595DCE7227CD826003AC2FD /* MadogTypes.swift */; };
 		65A250D521A81FBF0035FA0F /* NavigationUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A250CE21A81FBF0035FA0F /* NavigationUI.swift */; };
@@ -19,12 +26,9 @@
 		65A250E321A822990035FA0F /* TabBarNavigationUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A250E221A822990035FA0F /* TabBarNavigationUI.swift */; };
 		65A250E521A822DF0035FA0F /* NavigationToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A250E421A822DF0035FA0F /* NavigationToken.swift */; };
 		65E89480227DDFF400EA7F11 /* MadogTypesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E8947F227DDFF400EA7F11 /* MadogTypesTests.swift */; };
-		65E89481227DE06000EA7F11 /* Provident.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65F8B672227DBA0C007EEBAF /* Provident.framework */; };
-		65E89483227DE0F900EA7F11 /* Provident.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 65F8B672227DBA0C007EEBAF /* Provident.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		65F8B673227DBA0D007EEBAF /* Provident.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65F8B672227DBA0C007EEBAF /* Provident.framework */; };
 		C29A0A222382E7280059104A /* UIViewController+MadogModalPresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29A0A212382E7280059104A /* UIViewController+MadogModalPresentation.swift */; };
 		C2F8826C230FFAB90093604A /* MadogTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2F8826B230FFAB90093604A /* MadogTests.swift */; };
-		C2F8826E230FFD380093604A /* TestViewControllerProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2F8826D230FFD380093604A /* TestViewControllerProvider.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,20 +39,14 @@
 			remoteGlobalIDString = 658C850F21A81D26006ECF6F;
 			remoteInfo = Madog;
 		};
-/* End PBXContainerItemProxy section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		65E89482227DE0EF00EA7F11 /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				65E89483227DE0F900EA7F11 /* Provident.framework in CopyFiles */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
+		6576C221239A9D0000F6AD07 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 658C850721A81D26006ECF6F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6576C20C239A9C3300F6AD07;
+			remoteInfo = MadogTestApp;
 		};
-/* End PBXCopyFilesBuildPhase section */
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		6527EC4521BAC5210032B70D /* MadogUIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MadogUIContainer.swift; sourceTree = "<group>"; };
@@ -57,6 +55,15 @@
 		6560D49F21B3F20A00EA9BE3 /* ViewControllerUIIdentifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerUIIdentifiers.swift; sourceTree = "<group>"; };
 		6560D4A121B3F24600EA9BE3 /* MadogUIContainerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MadogUIContainerFactory.swift; sourceTree = "<group>"; };
 		6560D4A321B3F2EB00EA9BE3 /* Madog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Madog.swift; sourceTree = "<group>"; usesTabs = 0; };
+		6576C1FD239A944A00F6AD07 /* KIF.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = KIF.framework; path = Carthage/Build/iOS/KIF.framework; sourceTree = "<group>"; };
+		6576C203239A95FB00F6AD07 /* NavigationUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationUITests.swift; sourceTree = "<group>"; };
+		6576C205239A99ED00F6AD07 /* BaseViewControllerProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewControllerProvider.swift; sourceTree = "<group>"; };
+		6576C207239A9B5900F6AD07 /* XCTestCase+KIF.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+KIF.swift"; sourceTree = "<group>"; };
+		6576C20D239A9C3300F6AD07 /* MadogTestApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MadogTestApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6576C20F239A9C3300F6AD07 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		6576C218239A9C3A00F6AD07 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		6576C21B239A9C3A00F6AD07 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		6576C21D239A9C3A00F6AD07 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		658C851021A81D26006ECF6F /* Madog.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Madog.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		658C851321A81D26006ECF6F /* Madog.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Madog.h; sourceTree = "<group>"; };
 		658C851421A81D26006ECF6F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -69,7 +76,6 @@
 		65F8B672227DBA0C007EEBAF /* Provident.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Provident.framework; path = Carthage/Build/iOS/Provident.framework; sourceTree = "<group>"; };
 		C29A0A212382E7280059104A /* UIViewController+MadogModalPresentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+MadogModalPresentation.swift"; sourceTree = "<group>"; };
 		C2F8826B230FFAB90093604A /* MadogTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MadogTests.swift; sourceTree = "<group>"; usesTabs = 0; };
-		C2F8826D230FFD380093604A /* TestViewControllerProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewControllerProvider.swift; sourceTree = "<group>"; usesTabs = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,8 +83,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				65E89481227DE06000EA7F11 /* Provident.framework in Frameworks */,
+				6576C1FE239A944A00F6AD07 /* KIF.framework in Frameworks */,
 				652B1B63227DDF12004E79A9 /* Madog.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6576C20A239A9C3300F6AD07 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -97,11 +110,32 @@
 			isa = PBXGroup;
 			children = (
 				652B1B62227DDF12004E79A9 /* Info.plist */,
-				65E8947F227DDFF400EA7F11 /* MadogTypesTests.swift */,
+				6576C205239A99ED00F6AD07 /* BaseViewControllerProvider.swift */,
 				C2F8826B230FFAB90093604A /* MadogTests.swift */,
-				C2F8826D230FFD380093604A /* TestViewControllerProvider.swift */,
+				65E8947F227DDFF400EA7F11 /* MadogTypesTests.swift */,
+				6576C207239A9B5900F6AD07 /* XCTestCase+KIF.swift */,
+				6576C202239A95D800F6AD07 /* UI */,
 			);
 			path = Tests;
+			sourceTree = "<group>";
+		};
+		6576C202239A95D800F6AD07 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				6576C203239A95FB00F6AD07 /* NavigationUITests.swift */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		6576C20E239A9C3300F6AD07 /* TestApp */ = {
+			isa = PBXGroup;
+			children = (
+				6576C21D239A9C3A00F6AD07 /* Info.plist */,
+				6576C20F239A9C3300F6AD07 /* AppDelegate.swift */,
+				6576C218239A9C3A00F6AD07 /* Assets.xcassets */,
+				6576C21A239A9C3A00F6AD07 /* LaunchScreen.storyboard */,
+			);
+			path = TestApp;
 			sourceTree = "<group>";
 		};
 		658C850621A81D26006ECF6F = {
@@ -109,6 +143,7 @@
 			children = (
 				658C851221A81D26006ECF6F /* Source */,
 				652B1B5F227DDF12004E79A9 /* Tests */,
+				6576C20E239A9C3300F6AD07 /* TestApp */,
 				658C851121A81D26006ECF6F /* Products */,
 				65A2511821A840EB0035FA0F /* Frameworks */,
 			);
@@ -119,6 +154,7 @@
 			children = (
 				658C851021A81D26006ECF6F /* Madog.framework */,
 				652B1B5E227DDF12004E79A9 /* MadogTests.xctest */,
+				6576C20D239A9C3300F6AD07 /* MadogTestApp.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -126,13 +162,13 @@
 		658C851221A81D26006ECF6F /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				65A250DB21A820100035FA0F /* Navigation */,
-				659766B621BAC1F300308080 /* UIContainer */,
-				65A250E121A822810035FA0F /* UI */,
-				6560D4A321B3F2EB00EA9BE3 /* Madog.swift */,
-				6595DCE7227CD826003AC2FD /* MadogTypes.swift */,
 				658C851321A81D26006ECF6F /* Madog.h */,
 				658C851421A81D26006ECF6F /* Info.plist */,
+				6560D4A321B3F2EB00EA9BE3 /* Madog.swift */,
+				6595DCE7227CD826003AC2FD /* MadogTypes.swift */,
+				65A250DB21A820100035FA0F /* Navigation */,
+				65A250E121A822810035FA0F /* UI */,
+				659766B621BAC1F300308080 /* UIContainer */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -140,9 +176,9 @@
 		659766B621BAC1F300308080 /* UIContainer */ = {
 			isa = PBXGroup;
 			children = (
-				6560D49F21B3F20A00EA9BE3 /* ViewControllerUIIdentifiers.swift */,
 				6527EC4521BAC5210032B70D /* MadogUIContainer.swift */,
 				6560D4A121B3F24600EA9BE3 /* MadogUIContainerFactory.swift */,
+				6560D49F21B3F20A00EA9BE3 /* ViewControllerUIIdentifiers.swift */,
 			);
 			path = UIContainer;
 			sourceTree = "<group>";
@@ -169,6 +205,7 @@
 		65A2511821A840EB0035FA0F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6576C1FD239A944A00F6AD07 /* KIF.framework */,
 				65F8B672227DBA0C007EEBAF /* Provident.framework */,
 			);
 			name = Frameworks;
@@ -195,17 +232,35 @@
 				652B1B5A227DDF12004E79A9 /* Sources */,
 				652B1B5B227DDF12004E79A9 /* Frameworks */,
 				652B1B5C227DDF12004E79A9 /* Resources */,
-				65E89482227DE0EF00EA7F11 /* CopyFiles */,
+				6576C1FF239A94C400F6AD07 /* Copy Carthage Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				652B1B65227DDF12004E79A9 /* PBXTargetDependency */,
+				6576C222239A9D0000F6AD07 /* PBXTargetDependency */,
 			);
 			name = MadogTests;
 			productName = Tests;
 			productReference = 652B1B5E227DDF12004E79A9 /* MadogTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		6576C20C239A9C3300F6AD07 /* MadogTestApp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6576C21E239A9C3A00F6AD07 /* Build configuration list for PBXNativeTarget "MadogTestApp" */;
+			buildPhases = (
+				6576C209239A9C3300F6AD07 /* Sources */,
+				6576C20A239A9C3300F6AD07 /* Frameworks */,
+				6576C20B239A9C3300F6AD07 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MadogTestApp;
+			productName = MadogTestApp;
+			productReference = 6576C20D239A9C3300F6AD07 /* MadogTestApp.app */;
+			productType = "com.apple.product-type.application";
 		};
 		658C850F21A81D26006ECF6F /* Madog */ = {
 			isa = PBXNativeTarget;
@@ -232,13 +287,17 @@
 		658C850721A81D26006ECF6F /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1020;
+				LastSwiftUpdateCheck = 1120;
 				LastUpgradeCheck = 1010;
 				ORGANIZATIONNAME = "Ceri Hughes";
 				TargetAttributes = {
 					652B1B5D227DDF12004E79A9 = {
 						CreatedOnToolsVersion = 10.2.1;
 						LastSwiftMigration = 1020;
+						TestTargetID = 6576C20C239A9C3300F6AD07;
+					};
+					6576C20C239A9C3300F6AD07 = {
+						CreatedOnToolsVersion = 11.2.1;
 					};
 					658C850F21A81D26006ECF6F = {
 						CreatedOnToolsVersion = 10.1;
@@ -261,6 +320,7 @@
 			targets = (
 				658C850F21A81D26006ECF6F /* Madog */,
 				652B1B5D227DDF12004E79A9 /* MadogTests */,
+				6576C20C239A9C3300F6AD07 /* MadogTestApp */,
 			);
 		};
 /* End PBXProject section */
@@ -270,6 +330,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6576C20B239A9C3300F6AD07 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6576C21C239A9C3A00F6AD07 /* LaunchScreen.storyboard in Resources */,
+				6576C219239A9C3A00F6AD07 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -283,6 +352,26 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		6576C1FF239A94C400F6AD07 /* Copy Carthage Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/KIF.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Provident.framework",
+			);
+			name = "Copy Carthage Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "carthage copy-frameworks\n";
+		};
 		C28DA3952396A65C00D5A662 /* Swift Lint */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -309,8 +398,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				C2F8826C230FFAB90093604A /* MadogTests.swift in Sources */,
+				6576C208239A9B5900F6AD07 /* XCTestCase+KIF.swift in Sources */,
+				6576C206239A99ED00F6AD07 /* BaseViewControllerProvider.swift in Sources */,
 				65E89480227DDFF400EA7F11 /* MadogTypesTests.swift in Sources */,
-				C2F8826E230FFD380093604A /* TestViewControllerProvider.swift in Sources */,
+				6576C204239A95FB00F6AD07 /* NavigationUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6576C209239A9C3300F6AD07 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6576C210239A9C3300F6AD07 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -339,7 +438,23 @@
 			target = 658C850F21A81D26006ECF6F /* Madog */;
 			targetProxy = 652B1B64227DDF12004E79A9 /* PBXContainerItemProxy */;
 		};
+		6576C222239A9D0000F6AD07 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6576C20C239A9C3300F6AD07 /* MadogTestApp */;
+			targetProxy = 6576C221239A9D0000F6AD07 /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		6576C21A239A9C3A00F6AD07 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6576C21B239A9C3A00F6AD07 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		652B1B67227DDF12004E79A9 /* Debug */ = {
@@ -364,6 +479,7 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MadogTestApp.app/MadogTestApp";
 			};
 			name = Debug;
 		};
@@ -385,6 +501,45 @@
 					"@loader_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = uk.co.cerihughes.Tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MadogTestApp.app/MadogTestApp";
+			};
+			name = Release;
+		};
+		6576C21F239A9C3A00F6AD07 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = Y56955G4Q8;
+				INFOPLIST_FILE = TestApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = uk.co.cerihughes.MadogTestApp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		6576C220239A9C3A00F6AD07 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = Y56955G4Q8;
+				INFOPLIST_FILE = TestApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = uk.co.cerihughes.MadogTestApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -584,6 +739,15 @@
 			buildConfigurations = (
 				652B1B67227DDF12004E79A9 /* Debug */,
 				652B1B68227DDF12004E79A9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6576C21E239A9C3A00F6AD07 /* Build configuration list for PBXNativeTarget "MadogTestApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6576C21F239A9C3A00F6AD07 /* Debug */,
+				6576C220239A9C3A00F6AD07 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

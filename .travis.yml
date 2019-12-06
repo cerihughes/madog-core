@@ -11,8 +11,7 @@ env:
     - SCHEME_IOS_FRAMEWORK="Madog"
     - IOS_SDK=iphonesimulator13.0
   matrix:
-    - DESTINATION="OS=13.0,name=iPhone 11" SCHEME="$SCHEME_IOS_FRAMEWORK" SDK="$IOS_SDK"
-    - DESTINATION="OS=13.0,name=iPad Pro (11-inch)" SCHEME="$SCHEME_IOS_FRAMEWORK" SDK="$IOS_SDK"
+    - DESTINATION1="OS=13.0,name=iPhone 11" DESTINATION2="OS=13.0,name=iPad Pro (11-inch)" SCHEME="$SCHEME_IOS_FRAMEWORK" SDK="$IOS_SDK"
 
 before_install:
   - brew update
@@ -27,7 +26,7 @@ before_script:
 script:
   - set -o pipefail
   - swiftlint
-  - xcodebuild clean test -project "$PROJECT_NAME" -scheme "$SCHEME" -destination "$DESTINATION" -sdk "$SDK" CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=NO | xcpretty -f `xcpretty-travis-formatter`
+  - xcodebuild clean test -project "$PROJECT_NAME" -scheme "$SCHEME" -destination "$DESTINATION1" -destination "$DESTINATION2" -sdk "$SDK" CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=NO | xcpretty -f `xcpretty-travis-formatter`
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)

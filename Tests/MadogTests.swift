@@ -65,6 +65,17 @@ class MadogTests: XCTestCase {
 		madog.resolve(resolver: TestResolver())
 		XCTAssertEqual(madog.serviceProviders.count, 1)
 	}
+
+	func testUnregistration() {
+		madog = Madog()
+		XCTAssertNil(BaseViewControllerProvider.latestUUID)
+
+		madog.resolve(resolver: TestResolver())
+		XCTAssertNotNil(BaseViewControllerProvider.latestUUID)
+
+		madog = nil
+		XCTAssertNil(BaseViewControllerProvider.latestUUID)
+	}
 }
 
 private class TestResolver: Resolver<String> {

@@ -12,6 +12,7 @@
 		6560D4A021B3F20A00EA9BE3 /* ViewControllerUIIdentifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6560D49F21B3F20A00EA9BE3 /* ViewControllerUIIdentifiers.swift */; };
 		6560D4A221B3F24600EA9BE3 /* MadogUIContainerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6560D4A121B3F24600EA9BE3 /* MadogUIContainerFactory.swift */; };
 		6560D4A421B3F2EB00EA9BE3 /* Madog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6560D4A321B3F2EB00EA9BE3 /* Madog.swift */; };
+		6576C1FE239A944A00F6AD07 /* KIF.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6576C1FD239A944A00F6AD07 /* KIF.framework */; };
 		658C852121A81D26006ECF6F /* Madog.h in Headers */ = {isa = PBXBuildFile; fileRef = 658C851321A81D26006ECF6F /* Madog.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6595DCE8227CD826003AC2FD /* MadogTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6595DCE7227CD826003AC2FD /* MadogTypes.swift */; };
 		65A250D521A81FBF0035FA0F /* NavigationUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A250CE21A81FBF0035FA0F /* NavigationUI.swift */; };
@@ -19,8 +20,6 @@
 		65A250E321A822990035FA0F /* TabBarNavigationUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A250E221A822990035FA0F /* TabBarNavigationUI.swift */; };
 		65A250E521A822DF0035FA0F /* NavigationToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A250E421A822DF0035FA0F /* NavigationToken.swift */; };
 		65E89480227DDFF400EA7F11 /* MadogTypesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E8947F227DDFF400EA7F11 /* MadogTypesTests.swift */; };
-		65E89481227DE06000EA7F11 /* Provident.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65F8B672227DBA0C007EEBAF /* Provident.framework */; };
-		65E89483227DE0F900EA7F11 /* Provident.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 65F8B672227DBA0C007EEBAF /* Provident.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		65F8B673227DBA0D007EEBAF /* Provident.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65F8B672227DBA0C007EEBAF /* Provident.framework */; };
 		C29A0A222382E7280059104A /* UIViewController+MadogModalPresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29A0A212382E7280059104A /* UIViewController+MadogModalPresentation.swift */; };
 		C2F8826C230FFAB90093604A /* MadogTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2F8826B230FFAB90093604A /* MadogTests.swift */; };
@@ -37,19 +36,6 @@
 		};
 /* End PBXContainerItemProxy section */
 
-/* Begin PBXCopyFilesBuildPhase section */
-		65E89482227DE0EF00EA7F11 /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				65E89483227DE0F900EA7F11 /* Provident.framework in CopyFiles */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
-
 /* Begin PBXFileReference section */
 		6527EC4521BAC5210032B70D /* MadogUIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MadogUIContainer.swift; sourceTree = "<group>"; };
 		652B1B5E227DDF12004E79A9 /* MadogTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MadogTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -57,6 +43,7 @@
 		6560D49F21B3F20A00EA9BE3 /* ViewControllerUIIdentifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerUIIdentifiers.swift; sourceTree = "<group>"; };
 		6560D4A121B3F24600EA9BE3 /* MadogUIContainerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MadogUIContainerFactory.swift; sourceTree = "<group>"; };
 		6560D4A321B3F2EB00EA9BE3 /* Madog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Madog.swift; sourceTree = "<group>"; usesTabs = 0; };
+		6576C1FD239A944A00F6AD07 /* KIF.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = KIF.framework; path = Carthage/Build/iOS/KIF.framework; sourceTree = "<group>"; };
 		658C851021A81D26006ECF6F /* Madog.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Madog.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		658C851321A81D26006ECF6F /* Madog.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Madog.h; sourceTree = "<group>"; };
 		658C851421A81D26006ECF6F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -77,7 +64,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				65E89481227DE06000EA7F11 /* Provident.framework in Frameworks */,
+				6576C1FE239A944A00F6AD07 /* KIF.framework in Frameworks */,
 				652B1B63227DDF12004E79A9 /* Madog.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -169,6 +156,7 @@
 		65A2511821A840EB0035FA0F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6576C1FD239A944A00F6AD07 /* KIF.framework */,
 				65F8B672227DBA0C007EEBAF /* Provident.framework */,
 			);
 			name = Frameworks;
@@ -195,7 +183,7 @@
 				652B1B5A227DDF12004E79A9 /* Sources */,
 				652B1B5B227DDF12004E79A9 /* Frameworks */,
 				652B1B5C227DDF12004E79A9 /* Resources */,
-				65E89482227DE0EF00EA7F11 /* CopyFiles */,
+				6576C1FF239A94C400F6AD07 /* Copy Carthage Frameworks */,
 			);
 			buildRules = (
 			);
@@ -283,6 +271,26 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		6576C1FF239A94C400F6AD07 /* Copy Carthage Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/KIF.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Provident.framework",
+			);
+			name = "Copy Carthage Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "carthage copy-frameworks\n";
+		};
 		C28DA3952396A65C00D5A662 /* Swift Lint */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;

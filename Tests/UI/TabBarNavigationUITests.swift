@@ -14,7 +14,7 @@ import XCTest
 class TabBarNavigationUITests: KIFTestCase {
 	private var window: UIWindow!
 	private var madog: Madog<String>!
-	private var context: NavigationModalContext!
+	private var context: NavigationModalMultiContext!
 
 	override func setUp() {
 		super.setUp()
@@ -43,8 +43,7 @@ class TabBarNavigationUITests: KIFTestCase {
 		navigateForwardAndAssert(token: "vc3", with: ["vc1", "vc2"])
 
 		context.navigateBack(animated: true)
-		viewTester().usingLabel("vc1")?.waitForView()
-		viewTester().usingLabel("vc2")?.waitForView()
+		assert(tokens: ["vc1", "vc2"])
 	}
 
 	func testBackToRoot() {
@@ -53,18 +52,39 @@ class TabBarNavigationUITests: KIFTestCase {
 		navigateForwardAndAssert(token: "vc4", with: ["vc1", "vc2"])
 
 		context?.navigateBackToRoot(animated: true)
-		viewTester().usingLabel("vc1")?.waitForView()
+		assert(token: "vc1")
 	}
 
-	private func renderUIAndAssert(tokens: [String]) -> NavigationModalContext? {
+	func testNavigateForwardAndBack_multitab() {
+		context = renderUIAndAssert(tokens: ["vc1", "vc2"])
+		navigateForwardAndAssert(token: "vc3", with: ["vc1", "vc2"])
+
+		context.selectedIndex = 1
+		viewTester().usingLabel("vc3")?.waitForAbsenceOfView()
+
+		navigateForwardAndAssert(token: "vc4", with: ["vc1", "vc2"])
+
+		context.navigateBack(animated: true)
+		assert(tokens: ["vc1", "vc2"])
+	}
+
+	private func renderUIAndAssert(tokens: [String]) -> NavigationModalMultiContext? {
 		let identifier = MultiUIIdentifier.createTabBarControllerIdentifier()
 		let context = madog.renderUI(identifier: identifier, tokens: tokens, in: window)
 
+		assert(tokens: tokens)
+
+		return context as? NavigationModalMultiContext
+	}
+
+	private func assert(token: String) {
+		assert(tokens: [token])
+	}
+
+	private func assert(tokens: [String]) {
 		tokens.forEach {
 			viewTester().usingLabel($0)?.waitForView()
 		}
-
-		return context as? NavigationModalContext
 	}
 
 	private func navigateForwardAndAssert(token: String, with: [String]? = nil) {

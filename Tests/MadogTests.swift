@@ -57,9 +57,23 @@ class MadogTests: XCTestCase {
 		XCTAssertEqual(delegate.unsuccessfulCreations.count, 1)
 		XCTAssertEqual(delegate.unsuccessfulCreations[0], "no-match")
 	}
+
+	func testServiceProviderAccess() {
+		madog = Madog()
+		XCTAssertEqual(madog.serviceProviders.count, 0)
+
+		madog.resolve(resolver: TestResolver())
+		XCTAssertEqual(madog.serviceProviders.count, 1)
+	}
 }
 
 private class TestResolver: Resolver<String> {
+	override func serviceProviderCreationFunctions() -> [(ServiceProviderCreationContext) -> ServiceProvider] {
+		return [
+			{ context in TestServiceProvider(context: context) }
+		]
+	}
+
 	override func viewControllerProviderCreationFunctions() -> [() -> ViewControllerProvider<String>] {
 		return [
 			{ TestViewControllerProvider(matchString: "match") }
@@ -96,3 +110,5 @@ private class TestViewControllerProvider: BaseViewControllerProvider {
 		return super.createViewController(token: token, context: context)
 	}
 }
+
+private class TestServiceProvider: ServiceProvider {}

@@ -15,7 +15,7 @@
 		6576C1FE239A944A00F6AD07 /* KIF.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6576C1FD239A944A00F6AD07 /* KIF.framework */; };
 		6576C204239A95FB00F6AD07 /* NavigationUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6576C203239A95FB00F6AD07 /* NavigationUITests.swift */; };
 		6576C206239A99ED00F6AD07 /* BaseViewControllerProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6576C205239A99ED00F6AD07 /* BaseViewControllerProvider.swift */; };
-		6576C208239A9B5900F6AD07 /* XCTestCase+KIF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6576C207239A9B5900F6AD07 /* XCTestCase+KIF.swift */; };
+		6576C208239A9B5900F6AD07 /* KIFTestCase+Swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6576C207239A9B5900F6AD07 /* KIFTestCase+Swift.swift */; };
 		6576C210239A9C3300F6AD07 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6576C20F239A9C3300F6AD07 /* AppDelegate.swift */; };
 		6576C219239A9C3A00F6AD07 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6576C218239A9C3A00F6AD07 /* Assets.xcassets */; };
 		6576C21C239A9C3A00F6AD07 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6576C21A239A9C3A00F6AD07 /* LaunchScreen.storyboard */; };
@@ -58,7 +58,7 @@
 		6576C1FD239A944A00F6AD07 /* KIF.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = KIF.framework; path = Carthage/Build/iOS/KIF.framework; sourceTree = "<group>"; };
 		6576C203239A95FB00F6AD07 /* NavigationUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationUITests.swift; sourceTree = "<group>"; };
 		6576C205239A99ED00F6AD07 /* BaseViewControllerProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewControllerProvider.swift; sourceTree = "<group>"; };
-		6576C207239A9B5900F6AD07 /* XCTestCase+KIF.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+KIF.swift"; sourceTree = "<group>"; };
+		6576C207239A9B5900F6AD07 /* KIFTestCase+Swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "KIFTestCase+Swift.swift"; sourceTree = "<group>"; };
 		6576C20D239A9C3300F6AD07 /* MadogTestApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MadogTestApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6576C20F239A9C3300F6AD07 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6576C218239A9C3A00F6AD07 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -111,9 +111,9 @@
 			children = (
 				652B1B62227DDF12004E79A9 /* Info.plist */,
 				6576C205239A99ED00F6AD07 /* BaseViewControllerProvider.swift */,
+				6576C207239A9B5900F6AD07 /* KIFTestCase+Swift.swift */,
 				C2F8826B230FFAB90093604A /* MadogTests.swift */,
 				65E8947F227DDFF400EA7F11 /* MadogTypesTests.swift */,
-				6576C207239A9B5900F6AD07 /* XCTestCase+KIF.swift */,
 				6576C202239A95D800F6AD07 /* UI */,
 			);
 			path = Tests;
@@ -398,7 +398,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C2F8826C230FFAB90093604A /* MadogTests.swift in Sources */,
-				6576C208239A9B5900F6AD07 /* XCTestCase+KIF.swift in Sources */,
+				6576C208239A9B5900F6AD07 /* KIFTestCase+Swift.swift in Sources */,
 				6576C206239A99ED00F6AD07 /* BaseViewControllerProvider.swift in Sources */,
 				65E89480227DDFF400EA7F11 /* MadogTypesTests.swift in Sources */,
 				6576C204239A95FB00F6AD07 /* NavigationUITests.swift in Sources */,

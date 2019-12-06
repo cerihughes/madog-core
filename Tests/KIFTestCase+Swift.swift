@@ -1,5 +1,5 @@
 //
-//  XCTestCase+KIF.swift
+//  KIFTestCase+Swift.swift
 //  MadogTests
 //
 //  Created by Ceri Hughes on 06/12/2019.
@@ -9,7 +9,7 @@
 import KIF
 import XCTest
 
-extension XCTestCase {
+extension KIFTestCase {
 	func viewTester(_ file: String = #file, _ line: Int = #line) -> KIFUIViewTestActor {
 		return KIFUIViewTestActor(inFile: file, atLine: line, delegate: self)
 	}

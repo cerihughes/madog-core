@@ -11,7 +11,12 @@ import UIKit
 @testable import Madog
 
 class BaseViewControllerProvider: ViewControllerProvider<String> {
-	private var uuid: UUID?
+	static var latestUUID: UUID?
+	private var uuid: UUID? {
+		didSet {
+			BaseViewControllerProvider.latestUUID = uuid
+		}
+	}
 
 	final override func register(with registry: Registry<String>) {
 		super.register(with: registry)
@@ -20,11 +25,15 @@ class BaseViewControllerProvider: ViewControllerProvider<String> {
 	}
 
 	final override func unregister(from registry: Registry<String>) {
+		super.unregister(from: registry)
+
 		guard let uuid = uuid else {
 			return
 		}
 
 		registry.removeRegistryFunction(uuid: uuid)
+
+		self.uuid = nil
 	}
 
 	func createViewController(token: String, context _: Context) -> UIViewController? {

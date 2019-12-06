@@ -34,21 +34,37 @@ class NavigationUITests: KIFTestCase {
 	}
 
 	func testRenderInitialUI() {
-		let identifier = SingleUIIdentifier.createNavigationControllerIdentifier()
-		context = madog.renderUI(identifier: identifier, token: "vc1", in: window) as? NavigationModalContext
-		viewTester().usingLabel("vc1")?.waitForView()
+		context = renderUIAndAssert(token: "vc1")
+		XCTAssertNotNil(context)
 	}
 
 	func testNavigateForwardAndBack() {
-		let identifier = SingleUIIdentifier.createNavigationControllerIdentifier()
-		context = madog.renderUI(identifier: identifier, token: "vc1", in: window) as? NavigationModalContext
-		viewTester().usingLabel("vc1")?.waitForView()
-
-		context.navigateForward(token: "vc2", animated: true)
-		viewTester().usingLabel("vc2")?.waitForView()
+		context = renderUIAndAssert(token: "vc1")
+		navigateForwardAndAssert(token: "vc2")
 
 		context.navigateBack(animated: true)
 		viewTester().usingLabel("vc1")?.waitForView()
+	}
+
+	func testBackToRoot() {
+		context = renderUIAndAssert(token: "vc1")
+		navigateForwardAndAssert(token: "vc2")
+		navigateForwardAndAssert(token: "vc3")
+
+		context?.navigateBackToRoot(animated: true)
+		viewTester().usingLabel("vc1")?.waitForView()
+	}
+
+	private func renderUIAndAssert(token: String) -> NavigationModalContext? {
+		let identifier = SingleUIIdentifier.createNavigationControllerIdentifier()
+		let context = madog.renderUI(identifier: identifier, token: token, in: window)
+		viewTester().usingLabel(token)?.waitForView()
+		return context as? NavigationModalContext
+	}
+
+	private func navigateForwardAndAssert(token: String) {
+		context.navigateForward(token: token, animated: true)
+		viewTester().usingLabel(token)?.waitForView()
 	}
 }
 

@@ -37,6 +37,10 @@ public extension Context {
 	}
 }
 
+public protocol MultiContext {
+	var selectedIndex: Int { get set }
+}
+
 public protocol ModalContext: AnyObject {
 	// swiftlint:disable function_parameter_count
 	@discardableResult

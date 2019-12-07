@@ -133,7 +133,7 @@ public extension ModalContext {
 
 public protocol ForwardBackNavigationContext: AnyObject {
 	@discardableResult
-	func navigateForward(token: Any, animated: Bool) -> NavigationToken?
+	func navigateForward(token: Any, animated: Bool) -> Bool
 	@discardableResult
 	func navigateBack(animated: Bool) -> Bool
 	@discardableResult

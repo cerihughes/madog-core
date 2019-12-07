@@ -65,18 +65,18 @@ open class MadogUIContainer<Token>: MadogUIContext, ModalContext {
 						  animated: Bool,
 						  completion: (() -> Void)?) -> NavigationToken? {
 		guard let token = token as? Token,
-			let viewController = registry.createViewController(from: token, context: self) else {
+			let presentedViewController = registry.createViewController(from: token, context: self) else {
 			return nil
 		}
 
-		let sourceViewController = fromViewController ?? self.viewController
-		sourceViewController.madog_presentModally(viewController: viewController,
-												  presentationStyle: presentationStyle,
-												  transitionStyle: transitionStyle,
-												  popoverAnchor: popoverAnchor,
-												  animated: animated,
-												  completion: completion)
-		return createNavigationToken(for: viewController)
+		let presentingViewController = fromViewController ?? viewController
+		presentingViewController.madog_presentModally(viewController: presentedViewController,
+													  presentationStyle: presentationStyle,
+													  transitionStyle: transitionStyle,
+													  popoverAnchor: popoverAnchor,
+													  animated: animated,
+													  completion: completion)
+		return createNavigationToken(for: presentedViewController)
 	}
 
 	public func openModal<VC: UIViewController>(identifier: SingleUIIdentifier<VC>,
@@ -92,13 +92,14 @@ open class MadogUIContainer<Token>: MadogUIContext, ModalContext {
 			return nil
 		}
 
-		let sourceViewController = fromViewController ?? viewController
-		sourceViewController.madog_presentModally(viewController: container.viewController,
-												  presentationStyle: presentationStyle,
-												  transitionStyle: transitionStyle,
-												  popoverAnchor: popoverAnchor,
-												  animated: animated,
-												  completion: completion)
+		let presentingViewController = fromViewController ?? viewController
+		let presentedViewController = container.viewController
+		presentingViewController.madog_presentModally(viewController: presentedViewController,
+													  presentationStyle: presentationStyle,
+													  transitionStyle: transitionStyle,
+													  popoverAnchor: popoverAnchor,
+													  animated: animated,
+													  completion: completion)
 		return container
 	}
 
@@ -115,13 +116,14 @@ open class MadogUIContainer<Token>: MadogUIContext, ModalContext {
 			return nil
 		}
 
-		let sourceViewController = fromViewController ?? viewController
-		sourceViewController.madog_presentModally(viewController: container.viewController,
-												  presentationStyle: presentationStyle,
-												  transitionStyle: transitionStyle,
-												  popoverAnchor: popoverAnchor,
-												  animated: animated,
-												  completion: completion)
+		let presentingViewController = fromViewController ?? viewController
+		let presentedViewController = container.viewController
+		presentingViewController.madog_presentModally(viewController: presentedViewController,
+													  presentationStyle: presentationStyle,
+													  transitionStyle: transitionStyle,
+													  popoverAnchor: popoverAnchor,
+													  animated: animated,
+													  completion: completion)
 		return container
 	}
 

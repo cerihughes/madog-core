@@ -26,6 +26,18 @@ class MadogTests: XCTestCase {
 		super.tearDown()
 	}
 
+	func testMadogKeepsStrongReferenceToCurrentContext() {
+		let window = UIWindow()
+		let identifier = SingleUIIdentifier.createNavigationControllerIdentifier()
+
+		weak var context1 = madog.renderUI(identifier: identifier, token: "match", in: window)
+		XCTAssertNotNil(context1)
+
+		weak var context2 = madog.renderUI(identifier: identifier, token: "match", in: window)
+		XCTAssertNil(context1)
+		XCTAssertNotNil(context2)
+	}
+
 	func testMadogDelegateHeldWeakly() {
 		var delegate: MadogTestDelegate? = MadogTestDelegate()
 		madog.delegate = delegate

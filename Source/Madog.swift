@@ -107,10 +107,6 @@ public final class Madog<Token>: MadogUIContainerDelegate {
 		return contextUI
 	}
 
-	func retain(context: Context, for viewController: UIViewController) {
-		modalContextUIs[viewController] = context
-	}
-
 	func releaseContext(for viewController: UIViewController) {
 		if viewController == currentContextUI?.viewController {
 			currentContextUI = nil
@@ -122,8 +118,11 @@ public final class Madog<Token>: MadogUIContainerDelegate {
 	// MARK: - Private
 
 	private func persist(contextUI: MadogUIContainer<Token>, isModal: Bool) {
-		if !isModal {
+		if isModal {
+			modalContextUIs[contextUI.viewController] = contextUI
+		} else {
 			currentContextUI = contextUI
+			modalContextUIs = [:] // Clear old modal contexts
 		}
 	}
 }

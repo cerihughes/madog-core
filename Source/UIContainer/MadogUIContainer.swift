@@ -15,7 +15,6 @@ internal protocol MadogUIContainerDelegate: AnyObject {
 	func createUI<VC: UIViewController>(identifier: SingleUIIdentifier<VC>, token: Any, isModal: Bool) -> MadogUIContext?
 	func createUI<VC: UIViewController>(identifier: MultiUIIdentifier<VC>, tokens: [Any], isModal: Bool) -> MadogUIContext?
 
-	func retain(context: Context, for viewController: UIViewController)
 	func releaseContext(for viewController: UIViewController)
 }
 
@@ -168,9 +167,6 @@ open class MadogUIContainer<Token>: MadogUIContext, ModalContext {
 	}
 
 	public final func createModalToken(viewController: UIViewController, context: Context?) -> ModalToken {
-		if let context = context {
-			delegate?.retain(context: context, for: viewController)
-		}
 		return ModalTokenImplementation(viewController: viewController, context: context)
 	}
 }

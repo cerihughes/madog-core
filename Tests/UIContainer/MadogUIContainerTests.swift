@@ -131,6 +131,30 @@ class MadogUIContainerTests: KIFTestCase {
 		XCTAssertNotNil(context)
 	}
 
+	func testChangeReleasesOldModalContexts() {
+		let identifier = SingleUIIdentifier.createNavigationControllerIdentifier()
+		weak var context1 = madog.renderUI(identifier: identifier, token: "vc1", in: window) as? Context & ModalContext
+		viewTester().usingLabel("vc1")?.waitForView()
+		XCTAssertNotNil(context1)
+
+		weak var modal1Context = createModalContext(context: context1!, token: "vc2") as? ModalContext
+		XCTAssertNotNil(modal1Context)
+
+		weak var modal2Context = createModalContext(context: modal1Context!, token: "vc3") as? Context & ModalContext
+		XCTAssertNotNil(modal2Context)
+
+		weak var context2 = context1?.change(to: identifier, token: "vc4")
+		viewTester().usingLabel("vc1")?.waitForAbsenceOfView()
+		viewTester().usingLabel("vc2")?.waitForAbsenceOfView()
+		viewTester().usingLabel("vc3")?.waitForAbsenceOfView()
+		viewTester().usingLabel("vc4")?.waitForView()
+
+		XCTAssertNil(context1)
+		XCTAssertNil(modal1Context)
+		XCTAssertNil(modal2Context)
+		XCTAssertNotNil(context2)
+	}
+
 	func testOpenModal() {
 		let identifier = SingleUIIdentifier.createNavigationControllerIdentifier()
 		let context = madog.renderUI(identifier: identifier, token: "vc1", in: window) as? NavigationModalContext

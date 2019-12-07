@@ -30,15 +30,15 @@ internal class TabBarNavigationUI<Token>: MadogMultiUIContainer<Token>, ForwardB
 
 	// MARK: - ForwardBackNavigationContext
 
-	internal func navigateForward(token: Any, animated: Bool) -> NavigationToken? {
+	internal func navigateForward(token: Any, animated: Bool) -> Bool {
 		guard let token = token as? Token,
 			let toViewController = registry.createViewController(from: token, context: self),
 			let navigationController = tabBarController.selectedViewController as? UINavigationController else {
-			return nil
+			return false
 		}
 
 		navigationController.pushViewController(toViewController, animated: animated)
-		return createNavigationToken(for: viewController)
+		return true
 	}
 
 	internal func navigateBack(animated: Bool) -> Bool {

@@ -68,6 +68,11 @@ open class MadogUIContainer<Token>: MadogUIContext, ModalContext {
 		return true
 	}
 
+	open func provideNavigationController() -> UINavigationController? {
+		// OVERRIDE
+		return nil
+	}
+
 	// MARK: - ModalContext
 
 	// swiftlint:disable function_parameter_count
@@ -169,6 +174,37 @@ open class MadogUIContainer<Token>: MadogUIContext, ModalContext {
 
 	public final func createModalToken(viewController: UIViewController, context: Context?) -> ModalToken {
 		return ModalTokenImplementation(viewController: viewController, context: context)
+	}
+}
+
+extension MadogUIContainer: ForwardBackNavigationContext {
+	// MARK: - ForwardBackNavigationContext
+
+	public func navigateForward(token: Any, animated: Bool) -> Bool {
+		guard let token = token as? Token,
+			let toViewController = registry.createViewController(from: token, context: self),
+			let navigationController = provideNavigationController() else {
+			return false
+		}
+
+		navigationController.pushViewController(toViewController, animated: animated)
+		return true
+	}
+
+	public func navigateBack(animated: Bool) -> Bool {
+		guard let navigationController = provideNavigationController() else {
+			return false
+		}
+
+		return navigationController.popViewController(animated: animated) != nil
+	}
+
+	public func navigateBackToRoot(animated _: Bool) -> Bool {
+		guard let navigationController = provideNavigationController() else {
+			return false
+		}
+
+		return navigationController.popToRootViewController(animated: true) != nil
 	}
 }
 

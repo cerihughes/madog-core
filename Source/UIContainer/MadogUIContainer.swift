@@ -14,6 +14,9 @@ public typealias NavigationModalMultiContext = NavigationModalContext & MultiCon
 internal protocol MadogUIContainerDelegate: AnyObject {
 	func createUI<VC: UIViewController>(identifier: SingleUIIdentifier<VC>, token: Any, isModal: Bool) -> MadogUIContext?
 	func createUI<VC: UIViewController>(identifier: MultiUIIdentifier<VC>, tokens: [Any], isModal: Bool) -> MadogUIContext?
+
+	func retain(context: Context, for viewController: UIViewController)
+	func releaseContext(for viewController: UIViewController)
 }
 
 open class MadogUIContext: Context {
@@ -22,6 +25,12 @@ open class MadogUIContext: Context {
 
 	public init(viewController: UIViewController) {
 		self.viewController = viewController
+	}
+
+	// MARK: - Context
+
+	public func close() -> Bool {
+		return false
 	}
 
 	public func change<VC: UIViewController>(to identifier: SingleUIIdentifier<VC>, token: Any, transition: Transition?) -> Context? {
@@ -48,12 +57,15 @@ open class MadogUIContext: Context {
 }
 
 open class MadogUIContainer<Token>: MadogUIContext, ModalContext {
-	private var modalContextUIs = [UIViewController: Context]()
-
 	internal var internalRegistry: Registry<Token>!
 
 	public var registry: Registry<Token> {
 		return internalRegistry
+	}
+
+	public override func close() -> Bool {
+		closeContext(presentedViewController: viewController, animated: false)
+		return true
 	}
 
 	// MARK: - ModalContext
@@ -138,32 +150,27 @@ open class MadogUIContainer<Token>: MadogUIContext, ModalContext {
 			return false
 		}
 
-		return closeModal(presentedViewController: token.viewController, animated: animated)
-	}
-
-	private func closeModal(presentedViewController: UIViewController,
-							animated: Bool = false,
-							completion: (() -> Void)? = nil) -> Bool {
-		for child in presentedViewController.children {
-			if closeModal(presentedViewController: child) == false {
-				return false
-			}
-		}
-
-		if let presentedPresentedViewController = presentedViewController.presentedViewController {
-			if closeModal(presentedViewController: presentedPresentedViewController) == false {
-				return false
-			}
-		}
-
-		presentedViewController.dismiss(animated: animated, completion: completion)
-		modalContextUIs[presentedViewController] = nil
-
+		closeContext(presentedViewController: token.viewController, animated: animated)
 		return true
 	}
 
+	private func closeContext(presentedViewController: UIViewController,
+							  animated: Bool = false,
+							  completion: (() -> Void)? = nil) {
+		presentedViewController.children.forEach { closeContext(presentedViewController: $0) }
+
+		if let presentedPresentedViewController = presentedViewController.presentedViewController {
+			closeContext(presentedViewController: presentedPresentedViewController)
+		}
+
+		presentedViewController.dismiss(animated: animated, completion: completion)
+		delegate?.releaseContext(for: presentedViewController)
+	}
+
 	public final func createModalToken(viewController: UIViewController, context: Context?) -> ModalToken {
-		modalContextUIs[viewController] = context
+		if let context = context {
+			delegate?.retain(context: context, for: viewController)
+		}
 		return ModalTokenImplementation(viewController: viewController, context: context)
 	}
 }

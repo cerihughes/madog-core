@@ -20,12 +20,20 @@ public struct Transition {
 
 public protocol Context: AnyObject {
 	@discardableResult
+	func close(animated: Bool, completion: (() -> Void)?) -> Bool
+
+	@discardableResult
 	func change<VC: UIViewController>(to identifier: SingleUIIdentifier<VC>, token: Any, transition: Transition?) -> Context?
 	@discardableResult
 	func change<VC: UIViewController>(to identifier: MultiUIIdentifier<VC>, tokens: [Any], transition: Transition?) -> Context?
 }
 
 public extension Context {
+	@discardableResult
+	func close(animated: Bool) -> Bool {
+		return close(animated: animated, completion: nil)
+	}
+
 	@discardableResult
 	func change<VC: UIViewController>(to identifier: SingleUIIdentifier<VC>, token: Any) -> Context? {
 		return change(to: identifier, token: token, transition: nil)
@@ -50,7 +58,7 @@ public protocol ModalContext: AnyObject {
 				   transitionStyle: UIModalTransitionStyle?,
 				   popoverAnchor: Any?,
 				   animated: Bool,
-				   completion: (() -> Void)?) -> NavigationToken?
+				   completion: (() -> Void)?) -> ModalToken?
 
 	@discardableResult
 	func openModal<VC: UIViewController>(identifier: SingleUIIdentifier<VC>,
@@ -60,7 +68,7 @@ public protocol ModalContext: AnyObject {
 										 transitionStyle: UIModalTransitionStyle?,
 										 popoverAnchor: Any?,
 										 animated: Bool,
-										 completion: (() -> Void)?) -> Context?
+										 completion: (() -> Void)?) -> ModalToken?
 
 	@discardableResult
 	func openModal<VC: UIViewController>(identifier: MultiUIIdentifier<VC>,
@@ -70,8 +78,13 @@ public protocol ModalContext: AnyObject {
 										 transitionStyle: UIModalTransitionStyle?,
 										 popoverAnchor: Any?,
 										 animated: Bool,
-										 completion: (() -> Void)?) -> Context?
+										 completion: (() -> Void)?) -> ModalToken?
 	// swiftlint:enable function_parameter_count
+
+	@discardableResult
+	func closeModal(token: ModalToken,
+					animated: Bool,
+					completion: (() -> Void)?) -> Bool
 }
 
 public extension ModalContext {
@@ -82,7 +95,7 @@ public extension ModalContext {
 				   transitionStyle: UIModalTransitionStyle? = nil,
 				   popoverAnchor: Any? = nil,
 				   animated: Bool,
-				   completion: (() -> Void)? = nil) -> NavigationToken? {
+				   completion: (() -> Void)? = nil) -> ModalToken? {
 		return openModal(token: token,
 						 from: fromViewController,
 						 presentationStyle: presentationStyle,
@@ -100,7 +113,7 @@ public extension ModalContext {
 										 transitionStyle: UIModalTransitionStyle? = nil,
 										 popoverAnchor: Any? = nil,
 										 animated: Bool,
-										 completion: (() -> Void)? = nil) -> Context? {
+										 completion: (() -> Void)? = nil) -> ModalToken? {
 		return openModal(identifier: identifier,
 						 token: token,
 						 from: fromViewController,
@@ -119,7 +132,7 @@ public extension ModalContext {
 										 transitionStyle: UIModalTransitionStyle? = nil,
 										 popoverAnchor: Any? = nil,
 										 animated: Bool,
-										 completion: (() -> Void)? = nil) -> Context? {
+										 completion: (() -> Void)? = nil) -> ModalToken? {
 		return openModal(identifier: identifier,
 						 tokens: tokens,
 						 from: fromViewController,
@@ -128,6 +141,11 @@ public extension ModalContext {
 						 popoverAnchor: popoverAnchor,
 						 animated: animated,
 						 completion: completion)
+	}
+
+	@discardableResult
+	func closeModal(token: ModalToken, animated: Bool) -> Bool {
+		return closeModal(token: token, animated: animated, completion: nil)
 	}
 }
 

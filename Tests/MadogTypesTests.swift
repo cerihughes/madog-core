@@ -26,7 +26,7 @@ class MadogTypesTests: XCTestCase {
 	}
 
 	func testMadogRegistry() {
-		let context = MadogTypesTests_TestContext()
+		let context = TestContext()
 		let uuid = registry.add(registryFunction: createFunction(limit: 0))
 
 		XCTAssertNotNil(registry.createViewController(from: 0, context: context))
@@ -39,7 +39,7 @@ class MadogTypesTests: XCTestCase {
 	func testMadogResolver() {
 		// This mostly tests that the code compiles as expected... Don't need to exercise it much.
 
-		let resolver = MadogTypesTests_TestResolver()
+		let resolver = TestResolver()
 		XCTAssertEqual(resolver.serviceProviderCreationFunctions().count, 1)
 		XCTAssertEqual(resolver.viewControllerProviderCreationFunctions().count, 1)
 	}
@@ -75,21 +75,22 @@ private class MadogTypesTests_TestViewControllerProvider: ViewControllerProvider
 	}
 }
 
-private class MadogTypesTests_TestServiceProvider: ServiceProvider {}
+private class TestServiceProvider: ServiceProvider {}
 
-private class MadogTypesTests_TestResolver: Resolver<Int> {
+private class TestResolver: Resolver<Int> {
 	override func viewControllerProviderCreationFunctions() -> [() -> ViewControllerProvider<Int>] {
 		let viewControllerProvider = { MadogTypesTests_TestViewControllerProvider() }
 		return [viewControllerProvider]
 	}
 
 	override func serviceProviderCreationFunctions() -> [(ServiceProviderCreationContext) -> ServiceProvider] {
-		let serviceProvider = { context in MadogTypesTests_TestServiceProvider(context: context) }
+		let serviceProvider = { context in TestServiceProvider(context: context) }
 		return [serviceProvider]
 	}
 }
 
-private class MadogTypesTests_TestContext: Context {
+private class TestContext: Context {
+	func close(animated: Bool, completion: (() -> Void)?) -> Bool { return false }
 	func change<VC>(to _: SingleUIIdentifier<VC>, token _: Any, transition _: Transition?) -> Context? where VC: UIViewController { return nil }
 	func change<VC>(to _: MultiUIIdentifier<VC>, tokens _: [Any], transition _: Transition?) -> Context? where VC: UIViewController { return nil }
 }

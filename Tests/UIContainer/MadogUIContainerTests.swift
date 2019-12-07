@@ -37,7 +37,7 @@ class MadogUIContainerTests: KIFTestCase {
 		viewTester().usingLabel("vc1")?.waitForView()
 		XCTAssertNotNil(context)
 
-		context?.close()
+		context?.close(animated: false)
 		XCTAssertNil(context)
 	}
 
@@ -50,7 +50,7 @@ class MadogUIContainerTests: KIFTestCase {
 		weak var modalContext = createModalContext(context: context!, token: "vc2")
 		XCTAssertNotNil(modalContext)
 
-		modalContext?.close()
+		modalContext?.close(animated: false)
 		XCTAssertNotNil(context)
 		XCTAssertNil(modalContext)
 	}
@@ -64,9 +64,10 @@ class MadogUIContainerTests: KIFTestCase {
 		weak var modalContext = createModalContext(context: context!, token: "vc2")
 		XCTAssertNotNil(modalContext)
 
-		context?.close()
+		context?.close(animated: true)
 		XCTAssertNil(context)
 		XCTAssertNil(modalContext)
+		viewTester().usingLabel("vc1")?.waitForView() // Main UI should still be there
 		viewTester().usingLabel("vc2")?.waitForAbsenceOfView()
 	}
 
@@ -85,7 +86,7 @@ class MadogUIContainerTests: KIFTestCase {
 		weak var modal3Context = createModalContext(context: modal2Context!, token: "vc4") as? ModalContext
 		XCTAssertNotNil(modal3Context)
 
-		XCTAssertTrue(modal2Context!.close()) // Closes modal 2 and 3
+		XCTAssertTrue(modal2Context!.close(animated: true)) // Closes modal 2 and 3
 		XCTAssertNotNil(context)
 		XCTAssertNotNil(modal1Context)
 		XCTAssertNil(modal2Context)
@@ -95,7 +96,7 @@ class MadogUIContainerTests: KIFTestCase {
 		viewTester().usingLabel("vc3")?.waitForAbsenceOfView()
 		viewTester().usingLabel("vc4")?.waitForAbsenceOfView()
 
-		context?.close() // Closes main and modal 1
+		context?.close(animated: true) // Closes main and modal 1
 		XCTAssertNil(context)
 		XCTAssertNil(modal1Context)
 		viewTester().usingLabel("vc1")?.waitForView()

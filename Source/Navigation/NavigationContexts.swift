@@ -20,7 +20,7 @@ public struct Transition {
 
 public protocol Context: AnyObject {
 	@discardableResult
-	func close() -> Bool
+	func close(animated: Bool) -> Bool
 
 	@discardableResult
 	func change<VC: UIViewController>(to identifier: SingleUIIdentifier<VC>, token: Any, transition: Transition?) -> Context?

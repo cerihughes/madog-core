@@ -158,7 +158,7 @@ class MadogUIContainerTests: KIFTestCase {
 
 	func testOpenModal() {
 		let identifier = SingleUIIdentifier.createNavigationControllerIdentifier()
-		let context = madog.renderUI(identifier: identifier, token: "vc1", in: window) as? NavigationModalContext
+		let context = madog.renderUI(identifier: identifier, token: "vc1", in: window) as? ModalContext
 		viewTester().usingLabel("vc1")?.waitForView()
 		XCTAssertNotNil(context)
 
@@ -171,7 +171,7 @@ class MadogUIContainerTests: KIFTestCase {
 
 	func testCloseModal() {
 		let identifier = SingleUIIdentifier.createNavigationControllerIdentifier()
-		let context = madog.renderUI(identifier: identifier, token: "vc1", in: window) as? NavigationModalContext
+		let context = madog.renderUI(identifier: identifier, token: "vc1", in: window) as? ModalContext
 		viewTester().usingLabel("vc1")?.waitForView()
 		XCTAssertNotNil(context)
 
@@ -263,6 +263,77 @@ class MadogUIContainerTests: KIFTestCase {
 
 		XCTAssertTrue(context!.closeModal(token: modalToken!, animated: true))
 		viewTester().usingLabel("vc2")?.waitForAbsenceOfView()
+	}
+
+	func testOpenModalCompletionIsFired() {
+		let identifier = SingleUIIdentifier.createNavigationControllerIdentifier()
+		let context = madog.renderUI(identifier: identifier, token: "vc1", in: window) as? ModalContext
+
+		let completion1Expectation = expectation(description: "Completion fired")
+		let modalToken = context!.openModal(token: "vc2",
+											presentationStyle: .formSheet,
+											animated: true,
+											completion: { completion1Expectation.fulfill() })
+		wait(for: [completion1Expectation], timeout: 10.0)
+
+		let completion2Expectation = expectation(description: "Completion fired")
+		context!.closeModal(token: modalToken!, animated: true, completion: { completion2Expectation.fulfill() })
+		wait(for: [completion2Expectation], timeout: 10.0)
+	}
+
+	func testOpenSingleUIModalCompletionIsFired() {
+		let identifier = SingleUIIdentifier.createNavigationControllerIdentifier()
+		let context = madog.renderUI(identifier: identifier, token: "vc1", in: window) as? ModalContext
+
+		weak var completionExpectation = expectation(description: "Completion fired")
+		_ = context!.openModal(identifier: identifier,
+							   token: "vc2",
+							   presentationStyle: .formSheet,
+							   animated: true,
+							   completion: { completionExpectation?.fulfill() })
+		waitForExpectations(timeout: 10.0)
+	}
+
+	func testOpenMultiUIModalCompletionIsFired() {
+		let identifier = MultiUIIdentifier.createTabBarControllerIdentifier()
+		let context = madog.renderUI(identifier: identifier, tokens: ["vc1", "vc2"], in: window) as? ModalContext
+
+		weak var completionExpectation = expectation(description: "Completion fired")
+		_ = context!.openModal(identifier: identifier,
+							   tokens: ["vc3", "vc4"],
+							   presentationStyle: .formSheet,
+							   animated: true,
+							   completion: { completionExpectation?.fulfill() })
+		waitForExpectations(timeout: 10.0)
+	}
+
+	func testCloseModalCompletionIsFired() {
+		let identifier = SingleUIIdentifier.createNavigationControllerIdentifier()
+		let context = madog.renderUI(identifier: identifier, token: "vc1", in: window) as? ModalContext
+
+		let modalToken = context!.openModal(identifier: identifier,
+											token: "vc2",
+											presentationStyle: .formSheet,
+											animated: true)
+
+		weak var completionExpectation = expectation(description: "Completion fired")
+		context!.closeModal(token: modalToken!, animated: true, completion: { completionExpectation?.fulfill() })
+		waitForExpectations(timeout: 10.0)
+	}
+
+	func testCloseCompletionIsFired() {
+		let identifier = SingleUIIdentifier.createNavigationControllerIdentifier()
+		let context = madog.renderUI(identifier: identifier, token: "vc1", in: window) as? ModalContext
+
+		let modalToken = context!.openModal(identifier: identifier,
+											token: "vc2",
+											presentationStyle: .formSheet,
+											animated: true)
+
+		let modalContext = modalToken!.context
+		weak var completionExpectation = expectation(description: "Completion fired")
+		modalContext?.close(animated: true, completion: { completionExpectation?.fulfill() })
+		waitForExpectations(timeout: 10.0)
 	}
 
 	private func createModal(context: ModalContext, token: String) -> ModalToken? {

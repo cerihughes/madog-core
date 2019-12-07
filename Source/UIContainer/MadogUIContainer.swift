@@ -48,6 +48,8 @@ open class MadogUIContext: Context {
 }
 
 open class MadogUIContainer<Token>: MadogUIContext, ModalContext {
+	private var modalContextUIs = [UIViewController: Context]()
+
 	internal var internalRegistry: Registry<Token>!
 
 	public var registry: Registry<Token> {
@@ -63,20 +65,20 @@ open class MadogUIContainer<Token>: MadogUIContext, ModalContext {
 						  transitionStyle: UIModalTransitionStyle?,
 						  popoverAnchor: Any?,
 						  animated: Bool,
-						  completion: (() -> Void)?) -> NavigationToken? {
+						  completion: (() -> Void)?) -> ModalToken? {
 		guard let token = token as? Token,
-			let viewController = registry.createViewController(from: token, context: self) else {
+			let presentedViewController = registry.createViewController(from: token, context: self) else {
 			return nil
 		}
 
-		let sourceViewController = fromViewController ?? self.viewController
-		sourceViewController.madog_presentModally(viewController: viewController,
-												  presentationStyle: presentationStyle,
-												  transitionStyle: transitionStyle,
-												  popoverAnchor: popoverAnchor,
-												  animated: animated,
-												  completion: completion)
-		return createNavigationToken(for: viewController)
+		let presentingViewController = fromViewController ?? viewController
+		presentingViewController.madog_presentModally(viewController: presentedViewController,
+													  presentationStyle: presentationStyle,
+													  transitionStyle: transitionStyle,
+													  popoverAnchor: popoverAnchor,
+													  animated: animated,
+													  completion: completion)
+		return createModalToken(viewController: presentedViewController, context: nil)
 	}
 
 	public func openModal<VC: UIViewController>(identifier: SingleUIIdentifier<VC>,
@@ -86,20 +88,21 @@ open class MadogUIContainer<Token>: MadogUIContext, ModalContext {
 												transitionStyle: UIModalTransitionStyle?,
 												popoverAnchor: Any?,
 												animated: Bool,
-												completion: (() -> Void)?) -> Context? {
+												completion: (() -> Void)?) -> ModalToken? {
 		guard let delegate = delegate,
 			let container = delegate.createUI(identifier: identifier, token: token, isModal: true) else {
 			return nil
 		}
 
-		let sourceViewController = fromViewController ?? viewController
-		sourceViewController.madog_presentModally(viewController: container.viewController,
-												  presentationStyle: presentationStyle,
-												  transitionStyle: transitionStyle,
-												  popoverAnchor: popoverAnchor,
-												  animated: animated,
-												  completion: completion)
-		return container
+		let presentingViewController = fromViewController ?? viewController
+		let presentedViewController = container.viewController
+		presentingViewController.madog_presentModally(viewController: presentedViewController,
+													  presentationStyle: presentationStyle,
+													  transitionStyle: transitionStyle,
+													  popoverAnchor: popoverAnchor,
+													  animated: animated,
+													  completion: completion)
+		return createModalToken(viewController: presentedViewController, context: container)
 	}
 
 	public func openModal<VC: UIViewController>(identifier: MultiUIIdentifier<VC>,
@@ -109,26 +112,59 @@ open class MadogUIContainer<Token>: MadogUIContext, ModalContext {
 												transitionStyle: UIModalTransitionStyle?,
 												popoverAnchor: Any?,
 												animated: Bool,
-												completion: (() -> Void)?) -> Context? {
+												completion: (() -> Void)?) -> ModalToken? {
 		guard let delegate = delegate,
 			let container = delegate.createUI(identifier: identifier, tokens: tokens, isModal: true) else {
 			return nil
 		}
 
-		let sourceViewController = fromViewController ?? viewController
-		sourceViewController.madog_presentModally(viewController: container.viewController,
-												  presentationStyle: presentationStyle,
-												  transitionStyle: transitionStyle,
-												  popoverAnchor: popoverAnchor,
-												  animated: animated,
-												  completion: completion)
-		return container
+		let presentingViewController = fromViewController ?? viewController
+		let presentedViewController = container.viewController
+		presentingViewController.madog_presentModally(viewController: presentedViewController,
+													  presentationStyle: presentationStyle,
+													  transitionStyle: transitionStyle,
+													  popoverAnchor: popoverAnchor,
+													  animated: animated,
+													  completion: completion)
+		return createModalToken(viewController: presentedViewController, context: container)
 	}
 
 	// swiftlint:enable function_parameter_count
 
-	public final func createNavigationToken(for viewController: UIViewController) -> NavigationToken {
-		return NavigationTokenImplementation(viewController: viewController)
+	public func closeModal(token: ModalToken,
+						   animated: Bool,
+						   completion: (() -> Void)?) -> Bool {
+		guard let token = token as? ModalTokenImplementation else {
+			return false
+		}
+
+		return closeModal(presentedViewController: token.viewController, animated: animated)
+	}
+
+	private func closeModal(presentedViewController: UIViewController,
+							animated: Bool = false,
+							completion: (() -> Void)? = nil) -> Bool {
+		for child in presentedViewController.children {
+			if closeModal(presentedViewController: child) == false {
+				return false
+			}
+		}
+
+		if let presentedPresentedViewController = presentedViewController.presentedViewController {
+			if closeModal(presentedViewController: presentedPresentedViewController) == false {
+				return false
+			}
+		}
+
+		presentedViewController.dismiss(animated: animated, completion: completion)
+		modalContextUIs[presentedViewController] = nil
+
+		return true
+	}
+
+	public final func createModalToken(viewController: UIViewController, context: Context?) -> ModalToken {
+		modalContextUIs[viewController] = context
+		return ModalTokenImplementation(viewController: viewController, context: context)
 	}
 }
 

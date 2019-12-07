@@ -66,11 +66,24 @@ class MadogUIContainerTests: KIFTestCase {
 		viewTester().usingLabel("vc1")?.waitForView()
 		XCTAssertNotNil(context)
 
-		let token = context?.openModal(token: "vc2", presentationStyle: .formSheet, animated: true)
-		XCTAssertNotNil(token)
+		let modalToken = context?.openModal(token: "vc2", presentationStyle: .formSheet, animated: true)
+		XCTAssertNotNil(modalToken)
 		viewTester().usingLabel("vc1")?.waitForView()
 		viewTester().usingLabel("vc2")?.waitForView()
+	}
+
+	func testCloseModal() {
+		let identifier1 = SingleUIIdentifier.createNavigationControllerIdentifier()
+		let context = madog.renderUI(identifier: identifier1, token: "vc1", in: window) as? NavigationModalContext
+		viewTester().usingLabel("vc1")?.waitForView()
 		XCTAssertNotNil(context)
+
+		let modalToken = context?.openModal(token: "vc2", presentationStyle: .formSheet, animated: true)
+		XCTAssertNotNil(modalToken)
+		viewTester().usingLabel("vc2")?.waitForView()
+
+		XCTAssertTrue(context!.closeModal(token: modalToken!, animated: true))
+		viewTester().usingLabel("vc2")?.waitForAbsenceOfView()
 	}
 
 	func testOpenSingleUIModal() {
@@ -80,10 +93,11 @@ class MadogUIContainerTests: KIFTestCase {
 		XCTAssertNotNil(context)
 
 		let identifier2 = SingleUIIdentifier.createNavigationControllerIdentifier()
-		let context2 = context?.openModal(identifier: identifier2,
-										  token: "vc2",
-										  presentationStyle: .formSheet,
-										  animated: true) as? NavigationModalContext
+		let modalToken = context?.openModal(identifier: identifier2,
+											token: "vc2",
+											presentationStyle: .formSheet,
+											animated: true)
+		let context2 = modalToken!.context as? NavigationModalContext
 		XCTAssertNotNil(context2)
 
 		viewTester().usingLabel("vc1")?.waitForView()
@@ -96,6 +110,24 @@ class MadogUIContainerTests: KIFTestCase {
 		viewTester().usingLabel("vc3")?.waitForView()
 	}
 
+	func testCloseSingleUIModal() {
+		let identifier1 = SingleUIIdentifier.createNavigationControllerIdentifier()
+		let context = madog.renderUI(identifier: identifier1, token: "vc1", in: window) as? NavigationModalContext
+		viewTester().usingLabel("vc1")?.waitForView()
+		XCTAssertNotNil(context)
+
+		let identifier2 = SingleUIIdentifier.createNavigationControllerIdentifier()
+		let modalToken = context?.openModal(identifier: identifier2,
+											token: "vc2",
+											presentationStyle: .formSheet,
+											animated: true)
+		XCTAssertNotNil(modalToken)
+		viewTester().usingLabel("vc2")?.waitForView()
+
+		XCTAssertTrue(context!.closeModal(token: modalToken!, animated: true))
+		viewTester().usingLabel("vc2")?.waitForAbsenceOfView()
+	}
+
 	func testOpenMultiUIModal() {
 		let identifier1 = SingleUIIdentifier.createNavigationControllerIdentifier()
 		let context = madog.renderUI(identifier: identifier1, token: "vc1", in: window) as? NavigationModalContext
@@ -103,10 +135,11 @@ class MadogUIContainerTests: KIFTestCase {
 		XCTAssertNotNil(context)
 
 		let identifier2 = MultiUIIdentifier.createTabBarControllerIdentifier()
-		var context2 = context?.openModal(identifier: identifier2,
-										  tokens: ["vc2", "vc3"],
-										  presentationStyle: .formSheet,
-										  animated: true) as? NavigationModalMultiContext
+		let modalToken = context?.openModal(identifier: identifier2,
+											tokens: ["vc2", "vc3"],
+											presentationStyle: .formSheet,
+											animated: true)
+		var context2 = modalToken!.context as? NavigationModalMultiContext
 		XCTAssertNotNil(context2)
 
 		viewTester().usingLabel("vc1")?.waitForView()
@@ -135,6 +168,24 @@ class MadogUIContainerTests: KIFTestCase {
 		context2?.selectedIndex = 0
 		viewTester().usingLabel("vc9")?.waitForAbsenceOfView()
 		viewTester().usingLabel("vc6")?.waitForView()
+	}
+
+	func testCloseMultiUIModal() {
+		let identifier1 = SingleUIIdentifier.createNavigationControllerIdentifier()
+		let context = madog.renderUI(identifier: identifier1, token: "vc1", in: window) as? NavigationModalContext
+		viewTester().usingLabel("vc1")?.waitForView()
+		XCTAssertNotNil(context)
+
+		let identifier2 = MultiUIIdentifier.createTabBarControllerIdentifier()
+		let modalToken = context?.openModal(identifier: identifier2,
+											tokens: ["vc2", "vc3"],
+											presentationStyle: .formSheet,
+											animated: true)
+		XCTAssertNotNil(modalToken)
+		viewTester().usingLabel("vc2")?.waitForView()
+
+		XCTAssertTrue(context!.closeModal(token: modalToken!, animated: true))
+		viewTester().usingLabel("vc2")?.waitForAbsenceOfView()
 	}
 }
 

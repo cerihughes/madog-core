@@ -198,7 +198,7 @@ private class TestResolver: Resolver<String> {
 }
 
 private class TestViewControllerProvider: BaseViewControllerProvider {
-	override func createViewController(token: String, context: Context) -> UIViewController? {
+	override func createViewController(token: String, context _: Context) -> UIViewController? {
 		let viewController = TestViewController()
 		viewController.title = token
 		viewController.label.text = token

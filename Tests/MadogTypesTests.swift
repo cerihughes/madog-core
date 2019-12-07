@@ -90,7 +90,7 @@ private class TestResolver: Resolver<Int> {
 }
 
 private class TestContext: Context {
-	func close(animated: Bool) -> Bool { return false }
+	func close(animated: Bool, completion: (() -> Void)?) -> Bool { return false }
 	func change<VC>(to _: SingleUIIdentifier<VC>, token _: Any, transition _: Transition?) -> Context? where VC: UIViewController { return nil }
 	func change<VC>(to _: MultiUIIdentifier<VC>, tokens _: [Any], transition _: Transition?) -> Context? where VC: UIViewController { return nil }
 }

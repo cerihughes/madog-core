@@ -20,7 +20,7 @@ public struct Transition {
 
 public protocol Context: AnyObject {
 	@discardableResult
-	func close(animated: Bool) -> Bool
+	func close(animated: Bool, completion: (() -> Void)?) -> Bool
 
 	@discardableResult
 	func change<VC: UIViewController>(to identifier: SingleUIIdentifier<VC>, token: Any, transition: Transition?) -> Context?
@@ -29,6 +29,11 @@ public protocol Context: AnyObject {
 }
 
 public extension Context {
+	@discardableResult
+	func close(animated: Bool) -> Bool {
+		return close(animated: animated, completion: nil)
+	}
+
 	@discardableResult
 	func change<VC: UIViewController>(to identifier: SingleUIIdentifier<VC>, token: Any) -> Context? {
 		return change(to: identifier, token: token, transition: nil)

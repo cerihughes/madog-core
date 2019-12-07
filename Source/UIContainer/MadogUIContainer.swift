@@ -28,7 +28,7 @@ open class MadogUIContext: Context {
 
 	// MARK: - Context
 
-	public func close(animated: Bool) -> Bool {
+	public func close(animated: Bool, completion: (() -> Void)?) -> Bool {
 		return false
 	}
 
@@ -62,8 +62,9 @@ open class MadogUIContainer<Token>: MadogUIContext, ModalContext {
 		return internalRegistry
 	}
 
-	public override func close(animated: Bool) -> Bool {
-		closeContext(presentedViewController: viewController, animated: animated)
+	public override func close(animated: Bool,
+							   completion: (() -> Void)?) -> Bool {
+		closeContext(presentedViewController: viewController, animated: animated, completion: completion)
 		return true
 	}
 
@@ -149,7 +150,7 @@ open class MadogUIContainer<Token>: MadogUIContext, ModalContext {
 			return false
 		}
 
-		closeContext(presentedViewController: token.viewController, animated: animated)
+		closeContext(presentedViewController: token.viewController, animated: animated, completion: completion)
 		return true
 	}
 

@@ -11,26 +11,7 @@ import XCTest
 
 @testable import Madog
 
-class MadogUIContainerTests: KIFTestCase {
-	private var window: UIWindow!
-	private var madog: Madog<String>!
-
-	override func setUp() {
-		super.setUp()
-
-		window = UIWindow()
-		window.makeKeyAndVisible()
-		madog = Madog()
-		madog.resolve(resolver: TestResolver())
-	}
-
-	override func tearDown() {
-		window = nil
-		madog = nil
-
-		super.tearDown()
-	}
-
+class MadogUIContainerTests: MadogKIFTestCase {
 	func testCloseReleasesMainContext() {
 		let identifier = SingleUIIdentifier.createNavigationControllerIdentifier()
 		weak var context = madog.renderUI(identifier: identifier, token: "vc1", in: window)
@@ -365,32 +346,5 @@ class MadogUIContainerTests: KIFTestCase {
 	private func createModalContext(context: ModalContext, tokens: [String]) -> Context? {
 		let modalToken = createModal(context: context, tokens: tokens)
 		return modalToken?.context
-	}
-}
-
-private class TestResolver: Resolver<String> {
-	override func viewControllerProviderCreationFunctions() -> [() -> ViewControllerProvider<String>] {
-		return [
-			{ TestViewControllerProvider() }
-		]
-	}
-}
-
-private class TestViewControllerProvider: BaseViewControllerProvider {
-	override func createViewController(token: String, context _: Context) -> UIViewController? {
-		let viewController = TestViewController()
-		viewController.title = token
-		viewController.label.text = token
-		return viewController
-	}
-}
-
-private class TestViewController: UIViewController {
-	let label = UILabel()
-
-	override func viewDidLoad() {
-		super.viewDidLoad()
-
-		view.addSubview(label)
 	}
 }

@@ -1,53 +1,12 @@
 //
-//  NavigationContexts.swift
+//  ModalContext.swift
 //  Madog
 //
-//  Created by Ceri Hughes on 23/11/2018.
+//  Created by Ceri Hughes on 08/12/2019.
 //  Copyright © 2019 Ceri Hughes. All rights reserved.
 //
 
 import UIKit
-
-public struct Transition {
-	public let duration: TimeInterval
-	public let options: UIView.AnimationOptions
-
-	public init(duration: TimeInterval, options: UIView.AnimationOptions) {
-		self.duration = duration
-		self.options = options
-	}
-}
-
-public protocol Context: AnyObject {
-	@discardableResult
-	func close(animated: Bool, completion: (() -> Void)?) -> Bool
-
-	@discardableResult
-	func change<VC: UIViewController>(to identifier: SingleUIIdentifier<VC>, token: Any, transition: Transition?) -> Context?
-	@discardableResult
-	func change<VC: UIViewController>(to identifier: MultiUIIdentifier<VC>, tokens: [Any], transition: Transition?) -> Context?
-}
-
-public extension Context {
-	@discardableResult
-	func close(animated: Bool) -> Bool {
-		return close(animated: animated, completion: nil)
-	}
-
-	@discardableResult
-	func change<VC: UIViewController>(to identifier: SingleUIIdentifier<VC>, token: Any) -> Context? {
-		return change(to: identifier, token: token, transition: nil)
-	}
-
-	@discardableResult
-	func change<VC: UIViewController>(to identifier: MultiUIIdentifier<VC>, tokens: [Any]) -> Context? {
-		return change(to: identifier, tokens: tokens, transition: nil)
-	}
-}
-
-public protocol MultiContext {
-	var selectedIndex: Int { get set }
-}
 
 public protocol ModalContext: AnyObject {
 	// swiftlint:disable function_parameter_count
@@ -149,11 +108,16 @@ public extension ModalContext {
 	}
 }
 
-public protocol ForwardBackNavigationContext: AnyObject {
-	@discardableResult
-	func navigateForward(token: Any, animated: Bool) -> Bool
-	@discardableResult
-	func navigateBack(animated: Bool) -> Bool
-	@discardableResult
-	func navigateBackToRoot(animated: Bool) -> Bool
+public protocol ModalToken {
+	var context: Context? { get }
+}
+
+internal class ModalTokenImplementation: ModalToken {
+	internal let viewController: UIViewController
+	weak var context: Context?
+
+	internal init(viewController: UIViewController, context: Context? = nil) {
+		self.viewController = viewController
+		self.context = context
+	}
 }

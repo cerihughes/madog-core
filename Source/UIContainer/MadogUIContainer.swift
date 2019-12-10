@@ -12,13 +12,13 @@ public typealias NavigationModalContext = ForwardBackNavigationContext & ModalCo
 public typealias NavigationModalMultiContext = NavigationModalContext & MultiContext
 
 internal protocol MadogUIContainerDelegate: AnyObject {
-	func createUI<VC: UIViewController>(identifier: SingleUIIdentifier<VC>, token: Any, isModal: Bool) -> MadogUIContext?
-	func createUI<VC: UIViewController>(identifier: MultiUIIdentifier<VC>, tokens: [Any], isModal: Bool) -> MadogUIContext?
+	func createUI<VC: UIViewController>(identifier: SingleUIIdentifier<VC>, token: Any, isModal: Bool) -> MadogUIContainer?
+	func createUI<VC: UIViewController>(identifier: MultiUIIdentifier<VC>, tokens: [Any], isModal: Bool) -> MadogUIContainer?
 
 	func releaseContext(for viewController: UIViewController)
 }
 
-open class MadogUIContext: Context {
+open class MadogUIContainer: Context {
 	internal weak var delegate: MadogUIContainerDelegate?
 	internal let viewController: UIViewController
 
@@ -55,7 +55,7 @@ open class MadogUIContext: Context {
 	}
 }
 
-open class MadogUIContainer<Token>: MadogUIContext, ModalContext {
+open class MadogNavigatingModalUIContainer<Token>: MadogUIContainer, ModalContext {
 	internal var internalRegistry: Registry<Token>!
 
 	public var registry: Registry<Token> {
@@ -177,7 +177,7 @@ open class MadogUIContainer<Token>: MadogUIContext, ModalContext {
 	}
 }
 
-extension MadogUIContainer: ForwardBackNavigationContext {
+extension MadogNavigatingModalUIContainer: ForwardBackNavigationContext {
 	// MARK: - ForwardBackNavigationContext
 
 	public func navigateForward(token: Any, animated: Bool) -> Bool {
@@ -208,13 +208,13 @@ extension MadogUIContainer: ForwardBackNavigationContext {
 	}
 }
 
-open class MadogSingleUIContainer<Token>: MadogUIContainer<Token> {
+open class MadogSingleUIContainer<Token>: MadogNavigatingModalUIContainer<Token> {
 	open func renderInitialView(with _: Token) -> Bool {
 		return false
 	}
 }
 
-open class MadogMultiUIContainer<Token>: MadogUIContainer<Token> {
+open class MadogMultiUIContainer<Token>: MadogNavigatingModalUIContainer<Token> {
 	open func renderInitialViews(with _: [Token]) -> Bool {
 		return false
 	}

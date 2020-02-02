@@ -162,10 +162,10 @@ open class MadogNavigatingModalUIContainer<Token>: MadogUIContainer, ModalContex
 	private func closeContext(presentedViewController: UIViewController,
 							  animated: Bool = false,
 							  completion: (() -> Void)? = nil) {
-		presentedViewController.children.forEach { closeContext(presentedViewController: $0) }
+		presentedViewController.children.forEach { closeContext(presentedViewController: $0, animated: animated) }
 
 		if let presentedPresentedViewController = presentedViewController.presentedViewController {
-			closeContext(presentedViewController: presentedPresentedViewController)
+			closeContext(presentedViewController: presentedPresentedViewController, animated: animated)
 		}
 
 		presentedViewController.dismiss(animated: animated, completion: completion)

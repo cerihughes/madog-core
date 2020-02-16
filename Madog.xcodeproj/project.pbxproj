@@ -28,6 +28,7 @@
 		6576C241239ADA9700F6AD07 /* MadogUIContainerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6576C240239ADA9700F6AD07 /* MadogUIContainerTests.swift */; };
 		658C852121A81D26006ECF6F /* Madog.h in Headers */ = {isa = PBXBuildFile; fileRef = 658C851321A81D26006ECF6F /* Madog.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6595DCE8227CD826003AC2FD /* MadogTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6595DCE7227CD826003AC2FD /* MadogTypes.swift */; };
+		659C0D4023F9AA0B0021EC6A /* Provident in Frameworks */ = {isa = PBXBuildFile; productRef = 659C0D3F23F9AA0B0021EC6A /* Provident */; };
 		65A250D521A81FBF0035FA0F /* NavigationUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A250CE21A81FBF0035FA0F /* NavigationUI.swift */; };
 		65A250DE21A8212F0035FA0F /* Context.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A250DD21A8212F0035FA0F /* Context.swift */; };
 		65A250E321A822990035FA0F /* TabBarNavigationUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A250E221A822990035FA0F /* TabBarNavigationUI.swift */; };
@@ -109,6 +110,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				659C0D4023F9AA0B0021EC6A /* Provident in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -299,6 +301,9 @@
 			dependencies = (
 			);
 			name = Madog;
+			packageProductDependencies = (
+				659C0D3F23F9AA0B0021EC6A /* Provident */,
+			);
 			productName = Madog;
 			productReference = 658C851021A81D26006ECF6F /* Madog.framework */;
 			productType = "com.apple.product-type.framework";
@@ -336,6 +341,9 @@
 				Base,
 			);
 			mainGroup = 658C850621A81D26006ECF6F;
+			packageReferences = (
+				659C0D3E23F9AA0B0021EC6A /* XCRemoteSwiftPackageReference "provident" */,
+			);
 			productRefGroup = 658C851121A81D26006ECF6F /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -791,6 +799,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		659C0D3E23F9AA0B0021EC6A /* XCRemoteSwiftPackageReference "provident" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/cerihughes/provident";
+			requirement = {
+				kind = upToNextMinorVersion;
+				minimumVersion = 2.1.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		659C0D3F23F9AA0B0021EC6A /* Provident */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 659C0D3E23F9AA0B0021EC6A /* XCRemoteSwiftPackageReference "provident" */;
+			productName = Provident;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 658C850721A81D26006ECF6F /* Project object */;
 }

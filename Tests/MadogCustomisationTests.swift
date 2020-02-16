@@ -6,6 +6,8 @@
 //  Copyright © 2019 Ceri Hughes. All rights reserved.
 //
 
+#if canImport(KIF)
+
 import KIF
 import XCTest
 
@@ -38,3 +40,5 @@ class MadogCustomisationTests: MadogKIFTestCase {
 		navigationController.pushViewController(viewController, animated: true)
 	}
 }
+
+#endif

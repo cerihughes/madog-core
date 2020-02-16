@@ -6,6 +6,8 @@
 //  Copyright © 2019 Ceri Hughes. All rights reserved.
 //
 
+#if canImport(KIF)
+
 import KIF
 import XCTest
 
@@ -58,3 +60,5 @@ private class TestViewController: UIViewController {
 		view.addSubview(label)
 	}
 }
+
+#endif

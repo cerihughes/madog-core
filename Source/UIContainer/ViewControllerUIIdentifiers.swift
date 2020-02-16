@@ -6,7 +6,10 @@
 //  Copyright © 2019 Ceri Hughes. All rights reserved.
 //
 
+#if canImport(UIKit)
+
 import Foundation
+import UIKit
 
 internal let navigationControllerIdentifier = "navigationControllerIdentifier"
 
@@ -45,3 +48,5 @@ public class MultiUIIdentifier<VC: UIViewController> {
 
 	// swiftlint:enable line_length
 }
+
+#endif

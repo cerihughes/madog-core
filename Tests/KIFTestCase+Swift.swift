@@ -6,6 +6,8 @@
 //  Copyright © 2019 Ceri Hughes. All rights reserved.
 //
 
+#if canImport(KIF)
+
 import KIF
 import XCTest
 
@@ -18,3 +20,5 @@ extension KIFTestCase {
 		return KIFSystemTestActor(inFile: file, atLine: line, delegate: self)
 	}
 }
+
+#endif

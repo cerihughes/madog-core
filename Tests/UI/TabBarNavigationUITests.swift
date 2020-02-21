@@ -6,6 +6,8 @@
 //  Copyright © 2019 Ceri Hughes. All rights reserved.
 //
 
+#if canImport(KIF)
+
 import KIF
 import XCTest
 
@@ -109,3 +111,5 @@ private class TestViewControllerProvider: BaseViewControllerProvider {
 		return viewController
 	}
 }
+
+#endif

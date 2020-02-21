@@ -32,7 +32,7 @@
 		65A250DE21A8212F0035FA0F /* Context.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A250DD21A8212F0035FA0F /* Context.swift */; };
 		65A250E321A822990035FA0F /* TabBarNavigationUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A250E221A822990035FA0F /* TabBarNavigationUI.swift */; };
 		65E89480227DDFF400EA7F11 /* MadogTypesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E8947F227DDFF400EA7F11 /* MadogTypesTests.swift */; };
-        65F8B673227DBA0D007EEBAF /* Provident.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65F8B672227DBA0C007EEBAF /* Provident.framework */; };
+		65F8B673227DBA0D007EEBAF /* Provident.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65F8B672227DBA0C007EEBAF /* Provident.framework */; };
 		C29A0A222382E7280059104A /* UIViewController+MadogModalPresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29A0A212382E7280059104A /* UIViewController+MadogModalPresentation.swift */; };
 		C2F8826C230FFAB90093604A /* MadogTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2F8826B230FFAB90093604A /* MadogTests.swift */; };
 /* End PBXBuildFile section */
@@ -85,7 +85,7 @@
 		65A250DD21A8212F0035FA0F /* Context.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Context.swift; sourceTree = "<group>"; };
 		65A250E221A822990035FA0F /* TabBarNavigationUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarNavigationUI.swift; sourceTree = "<group>"; };
 		65E8947F227DDFF400EA7F11 /* MadogTypesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MadogTypesTests.swift; sourceTree = "<group>"; usesTabs = 0; };
-        65F8B672227DBA0C007EEBAF /* Provident.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Provident.framework; path = Carthage/Build/iOS/Provident.framework; sourceTree = "<group>"; };
+		65F8B672227DBA0C007EEBAF /* Provident.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Provident.framework; path = Carthage/Build/iOS/Provident.framework; sourceTree = "<group>"; };
 		C29A0A212382E7280059104A /* UIViewController+MadogModalPresentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+MadogModalPresentation.swift"; sourceTree = "<group>"; };
 		C2F8826B230FFAB90093604A /* MadogTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MadogTests.swift; sourceTree = "<group>"; usesTabs = 0; };
 /* End PBXFileReference section */
@@ -111,7 +111,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-                65F8B673227DBA0D007EEBAF /* Provident.framework in Frameworks */,
+				65F8B673227DBA0D007EEBAF /* Provident.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -232,7 +232,7 @@
 			isa = PBXGroup;
 			children = (
 				6576C1FD239A944A00F6AD07 /* KIF.framework */,
-                65F8B672227DBA0C007EEBAF /* Provident.framework */,
+				65F8B672227DBA0C007EEBAF /* Provident.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -711,10 +711,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-                FRAMEWORK_SEARCH_PATHS = (
-                    "$(inherited)",
-                    "$(PROJECT_DIR)/Carthage/Build/iOS",
-                );
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = Source/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -743,10 +743,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-                FRAMEWORK_SEARCH_PATHS = (
-                    "$(inherited)",
-                    "$(PROJECT_DIR)/Carthage/Build/iOS",
-                );
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = Source/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (

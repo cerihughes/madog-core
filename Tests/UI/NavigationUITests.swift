@@ -14,76 +14,76 @@ import XCTest
 @testable import Madog
 
 class NavigationUITests: KIFTestCase {
-	private var window: UIWindow!
-	private var madog: Madog<String>!
-	private var context: NavigationModalContext!
+    private var window: UIWindow!
+    private var madog: Madog<String>!
+    private var context: NavigationModalContext!
 
-	override func setUp() {
-		super.setUp()
+    override func setUp() {
+        super.setUp()
 
-		window = UIWindow()
-		window.makeKeyAndVisible()
-		madog = Madog()
-		madog.resolve(resolver: TestResolver())
-	}
+        window = UIWindow()
+        window.makeKeyAndVisible()
+        madog = Madog()
+        madog.resolve(resolver: TestResolver())
+    }
 
-	override func tearDown() {
-		window = nil
-		madog = nil
-		context = nil
+    override func tearDown() {
+        window = nil
+        madog = nil
+        context = nil
 
-		super.tearDown()
-	}
+        super.tearDown()
+    }
 
-	func testRenderInitialUI() {
-		context = renderUIAndAssert(token: "vc1")
-		XCTAssertNotNil(context)
-	}
+    func testRenderInitialUI() {
+        context = renderUIAndAssert(token: "vc1")
+        XCTAssertNotNil(context)
+    }
 
-	func testNavigateForwardAndBack() {
-		context = renderUIAndAssert(token: "vc1")
-		navigateForwardAndAssert(token: "vc2")
+    func testNavigateForwardAndBack() {
+        context = renderUIAndAssert(token: "vc1")
+        navigateForwardAndAssert(token: "vc2")
 
-		context.navigateBack(animated: true)
-		viewTester().usingLabel("vc1")?.waitForView()
-	}
+        context.navigateBack(animated: true)
+        viewTester().usingLabel("vc1")?.waitForView()
+    }
 
-	func testBackToRoot() {
-		context = renderUIAndAssert(token: "vc1")
-		navigateForwardAndAssert(token: "vc2")
-		navigateForwardAndAssert(token: "vc3")
+    func testBackToRoot() {
+        context = renderUIAndAssert(token: "vc1")
+        navigateForwardAndAssert(token: "vc2")
+        navigateForwardAndAssert(token: "vc3")
 
-		context?.navigateBackToRoot(animated: true)
-		viewTester().usingLabel("vc1")?.waitForView()
-	}
+        context?.navigateBackToRoot(animated: true)
+        viewTester().usingLabel("vc1")?.waitForView()
+    }
 
-	private func renderUIAndAssert(token: String) -> NavigationModalContext? {
-		let identifier = SingleUIIdentifier.createNavigationControllerIdentifier()
-		let context = madog.renderUI(identifier: identifier, token: token, in: window)
-		viewTester().usingLabel(token)?.waitForView()
-		return context as? NavigationModalContext
-	}
+    private func renderUIAndAssert(token: String) -> NavigationModalContext? {
+        let identifier = SingleUIIdentifier.createNavigationControllerIdentifier()
+        let context = madog.renderUI(identifier: identifier, token: token, in: window)
+        viewTester().usingLabel(token)?.waitForView()
+        return context as? NavigationModalContext
+    }
 
-	private func navigateForwardAndAssert(token: String) {
-		context.navigateForward(token: token, animated: true)
-		viewTester().usingLabel(token)?.waitForView()
-	}
+    private func navigateForwardAndAssert(token: String) {
+        context.navigateForward(token: token, animated: true)
+        viewTester().usingLabel(token)?.waitForView()
+    }
 }
 
 private class TestResolver: Resolver<String> {
-	override func viewControllerProviderCreationFunctions() -> [() -> ViewControllerProvider<String>] {
-		return [
-			{ TestViewControllerProvider() }
-		]
-	}
+    override func viewControllerProviderCreationFunctions() -> [() -> ViewControllerProvider<String>] {
+        return [
+            { TestViewControllerProvider() }
+        ]
+    }
 }
 
 private class TestViewControllerProvider: BaseViewControllerProvider {
-	override func createViewController(token: String, context: Context) -> UIViewController? {
-		let viewController = UIViewController()
-		viewController.title = token
-		return viewController
-	}
+    override func createViewController(token: String, context: Context) -> UIViewController? {
+        let viewController = UIViewController()
+        viewController.title = token
+        return viewController
+    }
 }
 
 #endif

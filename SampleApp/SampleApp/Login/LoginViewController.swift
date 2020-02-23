@@ -10,41 +10,41 @@ import Madog
 import UIKit
 
 class LoginViewController: UIViewController {
-	var authenticator: Authenticator!
-	weak var navigationContext: (Context & ForwardBackNavigationContext)?
+    var authenticator: Authenticator!
+    weak var navigationContext: (Context & ForwardBackNavigationContext)?
 
-	@IBOutlet private var usernameField: UITextField!
-	@IBOutlet private var passwordField: UITextField!
-	@IBOutlet private var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet private var usernameField: UITextField!
+    @IBOutlet private var passwordField: UITextField!
+    @IBOutlet private var activityIndicator: UIActivityIndicatorView!
 
-	static func createLoginViewController(authenticator: Authenticator, navigationContext: Context & ForwardBackNavigationContext) -> LoginViewController? {
-		let storyboard = UIStoryboard(name: "LoginViewController", bundle: Bundle(for: LoginViewController.self))
-		guard let loginViewController = storyboard.instantiateInitialViewController() as? LoginViewController else {
-			return nil
-		}
+    static func createLoginViewController(authenticator: Authenticator, navigationContext: Context & ForwardBackNavigationContext) -> LoginViewController? {
+        let storyboard = UIStoryboard(name: "LoginViewController", bundle: Bundle(for: LoginViewController.self))
+        guard let loginViewController = storyboard.instantiateInitialViewController() as? LoginViewController else {
+            return nil
+        }
 
-		loginViewController.authenticator = authenticator
-		loginViewController.navigationContext = navigationContext
-		return loginViewController
-	}
+        loginViewController.authenticator = authenticator
+        loginViewController.navigationContext = navigationContext
+        return loginViewController
+    }
 
-	override func viewDidAppear(_: Bool) {
-		guard let navigationContext = navigationContext else {
-			return
-		}
+    override func viewDidAppear(_: Bool) {
+        guard let navigationContext = navigationContext else {
+            return
+        }
 
-		DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-			self.usernameField.text = "SomeUsername"
-			self.passwordField.text = "SomePassword123"
-			self.activityIndicator.startAnimating()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+            self.usernameField.text = "SomeUsername"
+            self.passwordField.text = "SomePassword123"
+            self.activityIndicator.startAnimating()
 
-			self.authenticator.login(username: "SomeUsername", password: "SomePassword123", completion: { _ in
-				self.activityIndicator.stopAnimating()
+            self.authenticator.login(username: "SomeUsername", password: "SomePassword123", completion: { _ in
+                self.activityIndicator.stopAnimating()
 
-				let tokens: [SampleToken] = [.vc1, .logout]
-				let identifier = MultiUIIdentifier.createTabBarControllerIdentifier()
-				navigationContext.change(to: identifier, tokens: tokens)
+                let tokens: [SampleToken] = [.vc1, .logout]
+                let identifier = MultiUIIdentifier.createTabBarControllerIdentifier()
+                navigationContext.change(to: identifier, tokens: tokens)
 			})
-		}
-	}
+        }
+    }
 }

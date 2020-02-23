@@ -9,27 +9,27 @@
 import UIKit
 
 class ButtonView: UIView {
-	let button = UIButton(type: .system)
+    let button = UIButton(type: .system)
 
-	override init(frame: CGRect) {
-		super.init(frame: frame)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
 
-		backgroundColor = .white
+        backgroundColor = .white
 
-		button.translatesAutoresizingMaskIntoConstraints = false
-		addSubview(button)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(button)
 
-		var constraints = [NSLayoutConstraint]()
+        var constraints = [NSLayoutConstraint]()
 
-		constraints.append(button.centerXAnchor.constraint(equalTo: centerXAnchor))
-		constraints.append(button.centerYAnchor.constraint(equalTo: centerYAnchor))
-		constraints.append(button.widthAnchor.constraint(equalToConstant: 64.0))
-		constraints.append(button.heightAnchor.constraint(equalTo: button.widthAnchor))
+        constraints.append(button.centerXAnchor.constraint(equalTo: centerXAnchor))
+        constraints.append(button.centerYAnchor.constraint(equalTo: centerYAnchor))
+        constraints.append(button.widthAnchor.constraint(equalToConstant: 64.0))
+        constraints.append(button.heightAnchor.constraint(equalTo: button.widthAnchor))
 
-		NSLayoutConstraint.activate(constraints)
-	}
+        NSLayoutConstraint.activate(constraints)
+    }
 
-	required init?(coder _: NSCoder) {
-		fatalError("init(coder:) has not been implemented")
-	}
+    required init?(coder _: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 }

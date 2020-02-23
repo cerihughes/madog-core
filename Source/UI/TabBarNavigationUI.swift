@@ -12,34 +12,34 @@ import UIKit
 ///
 /// At the moment, this is achieved with a UINavigationController that can be pushed / popped to / from.
 internal class TabBarNavigationUI<Token>: MadogMultiUIContainer<Token>, MultiContext {
-	private let tabBarController = UITabBarController()
+    private let tabBarController = UITabBarController()
 
-	internal init() {
-		super.init(viewController: tabBarController)
-	}
+    internal init() {
+        super.init(viewController: tabBarController)
+    }
 
-	override func provideNavigationController() -> UINavigationController? {
-		return tabBarController.selectedViewController as? UINavigationController
-	}
+    override func provideNavigationController() -> UINavigationController? {
+        return tabBarController.selectedViewController as? UINavigationController
+    }
 
-	// MARK: - MadogMultiUIContext
+    // MARK: - MadogMultiUIContext
 
-	internal override func renderInitialViews(with tokens: [Token]) -> Bool {
-		let viewControllers = tokens.compactMap { registry.createViewController(from: $0, context: self) }
-			.map { UINavigationController(rootViewController: $0) }
+    internal override func renderInitialViews(with tokens: [Token]) -> Bool {
+        let viewControllers = tokens.compactMap { registry.createViewController(from: $0, context: self) }
+            .map { UINavigationController(rootViewController: $0) }
 
-		tabBarController.viewControllers = viewControllers
-		return true
-	}
+        tabBarController.viewControllers = viewControllers
+        return true
+    }
 
-	// MARK: - MultiContext
+    // MARK: - MultiContext
 
-	var selectedIndex: Int {
-		get {
-			return tabBarController.selectedIndex
-		}
-		set {
-			tabBarController.selectedIndex = newValue
-		}
-	}
+    var selectedIndex: Int {
+        get {
+            return tabBarController.selectedIndex
+        }
+        set {
+            tabBarController.selectedIndex = newValue
+        }
+    }
 }

@@ -14,51 +14,51 @@ import XCTest
 @testable import Madog
 
 class MadogKIFTestCase: KIFTestCase {
-	var window: UIWindow!
-	var madog: Madog<String>!
+    var window: UIWindow!
+    var madog: Madog<String>!
 
-	override func setUp() {
-		super.setUp()
+    override func setUp() {
+        super.setUp()
 
-		window = UIWindow()
-		window.makeKeyAndVisible()
-		madog = Madog()
-		madog.resolve(resolver: TestResolver())
-	}
+        window = UIWindow()
+        window.makeKeyAndVisible()
+        madog = Madog()
+        madog.resolve(resolver: TestResolver())
+    }
 
-	override func tearDown() {
-		window = nil
-		madog = nil
+    override func tearDown() {
+        window = nil
+        madog = nil
 
-		super.tearDown()
-	}
+        super.tearDown()
+    }
 }
 
 private class TestResolver: Resolver<String> {
-	override func viewControllerProviderCreationFunctions() -> [() -> ViewControllerProvider<String>] {
-		return [
-			{ TestViewControllerProvider() }
-		]
-	}
+    override func viewControllerProviderCreationFunctions() -> [() -> ViewControllerProvider<String>] {
+        return [
+            { TestViewControllerProvider() }
+        ]
+    }
 }
 
 private class TestViewControllerProvider: BaseViewControllerProvider {
-	override func createViewController(token: String, context _: Context) -> UIViewController? {
-		let viewController = TestViewController()
-		viewController.title = token
-		viewController.label.text = token
-		return viewController
-	}
+    override func createViewController(token: String, context _: Context) -> UIViewController? {
+        let viewController = TestViewController()
+        viewController.title = token
+        viewController.label.text = token
+        return viewController
+    }
 }
 
 private class TestViewController: UIViewController {
-	let label = UILabel()
+    let label = UILabel()
 
-	override func viewDidLoad() {
-		super.viewDidLoad()
+    override func viewDidLoad() {
+        super.viewDidLoad()
 
-		view.addSubview(label)
-	}
+        view.addSubview(label)
+    }
 }
 
 #endif

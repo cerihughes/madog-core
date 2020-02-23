@@ -1,6 +1,6 @@
 --exclude Carthage
 
---indent tab
+--indent 4
 --ifdef no-indent
 --stripunusedargs closure-only
 

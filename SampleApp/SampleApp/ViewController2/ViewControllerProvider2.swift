@@ -12,56 +12,56 @@ import UIKit
 private let vc2Identifier = "vc2Identifier"
 
 class ViewControllerProvider2: ViewControllerProvider<SampleToken> {
-	private var sharedService: Any?
-	private var uuid: UUID?
+    private var sharedService: Any?
+    private var uuid: UUID?
 
-	// MARK: ViewControllerProviderObject
+    // MARK: ViewControllerProviderObject
 
-	override func register(with registry: Registry<SampleToken>) {
-		uuid = registry.add(registryFunction: createViewController(token:context:))
-	}
+    override func register(with registry: Registry<SampleToken>) {
+        uuid = registry.add(registryFunction: createViewController(token:context:))
+    }
 
-	override func unregister(from registry: Registry<SampleToken>) {
-		guard let uuid = uuid else {
-			return
-		}
+    override func unregister(from registry: Registry<SampleToken>) {
+        guard let uuid = uuid else {
+            return
+        }
 
-		registry.removeRegistryFunction(uuid: uuid)
-	}
+        registry.removeRegistryFunction(uuid: uuid)
+    }
 
-	override func configure(with serviceProviders: [String: ServiceProvider]) {
-		if let serviceProvider = serviceProviders[serviceProvider1Name] as? ServiceProvider1 {
-			sharedService = serviceProvider.somethingShared
-		}
-	}
+    override func configure(with serviceProviders: [String: ServiceProvider]) {
+        if let serviceProvider = serviceProviders[serviceProvider1Name] as? ServiceProvider1 {
+            sharedService = serviceProvider.somethingShared
+        }
+    }
 
-	// MARK: Private
+    // MARK: Private
 
-	private func createViewController(token: Any, context: Context) -> UIViewController? {
-		guard let sharedService = sharedService,
-			let sampleToken = token as? SampleToken,
-			sampleToken.identifier == vc2Identifier,
-			let stringData = sampleToken.stringData,
-			let navigationContext = context as? ForwardBackNavigationContext else {
-			return nil
-		}
+    private func createViewController(token: Any, context: Context) -> UIViewController? {
+        guard let sharedService = sharedService,
+            let sampleToken = token as? SampleToken,
+            sampleToken.identifier == vc2Identifier,
+            let stringData = sampleToken.stringData,
+            let navigationContext = context as? ForwardBackNavigationContext else {
+            return nil
+        }
 
-		let viewController = ViewController2(sharedService: sharedService,
-											 stringData: stringData,
-											 navigationContext: navigationContext)
-		viewController.tabBarItem = UITabBarItem(tabBarSystemItem: .contacts, tag: 0)
-		return viewController
-	}
+        let viewController = ViewController2(sharedService: sharedService,
+                                             stringData: stringData,
+                                             navigationContext: navigationContext)
+        viewController.tabBarItem = UITabBarItem(tabBarSystemItem: .contacts, tag: 0)
+        return viewController
+    }
 }
 
 extension SampleToken {
-	private static let stringDataKey = "stringData"
+    private static let stringDataKey = "stringData"
 
-	static func createVC2Identifier(stringData: String) -> SampleToken {
-		return SampleToken(identifier: vc2Identifier, data: [stringDataKey: stringData])
-	}
+    static func createVC2Identifier(stringData: String) -> SampleToken {
+        return SampleToken(identifier: vc2Identifier, data: [stringDataKey: stringData])
+    }
 
-	var stringData: String? {
-		return data[SampleToken.stringDataKey] as? String
-	}
+    var stringData: String? {
+        return data[SampleToken.stringDataKey] as? String
+    }
 }

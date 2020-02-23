@@ -9,10 +9,10 @@
 import Foundation
 
 public protocol ForwardBackNavigationContext: AnyObject {
-	@discardableResult
-	func navigateForward(token: Any, animated: Bool) -> Bool
-	@discardableResult
-	func navigateBack(animated: Bool) -> Bool
-	@discardableResult
-	func navigateBackToRoot(animated: Bool) -> Bool
+    @discardableResult
+    func navigateForward(token: Any, animated: Bool) -> Bool
+    @discardableResult
+    func navigateBack(animated: Bool) -> Bool
+    @discardableResult
+    func navigateBackToRoot(animated: Bool) -> Bool
 }

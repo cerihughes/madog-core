@@ -12,24 +12,24 @@ import UIKit
 ///
 /// At the moment, this is achieved with a UINavigationController that can be pushed / popped to / from.
 internal class NavigationUI<Token>: MadogSingleUIContainer<Token> {
-	private let navigationController = UINavigationController()
+    private let navigationController = UINavigationController()
 
-	internal init() {
-		super.init(viewController: navigationController)
-	}
+    internal init() {
+        super.init(viewController: navigationController)
+    }
 
-	override func provideNavigationController() -> UINavigationController? {
-		return navigationController
-	}
+    override func provideNavigationController() -> UINavigationController? {
+        return navigationController
+    }
 
-	// MARK: - MadogSingleUIContext
+    // MARK: - MadogSingleUIContext
 
-	internal override func renderInitialView(with token: Token) -> Bool {
-		guard let viewController = registry.createViewController(from: token, context: self) else {
-			return false
-		}
+    internal override func renderInitialView(with token: Token) -> Bool {
+        guard let viewController = registry.createViewController(from: token, context: self) else {
+            return false
+        }
 
-		navigationController.setViewControllers([viewController], animated: false)
-		return true
-	}
+        navigationController.setViewControllers([viewController], animated: false)
+        return true
+    }
 }

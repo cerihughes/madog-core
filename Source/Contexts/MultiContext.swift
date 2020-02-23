@@ -9,5 +9,5 @@
 import Foundation
 
 public protocol MultiContext {
-	var selectedIndex: Int { get set }
+    var selectedIndex: Int { get set }
 }

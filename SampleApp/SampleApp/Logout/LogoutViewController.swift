@@ -10,45 +10,45 @@ import Madog
 import UIKit
 
 class LogoutViewController: UIViewController {
-	private let authenticator: Authenticator
-	private weak var context: Context?
+    private let authenticator: Authenticator
+    private weak var context: Context?
 
-	init(authenticator: Authenticator, context: Context) {
-		self.authenticator = authenticator
-		self.context = context
+    init(authenticator: Authenticator, context: Context) {
+        self.authenticator = authenticator
+        self.context = context
 
-		super.init(nibName: nil, bundle: nil)
-	}
+        super.init(nibName: nil, bundle: nil)
+    }
 
-	required init?(coder _: NSCoder) {
-		fatalError("init(coder:) has not been implemented")
-	}
+    required init?(coder _: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
-	override func loadView() {
-		view = ButtonView()
-	}
+    override func loadView() {
+        view = ButtonView()
+    }
 
-	override func viewDidLoad() {
-		guard let view = view as? ButtonView else {
-			return
-		}
+    override func viewDidLoad() {
+        guard let view = view as? ButtonView else {
+            return
+        }
 
-		view.button.setTitle("Logout", for: .normal)
-		view.button.addTarget(self, action: #selector(buttonTapGesture(sender:)), for: .touchUpInside)
-	}
+        view.button.setTitle("Logout", for: .normal)
+        view.button.addTarget(self, action: #selector(buttonTapGesture(sender:)), for: .touchUpInside)
+    }
 }
 
 extension LogoutViewController {
-	// MARK: UIButton interactions
+    // MARK: UIButton interactions
 
-	@objc
-	private func buttonTapGesture(sender _: UIButton) {
-		authenticator.logout { _ in
-			let token = SampleToken.login
-			let identifier = SingleUIIdentifier.createNavigationControllerIdentifier { navigationController in
-				navigationController.isNavigationBarHidden = true
-			}
-			self.context?.change(to: identifier, token: token)
-		}
-	}
+    @objc
+    private func buttonTapGesture(sender _: UIButton) {
+        authenticator.logout { _ in
+            let token = SampleToken.login
+            let identifier = SingleUIIdentifier.createNavigationControllerIdentifier { navigationController in
+                navigationController.isNavigationBarHidden = true
+            }
+            self.context?.change(to: identifier, token: token)
+        }
+    }
 }

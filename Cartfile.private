@@ -1,1 +1,1 @@
-github "kif-framework/KIF" == 3.7.8
+github "kif-framework/KIF" ~> 3.7.8

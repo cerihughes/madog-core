@@ -9,11 +9,6 @@
 import Provident
 import UIKit
 
-public protocol MadogDelegate: AnyObject {
-    func madogDidCreateViewController(_ viewController: UIViewController, from token: Any)
-    func madogDidNotCreateViewControllerFrom(_ token: Any)
-}
-
 public final class Madog<Token>: MadogUIContainerDelegate {
     private let registry = Registry<Token>()
     private let registrar: Registrar<Token, Context>
@@ -22,13 +17,9 @@ public final class Madog<Token>: MadogUIContainerDelegate {
     private var currentContainer: MadogUIContainer?
     private var modalContainers = [UIViewController: Context]()
 
-    public weak var delegate: MadogDelegate?
-
     public init() {
         registrar = Registrar(registry: registry)
         factory = MadogUIContainerFactory<Token>(registry: registry)
-
-        registry.delegate = self
     }
 
     public func resolve(resolver: Resolver<Token>, launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) {
@@ -55,7 +46,10 @@ public final class Madog<Token>: MadogUIContainerDelegate {
     }
 
     @discardableResult
-    public func renderUI<VC: UIViewController>(identifier: MultiUIIdentifier<VC>, tokens: [Any], in window: UIWindow, transition: Transition? = nil) -> Context? {
+    public func renderUI<VC: UIViewController>(identifier: MultiUIIdentifier<VC>,
+                                               tokens: [Any],
+                                               in window: UIWindow,
+                                               transition: Transition? = nil) -> Context? {
         guard let context = createUI(identifier: identifier, tokens: tokens, isModal: false) else {
             return nil
         }
@@ -124,16 +118,6 @@ public final class Madog<Token>: MadogUIContainerDelegate {
             currentContainer = container
             modalContainers = [:] // Clear old modal contexts
         }
-    }
-}
-
-extension Madog: RegistryDelegate {
-    public func registryDidCreateViewController(_ viewController: UIViewController, from token: Any, context _: Any?) {
-        delegate?.madogDidCreateViewController(viewController, from: token)
-    }
-
-    public func registryDidNotCreateViewControllerFrom(_ token: Any, context _: Any?) {
-        delegate?.madogDidNotCreateViewControllerFrom(token)
     }
 }
 

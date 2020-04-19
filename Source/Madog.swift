@@ -6,12 +6,11 @@
 //  Copyright © 2019 Ceri Hughes. All rights reserved.
 //
 
-import Provident
 import UIKit
 
 public final class Madog<Token>: MadogUIContainerDelegate {
     private let registry = Registry<Token>()
-    private let registrar: Registrar<Token, Context>
+    private let registrar: Registrar<Token>
     private let factory: MadogUIContainerFactory<Token>
 
     private var currentContainer: MadogUIContainer?

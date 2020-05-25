@@ -11,6 +11,7 @@ import Provident
 public typealias Registry<Token> = Provident.Registry<Token, Context>
 public typealias Registrar<Token> = Provident.Registrar<Token, Context>
 public typealias ViewControllerProvider<Token> = Provident.ViewControllerProvider<Token, Context>
+public typealias SingleViewControllerProvider<Token> = Provident.SingleViewControllerProvider<Token, Context>
 public typealias Resolver<Token> = Provident.Resolver<Token, Context>
 public typealias ServiceProvider = Provident.ServiceProvider
 public typealias ServiceProviderCreationContext = Provident.ServiceProviderCreationContext

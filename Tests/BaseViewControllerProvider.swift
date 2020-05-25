@@ -10,4 +10,4 @@ import UIKit
 
 @testable import Madog
 
-class BaseViewControllerProvider: ViewControllerProvider<String> {}
+class BaseViewControllerProvider: SingleViewControllerProvider<String> {}

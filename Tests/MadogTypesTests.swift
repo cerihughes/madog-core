@@ -43,7 +43,7 @@ class MadogTypesTests: XCTestCase {
     }
 }
 
-private class TestViewControllerProvider: ViewControllerProvider<Int> {
+private class TestViewControllerProvider: SingleViewControllerProvider<Int> {
     override func createViewController(token: Int, context: Context) -> UIViewController? {
         return UIViewController()
     }

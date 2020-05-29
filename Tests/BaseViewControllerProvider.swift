@@ -18,13 +18,13 @@ class BaseViewControllerProvider: ViewControllerProvider<String> {
         }
     }
 
-    final override func register(with registry: Registry<String>) {
+    override final func register(with registry: Registry<String>) {
         super.register(with: registry)
 
         uuid = registry.add(registryFunction: createViewController(token:context:))
     }
 
-    final override func unregister(from registry: Registry<String>) {
+    override final func unregister(from registry: Registry<String>) {
         super.unregister(from: registry)
 
         guard let uuid = uuid else {

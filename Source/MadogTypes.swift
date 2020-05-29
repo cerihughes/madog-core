@@ -11,7 +11,7 @@ import Provident
 public class Registry<Token>: Provident.Registry<Token, Context> {}
 
 open class ViewControllerProvider<Token>: Provident.ViewControllerProvider<Token, Context> {
-    public final override func register(with registry: Provident.Registry<Token, Context>) {
+    override public final func register(with registry: Provident.Registry<Token, Context>) {
         guard let registry = registry as? Registry else {
             return
         }
@@ -19,7 +19,7 @@ open class ViewControllerProvider<Token>: Provident.ViewControllerProvider<Token
         register(with: registry)
     }
 
-    public final override func unregister(from registry: Provident.Registry<Token, Context>) {
+    override public final func unregister(from registry: Provident.Registry<Token, Context>) {
         guard let registry = registry as? Registry else {
             return
         }
@@ -32,7 +32,7 @@ open class ViewControllerProvider<Token>: Provident.ViewControllerProvider<Token
 }
 
 open class Resolver<Token>: Provident.Resolver<Token, Context> {
-    public final override func viewControllerProviderCreationFunctions() -> [() -> Provident.ViewControllerProvider<Token, Context>] {
+    override public final func viewControllerProviderCreationFunctions() -> [() -> Provident.ViewControllerProvider<Token, Context>] {
         let functions: [() -> ViewControllerProvider<Token>] = viewControllerProviderCreationFunctions()
         return functions.map(convert)
     }

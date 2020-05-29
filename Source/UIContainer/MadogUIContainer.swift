@@ -55,7 +55,7 @@ open class MadogUIContainer: Context {
     }
 }
 
-open class MadogNavigatingModalUIContainer<Token>: MadogUIContainer, ModalContext {
+open class MadogModalUIContainer<Token>: MadogUIContainer, ModalContext {
     internal var internalRegistry: Registry<Token>!
 
     public var registry: Registry<Token> {
@@ -177,7 +177,7 @@ open class MadogNavigatingModalUIContainer<Token>: MadogUIContainer, ModalContex
     }
 }
 
-extension MadogNavigatingModalUIContainer: ForwardBackNavigationContext {
+open class MadogNavigatingModalUIContainer<Token>: MadogModalUIContainer<Token>, ForwardBackNavigationContext {
     // MARK: - ForwardBackNavigationContext
 
     public func navigateForward(token: Any, animated: Bool) -> Bool {

@@ -42,7 +42,7 @@ internal class MadogUIContainerFactory<Token> {
         }
 
         let ui = function()
-        ui.internalRegistry = registry
+        ui.registry = registry
         return ui
     }
 
@@ -52,7 +52,7 @@ internal class MadogUIContainerFactory<Token> {
         }
 
         let ui = function()
-        ui.internalRegistry = registry
+        ui.registry = registry
         return ui
     }
 }

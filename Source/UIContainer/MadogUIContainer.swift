@@ -62,7 +62,7 @@ open class MadogNavigatingModalUIContainer<Token>: MadogUIContainer, ModalContex
         return internalRegistry
     }
 
-    public override func close(animated: Bool,
+    override public func close(animated: Bool,
                                completion: (() -> Void)?) -> Bool {
         closeContext(presentedViewController: viewController, animated: animated, completion: completion)
         return true

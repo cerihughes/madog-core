@@ -56,11 +56,7 @@ open class MadogUIContainer: Context {
 }
 
 open class MadogModalUIContainer<Token>: MadogUIContainer, ModalContext {
-    internal var internalRegistry: Registry<Token>!
-
-    public var registry: Registry<Token> {
-        return internalRegistry
-    }
+    public internal(set) var registry: Registry<Token>!
 
     override public func close(animated: Bool,
                                completion: (() -> Void)?) -> Bool {

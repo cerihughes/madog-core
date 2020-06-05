@@ -55,14 +55,10 @@ open class MadogUIContainer: Context {
     }
 }
 
-open class MadogNavigatingModalUIContainer<Token>: MadogUIContainer, ModalContext {
-    internal var internalRegistry: Registry<Token>!
+open class MadogModalUIContainer<Token>: MadogUIContainer, ModalContext {
+    public internal(set) var registry: Registry<Token>!
 
-    public var registry: Registry<Token> {
-        return internalRegistry
-    }
-
-    public override func close(animated: Bool,
+    override public func close(animated: Bool,
                                completion: (() -> Void)?) -> Bool {
         closeContext(presentedViewController: viewController, animated: animated, completion: completion)
         return true
@@ -177,7 +173,7 @@ open class MadogNavigatingModalUIContainer<Token>: MadogUIContainer, ModalContex
     }
 }
 
-extension MadogNavigatingModalUIContainer: ForwardBackNavigationContext {
+open class MadogNavigatingModalUIContainer<Token>: MadogModalUIContainer<Token>, ForwardBackNavigationContext {
     // MARK: - ForwardBackNavigationContext
 
     public func navigateForward(token: Any, animated: Bool) -> Bool {

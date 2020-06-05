@@ -10,33 +10,4 @@ import UIKit
 
 @testable import Madog
 
-class BaseViewControllerProvider: ViewControllerProvider<String> {
-    static var latestUUID: UUID?
-    private var uuid: UUID? {
-        didSet {
-            BaseViewControllerProvider.latestUUID = uuid
-        }
-    }
-
-    override final func register(with registry: Registry<String>) {
-        super.register(with: registry)
-
-        uuid = registry.add(registryFunction: createViewController(token:context:))
-    }
-
-    override final func unregister(from registry: Registry<String>) {
-        super.unregister(from: registry)
-
-        guard let uuid = uuid else {
-            return
-        }
-
-        registry.removeRegistryFunction(uuid: uuid)
-
-        self.uuid = nil
-    }
-
-    func createViewController(token: String, context _: Context) -> UIViewController? {
-        return nil
-    }
-}
+class BaseViewControllerProvider: SingleViewControllerProvider<String> {}

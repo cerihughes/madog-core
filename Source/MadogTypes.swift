@@ -8,41 +8,10 @@
 
 import Provident
 
-public class Registry<Token>: Provident.Registry<Token, Context> {}
-
-open class ViewControllerProvider<Token>: Provident.ViewControllerProvider<Token, Context> {
-    override public final func register(with registry: Provident.Registry<Token, Context>) {
-        guard let registry = registry as? Registry else {
-            return
-        }
-
-        register(with: registry)
-    }
-
-    override public final func unregister(from registry: Provident.Registry<Token, Context>) {
-        guard let registry = registry as? Registry else {
-            return
-        }
-
-        unregister(from: registry)
-    }
-
-    open func register(with _: Registry<Token>) {}
-    open func unregister(from _: Registry<Token>) {}
-}
-
-open class Resolver<Token>: Provident.Resolver<Token, Context> {
-    override public final func viewControllerProviderCreationFunctions() -> [() -> Provident.ViewControllerProvider<Token, Context>] {
-        let functions: [() -> ViewControllerProvider<Token>] = viewControllerProviderCreationFunctions()
-        return functions.map(convert)
-    }
-
-    private func convert(input: @escaping () -> ViewControllerProvider<Token>) -> (() -> Provident.ViewControllerProvider<Token, Context>) {
-        return { input() }
-    }
-
-    open func viewControllerProviderCreationFunctions() -> [() -> ViewControllerProvider<Token>] { return [] }
-}
-
+public typealias Registry<Token> = Provident.Registry<Token, Context>
+public typealias Registrar<Token> = Provident.Registrar<Token, Context>
+public typealias ViewControllerProvider<Token> = Provident.ViewControllerProvider<Token, Context>
+public typealias SingleViewControllerProvider<Token> = Provident.SingleViewControllerProvider<Token, Context>
+public typealias Resolver<Token> = Provident.Resolver<Token, Context>
 public typealias ServiceProvider = Provident.ServiceProvider
 public typealias ServiceProviderCreationContext = Provident.ServiceProviderCreationContext

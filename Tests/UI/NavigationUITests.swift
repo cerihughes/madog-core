@@ -71,10 +71,8 @@ class NavigationUITests: KIFTestCase {
 }
 
 private class TestResolver: Resolver<String> {
-    override func viewControllerProviderCreationFunctions() -> [() -> ViewControllerProvider<String>] {
-        return [
-            { TestViewControllerProvider() }
-        ]
+    override func viewControllerProviderFunctions() -> [() -> ViewControllerProvider<String>] {
+        return [TestViewControllerProvider.init]
     }
 }
 

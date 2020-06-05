@@ -2,7 +2,7 @@
 //  SimpleUI.swift
 //  Madog
 //
-//  Created by Home on 05/06/2020.
+//  Created by Ceri Hughes on 05/06/2020.
 //  Copyright © 2020 Ceri Hughes. All rights reserved.
 //
 

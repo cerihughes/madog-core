@@ -7,7 +7,7 @@ let package = Package(name: "Madog",
                           .library(name: "Madog", targets: ["Madog"])
                       ],
                       dependencies: [
-                          .package(url: "https://github.com/cerihughes/provident.git", .branch("simplify"))
+                          .package(url: "https://github.com/cerihughes/provident.git", .upToNextMajor(from: "3.0.0"))
                       ],
                       targets: [
                           .target(name: "Madog",

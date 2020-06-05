@@ -1,1 +1,1 @@
-github "cerihughes/Provident" "simplify"
+github "cerihughes/Provident" ~> 3.0.0

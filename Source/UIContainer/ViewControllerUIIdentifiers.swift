@@ -11,6 +11,7 @@
 import Foundation
 import UIKit
 
+internal let viewControllerIdentifier = "viewControllerIdentifier"
 internal let navigationControllerIdentifier = "navigationControllerIdentifier"
 
 public class SingleUIIdentifier<VC: UIViewController> {
@@ -22,12 +23,17 @@ public class SingleUIIdentifier<VC: UIViewController> {
         self.customisation = customisation
     }
 
-    // swiftlint:disable line_length
-    public static func createNavigationControllerIdentifier(customisation: @escaping (UINavigationController) -> Void = { _ in }) -> SingleUIIdentifier<UINavigationController> {
-        return SingleUIIdentifier<UINavigationController>(navigationControllerIdentifier, customisation: customisation)
+    public static func createViewControllerIdentifier(
+        customisation: @escaping (UIViewController) -> Void = { _ in }
+    ) -> SingleUIIdentifier<UIViewController> {
+        SingleUIIdentifier<UIViewController>(viewControllerIdentifier, customisation: customisation)
     }
 
-    // swiftlint:enable line_length
+    public static func createNavigationControllerIdentifier(
+        customisation: @escaping (UINavigationController) -> Void = { _ in }
+    ) -> SingleUIIdentifier<UINavigationController> {
+        SingleUIIdentifier<UINavigationController>(navigationControllerIdentifier, customisation: customisation)
+    }
 }
 
 internal let tabBarControllerIdentifier = "tabBarControllerIdentifier"
@@ -41,12 +47,11 @@ public class MultiUIIdentifier<VC: UIViewController> {
         self.customisation = customisation
     }
 
-    // swiftlint:disable line_length
-    public static func createTabBarControllerIdentifier(customisation: @escaping (UITabBarController) -> Void = { _ in }) -> MultiUIIdentifier<UITabBarController> {
-        return MultiUIIdentifier<UITabBarController>(tabBarControllerIdentifier, customisation: customisation)
+    public static func createTabBarControllerIdentifier(
+        customisation: @escaping (UITabBarController) -> Void = { _ in }
+    ) -> MultiUIIdentifier<UITabBarController> {
+        MultiUIIdentifier<UITabBarController>(tabBarControllerIdentifier, customisation: customisation)
     }
-
-    // swiftlint:enable line_length
 }
 
 #endif

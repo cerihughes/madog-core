@@ -9,10 +9,8 @@
 import Provident
 import UIKit
 
-public protocol MadogDelegate: AnyObject {
-    func madogDidCreateViewController(_ viewController: UIViewController, from token: Any)
-    func madogDidNotCreateViewControllerFrom(_ token: Any)
-}
+public typealias SingleVCUIRegistryFunction<Token> = (Registry<Token>, Token) -> MadogModalUIContainer<Token>?
+public typealias MultiVCUIRegistryFunction<Token> = (Registry<Token>, [Token]) -> MadogModalUIContainer<Token>?
 
 public final class Madog<Token>: MadogUIContainerDelegate {
     private let registry = Registry<Token>()
@@ -22,13 +20,9 @@ public final class Madog<Token>: MadogUIContainerDelegate {
     private var currentContainer: MadogUIContainer?
     private var modalContainers = [UIViewController: Context]()
 
-    public weak var delegate: MadogDelegate?
-
     public init() {
         registrar = Registrar(registry: registry)
         factory = MadogUIContainerFactory<Token>(registry: registry)
-
-        registry.delegate = self
     }
 
     public func resolve(resolver: Resolver<Token>, launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) {
@@ -36,12 +30,12 @@ public final class Madog<Token>: MadogUIContainerDelegate {
     }
 
     @discardableResult
-    public func addSingleUICreationFunction(identifier: String, function: @escaping () -> MadogSingleUIContainer<Token>) -> Bool {
+    public func addSingleUICreationFunction(identifier: String, function: @escaping SingleVCUIRegistryFunction<Token>) -> Bool {
         return factory.addSingleUICreationFunction(identifier: identifier, function: function)
     }
 
     @discardableResult
-    public func addMultiUICreationFunction(identifier: String, function: @escaping () -> MadogMultiUIContainer<Token>) -> Bool {
+    public func addMultiUICreationFunction(identifier: String, function: @escaping MultiVCUIRegistryFunction<Token>) -> Bool {
         return factory.addMultiUICreationFunction(identifier: identifier, function: function)
     }
 
@@ -78,8 +72,7 @@ public final class Madog<Token>: MadogUIContainerDelegate {
 
     func createUI<VC: UIViewController>(identifier: SingleUIIdentifier<VC>, token: Any, isModal: Bool) -> MadogUIContainer? {
         guard let token = token as? Token,
-            let container = factory.createSingleUI(identifier: identifier),
-            container.renderInitialView(with: token) == true else {
+            let container = factory.createSingleUI(identifier: identifier, token: token) else {
             return nil
         }
 
@@ -95,8 +88,7 @@ public final class Madog<Token>: MadogUIContainerDelegate {
 
     func createUI<VC: UIViewController>(identifier: MultiUIIdentifier<VC>, tokens: [Any], isModal: Bool) -> MadogUIContainer? {
         guard let tokens = tokens as? [Token],
-            let container = factory.createMultiUI(identifier: identifier),
-            container.renderInitialViews(with: tokens) == true else {
+            let container = factory.createMultiUI(identifier: identifier, tokens: tokens) else {
             return nil
         }
 
@@ -127,16 +119,6 @@ public final class Madog<Token>: MadogUIContainerDelegate {
             currentContainer = container
             modalContainers = [:] // Clear old modal contexts
         }
-    }
-}
-
-extension Madog: RegistryDelegate {
-    public func registryDidCreateViewController(_ viewController: UIViewController, from token: Any, context _: Any?) {
-        delegate?.madogDidCreateViewController(viewController, from: token)
-    }
-
-    public func registryDidNotCreateViewControllerFrom(_ token: Any, context _: Any?) {
-        delegate?.madogDidNotCreateViewControllerFrom(token)
     }
 }
 

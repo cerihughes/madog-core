@@ -139,33 +139,6 @@ class MadogUIContainerTests: MadogKIFTestCase {
         XCTAssertNotNil(context2)
     }
 
-    func testOpenModal() {
-        let identifier = SingleUIIdentifier.createNavigationControllerIdentifier()
-        let context = madog.renderUI(identifier: identifier, token: "vc1", in: window) as? ModalContext
-        viewTester().usingLabel("vc1")?.waitForView()
-        XCTAssertNotNil(context)
-
-        let modalToken = context?.openModal(token: "vc2", presentationStyle: .formSheet, animated: true)
-        XCTAssertNotNil(modalToken)
-        XCTAssertNil(modalToken?.context)
-        viewTester().usingLabel("vc1")?.waitForView()
-        viewTester().usingLabel("vc2")?.waitForView()
-    }
-
-    func testCloseModal() {
-        let identifier = SingleUIIdentifier.createNavigationControllerIdentifier()
-        let context = madog.renderUI(identifier: identifier, token: "vc1", in: window) as? ModalContext
-        viewTester().usingLabel("vc1")?.waitForView()
-        XCTAssertNotNil(context)
-
-        let modalToken = context?.openModal(token: "vc2", presentationStyle: .formSheet, animated: true)
-        XCTAssertNotNil(modalToken)
-        viewTester().usingLabel("vc2")?.waitForView()
-
-        XCTAssertTrue(context!.closeModal(token: modalToken!, animated: true))
-        viewTester().usingLabel("vc2")?.waitForAbsenceOfView()
-    }
-
     func testOpenSingleUIModal() {
         let identifier = SingleUIIdentifier.createNavigationControllerIdentifier()
         let context = madog.renderUI(identifier: identifier, token: "vc1", in: window) as? NavigationModalContext
@@ -249,11 +222,13 @@ class MadogUIContainerTests: MadogKIFTestCase {
     }
 
     func testOpenModalCompletionIsFired() {
-        let identifier = SingleUIIdentifier.createNavigationControllerIdentifier()
-        let context = madog.renderUI(identifier: identifier, token: "vc1", in: window) as? ModalContext
+        let identifier1 = SingleUIIdentifier.createNavigationControllerIdentifier()
+        let context = madog.renderUI(identifier: identifier1, token: "vc1", in: window) as? ModalContext
 
         let completion1Expectation = expectation(description: "Completion fired")
-        let modalToken = context!.openModal(token: "vc2",
+        let identifier2 = SingleUIIdentifier.createNavigationControllerIdentifier()
+        let modalToken = context!.openModal(identifier: identifier2,
+                                            token: "vc2",
                                             presentationStyle: .formSheet,
                                             animated: true,
                                             completion: { completion1Expectation.fulfill() })

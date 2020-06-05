@@ -15,18 +15,18 @@ import XCTest
 
 class MadogCustomisationTests: MadogKIFTestCase {
     func testMainCustomisationBlock() {
-        let identifier = SingleUIIdentifier.createNavigationControllerIdentifier(customisation: customise(navigationController:))
+        let identifier = SingleUIIdentifier.createNavigationIdentifier(customisation: customise(navigationController:))
         _ = madog.renderUI(identifier: identifier, token: "vc1", in: window)
 
         viewTester().usingLabel("CUSTOMISED")?.waitForView()
     }
 
     func testModalCustomisationBlock() {
-        let identifier = SingleUIIdentifier.createNavigationControllerIdentifier()
+        let identifier = SingleUIIdentifier.createNavigationIdentifier()
         let context = madog.renderUI(identifier: identifier, token: "vc1", in: window) as? ModalContext
 
         viewTester().usingLabel("CUSTOMISED")?.waitForAbsenceOfView()
-        let identifierWithCustomisation = SingleUIIdentifier.createNavigationControllerIdentifier(customisation: customise(navigationController:))
+        let identifierWithCustomisation = SingleUIIdentifier.createNavigationIdentifier(customisation: customise(navigationController:))
         _ = context?.openModal(identifier: identifierWithCustomisation,
                                token: "vc2",
                                animated: true)

@@ -28,7 +28,7 @@ class MadogTests: XCTestCase {
 
     func testMadogKeepsStrongReferenceToCurrentContext() {
         let window = UIWindow()
-        let identifier = SingleUIIdentifier.createNavigationControllerIdentifier()
+        let identifier = SingleUIIdentifier.createNavigationIdentifier()
 
         weak var context1 = madog.renderUI(identifier: identifier, token: "match", in: window)
         XCTAssertNotNil(context1)

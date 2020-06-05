@@ -1,5 +1,5 @@
 //
-//  SimpleUI.swift
+//  BasicUI.swift
 //  Madog
 //
 //  Created by Ceri Hughes on 05/06/2020.

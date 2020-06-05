@@ -16,9 +16,10 @@ internal class MadogUIContainerFactory<Token> {
     internal init(registry: Registry<Token>) {
         self.registry = registry
 
-        _ = addSingleUICreationFunction(identifier: viewControllerIdentifier) { SimpleUI<Token>(registry: $0, token: $1) }
-        _ = addSingleUICreationFunction(identifier: navigationControllerIdentifier) { NavigationUI<Token>(registry: $0, token: $1) }
-        _ = addMultiUICreationFunction(identifier: tabBarControllerIdentifier) { TabBarNavigationUI<Token>(registry: $0, tokens: $1) }
+        _ = addSingleUICreationFunction(identifier: basicIdentifier) { BasicUI<Token>(registry: $0, token: $1) }
+        _ = addSingleUICreationFunction(identifier: navigationIdentifier) { NavigationUI<Token>(registry: $0, token: $1) }
+        _ = addMultiUICreationFunction(identifier: tabBarIdentifier) { TabBarUI<Token>(registry: $0, tokens: $1) }
+        _ = addMultiUICreationFunction(identifier: tabBarNavigationIdentifier) { TabBarNavigationUI<Token>(registry: $0, tokens: $1) }
     }
 
     internal func addSingleUICreationFunction(identifier: String, function: @escaping SingleVCUIRegistryFunction<Token>) -> Bool {

@@ -58,7 +58,7 @@ class NavigationUITests: KIFTestCase {
     }
 
     private func renderUIAndAssert(token: String) -> NavigationModalContext? {
-        let identifier = SingleUIIdentifier.createNavigationControllerIdentifier()
+        let identifier = SingleUIIdentifier.createNavigationIdentifier()
         let context = madog.renderUI(identifier: identifier, token: token, in: window)
         viewTester().usingLabel(token)?.waitForView()
         return context as? NavigationModalContext

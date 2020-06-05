@@ -11,8 +11,8 @@
 import Foundation
 import UIKit
 
-internal let viewControllerIdentifier = "viewControllerIdentifier"
-internal let navigationControllerIdentifier = "navigationControllerIdentifier"
+internal let basicIdentifier = "basicIdentifier"
+internal let navigationIdentifier = "navigationIdentifier"
 
 public class SingleUIIdentifier<VC: UIViewController> {
     internal let value: String
@@ -23,20 +23,21 @@ public class SingleUIIdentifier<VC: UIViewController> {
         self.customisation = customisation
     }
 
-    public static func createViewControllerIdentifier(
+    public static func createBasicIdentifier(
         customisation: @escaping (UIViewController) -> Void = { _ in }
     ) -> SingleUIIdentifier<UIViewController> {
-        SingleUIIdentifier<UIViewController>(viewControllerIdentifier, customisation: customisation)
+        SingleUIIdentifier<UIViewController>(basicIdentifier, customisation: customisation)
     }
 
-    public static func createNavigationControllerIdentifier(
+    public static func createNavigationIdentifier(
         customisation: @escaping (UINavigationController) -> Void = { _ in }
     ) -> SingleUIIdentifier<UINavigationController> {
-        SingleUIIdentifier<UINavigationController>(navigationControllerIdentifier, customisation: customisation)
+        SingleUIIdentifier<UINavigationController>(navigationIdentifier, customisation: customisation)
     }
 }
 
-internal let tabBarControllerIdentifier = "tabBarControllerIdentifier"
+internal let tabBarIdentifier = "tabBarIdentifier"
+internal let tabBarNavigationIdentifier = "tabBarNavigationIdentifier"
 
 public class MultiUIIdentifier<VC: UIViewController> {
     internal let value: String
@@ -47,10 +48,16 @@ public class MultiUIIdentifier<VC: UIViewController> {
         self.customisation = customisation
     }
 
-    public static func createTabBarControllerIdentifier(
+    public static func createTabBarIdentifier(
         customisation: @escaping (UITabBarController) -> Void = { _ in }
     ) -> MultiUIIdentifier<UITabBarController> {
-        MultiUIIdentifier<UITabBarController>(tabBarControllerIdentifier, customisation: customisation)
+        MultiUIIdentifier<UITabBarController>(tabBarIdentifier, customisation: customisation)
+    }
+
+    public static func createTabBarNavigationIdentifier(
+        customisation: @escaping (UITabBarController) -> Void = { _ in }
+    ) -> MultiUIIdentifier<UITabBarController> {
+        MultiUIIdentifier<UITabBarController>(tabBarNavigationIdentifier, customisation: customisation)
     }
 }
 

@@ -36,6 +36,9 @@
 		C29A0A222382E7280059104A /* UIViewController+MadogModalPresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29A0A212382E7280059104A /* UIViewController+MadogModalPresentation.swift */; };
 		C2F8826C230FFAB90093604A /* MadogTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2F8826B230FFAB90093604A /* MadogTests.swift */; };
 		F49F11ED248AC7CA00444615 /* TabBarUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49F11EC248AC7CA00444615 /* TabBarUI.swift */; };
+		F49F11EF248ACB9900444615 /* BasicUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49F11EE248ACB9900444615 /* BasicUITests.swift */; };
+		F49F11F3248ACEDB00444615 /* TabBarUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49F11F2248ACEDB00444615 /* TabBarUITests.swift */; };
+		F49F11F5248AD2C500444615 /* MadogUIKIFTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49F11F4248AD2C500444615 /* MadogUIKIFTestCase.swift */; };
 		F4F4B489248A6A4000072A9E /* MadogModalUIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F4B488248A6A4000072A9E /* MadogModalUIContainer.swift */; };
 		F4F4B48B248A6A6A00072A9E /* MadogNavigatingModalUIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F4B48A248A6A6A00072A9E /* MadogNavigatingModalUIContainer.swift */; };
 		F4F4B493248A993F00072A9E /* BasicUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F4B492248A993F00072A9E /* BasicUI.swift */; };
@@ -93,6 +96,9 @@
 		C29A0A212382E7280059104A /* UIViewController+MadogModalPresentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+MadogModalPresentation.swift"; sourceTree = "<group>"; };
 		C2F8826B230FFAB90093604A /* MadogTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MadogTests.swift; sourceTree = "<group>"; usesTabs = 0; };
 		F49F11EC248AC7CA00444615 /* TabBarUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarUI.swift; sourceTree = "<group>"; };
+		F49F11EE248ACB9900444615 /* BasicUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicUITests.swift; sourceTree = "<group>"; };
+		F49F11F2248ACEDB00444615 /* TabBarUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarUITests.swift; sourceTree = "<group>"; };
+		F49F11F4248AD2C500444615 /* MadogUIKIFTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MadogUIKIFTestCase.swift; sourceTree = "<group>"; };
 		F4F4B488248A6A4000072A9E /* MadogModalUIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MadogModalUIContainer.swift; sourceTree = "<group>"; };
 		F4F4B48A248A6A6A00072A9E /* MadogNavigatingModalUIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MadogNavigatingModalUIContainer.swift; sourceTree = "<group>"; };
 		F4F4B492248A993F00072A9E /* BasicUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicUI.swift; sourceTree = "<group>"; };
@@ -145,8 +151,11 @@
 		6576C202239A95D800F6AD07 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				F49F11EE248ACB9900444615 /* BasicUITests.swift */,
+				F49F11F4248AD2C500444615 /* MadogUIKIFTestCase.swift */,
 				6576C203239A95FB00F6AD07 /* NavigationUITests.swift */,
 				6576C223239AC13B00F6AD07 /* TabBarNavigationUITests.swift */,
+				F49F11F2248ACEDB00444615 /* TabBarUITests.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -438,10 +447,13 @@
 				C2F8826C230FFAB90093604A /* MadogTests.swift in Sources */,
 				6576C208239A9B5900F6AD07 /* KIFTestCase+Swift.swift in Sources */,
 				6576C206239A99ED00F6AD07 /* BaseViewControllerProvider.swift in Sources */,
+				F49F11F3248ACEDB00444615 /* TabBarUITests.swift in Sources */,
 				6576C224239AC13B00F6AD07 /* TabBarNavigationUITests.swift in Sources */,
 				65E89480227DDFF400EA7F11 /* MadogTypesTests.swift in Sources */,
 				652403FD239D5B420034CE98 /* MadogCustomisationTests.swift in Sources */,
+				F49F11EF248ACB9900444615 /* BasicUITests.swift in Sources */,
 				6576C241239ADA9700F6AD07 /* MadogUIContainerTests.swift in Sources */,
+				F49F11F5248AD2C500444615 /* MadogUIKIFTestCase.swift in Sources */,
 				652403FF239D5CBB0034CE98 /* MadogKIFTestCase.swift in Sources */,
 				6576C204239A95FB00F6AD07 /* NavigationUITests.swift in Sources */,
 			);

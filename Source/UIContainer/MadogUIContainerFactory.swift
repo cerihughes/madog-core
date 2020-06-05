@@ -8,6 +8,11 @@
 
 import UIKit
 
+public typealias BasicUIContext = Context & ModalContext
+public typealias NavigationUIContext = BasicUIContext & ForwardBackNavigationContext
+public typealias TabBarUIContext = BasicUIContext & MultiContext
+public typealias TabBarNavigationUIContext = TabBarUIContext & ForwardBackNavigationContext
+
 internal class MadogUIContainerFactory<Token> {
     private let registry: Registry<Token>
     private var singleVCUIRegistry = [String: SingleVCUIRegistryFunction<Token>]()

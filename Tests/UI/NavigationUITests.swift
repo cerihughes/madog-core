@@ -13,10 +13,10 @@ import XCTest
 
 @testable import Madog
 
-class NavigationUITests: KIFTestCase {
+class NavigationUITests: MadogUIKIFTestCase {
     private var window: UIWindow!
     private var madog: Madog<String>!
-    private var context: NavigationModalContext!
+    private var context: NavigationUIContext!
 
     override func setUp() {
         super.setUp()
@@ -24,7 +24,7 @@ class NavigationUITests: KIFTestCase {
         window = UIWindow()
         window.makeKeyAndVisible()
         madog = Madog()
-        madog.resolve(resolver: TestResolver())
+        madog.resolve(resolver: KIFTestResolver())
     }
 
     override func tearDown() {
@@ -33,6 +33,11 @@ class NavigationUITests: KIFTestCase {
         context = nil
 
         super.tearDown()
+    }
+
+    func testProtocolConformance() {
+        context = renderUIAndAssert(token: "vc1")
+        XCTAssertNil(context as? MultiContext)
     }
 
     func testRenderInitialUI() {
@@ -57,30 +62,16 @@ class NavigationUITests: KIFTestCase {
         viewTester().usingLabel("vc1")?.waitForView()
     }
 
-    private func renderUIAndAssert(token: String) -> NavigationModalContext? {
+    private func renderUIAndAssert(token: String) -> NavigationUIContext? {
         let identifier = SingleUIIdentifier.createNavigationIdentifier()
         let context = madog.renderUI(identifier: identifier, token: token, in: window)
         viewTester().usingLabel(token)?.waitForView()
-        return context as? NavigationModalContext
+        return context as? NavigationUIContext
     }
 
     private func navigateForwardAndAssert(token: String) {
         context.navigateForward(token: token, animated: true)
         viewTester().usingLabel(token)?.waitForView()
-    }
-}
-
-private class TestResolver: Resolver<String> {
-    override func viewControllerProviderFunctions() -> [() -> ViewControllerProvider<String>] {
-        [TestViewControllerProvider.init]
-    }
-}
-
-private class TestViewControllerProvider: BaseViewControllerProvider {
-    override func createViewController(token: String, context: Context) -> UIViewController? {
-        let viewController = UIViewController()
-        viewController.title = token
-        return viewController
     }
 }
 

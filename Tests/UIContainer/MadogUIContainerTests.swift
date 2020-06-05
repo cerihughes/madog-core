@@ -141,11 +141,11 @@ class MadogUIContainerTests: MadogKIFTestCase {
 
     func testOpenSingleUIModal() {
         let identifier = SingleUIIdentifier.createNavigationIdentifier()
-        let context = madog.renderUI(identifier: identifier, token: "vc1", in: window) as? NavigationModalContext
+        let context = madog.renderUI(identifier: identifier, token: "vc1", in: window) as? ModalContext
         viewTester().usingLabel("vc1")?.waitForView()
         XCTAssertNotNil(context)
 
-        let context2 = createModalContext(context: context!, token: "vc2") as? NavigationModalContext
+        let context2 = createModalContext(context: context!, token: "vc2") as? ForwardBackNavigationContext
         XCTAssertNotNil(context2)
 
         viewTester().usingLabel("vc1")?.waitForView()
@@ -159,7 +159,7 @@ class MadogUIContainerTests: MadogKIFTestCase {
 
     func testCloseSingleUIModal() {
         let identifier = SingleUIIdentifier.createNavigationIdentifier()
-        let context = madog.renderUI(identifier: identifier, token: "vc1", in: window) as? NavigationModalContext
+        let context = madog.renderUI(identifier: identifier, token: "vc1", in: window) as? NavigationUIContext
         viewTester().usingLabel("vc1")?.waitForView()
         XCTAssertNotNil(context)
 
@@ -172,11 +172,11 @@ class MadogUIContainerTests: MadogKIFTestCase {
 
     func testOpenMultiUIModal() {
         let identifier = SingleUIIdentifier.createNavigationIdentifier()
-        let context = madog.renderUI(identifier: identifier, token: "vc1", in: window) as? NavigationModalContext
+        let context = madog.renderUI(identifier: identifier, token: "vc1", in: window) as? ModalContext
         viewTester().usingLabel("vc1")?.waitForView()
         XCTAssertNotNil(context)
 
-        var context2 = createModalContext(context: context!, tokens: ["vc2", "vc3"]) as? NavigationModalMultiContext
+        var context2 = createModalContext(context: context!, tokens: ["vc2", "vc3"]) as? TabBarNavigationUIContext
         XCTAssertNotNil(context2)
 
         viewTester().usingLabel("vc1")?.waitForView()
@@ -209,7 +209,7 @@ class MadogUIContainerTests: MadogKIFTestCase {
 
     func testCloseMultiUIModal() {
         let identifier = SingleUIIdentifier.createNavigationIdentifier()
-        let context = madog.renderUI(identifier: identifier, token: "vc1", in: window) as? NavigationModalContext
+        let context = madog.renderUI(identifier: identifier, token: "vc1", in: window) as? ModalContext
         viewTester().usingLabel("vc1")?.waitForView()
         XCTAssertNotNil(context)
 

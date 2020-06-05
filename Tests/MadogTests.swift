@@ -45,27 +45,14 @@ class MadogTests: XCTestCase {
         madog.resolve(resolver: TestResolver())
         XCTAssertEqual(madog.serviceProviders.count, 1)
     }
-
-    func testUnregistration() {
-        madog = Madog()
-        XCTAssertNil(BaseViewControllerProvider.latestUUID)
-
-        madog.resolve(resolver: TestResolver())
-        XCTAssertNotNil(BaseViewControllerProvider.latestUUID)
-
-        madog = nil
-        XCTAssertNil(BaseViewControllerProvider.latestUUID)
-    }
 }
 
 private class TestResolver: Resolver<String> {
-    override func serviceProviderCreationFunctions() -> [(ServiceProviderCreationContext) -> ServiceProvider] {
-        return [
-            { context in TestServiceProvider(context: context) }
-        ]
+    override func serviceProviderFunctions() -> [(ServiceProviderCreationContext) -> ServiceProvider] {
+        return [TestServiceProvider.init(context:)]
     }
 
-    override func viewControllerProviderCreationFunctions() -> [() -> ViewControllerProvider<String>] {
+    override func viewControllerProviderFunctions() -> [() -> ViewControllerProvider<String>] {
         return [
             { TestViewControllerProvider(matchString: "match") }
         ]

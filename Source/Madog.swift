@@ -6,7 +6,6 @@
 //  Copyright © 2019 Ceri Hughes. All rights reserved.
 //
 
-import Provident
 import UIKit
 
 public typealias SingleVCUIRegistryFunction<Token> = (Registry<Token>, Token) -> MadogModalUIContainer<Token>?
@@ -14,7 +13,7 @@ public typealias MultiVCUIRegistryFunction<Token> = (Registry<Token>, [Token]) -
 
 public final class Madog<Token>: MadogUIContainerDelegate {
     private let registry = Registry<Token>()
-    private let registrar: Registrar<Token, Context>
+    private let registrar: Registrar<Token>
     private let factory: MadogUIContainerFactory<Token>
 
     private var currentContainer: MadogUIContainer?

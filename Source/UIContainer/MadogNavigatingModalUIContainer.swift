@@ -11,7 +11,7 @@ import UIKit
 open class MadogNavigatingModalUIContainer<Token>: MadogModalUIContainer<Token>, ForwardBackNavigationContext {
     open func provideNavigationController() -> UINavigationController? {
         // OVERRIDE
-        return nil
+        nil
     }
 
     // MARK: - ForwardBackNavigationContext

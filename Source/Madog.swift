@@ -30,12 +30,12 @@ public final class Madog<Token>: MadogUIContainerDelegate {
 
     @discardableResult
     public func addSingleUICreationFunction(identifier: String, function: @escaping SingleVCUIRegistryFunction<Token>) -> Bool {
-        return factory.addSingleUICreationFunction(identifier: identifier, function: function)
+        factory.addSingleUICreationFunction(identifier: identifier, function: function)
     }
 
     @discardableResult
     public func addMultiUICreationFunction(identifier: String, function: @escaping MultiVCUIRegistryFunction<Token>) -> Bool {
-        return factory.addMultiUICreationFunction(identifier: identifier, function: function)
+        factory.addMultiUICreationFunction(identifier: identifier, function: function)
     }
 
     @discardableResult
@@ -60,11 +60,11 @@ public final class Madog<Token>: MadogUIContainerDelegate {
     }
 
     public var currentContext: Context? {
-        return currentContainer
+        currentContainer
     }
 
     public var serviceProviders: [String: ServiceProvider] {
-        return registrar.serviceProviders
+        registrar.serviceProviders
     }
 
     // MARK: - MadogUIContainerDelegate

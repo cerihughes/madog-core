@@ -49,11 +49,11 @@ class MadogTests: XCTestCase {
 
 private class TestResolver: Resolver<String> {
     override func serviceProviderFunctions() -> [(ServiceProviderCreationContext) -> ServiceProvider] {
-        return [TestServiceProvider.init(context:)]
+        [TestServiceProvider.init(context:)]
     }
 
     override func viewControllerProviderFunctions() -> [() -> ViewControllerProvider<String>] {
-        return [
+        [
             { TestViewControllerProvider(matchString: "match") }
         ]
     }

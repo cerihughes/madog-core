@@ -36,7 +36,7 @@ class MadogKIFTestCase: KIFTestCase {
 
 private class TestResolver: Resolver<String> {
     override func viewControllerProviderFunctions() -> [() -> ViewControllerProvider<String>] {
-        return [TestViewControllerProvider.init]
+        [TestViewControllerProvider.init]
     }
 }
 

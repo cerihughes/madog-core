@@ -100,6 +100,6 @@ open class MadogModalUIContainer<Token>: MadogUIContainer, ModalContext {
     }
 
     public final func createModalToken(viewController: UIViewController, context: Context?) -> ModalToken {
-        return ModalTokenImplementation(viewController: viewController, context: context)
+        ModalTokenImplementation(viewController: viewController, context: context)
     }
 }

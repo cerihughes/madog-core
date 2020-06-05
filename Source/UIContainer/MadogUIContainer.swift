@@ -29,7 +29,8 @@ open class MadogUIContainer: Context {
     // MARK: - Context
 
     public func close(animated: Bool, completion: (() -> Void)?) -> Bool {
-        return false
+        // OVERRIDE
+        false
     }
 
     public func change<VC: UIViewController>(to identifier: SingleUIIdentifier<VC>, token: Any, transition: Transition?) -> Context? {

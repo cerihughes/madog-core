@@ -24,17 +24,13 @@ internal class TabBarNavigationUI<Token>: MadogNavigatingModalUIContainer<Token>
     }
 
     override func provideNavigationController() -> UINavigationController? {
-        return tabBarController.selectedViewController as? UINavigationController
+        tabBarController.selectedViewController as? UINavigationController
     }
 
     // MARK: - MultiContext
 
     var selectedIndex: Int {
-        get {
-            return tabBarController.selectedIndex
-        }
-        set {
-            tabBarController.selectedIndex = newValue
-        }
+        get { tabBarController.selectedIndex }
+        set { tabBarController.selectedIndex = newValue }
     }
 }

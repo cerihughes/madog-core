@@ -47,14 +47,14 @@ public extension ModalContext {
                                          popoverAnchor: Any? = nil,
                                          animated: Bool,
                                          completion: (() -> Void)? = nil) -> ModalToken? {
-        return openModal(identifier: identifier,
-                         token: token,
-                         from: fromViewController,
-                         presentationStyle: presentationStyle,
-                         transitionStyle: transitionStyle,
-                         popoverAnchor: popoverAnchor,
-                         animated: animated,
-                         completion: completion)
+        openModal(identifier: identifier,
+                  token: token,
+                  from: fromViewController,
+                  presentationStyle: presentationStyle,
+                  transitionStyle: transitionStyle,
+                  popoverAnchor: popoverAnchor,
+                  animated: animated,
+                  completion: completion)
     }
 
     @discardableResult
@@ -66,19 +66,19 @@ public extension ModalContext {
                                          popoverAnchor: Any? = nil,
                                          animated: Bool,
                                          completion: (() -> Void)? = nil) -> ModalToken? {
-        return openModal(identifier: identifier,
-                         tokens: tokens,
-                         from: fromViewController,
-                         presentationStyle: presentationStyle,
-                         transitionStyle: transitionStyle,
-                         popoverAnchor: popoverAnchor,
-                         animated: animated,
-                         completion: completion)
+        openModal(identifier: identifier,
+                  tokens: tokens,
+                  from: fromViewController,
+                  presentationStyle: presentationStyle,
+                  transitionStyle: transitionStyle,
+                  popoverAnchor: popoverAnchor,
+                  animated: animated,
+                  completion: completion)
     }
 
     @discardableResult
     func closeModal(token: ModalToken, animated: Bool) -> Bool {
-        return closeModal(token: token, animated: animated, completion: nil)
+        closeModal(token: token, animated: animated, completion: nil)
     }
 }
 

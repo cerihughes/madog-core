@@ -22,7 +22,7 @@ internal class NavigationUI<Token>: MadogSingleUIContainer<Token> {
         return navigationController
     }
 
-    // MARK: - MadogSingleUIContext
+    // MARK: - MadogSingleUIContainer
 
     override internal func renderInitialView(with token: Token) -> Bool {
         guard let viewController = registry.createViewController(from: token, context: self) else {

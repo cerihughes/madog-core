@@ -22,7 +22,7 @@ internal class TabBarNavigationUI<Token>: MadogMultiUIContainer<Token>, MultiCon
         return tabBarController.selectedViewController as? UINavigationController
     }
 
-    // MARK: - MadogMultiUIContext
+    // MARK: - MadogMultiUIContainer
 
     override internal func renderInitialViews(with tokens: [Token]) -> Bool {
         let viewControllers = tokens.compactMap { registry.createViewController(from: $0, context: self) }

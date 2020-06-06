@@ -28,7 +28,7 @@ class MadogTests: XCTestCase {
 
     func testMadogKeepsStrongReferenceToCurrentContext() {
         let window = UIWindow()
-        let identifier = SingleUIIdentifier.createNavigationControllerIdentifier()
+        let identifier = SingleUIIdentifier.createNavigationIdentifier()
 
         weak var context1 = madog.renderUI(identifier: identifier, token: "match", in: window)
         XCTAssertNotNil(context1)
@@ -49,11 +49,11 @@ class MadogTests: XCTestCase {
 
 private class TestResolver: Resolver<String> {
     override func serviceProviderFunctions() -> [(ServiceProviderCreationContext) -> ServiceProvider] {
-        return [TestServiceProvider.init(context:)]
+        [TestServiceProvider.init(context:)]
     }
 
     override func viewControllerProviderFunctions() -> [() -> ViewControllerProvider<String>] {
-        return [
+        [
             { TestViewControllerProvider(matchString: "match") }
         ]
     }

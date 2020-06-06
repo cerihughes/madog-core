@@ -1,17 +1,14 @@
 //
-//  TabBarNavigationUI.swift
+//  TabBarUI.swift
 //  Madog
 //
-//  Created by Ceri Hughes on 23/11/2018.
-//  Copyright © 2019 Ceri Hughes. All rights reserved.
+//  Created by Ceri Hughes on 05/06/2020.
+//  Copyright © 2020 Ceri Hughes. All rights reserved.
 //
 
 import UIKit
 
-/// A class that presents view controllers in a tab bar, and manages the navigation between them.
-///
-/// At the moment, this is achieved with a UINavigationController that can be pushed / popped to / from.
-internal class TabBarNavigationUI<Token>: MadogNavigatingModalUIContainer<Token>, MultiContext {
+internal class TabBarUI<Token>: MadogModalUIContainer<Token>, MultiContext {
     private let tabBarController = UITabBarController()
 
     internal init(registry: Registry<Token>, tokens: [Token]) {
@@ -21,10 +18,6 @@ internal class TabBarNavigationUI<Token>: MadogNavigatingModalUIContainer<Token>
             .map { UINavigationController(rootViewController: $0) }
 
         tabBarController.viewControllers = viewControllers
-    }
-
-    override func provideNavigationController() -> UINavigationController? {
-        tabBarController.selectedViewController as? UINavigationController
     }
 
     // MARK: - MultiContext

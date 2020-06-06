@@ -45,7 +45,7 @@ class MadogTypesTests: XCTestCase {
 
 private class TestViewControllerProvider: SingleViewControllerProvider<Int> {
     override func createViewController(token: Int, context: Context) -> UIViewController? {
-        return UIViewController()
+        UIViewController()
     }
 }
 
@@ -53,11 +53,11 @@ private class TestServiceProvider: ServiceProvider {}
 
 private class TestResolver: Resolver<Int> {
     override func viewControllerProviderFunctions() -> [() -> ViewControllerProvider<Int>] {
-        return [TestViewControllerProvider.init]
+        [TestViewControllerProvider.init]
     }
 
     override func serviceProviderFunctions() -> [(ServiceProviderCreationContext) -> ServiceProvider] {
-        return [TestServiceProvider.init(context:)]
+        [TestServiceProvider.init(context:)]
     }
 }
 

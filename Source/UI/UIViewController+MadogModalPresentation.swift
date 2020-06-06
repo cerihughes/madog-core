@@ -2,14 +2,14 @@
 //  UIViewController+MadogModalPresentation.swift
 //  Madog
 //
-//  Created by Ceri on 18/11/2019.
+//  Created by Ceri Hughes on 18/11/2019.
 //  Copyright © 2019 Ceri Hughes. All rights reserved.
 //
 
 import UIKit
 
 // swiftlint:disable function_parameter_count
-extension UIViewController {
+internal extension UIViewController {
     func madog_presentModally(viewController: UIViewController,
                               presentationStyle: UIModalPresentationStyle?,
                               transitionStyle: UIModalTransitionStyle?,

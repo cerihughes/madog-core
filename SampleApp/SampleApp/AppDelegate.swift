@@ -16,7 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         madog.resolve(resolver: SampleResolver(), launchOptions: launchOptions)
-        let result = madog.addSingleUICreationFunction(identifier: splitViewControllerIdentifier) { SplitUI() }
+        let result = madog.addSingleUICreationFunction(identifier: splitViewControllerIdentifier) { SplitUI(registry: $0, token: $1) }
         guard result == true else {
             return false
         }
@@ -40,7 +40,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if let navigationContext = currentContext as? ForwardBackNavigationContext {
             return navigationContext.navigateForward(token: token, animated: true)
         } else {
-            let identifier = SingleUIIdentifier.createNavigationControllerIdentifier()
+            let identifier = SingleUIIdentifier.createNavigationIdentifier()
             return currentContext.change(to: identifier, token: token) != nil
         }
     }

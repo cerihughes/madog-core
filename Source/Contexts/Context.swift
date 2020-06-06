@@ -31,16 +31,16 @@ public protocol Context: AnyObject {
 public extension Context {
     @discardableResult
     func close(animated: Bool) -> Bool {
-        return close(animated: animated, completion: nil)
+        close(animated: animated, completion: nil)
     }
 
     @discardableResult
     func change<VC: UIViewController>(to identifier: SingleUIIdentifier<VC>, token: Any) -> Context? {
-        return change(to: identifier, token: token, transition: nil)
+        change(to: identifier, token: token, transition: nil)
     }
 
     @discardableResult
     func change<VC: UIViewController>(to identifier: MultiUIIdentifier<VC>, tokens: [Any]) -> Context? {
-        return change(to: identifier, tokens: tokens, transition: nil)
+        change(to: identifier, tokens: tokens, transition: nil)
     }
 }

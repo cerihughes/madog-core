@@ -8,6 +8,9 @@
 
 import UIKit
 
+public typealias SingleVCUIRegistryFunction<Token> = (Registry<Token>, Token) -> MadogModalUIContainer<Token>?
+public typealias MultiVCUIRegistryFunction<Token> = (Registry<Token>, [Token]) -> MadogModalUIContainer<Token>?
+
 public final class Madog<Token>: MadogUIContainerDelegate {
     private let registry = Registry<Token>()
     private let registrar: Registrar<Token>
@@ -26,13 +29,13 @@ public final class Madog<Token>: MadogUIContainerDelegate {
     }
 
     @discardableResult
-    public func addSingleUICreationFunction(identifier: String, function: @escaping () -> MadogSingleUIContainer<Token>) -> Bool {
-        return factory.addSingleUICreationFunction(identifier: identifier, function: function)
+    public func addSingleUICreationFunction(identifier: String, function: @escaping SingleVCUIRegistryFunction<Token>) -> Bool {
+        factory.addSingleUICreationFunction(identifier: identifier, function: function)
     }
 
     @discardableResult
-    public func addMultiUICreationFunction(identifier: String, function: @escaping () -> MadogMultiUIContainer<Token>) -> Bool {
-        return factory.addMultiUICreationFunction(identifier: identifier, function: function)
+    public func addMultiUICreationFunction(identifier: String, function: @escaping MultiVCUIRegistryFunction<Token>) -> Bool {
+        factory.addMultiUICreationFunction(identifier: identifier, function: function)
     }
 
     @discardableResult
@@ -57,19 +60,18 @@ public final class Madog<Token>: MadogUIContainerDelegate {
     }
 
     public var currentContext: Context? {
-        return currentContainer
+        currentContainer
     }
 
     public var serviceProviders: [String: ServiceProvider] {
-        return registrar.serviceProviders
+        registrar.serviceProviders
     }
 
     // MARK: - MadogUIContainerDelegate
 
     func createUI<VC: UIViewController>(identifier: SingleUIIdentifier<VC>, token: Any, isModal: Bool) -> MadogUIContainer? {
         guard let token = token as? Token,
-            let container = factory.createSingleUI(identifier: identifier),
-            container.renderInitialView(with: token) == true else {
+            let container = factory.createSingleUI(identifier: identifier, token: token) else {
             return nil
         }
 
@@ -85,8 +87,7 @@ public final class Madog<Token>: MadogUIContainerDelegate {
 
     func createUI<VC: UIViewController>(identifier: MultiUIIdentifier<VC>, tokens: [Any], isModal: Bool) -> MadogUIContainer? {
         guard let tokens = tokens as? [Token],
-            let container = factory.createMultiUI(identifier: identifier),
-            container.renderInitialViews(with: tokens) == true else {
+            let container = factory.createMultiUI(identifier: identifier, tokens: tokens) else {
             return nil
         }
 

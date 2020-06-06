@@ -11,25 +11,25 @@ import UIKit
 
 class LoginViewController: UIViewController {
     var authenticator: Authenticator!
-    weak var navigationContext: (Context & ForwardBackNavigationContext)?
+    weak var context: Context?
 
     @IBOutlet private var usernameField: UITextField!
     @IBOutlet private var passwordField: UITextField!
     @IBOutlet private var activityIndicator: UIActivityIndicatorView!
 
-    static func createLoginViewController(authenticator: Authenticator, navigationContext: Context & ForwardBackNavigationContext) -> LoginViewController? {
+    static func createLoginViewController(authenticator: Authenticator, context: Context) -> LoginViewController? {
         let storyboard = UIStoryboard(name: "LoginViewController", bundle: Bundle(for: LoginViewController.self))
         guard let loginViewController = storyboard.instantiateInitialViewController() as? LoginViewController else {
             return nil
         }
 
         loginViewController.authenticator = authenticator
-        loginViewController.navigationContext = navigationContext
+        loginViewController.context = context
         return loginViewController
     }
 
     override func viewDidAppear(_: Bool) {
-        guard let navigationContext = navigationContext else {
+        guard let context = context else {
             return
         }
 
@@ -42,8 +42,8 @@ class LoginViewController: UIViewController {
                 self.activityIndicator.stopAnimating()
 
                 let tokens: [SampleToken] = [.vc1, .logout]
-                let identifier = MultiUIIdentifier.createTabBarControllerIdentifier()
-                navigationContext.change(to: identifier, tokens: tokens)
+                let identifier = MultiUIIdentifier.createTabBarNavigationIdentifier()
+                context.change(to: identifier, tokens: tokens)
 			})
         }
     }

@@ -22,7 +22,7 @@
 		651C7D05227DEE9F002B72EC /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651C7CF0227DEE05002B72EC /* LoginViewController.swift */; };
 		651C7D06227DEEA9002B72EC /* ViewController1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651C7CF7227DEE05002B72EC /* ViewController1.swift */; };
 		651C7D07227DEEAD002B72EC /* ViewController1Provider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651C7CF6227DEE05002B72EC /* ViewController1Provider.swift */; };
-		651C7D08227DEEB1002B72EC /* ViewControllerProvider2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651C7CF3227DEE05002B72EC /* ViewControllerProvider2.swift */; };
+		651C7D08227DEEB1002B72EC /* ViewController2Provider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651C7CF3227DEE05002B72EC /* ViewController2Provider.swift */; };
 		651C7D09227DEEB3002B72EC /* ViewController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651C7CF4227DEE05002B72EC /* ViewController2.swift */; };
 		651C7D0A227DEEB8002B72EC /* LogoutViewControllerProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651C7CF9227DEE05002B72EC /* LogoutViewControllerProvider.swift */; };
 		651C7D0B227DEEBB002B72EC /* LogoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651C7CFA227DEE05002B72EC /* LogoutViewController.swift */; };
@@ -60,6 +60,13 @@
 			remoteGlobalIDString = 658C850F21A81D26006ECF6F;
 			remoteInfo = Madog;
 		};
+		F4A4146D248BA4C600F0B928 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 651C7CD5227DED7E002B72EC /* Madog.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 6576C20D239A9C3300F6AD07;
+			remoteInfo = MadogTestApp;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -80,7 +87,7 @@
 		651C7CEF227DEE05002B72EC /* LoginViewControllerProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewControllerProvider.swift; sourceTree = "<group>"; };
 		651C7CF0227DEE05002B72EC /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		651C7CF1227DEE05002B72EC /* LoginViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LoginViewController.storyboard; sourceTree = "<group>"; };
-		651C7CF3227DEE05002B72EC /* ViewControllerProvider2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerProvider2.swift; sourceTree = "<group>"; };
+		651C7CF3227DEE05002B72EC /* ViewController2Provider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController2Provider.swift; sourceTree = "<group>"; };
 		651C7CF4227DEE05002B72EC /* ViewController2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController2.swift; sourceTree = "<group>"; };
 		651C7CF6227DEE05002B72EC /* ViewController1Provider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController1Provider.swift; sourceTree = "<group>"; };
 		651C7CF7227DEE05002B72EC /* ViewController1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController1.swift; sourceTree = "<group>"; };
@@ -133,19 +140,19 @@
 		651C7C96227DECBA002B72EC /* SampleApp */ = {
 			isa = PBXGroup;
 			children = (
+				651C7CA3227DECBC002B72EC /* Info.plist */,
+				651C7C97227DECBA002B72EC /* AppDelegate.swift */,
+				651C7CE7227DEDC4002B72EC /* SampleResolver.swift */,
+				651C7CE6227DEDC3002B72EC /* SampleToken.swift */,
+				651C7C9E227DECBC002B72EC /* Assets.xcassets */,
 				651C7CEB227DEE05002B72EC /* Custom UI */,
-				651C7CEE227DEE05002B72EC /* Views */,
-				651C7CFE227DEE05002B72EC /* ServiceProvider */,
+				651C7CA0227DECBC002B72EC /* LaunchScreen.storyboard */,
 				651C7CF2227DEE05002B72EC /* Login */,
+				651C7CFB227DEE05002B72EC /* Logout */,
+				651C7CFE227DEE05002B72EC /* ServiceProvider */,
 				651C7CF8227DEE05002B72EC /* ViewController1 */,
 				651C7CF5227DEE05002B72EC /* ViewController2 */,
-				651C7CFB227DEE05002B72EC /* Logout */,
-				651C7C97227DECBA002B72EC /* AppDelegate.swift */,
-				651C7CE6227DEDC3002B72EC /* SampleToken.swift */,
-				651C7CE7227DEDC4002B72EC /* SampleResolver.swift */,
-				651C7C9E227DECBC002B72EC /* Assets.xcassets */,
-				651C7CA0227DECBC002B72EC /* LaunchScreen.storyboard */,
-				651C7CA3227DECBC002B72EC /* Info.plist */,
+				651C7CEE227DEE05002B72EC /* Views */,
 			);
 			path = SampleApp;
 			sourceTree = "<group>";
@@ -153,8 +160,8 @@
 		651C7CB6227DECBD002B72EC /* SampleAppUITests */ = {
 			isa = PBXGroup;
 			children = (
-				651C7CB7227DECBD002B72EC /* SampleAppUITests.swift */,
 				651C7CB9227DECBD002B72EC /* Info.plist */,
+				651C7CB7227DECBD002B72EC /* SampleAppUITests.swift */,
 			);
 			path = SampleAppUITests;
 			sourceTree = "<group>";
@@ -173,6 +180,7 @@
 			children = (
 				651C7CDD227DED7E002B72EC /* Madog.framework */,
 				651C7CDF227DED7E002B72EC /* MadogTests.xctest */,
+				F4A4146E248BA4C600F0B928 /* MadogTestApp.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -197,9 +205,9 @@
 		651C7CF2227DEE05002B72EC /* Login */ = {
 			isa = PBXGroup;
 			children = (
-				651C7CEF227DEE05002B72EC /* LoginViewControllerProvider.swift */,
-				651C7CF0227DEE05002B72EC /* LoginViewController.swift */,
 				651C7CF1227DEE05002B72EC /* LoginViewController.storyboard */,
+				651C7CF0227DEE05002B72EC /* LoginViewController.swift */,
+				651C7CEF227DEE05002B72EC /* LoginViewControllerProvider.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -207,8 +215,8 @@
 		651C7CF5227DEE05002B72EC /* ViewController2 */ = {
 			isa = PBXGroup;
 			children = (
-				651C7CF3227DEE05002B72EC /* ViewControllerProvider2.swift */,
 				651C7CF4227DEE05002B72EC /* ViewController2.swift */,
+				651C7CF3227DEE05002B72EC /* ViewController2Provider.swift */,
 			);
 			path = ViewController2;
 			sourceTree = "<group>";
@@ -216,8 +224,8 @@
 		651C7CF8227DEE05002B72EC /* ViewController1 */ = {
 			isa = PBXGroup;
 			children = (
-				651C7CF6227DEE05002B72EC /* ViewController1Provider.swift */,
 				651C7CF7227DEE05002B72EC /* ViewController1.swift */,
+				651C7CF6227DEE05002B72EC /* ViewController1Provider.swift */,
 			);
 			path = ViewController1;
 			sourceTree = "<group>";
@@ -225,8 +233,8 @@
 		651C7CFB227DEE05002B72EC /* Logout */ = {
 			isa = PBXGroup;
 			children = (
-				651C7CF9227DEE05002B72EC /* LogoutViewControllerProvider.swift */,
 				651C7CFA227DEE05002B72EC /* LogoutViewController.swift */,
+				651C7CF9227DEE05002B72EC /* LogoutViewControllerProvider.swift */,
 			);
 			path = Logout;
 			sourceTree = "<group>";
@@ -234,8 +242,8 @@
 		651C7CFE227DEE05002B72EC /* ServiceProvider */ = {
 			isa = PBXGroup;
 			children = (
-				651C7CFC227DEE05002B72EC /* ResourceProvider1.swift */,
 				651C7CFD227DEE05002B72EC /* AuthenticatorProvider.swift */,
+				651C7CFC227DEE05002B72EC /* ResourceProvider1.swift */,
 			);
 			path = ServiceProvider;
 			sourceTree = "<group>";
@@ -339,6 +347,13 @@
 			remoteRef = 651C7CDE227DED7E002B72EC /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		F4A4146E248BA4C600F0B928 /* MadogTestApp.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = MadogTestApp.app;
+			remoteRef = F4A4146D248BA4C600F0B928 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
@@ -394,7 +409,7 @@
 				651C7D00227DEE8F002B72EC /* ButtonView.swift in Sources */,
 				651C7CFF227DEE86002B72EC /* SplitUI.swift in Sources */,
 				651C7D03227DEE97002B72EC /* AuthenticatorProvider.swift in Sources */,
-				651C7D08227DEEB1002B72EC /* ViewControllerProvider2.swift in Sources */,
+				651C7D08227DEEB1002B72EC /* ViewController2Provider.swift in Sources */,
 				651C7D09227DEEB3002B72EC /* ViewController2.swift in Sources */,
 				651C7D04227DEE9D002B72EC /* LoginViewControllerProvider.swift in Sources */,
 				651C7D07227DEEAD002B72EC /* ViewController1Provider.swift in Sources */,

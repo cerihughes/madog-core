@@ -11,23 +11,10 @@ import UIKit
 
 private let loginIdentifier = "loginIdentifier"
 
-class LoginViewControllerProvider: ViewControllerProvider<SampleToken> {
+class LoginViewControllerProvider: SingleViewControllerProvider<SampleToken> {
     private var authenticator: Authenticator?
-    private var uuid: UUID?
 
-    // MARK: ViewControllerProviderObject
-
-    override func register(with registry: Registry<SampleToken>) {
-        uuid = registry.add(registryFunction: createViewController(token:context:))
-    }
-
-    override func unregister(from registry: Registry<SampleToken>) {
-        guard let uuid = uuid else {
-            return
-        }
-
-        registry.removeRegistryFunction(uuid: uuid)
-    }
+    // MARK: - SingleViewControllerProvider
 
     override func configure(with serviceProviders: [String: ServiceProvider]) {
         if let authenticatorProvider = serviceProviders[authenticatorProviderName] as? AuthenticatorProvider {
@@ -35,11 +22,8 @@ class LoginViewControllerProvider: ViewControllerProvider<SampleToken> {
         }
     }
 
-    // MARK: Private
-
-    private func createViewController(token: Any, context: Context) -> UIViewController? {
-        guard let sampleToken = token as? SampleToken,
-            sampleToken.identifier == loginIdentifier,
+    override func createViewController(token: SampleToken, context: Context) -> UIViewController? {
+        guard token.identifier == loginIdentifier,
             let authenticator = authenticator,
             let navigationContext = context as? Context & ForwardBackNavigationContext else {
             return nil
@@ -51,6 +35,6 @@ class LoginViewControllerProvider: ViewControllerProvider<SampleToken> {
 
 extension SampleToken {
     static var login: SampleToken {
-        return SampleToken(identifier: loginIdentifier, data: [:])
+        SampleToken(identifier: loginIdentifier, data: [:])
     }
 }

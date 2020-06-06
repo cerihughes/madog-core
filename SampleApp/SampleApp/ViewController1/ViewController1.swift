@@ -40,7 +40,7 @@ class ViewController1: UIViewController {
 }
 
 extension ViewController1 {
-    // MARK: UIButton interactions
+    // MARK: - UIButton interactions
 
     @objc
     private func buttonTapGesture(sender _: UIButton) {

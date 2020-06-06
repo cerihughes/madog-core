@@ -9,7 +9,13 @@
 import Madog
 import UIKit
 
-protocol SplitContext: Context, ForwardBackNavigationContext {}
+protocol SplitContext: Context {
+    @discardableResult
+    func showDetail(token: Any) -> Bool
+
+    @discardableResult
+    func removeDetail() -> Bool
+}
 
 class SplitUI<Token>: MadogSingleUIContainer<Token>, SplitContext {
     private let splitController = UISplitViewController()
@@ -18,7 +24,7 @@ class SplitUI<Token>: MadogSingleUIContainer<Token>, SplitContext {
         super.init(viewController: splitController)
     }
 
-    // MARK: - MadogSingleUIContext
+    // MARK: - MadogSingleUIContainer
 
     override func renderInitialView(with token: Token) -> Bool {
         guard let viewController = registry.createViewController(from: token, context: self) else {
@@ -29,27 +35,23 @@ class SplitUI<Token>: MadogSingleUIContainer<Token>, SplitContext {
         return true
     }
 
-    // MARK: - ForwardBackNavigationContext
+    // MARK: - SplitContext
 
-    func navigateForward(token: Any, animated _: Bool) -> NavigationToken? {
+    func showDetail(token: Any) -> Bool {
         guard let token = token as? Token,
             let viewController = registry.createViewController(from: token, context: self) else {
-            return nil
+            return false
         }
 
         splitController.showDetailViewController(viewController, sender: splitController.viewControllers.first)
-        return createNavigationToken(for: viewController)
+        return true
     }
 
-    func navigateBack(animated _: Bool) -> Bool {
+    func removeDetail() -> Bool {
         guard let first = splitController.viewControllers.first else {
             return false
         }
         splitController.viewControllers = [first]
         return true
-    }
-
-    func navigateBackToRoot(animated: Bool) -> Bool {
-        return navigateBack(animated: animated)
     }
 }

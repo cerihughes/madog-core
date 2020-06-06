@@ -13,23 +13,10 @@ import XCTest
 
 @testable import Madog
 
-class TabBarNavigationUITests: MadogUIKIFTestCase {
-    private var window: UIWindow!
-    private var madog: Madog<String>!
+class TabBarNavigationUITests: MadogKIFTestCase {
     private var context: TabBarNavigationUIContext!
 
-    override func setUp() {
-        super.setUp()
-
-        window = UIWindow()
-        window.makeKeyAndVisible()
-        madog = Madog()
-        madog.resolve(resolver: KIFTestResolver())
-    }
-
     override func tearDown() {
-        window = nil
-        madog = nil
         context = nil
 
         super.tearDown()

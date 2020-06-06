@@ -27,10 +27,21 @@ class MadogKIFTestCase: KIFTestCase {
     }
 
     override func tearDown() {
+        window.rootViewController = nil
         window = nil
         madog = nil
 
         super.tearDown()
+    }
+
+    func assert(token: String) {
+        assert(tokens: [token])
+    }
+
+    func assert(tokens: [String]) {
+        tokens.forEach {
+            viewTester().usingLabel($0)?.waitForView()
+        }
     }
 }
 

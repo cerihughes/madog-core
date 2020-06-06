@@ -13,23 +13,10 @@ import XCTest
 
 @testable import Madog
 
-class BasicUITests: KIFTestCase {
-    private var window: UIWindow!
-    private var madog: Madog<String>!
+class BasicUITests: MadogKIFTestCase {
     private var context: BasicUIContext!
 
-    override func setUp() {
-        super.setUp()
-
-        window = UIWindow()
-        window.makeKeyAndVisible()
-        madog = Madog()
-        madog.resolve(resolver: TestResolver())
-    }
-
     override func tearDown() {
-        window = nil
-        madog = nil
         context = nil
 
         super.tearDown()
@@ -51,22 +38,6 @@ class BasicUITests: KIFTestCase {
         let context = madog.renderUI(identifier: identifier, token: token, in: window)
         viewTester().usingLabel(token)?.waitForView()
         return context as? BasicUIContext
-    }
-}
-
-private class TestResolver: Resolver<String> {
-    override func viewControllerProviderFunctions() -> [() -> ViewControllerProvider<String>] {
-        [TestViewControllerProvider.init]
-    }
-}
-
-private class TestViewControllerProvider: BaseViewControllerProvider {
-    override func createViewController(token: String, context: Context) -> UIViewController? {
-        let label = UILabel(frame: CGRect(origin: .zero, size: CGSize(width: 100, height: 100)))
-        label.text = token
-        let viewController = UIViewController()
-        viewController.view.addSubview(label)
-        return viewController
     }
 }
 

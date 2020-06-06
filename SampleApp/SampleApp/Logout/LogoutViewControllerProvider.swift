@@ -11,23 +11,10 @@ import UIKit
 
 private let logoutIdentifier = "logoutIdentifier"
 
-class LogoutViewControllerProvider: ViewControllerProvider<SampleToken> {
+class LogoutViewControllerProvider: SingleViewControllerProvider<SampleToken> {
     private var authenticator: Authenticator?
-    private var uuid: UUID?
 
-    // MARK: ViewControllerProviderObject
-
-    override func register(with registry: Registry<SampleToken>) {
-        uuid = registry.add(registryFunction: createViewController(token:context:))
-    }
-
-    override func unregister(from registry: Registry<SampleToken>) {
-        guard let uuid = uuid else {
-            return
-        }
-
-        registry.removeRegistryFunction(uuid: uuid)
-    }
+    // MARK: - SingleViewControllerProvider
 
     override func configure(with serviceProviders: [String: ServiceProvider]) {
         if let authenticatorProvider = serviceProviders[authenticatorProviderName] as? AuthenticatorProvider {
@@ -35,12 +22,9 @@ class LogoutViewControllerProvider: ViewControllerProvider<SampleToken> {
         }
     }
 
-    // MARK: Private
-
-    private func createViewController(token: Any, context: Context) -> UIViewController? {
+    override func createViewController(token: SampleToken, context: Context) -> UIViewController? {
         guard let authenticator = authenticator,
-            let sampleToken = token as? SampleToken,
-            sampleToken.identifier == logoutIdentifier else {
+            token.identifier == logoutIdentifier else {
             return nil
         }
 
@@ -52,6 +36,6 @@ class LogoutViewControllerProvider: ViewControllerProvider<SampleToken> {
 
 extension SampleToken {
     static var logout: SampleToken {
-        return SampleToken(identifier: logoutIdentifier, data: [:])
+        SampleToken(identifier: logoutIdentifier, data: [:])
     }
 }

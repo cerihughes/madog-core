@@ -38,7 +38,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         let token = SampleToken.createVC2Identifier(stringData: String(url.absoluteString.count))
         if let navigationContext = currentContext as? ForwardBackNavigationContext {
-            return navigationContext.navigateForward(token: token, animated: true) != nil
+            return navigationContext.navigateForward(token: token, animated: true)
         } else {
             let identifier = SingleUIIdentifier.createNavigationControllerIdentifier()
             return currentContext.change(to: identifier, token: token) != nil
@@ -49,7 +49,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 let splitViewControllerIdentifier = "splitViewControllerIdentifier"
 
 extension SingleUIIdentifier {
-    public static func createSplitViewControllerIdentifier(customisation: @escaping (UISplitViewController) -> Void = { _ in }) -> SingleUIIdentifier<UISplitViewController> {
-        return SingleUIIdentifier<UISplitViewController>(splitViewControllerIdentifier, customisation: customisation)
+    public static func createSplitViewControllerIdentifier(
+        customisation: @escaping (UISplitViewController) -> Void = { _ in }
+    ) -> SingleUIIdentifier<UISplitViewController> {
+        SingleUIIdentifier<UISplitViewController>(splitViewControllerIdentifier, customisation: customisation)
     }
 }

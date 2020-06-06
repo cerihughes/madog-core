@@ -11,23 +11,10 @@ import UIKit
 
 private let vc1Identifier = "vc1Identifier"
 
-class ViewController1Provider: ViewControllerProvider<SampleToken> {
+class ViewController1Provider: SingleViewControllerProvider<SampleToken> {
     private var sharedService: Any?
-    private var uuid: UUID?
 
-    // MARK: ViewControllerProviderObject
-
-    override func register(with registry: Registry<SampleToken>) {
-        uuid = registry.add(registryFunction: createViewController(token:context:))
-    }
-
-    override func unregister(from registry: Registry<SampleToken>) {
-        guard let uuid = uuid else {
-            return
-        }
-
-        registry.removeRegistryFunction(uuid: uuid)
-    }
+    // MARK: - SingleViewControllerProvider
 
     override func configure(with serviceProviders: [String: ServiceProvider]) {
         if let serviceProvider = serviceProviders[serviceProvider1Name] as? ServiceProvider1 {
@@ -35,12 +22,9 @@ class ViewController1Provider: ViewControllerProvider<SampleToken> {
         }
     }
 
-    // MARK: Private
-
-    private func createViewController(token: Any, context: Context) -> UIViewController? {
+    override func createViewController(token: SampleToken, context: Context) -> UIViewController? {
         guard let sharedService = sharedService,
-            let sampleToken = token as? SampleToken,
-            sampleToken.identifier == vc1Identifier,
+            token.identifier == vc1Identifier,
             let navigationContext = context as? ForwardBackNavigationContext else {
             return nil
         }
@@ -53,6 +37,6 @@ class ViewController1Provider: ViewControllerProvider<SampleToken> {
 
 extension SampleToken {
     static var vc1: SampleToken {
-        return SampleToken(identifier: vc1Identifier, data: [:])
+        SampleToken(identifier: vc1Identifier, data: [:])
     }
 }

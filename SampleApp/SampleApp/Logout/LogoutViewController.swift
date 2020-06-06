@@ -39,7 +39,7 @@ class LogoutViewController: UIViewController {
 }
 
 extension LogoutViewController {
-    // MARK: UIButton interactions
+    // MARK: - UIButton interactions
 
     @objc
     private func buttonTapGesture(sender _: UIButton) {

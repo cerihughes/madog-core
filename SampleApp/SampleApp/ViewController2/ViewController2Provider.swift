@@ -26,13 +26,13 @@ class ViewController2Provider: SingleViewControllerProvider<SampleToken> {
         guard let sharedService = sharedService,
             token.identifier == vc2Identifier,
             let stringData = token.stringData,
-            let navigationContext = context as? ForwardBackNavigationContext else {
+            let context = context as? ForwardBackNavigationContext else {
             return nil
         }
 
         let viewController = ViewController2(sharedService: sharedService,
                                              stringData: stringData,
-                                             navigationContext: navigationContext)
+                                             context: context)
         viewController.tabBarItem = UITabBarItem(tabBarSystemItem: .contacts, tag: 0)
         return viewController
     }

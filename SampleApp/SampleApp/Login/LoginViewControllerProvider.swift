@@ -24,12 +24,11 @@ class LoginViewControllerProvider: SingleViewControllerProvider<SampleToken> {
 
     override func createViewController(token: SampleToken, context: Context) -> UIViewController? {
         guard token.identifier == loginIdentifier,
-            let authenticator = authenticator,
-            let navigationContext = context as? Context & ForwardBackNavigationContext else {
+            let authenticator = authenticator else {
             return nil
         }
 
-        return LoginViewController.createLoginViewController(authenticator: authenticator, navigationContext: navigationContext)
+        return LoginViewController.createLoginViewController(authenticator: authenticator, context: context)
     }
 }
 

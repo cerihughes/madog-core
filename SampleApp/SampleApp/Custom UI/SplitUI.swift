@@ -17,22 +17,17 @@ protocol SplitContext: Context {
     func removeDetail() -> Bool
 }
 
-class SplitUI<Token>: MadogSingleUIContainer<Token>, SplitContext {
+class SplitUI<Token>: MadogModalUIContainer<Token>, SplitContext {
     private let splitController = UISplitViewController()
 
-    init() {
-        super.init(viewController: splitController)
-    }
+    init?(registry: Registry<Token>, token: Token) {
+        super.init(registry: registry, viewController: splitController)
 
-    // MARK: - MadogSingleUIContainer
-
-    override func renderInitialView(with token: Token) -> Bool {
         guard let viewController = registry.createViewController(from: token, context: self) else {
-            return false
+            return nil
         }
 
         splitController.viewControllers = [viewController]
-        return true
     }
 
     // MARK: - SplitContext

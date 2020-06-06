@@ -10,6 +10,8 @@ import UIKit
 
 public typealias SingleVCUIRegistryFunction<Token> = (Registry<Token>, Token) -> MadogModalUIContainer<Token>?
 public typealias MultiVCUIRegistryFunction<Token> = (Registry<Token>, [Token]) -> MadogModalUIContainer<Token>?
+public typealias SplitSingleVCUIRegistryFunction<Token> = (Registry<Token>, Token, Token) -> MadogModalUIContainer<Token>?
+public typealias SplitMultiVCUIRegistryFunction<Token> = (Registry<Token>, Token, [Token]) -> MadogModalUIContainer<Token>?
 
 public final class Madog<Token>: MadogUIContainerDelegate {
     private let registry = Registry<Token>()
@@ -39,7 +41,20 @@ public final class Madog<Token>: MadogUIContainerDelegate {
     }
 
     @discardableResult
-    public func renderUI<VC: UIViewController>(identifier: SingleUIIdentifier<VC>, token: Any, in window: UIWindow, transition: Transition? = nil) -> Context? {
+    public func addSplitSingleUICreationFunction(identifier: String, function: @escaping SplitSingleVCUIRegistryFunction<Token>) -> Bool {
+        factory.addSplitSingleUICreationFunction(identifier: identifier, function: function)
+    }
+
+    @discardableResult
+    public func addSplitMultiUICreationFunction(identifier: String, function: @escaping SplitMultiVCUIRegistryFunction<Token>) -> Bool {
+        factory.addSplitMultiUICreationFunction(identifier: identifier, function: function)
+    }
+
+    @discardableResult
+    public func renderUI<VC: UIViewController>(identifier: SingleUIIdentifier<VC>,
+                                               token: Any,
+                                               in window: UIWindow,
+                                               transition: Transition? = nil) -> Context? {
         guard let context = createUI(identifier: identifier, token: token, isModal: false) else {
             return nil
         }
@@ -53,6 +68,32 @@ public final class Madog<Token>: MadogUIContainerDelegate {
                                                in window: UIWindow,
                                                transition: Transition? = nil) -> Context? {
         guard let context = createUI(identifier: identifier, tokens: tokens, isModal: false) else {
+            return nil
+        }
+        window.setRootViewController(context.viewController, transition: transition)
+        return context
+    }
+
+    @discardableResult
+    public func renderUI<VC: UIViewController>(identifier: SplitSingleUIIdentifier<VC>,
+                                               primaryToken: Any,
+                                               secondaryToken: Any,
+                                               in window: UIWindow,
+                                               transition: Transition? = nil) -> Context? {
+        guard let context = createUI(identifier: identifier, primaryToken: primaryToken, secondaryToken: secondaryToken, isModal: false) else {
+            return nil
+        }
+        window.setRootViewController(context.viewController, transition: transition)
+        return context
+    }
+
+    @discardableResult
+    public func renderUI<VC: UIViewController>(identifier: SplitMultiUIIdentifier<VC>,
+                                               primaryToken: Any,
+                                               secondaryTokens: [Any],
+                                               in window: UIWindow,
+                                               transition: Transition? = nil) -> Context? {
+        guard let context = createUI(identifier: identifier, primaryToken: primaryToken, secondaryTokens: secondaryTokens, isModal: false) else {
             return nil
         }
         window.setRootViewController(context.viewController, transition: transition)
@@ -88,6 +129,40 @@ public final class Madog<Token>: MadogUIContainerDelegate {
     func createUI<VC: UIViewController>(identifier: MultiUIIdentifier<VC>, tokens: [Any], isModal: Bool) -> MadogUIContainer? {
         guard let tokens = tokens as? [Token],
             let container = factory.createMultiUI(identifier: identifier, tokens: tokens) else {
+            return nil
+        }
+
+        container.delegate = self
+        persist(container: container, isModal: isModal)
+
+        guard let viewController = container.viewController as? VC else {
+            return nil
+        }
+        identifier.customisation(viewController)
+        return container
+    }
+
+    func createUI<VC: UIViewController>(identifier: SplitSingleUIIdentifier<VC>, primaryToken: Any, secondaryToken: Any, isModal: Bool) -> MadogUIContainer? {
+        guard let primaryToken = primaryToken as? Token,
+            let secondaryToken = secondaryToken as? Token,
+            let container = factory.createSplitSingleUI(identifier: identifier, primaryToken: primaryToken, secondaryToken: secondaryToken) else {
+            return nil
+        }
+
+        container.delegate = self
+        persist(container: container, isModal: isModal)
+
+        guard let viewController = container.viewController as? VC else {
+            return nil
+        }
+        identifier.customisation(viewController)
+        return container
+    }
+
+    func createUI<VC: UIViewController>(identifier: SplitMultiUIIdentifier<VC>, primaryToken: Any, secondaryTokens: [Any], isModal: Bool) -> MadogUIContainer? {
+        guard let primaryToken = primaryToken as? Token,
+            let secondaryTokens = secondaryTokens as? [Token],
+            let container = factory.createSplitMultiUI(identifier: identifier, primaryToken: primaryToken, secondaryTokens: secondaryTokens) else {
             return nil
         }
 

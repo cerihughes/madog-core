@@ -11,6 +11,8 @@ import UIKit
 internal protocol MadogUIContainerDelegate: AnyObject {
     func createUI<VC: UIViewController>(identifier: SingleUIIdentifier<VC>, token: Any, isModal: Bool) -> MadogUIContainer?
     func createUI<VC: UIViewController>(identifier: MultiUIIdentifier<VC>, tokens: [Any], isModal: Bool) -> MadogUIContainer?
+    func createUI<VC: UIViewController>(identifier: SplitSingleUIIdentifier<VC>, primaryToken: Any, secondaryToken: Any, isModal: Bool) -> MadogUIContainer?
+    func createUI<VC: UIViewController>(identifier: SplitMultiUIIdentifier<VC>, primaryToken: Any, secondaryTokens: [Any], isModal: Bool) -> MadogUIContainer?
 
     func releaseContext(for viewController: UIViewController)
 }

@@ -14,7 +14,7 @@ import UIKit
 internal let basicIdentifier = "basicIdentifier"
 internal let navigationIdentifier = "navigationIdentifier"
 
-public class SingleUIIdentifier<VC: UIViewController> {
+public class MadogIdentifier<VC: UIViewController> {
     internal let value: String
     internal let customisation: (VC) -> Void
 
@@ -22,7 +22,9 @@ public class SingleUIIdentifier<VC: UIViewController> {
         self.value = value
         self.customisation = customisation
     }
+}
 
+public class SingleUIIdentifier<VC: UIViewController>: MadogIdentifier<VC> {
     public static func createBasicIdentifier(
         customisation: @escaping (UIViewController) -> Void = { _ in }
     ) -> SingleUIIdentifier<UIViewController> {
@@ -39,15 +41,7 @@ public class SingleUIIdentifier<VC: UIViewController> {
 internal let tabBarIdentifier = "tabBarIdentifier"
 internal let tabBarNavigationIdentifier = "tabBarNavigationIdentifier"
 
-public class MultiUIIdentifier<VC: UIViewController> {
-    internal let value: String
-    internal let customisation: (VC) -> Void
-
-    public init(_ value: String, customisation: @escaping (VC) -> Void) {
-        self.value = value
-        self.customisation = customisation
-    }
-
+public class MultiUIIdentifier<VC: UIViewController>: MadogIdentifier<VC> {
     public static func createTabBarIdentifier(
         customisation: @escaping (UITabBarController) -> Void = { _ in }
     ) -> MultiUIIdentifier<UITabBarController> {
@@ -60,5 +54,9 @@ public class MultiUIIdentifier<VC: UIViewController> {
         MultiUIIdentifier<UITabBarController>(tabBarNavigationIdentifier, customisation: customisation)
     }
 }
+
+public class SplitSingleUIIdentifier<VC: UIViewController>: MadogIdentifier<VC> {}
+
+public class SplitMultiUIIdentifier<VC: UIViewController>: MadogIdentifier<VC> {}
 
 #endif

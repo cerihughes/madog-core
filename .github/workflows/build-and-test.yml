@@ -31,6 +31,7 @@ jobs:
       - run: set -o pipefail
       - run: swiftlint
       - run: carthage bootstrap --platform iOS --no-use-binaries --cache-builds
+      - run: xcodebuild clean build -project SampleApp/SampleApp.xcodeproj -scheme SampleApp -sdk iphonesimulator CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=NO
       - run: xcodebuild clean test -project Madog.xcodeproj -scheme Madog -destination "OS=latest,name=iPhone 11" -destination "OS=latest,name=iPad (7th generation)" -sdk iphonesimulator CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=NO
       - run: swift package generate-xcodeproj --output MadogSPM.xcodeproj
       - run: xcodebuild clean test -project MadogSPM.xcodeproj -scheme Madog-Package -destination "OS=latest,name=iPhone 11" -destination "OS=latest,name=iPad (7th generation)" -sdk iphonesimulator CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=NO

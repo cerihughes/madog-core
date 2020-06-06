@@ -17,7 +17,7 @@ internal protocol MadogUIContainerDelegate: AnyObject {
 
 open class MadogUIContainer: Context {
     internal weak var delegate: MadogUIContainerDelegate?
-    internal var viewController: UIViewController
+    internal let viewController: UIViewController
 
     public init(viewController: UIViewController) {
         self.viewController = viewController

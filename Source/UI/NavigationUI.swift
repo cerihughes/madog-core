@@ -22,7 +22,6 @@ internal class NavigationUI<Token>: MadogNavigatingModalUIContainer<Token> {
         }
 
         navigationController.setViewControllers([viewController], animated: false)
-        self.viewController = navigationController
     }
 
     override func provideNavigationController() -> UINavigationController? {

@@ -9,7 +9,7 @@
 import UIKit
 
 open class MadogModalUIContainer<Token>: MadogUIContainer, ModalContext {
-    internal let registry: Registry<Token>
+    public private(set) var registry: Registry<Token>
 
     public init(registry: Registry<Token>, viewController: UIViewController) {
         self.registry = registry

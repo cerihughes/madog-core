@@ -46,6 +46,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 }
 
 let splitViewControllerIdentifier = "splitViewControllerIdentifier"
-extension MadogUIIdentifier where VC == UISplitViewController {
+extension MadogUIIdentifier where VC == UISplitViewController, TD == SplitSingleUITokenData {
     static let split = MadogUIIdentifier(splitViewControllerIdentifier)
 }

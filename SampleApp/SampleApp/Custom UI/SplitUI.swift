@@ -12,22 +12,20 @@ import UIKit
 protocol SplitContext: Context {
     @discardableResult
     func showDetail(token: Any) -> Bool
-
-    @discardableResult
-    func removeDetail() -> Bool
 }
 
 class SplitUI<Token>: MadogModalUIContainer<Token>, SplitContext {
     private let splitController = UISplitViewController()
 
-    init?(registry: Registry<Token>, token: Token) {
+    init?(registry: Registry<Token>, tokenData: SplitSingleUITokenData<Token>) {
         super.init(registry: registry, viewController: splitController)
 
-        guard let viewController = registry.createViewController(from: token, context: self) else {
+        guard let primaryViewController = registry.createViewController(from: tokenData.primaryToken, context: self),
+            let secondaryViewController = registry.createViewController(from: tokenData.secondaryToken, context: self) else {
             return nil
         }
 
-        splitController.viewControllers = [viewController]
+        splitController.viewControllers = [primaryViewController, secondaryViewController]
     }
 
     // MARK: - SplitContext
@@ -38,15 +36,7 @@ class SplitUI<Token>: MadogModalUIContainer<Token>, SplitContext {
             return false
         }
 
-        splitController.showDetailViewController(viewController, sender: splitController.viewControllers.first)
-        return true
-    }
-
-    func removeDetail() -> Bool {
-        guard let first = splitController.viewControllers.first else {
-            return false
-        }
-        splitController.viewControllers = [first]
+        splitController.showDetailViewController(viewController, sender: nil)
         return true
     }
 }

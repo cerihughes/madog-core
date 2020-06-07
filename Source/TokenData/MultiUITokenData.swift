@@ -15,3 +15,9 @@ public class MultiUITokenData<Token>: TokenData {
         self.tokens = tokens
     }
 }
+
+public extension TokenData {
+    static func multi<Token>(_ tokens: [Token]) -> MultiUITokenData<Token> {
+        MultiUITokenData(tokens: tokens)
+    }
+}

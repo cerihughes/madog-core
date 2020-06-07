@@ -50,7 +50,7 @@ class NavigationUITests: MadogKIFTestCase {
     }
 
     private func renderUIAndAssert(token: String) -> NavigationUIContext? {
-        let context = madog.renderUI(identifier: .navigation, tokenData: token.singleTokenData, in: window)
+        let context = madog.renderUI(identifier: .navigation, tokenData: .single(token), in: window)
         viewTester().usingLabel(token)?.waitForView()
         return context as? NavigationUIContext
     }

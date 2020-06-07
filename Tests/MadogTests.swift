@@ -29,10 +29,10 @@ class MadogTests: XCTestCase {
     func testMadogKeepsStrongReferenceToCurrentContext() {
         let window = UIWindow()
 
-        weak var context1 = madog.renderUI(identifier: .navigation, tokenData: "match".singleTokenData, in: window)
+        weak var context1 = madog.renderUI(identifier: .navigation, tokenData: .single("match"), in: window)
         XCTAssertNotNil(context1)
 
-        weak var context2 = madog.renderUI(identifier: .navigation, tokenData: "match".singleTokenData, in: window)
+        weak var context2 = madog.renderUI(identifier: .navigation, tokenData: .single("match"), in: window)
         XCTAssertNil(context1)
         XCTAssertNotNil(context2)
     }

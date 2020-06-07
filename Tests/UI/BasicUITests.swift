@@ -34,7 +34,7 @@ class BasicUITests: MadogKIFTestCase {
     }
 
     private func renderUIAndAssert(token: String) -> BasicUIContext? {
-        let context = madog.renderUI(identifier: .basic, tokenData: token.singleTokenData, in: window)
+        let context = madog.renderUI(identifier: .basic, tokenData: .single(token), in: window)
         viewTester().usingLabel(token)?.waitForView()
         return context as? BasicUIContext
     }

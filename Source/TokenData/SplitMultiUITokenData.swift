@@ -17,3 +17,9 @@ public class SplitMultiUITokenData<Token>: TokenData {
         self.secondaryTokens = secondaryTokens
     }
 }
+
+public extension TokenData {
+    static func splitMulti<Token>(_ primaryToken: Token, _ secondaryTokens: [Token]) -> SplitMultiUITokenData<Token> {
+        SplitMultiUITokenData(primaryToken: primaryToken, secondaryTokens: secondaryTokens)
+    }
+}

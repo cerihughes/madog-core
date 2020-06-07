@@ -15,3 +15,9 @@ public class SingleUITokenData<Token>: TokenData {
         self.token = token
     }
 }
+
+public extension TokenData {
+    static func single<Token>(_ token: Token) -> SingleUITokenData<Token> {
+        SingleUITokenData(token: token)
+    }
+}

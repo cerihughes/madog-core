@@ -15,16 +15,16 @@ import XCTest
 
 class MadogCustomisationTests: MadogKIFTestCase {
     func testMainCustomisationBlock() {
-        _ = madog.renderUI(identifier: .navigation, tokenData: "vc1".singleTokenData, in: window, customisation: customise(navigationController:))
+        _ = madog.renderUI(identifier: .navigation, tokenData: .single("vc1"), in: window, customisation: customise(navigationController:))
 
         viewTester().usingLabel("CUSTOMISED")?.waitForView()
     }
 
     func testModalCustomisationBlock() {
-        let context = madog.renderUI(identifier: .navigation, tokenData: "vc1".singleTokenData, in: window) as? ModalContext
+        let context = madog.renderUI(identifier: .navigation, tokenData: .single("vc1"), in: window) as? ModalContext
 
         viewTester().usingLabel("CUSTOMISED")?.waitForAbsenceOfView()
-        _ = context?.openModal(identifier: .navigation, tokenData: "vc1".singleTokenData, animated: true, customisation: customise(navigationController:))
+        _ = context?.openModal(identifier: .navigation, tokenData: .single("vc1"), animated: true, customisation: customise(navigationController:))
 
         viewTester().usingLabel("CUSTOMISED")?.waitForView()
     }

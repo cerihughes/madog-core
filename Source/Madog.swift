@@ -51,11 +51,11 @@ public final class Madog<Token>: MadogUIContainerDelegate {
     }
 
     @discardableResult
-    public func renderUI<VC: UIViewController>(identifier: MadogUIIdentifier<VC>,
-                                               tokenData: TokenData,
-                                               in window: UIWindow,
-                                               transition: Transition? = nil,
-                                               customisation: CustomisationBlock<VC>? = nil) -> Context? {
+    public func renderUI<VC, TD>(identifier: MadogUIIdentifier<VC, TD>,
+                                 tokenData: TD,
+                                 in window: UIWindow,
+                                 transition: Transition? = nil,
+                                 customisation: CustomisationBlock<VC>? = nil) -> Context? where VC: UIViewController, TD: TokenData {
         guard let context = createUI(identifier: identifier,
                                      tokenData: tokenData,
                                      isModal: false,
@@ -76,10 +76,10 @@ public final class Madog<Token>: MadogUIContainerDelegate {
 
     // MARK: - MadogUIContainerDelegate
 
-    func createUI<VC: UIViewController>(identifier: MadogUIIdentifier<VC>,
-                                        tokenData: TokenData,
-                                        isModal: Bool,
-                                        customisation: CustomisationBlock<VC>?) -> MadogUIContainer? {
+    func createUI<VC, TD>(identifier: MadogUIIdentifier<VC, TD>,
+                          tokenData: TD,
+                          isModal: Bool,
+                          customisation: CustomisationBlock<VC>?) -> MadogUIContainer? where VC: UIViewController, TD: TokenData {
         guard let container = factory.createUI(identifier: identifier, tokenData: tokenData) else {
             return nil
         }

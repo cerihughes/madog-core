@@ -8,16 +8,16 @@
 
 import Foundation
 
-public class SingleUITokenData<Token>: TokenData {
-    public let token: Token
+public class SingleUITokenData: TokenData {
+    public let token: Any
 
-    public init(token: Token) {
+    public init(token: Any) {
         self.token = token
     }
 }
 
 public extension TokenData {
-    static func single<Token>(_ token: Token) -> SingleUITokenData<Token> {
+    static func single(_ token: Any) -> SingleUITokenData {
         SingleUITokenData(token: token)
     }
 }

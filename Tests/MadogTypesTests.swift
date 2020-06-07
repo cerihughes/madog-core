@@ -63,5 +63,5 @@ private class TestResolver: Resolver<Int> {
 
 private class TestContext: Context {
     func close(animated: Bool, completion: CompletionBlock?) -> Bool { false }
-    func change<VC: UIViewController>(to _: MadogUIIdentifier<VC>, tokenData: TokenData, transition: Transition?, customisation: CustomisationBlock<VC>?) -> Context? { nil }
+    func change<VC, TD>(to _: MadogUIIdentifier<VC, TD>, tokenData: TD, transition: Transition?, customisation: CustomisationBlock<VC>?) -> Context? { nil }
 }

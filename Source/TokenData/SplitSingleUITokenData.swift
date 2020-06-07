@@ -8,18 +8,18 @@
 
 import Foundation
 
-public class SplitSingleUITokenData<Token>: TokenData {
-    public let primaryToken: Token
-    public let secondaryToken: Token
+public class SplitSingleUITokenData: TokenData {
+    public let primaryToken: Any
+    public let secondaryToken: Any
 
-    public init(primaryToken: Token, secondaryToken: Token) {
+    public init<Token>(primaryToken: Token, secondaryToken: Token) {
         self.primaryToken = primaryToken
         self.secondaryToken = secondaryToken
     }
 }
 
 public extension TokenData {
-    static func splitSingle<Token>(_ primaryToken: Token, _ secondaryToken: Token) -> SplitSingleUITokenData<Token> {
+    static func splitSingle<Token>(_ primaryToken: Token, _ secondaryToken: Token) -> SplitSingleUITokenData {
         SplitSingleUITokenData(primaryToken: primaryToken, secondaryToken: secondaryToken)
     }
 }

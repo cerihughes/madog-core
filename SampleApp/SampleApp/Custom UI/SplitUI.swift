@@ -17,12 +17,10 @@ protocol SplitContext: Context {
 class SplitUI<Token>: MadogModalUIContainer<Token>, SplitContext {
     private let splitController = UISplitViewController()
 
-    init?(registry: Registry<Token>, tokenData: SplitSingleUITokenData) {
+    init?(registry: Registry<Token>, primaryToken: Token, secondaryToken: Token) {
         super.init(registry: registry, viewController: splitController)
 
-        guard let primaryToken = tokenData.primaryToken as? Token,
-            let secondaryToken = tokenData.secondaryToken as? Token,
-            let primaryViewController = registry.createViewController(from: primaryToken, context: self),
+        guard let primaryViewController = registry.createViewController(from: primaryToken, context: self),
             let secondaryViewController = registry.createViewController(from: secondaryToken, context: self) else {
             return nil
         }

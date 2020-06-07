@@ -16,7 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         madog.resolve(resolver: SampleResolver(), launchOptions: launchOptions)
-        let result = madog.addUICreationFunction(identifier: splitViewControllerIdentifier) { SplitUI(registry: $0, tokenData: $1) }
+        let result = madog.addUICreationFunction(identifier: splitViewControllerIdentifier, function: SplitUI.init(registry:primaryToken:secondaryToken:))
         guard result == true else {
             return false
         }

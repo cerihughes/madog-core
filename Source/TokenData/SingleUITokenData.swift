@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class SingleUITokenData: TokenData {
+public struct SingleUITokenData: TokenData {
     public let token: Any
 
     public init(token: Any) {

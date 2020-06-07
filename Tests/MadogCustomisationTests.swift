@@ -21,7 +21,7 @@ class MadogCustomisationTests: MadogKIFTestCase {
     }
 
     func testModalCustomisationBlock() {
-        let context = madog.renderUI(identifier: .navigation, tokenData: .single("vc1"), in: window) as? ModalContext
+        let context = madog.renderUI(identifier: .basic, tokenData: .single("vc1"), in: window) as? ModalContext
 
         viewTester().usingLabel("CUSTOMISED")?.waitForAbsenceOfView()
         _ = context?.openModal(identifier: .navigation, tokenData: .single("vc1"), animated: true, customisation: customise(navigationController:))

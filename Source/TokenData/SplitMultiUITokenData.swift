@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class SplitMultiUITokenData: TokenData {
+public struct SplitMultiUITokenData: TokenData {
     public let primaryToken: Any
     public let secondaryTokens: [Any]
 

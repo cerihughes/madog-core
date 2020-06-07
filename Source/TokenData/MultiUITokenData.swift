@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class MultiUITokenData: TokenData {
+public struct MultiUITokenData: TokenData {
     public let tokens: [Any]
 
     public init(tokens: [Any]) {

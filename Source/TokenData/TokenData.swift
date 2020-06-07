@@ -8,4 +8,4 @@
 
 import Foundation
 
-public class TokenData {}
+public protocol TokenData {}

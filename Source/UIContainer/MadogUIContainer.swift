@@ -9,23 +9,23 @@
 import UIKit
 
 internal protocol MadogUIContainerDelegate: AnyObject {
-    func createUI<VC: UIViewController>(identifier: SingleUIIdentifier<VC>,
+    func createUI<VC: UIViewController>(identifier: MadogUIIdentifier<VC>,
                                         token: Any,
                                         isModal: Bool,
                                         customisation: CustomisationBlock<VC>?) -> MadogUIContainer?
 
-    func createUI<VC: UIViewController>(identifier: MultiUIIdentifier<VC>,
+    func createUI<VC: UIViewController>(identifier: MadogUIIdentifier<VC>,
                                         tokens: [Any],
                                         isModal: Bool,
                                         customisation: CustomisationBlock<VC>?) -> MadogUIContainer?
 
-    func createUI<VC: UIViewController>(identifier: SplitSingleUIIdentifier<VC>,
+    func createUI<VC: UIViewController>(identifier: MadogUIIdentifier<VC>,
                                         primaryToken: Any,
                                         secondaryToken: Any,
                                         isModal: Bool,
                                         customisation: CustomisationBlock<VC>?) -> MadogUIContainer?
 
-    func createUI<VC: UIViewController>(identifier: SplitMultiUIIdentifier<VC>,
+    func createUI<VC: UIViewController>(identifier: MadogUIIdentifier<VC>,
                                         primaryToken: Any,
                                         secondaryTokens: [Any],
                                         isModal: Bool,
@@ -49,7 +49,7 @@ open class MadogUIContainer: Context {
         false
     }
 
-    public func change<VC: UIViewController>(to identifier: SingleUIIdentifier<VC>,
+    public func change<VC: UIViewController>(to identifier: MadogUIIdentifier<VC>,
                                              token: Any,
                                              transition: Transition?,
                                              customisation: CustomisationBlock<VC>?) -> Context? {
@@ -66,7 +66,7 @@ open class MadogUIContainer: Context {
         return container
     }
 
-    public func change<VC: UIViewController>(to identifier: MultiUIIdentifier<VC>,
+    public func change<VC: UIViewController>(to identifier: MadogUIIdentifier<VC>,
                                              tokens: [Any],
                                              transition: Transition?,
                                              customisation: CustomisationBlock<VC>?) -> Context? {
@@ -83,7 +83,7 @@ open class MadogUIContainer: Context {
         return container
     }
 
-    public func change<VC: UIViewController>(to identifier: SplitSingleUIIdentifier<VC>,
+    public func change<VC: UIViewController>(to identifier: MadogUIIdentifier<VC>,
                                              primaryToken: Any,
                                              secondaryToken: Any,
                                              transition: Transition?,
@@ -102,7 +102,7 @@ open class MadogUIContainer: Context {
         return container
     }
 
-    public func change<VC: UIViewController>(to identifier: SplitMultiUIIdentifier<VC>,
+    public func change<VC: UIViewController>(to identifier: MadogUIIdentifier<VC>,
                                              primaryToken: Any,
                                              secondaryTokens: [Any],
                                              transition: Transition?,

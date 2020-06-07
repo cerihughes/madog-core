@@ -25,23 +25,23 @@ public protocol Context: AnyObject {
     func close(animated: Bool, completion: (() -> Void)?) -> Bool
 
     @discardableResult
-    func change<VC: UIViewController>(to identifier: SingleUIIdentifier<VC>,
+    func change<VC: UIViewController>(to identifier: MadogUIIdentifier<VC>,
                                       token: Any,
                                       transition: Transition?,
                                       customisation: CustomisationBlock<VC>?) -> Context?
     @discardableResult
-    func change<VC: UIViewController>(to identifier: MultiUIIdentifier<VC>,
+    func change<VC: UIViewController>(to identifier: MadogUIIdentifier<VC>,
                                       tokens: [Any],
                                       transition: Transition?,
                                       customisation: CustomisationBlock<VC>?) -> Context?
     @discardableResult
-    func change<VC: UIViewController>(to identifier: SplitSingleUIIdentifier<VC>,
+    func change<VC: UIViewController>(to identifier: MadogUIIdentifier<VC>,
                                       primaryToken: Any,
                                       secondaryToken: Any,
                                       transition: Transition?,
                                       customisation: CustomisationBlock<VC>?) -> Context?
     @discardableResult
-    func change<VC: UIViewController>(to identifier: SplitMultiUIIdentifier<VC>,
+    func change<VC: UIViewController>(to identifier: MadogUIIdentifier<VC>,
                                       primaryToken: Any,
                                       secondaryTokens: [Any],
                                       transition: Transition?,
@@ -55,12 +55,12 @@ public extension Context {
     }
 
     @discardableResult
-    func change<VC: UIViewController>(to identifier: SingleUIIdentifier<VC>, token: Any) -> Context? {
+    func change<VC: UIViewController>(to identifier: MadogUIIdentifier<VC>, token: Any) -> Context? {
         change(to: identifier, token: token, transition: nil, customisation: nil)
     }
 
     @discardableResult
-    func change<VC: UIViewController>(to identifier: MultiUIIdentifier<VC>, tokens: [Any]) -> Context? {
+    func change<VC: UIViewController>(to identifier: MadogUIIdentifier<VC>, tokens: [Any]) -> Context? {
         change(to: identifier, tokens: tokens, transition: nil, customisation: nil)
     }
 }

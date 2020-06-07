@@ -51,7 +51,7 @@ public final class Madog<Token>: MadogUIContainerDelegate {
     }
 
     @discardableResult
-    public func renderUI<VC: UIViewController>(identifier: SingleUIIdentifier<VC>,
+    public func renderUI<VC: UIViewController>(identifier: MadogUIIdentifier<VC>,
                                                token: Any,
                                                in window: UIWindow,
                                                transition: Transition? = nil,
@@ -67,7 +67,7 @@ public final class Madog<Token>: MadogUIContainerDelegate {
     }
 
     @discardableResult
-    public func renderUI<VC: UIViewController>(identifier: MultiUIIdentifier<VC>,
+    public func renderUI<VC: UIViewController>(identifier: MadogUIIdentifier<VC>,
                                                tokens: [Any],
                                                in window: UIWindow,
                                                transition: Transition? = nil,
@@ -83,7 +83,7 @@ public final class Madog<Token>: MadogUIContainerDelegate {
     }
 
     @discardableResult
-    public func renderUI<VC: UIViewController>(identifier: SplitSingleUIIdentifier<VC>,
+    public func renderUI<VC: UIViewController>(identifier: MadogUIIdentifier<VC>,
                                                primaryToken: Any,
                                                secondaryToken: Any,
                                                in window: UIWindow,
@@ -101,7 +101,7 @@ public final class Madog<Token>: MadogUIContainerDelegate {
     }
 
     @discardableResult
-    public func renderUI<VC: UIViewController>(identifier: SplitMultiUIIdentifier<VC>,
+    public func renderUI<VC: UIViewController>(identifier: MadogUIIdentifier<VC>,
                                                primaryToken: Any,
                                                secondaryTokens: [Any],
                                                in window: UIWindow,
@@ -128,7 +128,7 @@ public final class Madog<Token>: MadogUIContainerDelegate {
 
     // MARK: - MadogUIContainerDelegate
 
-    func createUI<VC: UIViewController>(identifier: SingleUIIdentifier<VC>,
+    func createUI<VC: UIViewController>(identifier: MadogUIIdentifier<VC>,
                                         token: Any,
                                         isModal: Bool,
                                         customisation: CustomisationBlock<VC>?) -> MadogUIContainer? {
@@ -147,7 +147,7 @@ public final class Madog<Token>: MadogUIContainerDelegate {
         return container
     }
 
-    func createUI<VC: UIViewController>(identifier: MultiUIIdentifier<VC>,
+    func createUI<VC: UIViewController>(identifier: MadogUIIdentifier<VC>,
                                         tokens: [Any],
                                         isModal: Bool,
                                         customisation: CustomisationBlock<VC>?) -> MadogUIContainer? {
@@ -166,7 +166,7 @@ public final class Madog<Token>: MadogUIContainerDelegate {
         return container
     }
 
-    func createUI<VC: UIViewController>(identifier: SplitSingleUIIdentifier<VC>,
+    func createUI<VC: UIViewController>(identifier: MadogUIIdentifier<VC>,
                                         primaryToken: Any,
                                         secondaryToken: Any,
                                         isModal: Bool,
@@ -187,7 +187,7 @@ public final class Madog<Token>: MadogUIContainerDelegate {
         return container
     }
 
-    func createUI<VC: UIViewController>(identifier: SplitMultiUIIdentifier<VC>,
+    func createUI<VC: UIViewController>(identifier: MadogUIIdentifier<VC>,
                                         primaryToken: Any,
                                         secondaryTokens: [Any],
                                         isModal: Bool,

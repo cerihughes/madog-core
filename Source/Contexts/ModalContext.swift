@@ -11,7 +11,7 @@ import UIKit
 public protocol ModalContext: AnyObject {
     // swiftlint:disable function_parameter_count
     @discardableResult
-    func openModal<VC: UIViewController>(identifier: SingleUIIdentifier<VC>,
+    func openModal<VC: UIViewController>(identifier: MadogUIIdentifier<VC>,
                                          token: Any,
                                          from fromViewController: UIViewController?,
                                          presentationStyle: UIModalPresentationStyle?,
@@ -21,7 +21,7 @@ public protocol ModalContext: AnyObject {
                                          completion: (() -> Void)?) -> ModalToken?
 
     @discardableResult
-    func openModal<VC: UIViewController>(identifier: MultiUIIdentifier<VC>,
+    func openModal<VC: UIViewController>(identifier: MadogUIIdentifier<VC>,
                                          tokens: [Any],
                                          from fromViewController: UIViewController?,
                                          presentationStyle: UIModalPresentationStyle?,
@@ -39,7 +39,7 @@ public protocol ModalContext: AnyObject {
 
 public extension ModalContext {
     @discardableResult
-    func openModal<VC: UIViewController>(identifier: SingleUIIdentifier<VC>,
+    func openModal<VC: UIViewController>(identifier: MadogUIIdentifier<VC>,
                                          token: Any,
                                          from fromViewController: UIViewController? = nil,
                                          presentationStyle: UIModalPresentationStyle? = nil,
@@ -58,7 +58,7 @@ public extension ModalContext {
     }
 
     @discardableResult
-    func openModal<VC: UIViewController>(identifier: MultiUIIdentifier<VC>,
+    func openModal<VC: UIViewController>(identifier: MadogUIIdentifier<VC>,
                                          tokens: [Any],
                                          from fromViewController: UIViewController? = nil,
                                          presentationStyle: UIModalPresentationStyle? = nil,

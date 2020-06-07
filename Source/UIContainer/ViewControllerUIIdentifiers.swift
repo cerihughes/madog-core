@@ -38,9 +38,4 @@ public extension MadogUIIdentifier where VC == UITabBarController {
     static let tabBarNavigation = MadogUIIdentifier(tabBarNavigationIdentifier)
 }
 
-public typealias SingleUIIdentifier = MadogUIIdentifier
-public typealias MultiUIIdentifier = MadogUIIdentifier
-public typealias SplitSingleUIIdentifier = MadogUIIdentifier
-public typealias SplitMultiUIIdentifier = MadogUIIdentifier
-
 #endif

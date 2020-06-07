@@ -14,11 +14,10 @@ import UIKit
 internal class NavigationUI<Token>: MadogNavigatingModalUIContainer<Token> {
     private let navigationController = UINavigationController()
 
-    internal init?(registry: Registry<Token>, tokenData: SingleUITokenData) {
+    internal init?(registry: Registry<Token>, token: Token) {
         super.init(registry: registry, viewController: navigationController)
 
-        guard let token = tokenData.token as? Token,
-            let viewController = registry.createViewController(from: token, context: self) else {
+        guard let viewController = registry.createViewController(from: token, context: self) else {
             return nil
         }
 

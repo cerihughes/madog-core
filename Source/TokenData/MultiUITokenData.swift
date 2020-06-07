@@ -1,5 +1,5 @@
 //
-//  MultiUITokenHolder.swift
+//  MultiUITokenData.swift
 //  Madog
 //
 //  Created by Ceri Hughes on 07/06/2020.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class MultiUITokenHolder<Token>: TokenHolder<Token> {
+public class MultiUITokenData<Token>: TokenData<Token> {
     public let tokens: [Token]
 
     public init(tokens: [Token]) {

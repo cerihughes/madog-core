@@ -1,5 +1,5 @@
 //
-//  TokenHolder.swift
+//  TokenData.swift
 //  Madog
 //
 //  Created by Ceri Hughes on 07/06/2020.
@@ -8,4 +8,4 @@
 
 import Foundation
 
-public class TokenHolder<Token> {}
+public class TokenData<Token> {}

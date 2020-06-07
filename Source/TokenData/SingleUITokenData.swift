@@ -1,5 +1,5 @@
 //
-//  SingleUITokenHolder.swift
+//  SingleUITokenData.swift
 //  Madog
 //
 //  Created by Ceri Hughes on 07/06/2020.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class SingleUITokenHolder<Token>: TokenHolder<Token> {
+public class SingleUITokenData<Token>: TokenData<Token> {
     public let token: Token
 
     public init(token: Token) {

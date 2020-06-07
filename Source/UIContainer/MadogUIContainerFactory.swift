@@ -10,10 +10,10 @@ import UIKit
 
 public typealias MadogRegistryFunction<Token, TokenHolder> = (Registry<Token>, TokenHolder) -> MadogModalUIContainer<Token>?
 
-public typealias SingleVCUIRegistryFunction<Token> = MadogRegistryFunction<Token, SingleUITokenHolder<Token>>
-public typealias MultiVCUIRegistryFunction<Token> = MadogRegistryFunction<Token, MultiUITokenHolder<Token>>
-public typealias SplitSingleVCUIRegistryFunction<Token> = MadogRegistryFunction<Token, SplitSingleUITokenHolder<Token>>
-public typealias SplitMultiVCUIRegistryFunction<Token> = MadogRegistryFunction<Token, SplitMultiUITokenHolder<Token>>
+public typealias SingleVCUIRegistryFunction<Token> = MadogRegistryFunction<Token, SingleUITokenData<Token>>
+public typealias MultiVCUIRegistryFunction<Token> = MadogRegistryFunction<Token, MultiUITokenData<Token>>
+public typealias SplitSingleVCUIRegistryFunction<Token> = MadogRegistryFunction<Token, SplitSingleUITokenData<Token>>
+public typealias SplitMultiVCUIRegistryFunction<Token> = MadogRegistryFunction<Token, SplitMultiUITokenData<Token>>
 
 internal class MadogUIContainerFactory<Token> {
     private let registry: Registry<Token>
@@ -63,17 +63,17 @@ internal class MadogUIContainerFactory<Token> {
         return true
     }
 
-    internal func createUI<VC: UIViewController>(identifier: MadogUIIdentifier<VC>, tokenHolder: TokenHolder<Token>) -> MadogModalUIContainer<Token>? {
-        if let tokenHolder = tokenHolder as? SingleUITokenHolder<Token> {
+    internal func createUI<VC: UIViewController>(identifier: MadogUIIdentifier<VC>, tokenHolder: TokenData<Token>) -> MadogModalUIContainer<Token>? {
+        if let tokenHolder = tokenHolder as? SingleUITokenData<Token> {
             return singleVCUIRegistry[identifier.value]?(registry, tokenHolder)
         }
-        if let tokenHolder = tokenHolder as? MultiUITokenHolder<Token> {
+        if let tokenHolder = tokenHolder as? MultiUITokenData<Token> {
             return multiVCUIRegistry[identifier.value]?(registry, tokenHolder)
         }
-        if let tokenHolder = tokenHolder as? SplitSingleUITokenHolder<Token> {
+        if let tokenHolder = tokenHolder as? SplitSingleUITokenData<Token> {
             return splitSingleVCUIRegistry[identifier.value]?(registry, tokenHolder)
         }
-        if let tokenHolder = tokenHolder as? SplitMultiUITokenHolder<Token> {
+        if let tokenHolder = tokenHolder as? SplitMultiUITokenData<Token> {
             return splitMultiVCUIRegistry[identifier.value]?(registry, tokenHolder)
         }
         return nil

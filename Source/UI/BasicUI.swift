@@ -11,7 +11,7 @@ import UIKit
 internal class BasicUI<Token>: MadogModalUIContainer<Token> {
     private let containerController = BasicUIContainerViewController()
 
-    internal init?(registry: Registry<Token>, tokenHolder: SingleUITokenHolder<Token>) {
+    internal init?(registry: Registry<Token>, tokenHolder: SingleUITokenData<Token>) {
         super.init(registry: registry, viewController: containerController)
 
         guard let viewController = registry.createViewController(from: tokenHolder.token, context: self) else {

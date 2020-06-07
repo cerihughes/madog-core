@@ -1,5 +1,5 @@
 //
-//  SplitMultiUITokenHolder.swift
+//  SplitMultiUITokenData.swift
 //  Madog
 //
 //  Created by Ceri Hughes on 07/06/2020.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class SplitMultiUITokenHolder<Token>: TokenHolder<Token> {
+public class SplitMultiUITokenData<Token>: TokenData<Token> {
     public let primaryToken: Token
     public let secondaryTokens: [Token]
 

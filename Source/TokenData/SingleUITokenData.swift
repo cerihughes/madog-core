@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class SingleUITokenData<Token>: TokenData<Token> {
+public class SingleUITokenData<Token>: TokenData {
     public let token: Token
 
     public init(token: Token) {

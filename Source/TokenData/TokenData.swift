@@ -8,4 +8,4 @@
 
 import Foundation
 
-public class TokenData<Token> {}
+public class TokenData {}

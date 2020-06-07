@@ -17,7 +17,7 @@ open class MadogModalUIContainer<Token>: MadogUIContainer, ModalContext {
     }
 
     override public func close(animated: Bool,
-                               completion: (() -> Void)?) -> Bool {
+                               completion: CompletionBlock?) -> Bool {
         closeContext(presentedViewController: viewController, animated: animated, completion: completion)
         return true
     }
@@ -26,15 +26,16 @@ open class MadogModalUIContainer<Token>: MadogUIContainer, ModalContext {
 
     // swiftlint:disable function_parameter_count
     public func openModal<VC: UIViewController>(identifier: MadogUIIdentifier<VC>,
-                                                tokenData: TokenData<Any>,
+                                                tokenData: TokenData,
                                                 from fromViewController: UIViewController?,
                                                 presentationStyle: UIModalPresentationStyle?,
                                                 transitionStyle: UIModalTransitionStyle?,
                                                 popoverAnchor: Any?,
                                                 animated: Bool,
-                                                completion: (() -> Void)?) -> ModalToken? {
+                                                customisation: CustomisationBlock<VC>?,
+                                                completion: CompletionBlock?) -> ModalToken? {
         guard let delegate = delegate,
-            let container = delegate.createUI(identifier: identifier, tokenData: tokenData, isModal: true, customisation: nil) else {
+            let container = delegate.createUI(identifier: identifier, tokenData: tokenData, isModal: true, customisation: customisation) else {
             return nil
         }
 
@@ -53,7 +54,7 @@ open class MadogModalUIContainer<Token>: MadogUIContainer, ModalContext {
 
     public func closeModal(token: ModalToken,
                            animated: Bool,
-                           completion: (() -> Void)?) -> Bool {
+                           completion: CompletionBlock?) -> Bool {
         guard let token = token as? ModalTokenImplementation else {
             return false
         }
@@ -64,7 +65,7 @@ open class MadogModalUIContainer<Token>: MadogUIContainer, ModalContext {
 
     private func closeContext(presentedViewController: UIViewController,
                               animated: Bool = false,
-                              completion: (() -> Void)? = nil) {
+                              completion: CompletionBlock? = nil) {
         presentedViewController.children.forEach { closeContext(presentedViewController: $0, animated: animated) }
 
         if let presentedPresentedViewController = presentedViewController.presentedViewController {

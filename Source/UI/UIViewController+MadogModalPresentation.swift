@@ -15,7 +15,7 @@ internal extension UIViewController {
                               transitionStyle: UIModalTransitionStyle?,
                               popoverAnchor: Any?,
                               animated: Bool,
-                              completion: (() -> Void)?) {
+                              completion: CompletionBlock?) {
         viewController.modalPresentationStyle = presentationStyle ?? .fullScreen
         viewController.modalTransitionStyle = transitionStyle ?? .coverVertical
         if let popoverAnchor = popoverAnchor {

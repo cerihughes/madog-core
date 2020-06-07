@@ -10,7 +10,7 @@ import UIKit
 
 internal protocol MadogUIContainerDelegate: AnyObject {
     func createUI<VC: UIViewController>(identifier: MadogUIIdentifier<VC>,
-                                        tokenData: TokenData<Any>,
+                                        tokenData: TokenData,
                                         isModal: Bool,
                                         customisation: CustomisationBlock<VC>?) -> MadogUIContainer?
 
@@ -27,13 +27,13 @@ open class MadogUIContainer: Context {
 
     // MARK: - Context
 
-    public func close(animated: Bool, completion: (() -> Void)?) -> Bool {
+    public func close(animated: Bool, completion: CompletionBlock?) -> Bool {
         // OVERRIDE
         false
     }
 
     public func change<VC: UIViewController>(to identifier: MadogUIIdentifier<VC>,
-                                             tokenData: TokenData<Any>,
+                                             tokenData: TokenData,
                                              transition: Transition?,
                                              customisation: CustomisationBlock<VC>?) -> Context? {
         guard let delegate = delegate,

@@ -18,15 +18,16 @@ public struct Transition {
     }
 }
 
+public typealias CompletionBlock = () -> Void
 public typealias CustomisationBlock<VC: UIViewController> = (VC) -> Void
 
 public protocol Context: AnyObject {
     @discardableResult
-    func close(animated: Bool, completion: (() -> Void)?) -> Bool
+    func close(animated: Bool, completion: CompletionBlock?) -> Bool
 
     @discardableResult
     func change<VC: UIViewController>(to identifier: MadogUIIdentifier<VC>,
-                                      tokenData: TokenData<Any>,
+                                      tokenData: TokenData,
                                       transition: Transition?,
                                       customisation: CustomisationBlock<VC>?) -> Context?
 }
@@ -39,7 +40,7 @@ public extension Context {
 
     @discardableResult
     func change<VC: UIViewController>(to identifier: MadogUIIdentifier<VC>,
-                                      tokenData: TokenData<Any>,
+                                      tokenData: TokenData,
                                       transition: Transition? = nil,
                                       customisation: CustomisationBlock<VC>? = nil) -> Context? {
         change(to: identifier, tokenData: tokenData, transition: transition, customisation: customisation)

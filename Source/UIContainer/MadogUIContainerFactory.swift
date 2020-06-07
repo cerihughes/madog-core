@@ -63,7 +63,7 @@ internal class MadogUIContainerFactory<Token> {
         return true
     }
 
-    internal func createUI<VC: UIViewController>(identifier: MadogUIIdentifier<VC>, tokenData: TokenData<Token>) -> MadogModalUIContainer<Token>? {
+    internal func createUI<VC: UIViewController>(identifier: MadogUIIdentifier<VC>, tokenData: TokenData) -> MadogModalUIContainer<Token>? {
         if let tokenData = tokenData as? SingleUITokenData<Token> {
             return singleVCUIRegistry[identifier.value]?(registry, tokenData)
         }

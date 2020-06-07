@@ -34,7 +34,7 @@ open class MadogModalUIContainer<Token>: MadogUIContainer, ModalContext {
                                                 animated: Bool,
                                                 completion: (() -> Void)?) -> ModalToken? {
         guard let delegate = delegate,
-            let container = delegate.createUI(identifier: identifier, token: token, isModal: true) else {
+            let container = delegate.createUI(identifier: identifier, token: token, isModal: true, customisation: nil) else {
             return nil
         }
 
@@ -58,7 +58,7 @@ open class MadogModalUIContainer<Token>: MadogUIContainer, ModalContext {
                                                 animated: Bool,
                                                 completion: (() -> Void)?) -> ModalToken? {
         guard let delegate = delegate,
-            let container = delegate.createUI(identifier: identifier, tokens: tokens, isModal: true) else {
+            let container = delegate.createUI(identifier: identifier, tokens: tokens, isModal: true, customisation: nil) else {
             return nil
         }
 

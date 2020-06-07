@@ -23,13 +23,13 @@ internal class MadogUIContainerFactory<Token> {
     internal init(registry: Registry<Token>) {
         self.registry = registry
 
-        _ = addSingleUICreationFunction(identifier: basicIdentifier) { BasicUI<Token>(registry: $0, token: $1) }
-        _ = addSingleUICreationFunction(identifier: navigationIdentifier) { NavigationUI<Token>(registry: $0, token: $1) }
-        _ = addMultiUICreationFunction(identifier: tabBarIdentifier) { TabBarUI<Token>(registry: $0, tokens: $1) }
-        _ = addMultiUICreationFunction(identifier: tabBarNavigationIdentifier) { TabBarNavigationUI<Token>(registry: $0, tokens: $1) }
+        _ = addUICreationFunction(identifier: basicIdentifier) { BasicUI<Token>(registry: $0, token: $1) }
+        _ = addUICreationFunction(identifier: navigationIdentifier) { NavigationUI<Token>(registry: $0, token: $1) }
+        _ = addUICreationFunction(identifier: tabBarIdentifier) { TabBarUI<Token>(registry: $0, tokens: $1) }
+        _ = addUICreationFunction(identifier: tabBarNavigationIdentifier) { TabBarNavigationUI<Token>(registry: $0, tokens: $1) }
     }
 
-    internal func addSingleUICreationFunction(identifier: String, function: @escaping SingleVCUIRegistryFunction<Token>) -> Bool {
+    internal func addUICreationFunction(identifier: String, function: @escaping SingleVCUIRegistryFunction<Token>) -> Bool {
         guard singleVCUIRegistry[identifier] == nil else {
             return false
         }
@@ -37,7 +37,7 @@ internal class MadogUIContainerFactory<Token> {
         return true
     }
 
-    internal func addMultiUICreationFunction(identifier: String, function: @escaping MultiVCUIRegistryFunction<Token>) -> Bool {
+    internal func addUICreationFunction(identifier: String, function: @escaping MultiVCUIRegistryFunction<Token>) -> Bool {
         guard multiVCUIRegistry[identifier] == nil else {
             return false
         }
@@ -45,7 +45,7 @@ internal class MadogUIContainerFactory<Token> {
         return true
     }
 
-    internal func addSplitSingleUICreationFunction(identifier: String, function: @escaping SplitSingleVCUIRegistryFunction<Token>) -> Bool {
+    internal func addUICreationFunction(identifier: String, function: @escaping SplitSingleVCUIRegistryFunction<Token>) -> Bool {
         guard splitSingleVCUIRegistry[identifier] == nil else {
             return false
         }
@@ -53,7 +53,7 @@ internal class MadogUIContainerFactory<Token> {
         return true
     }
 
-    internal func addSplitMultiUICreationFunction(identifier: String, function: @escaping SplitMultiVCUIRegistryFunction<Token>) -> Bool {
+    internal func addUICreationFunction(identifier: String, function: @escaping SplitMultiVCUIRegistryFunction<Token>) -> Bool {
         guard splitMultiVCUIRegistry[identifier] == nil else {
             return false
         }

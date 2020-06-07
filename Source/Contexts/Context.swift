@@ -18,14 +18,34 @@ public struct Transition {
     }
 }
 
+public typealias CustomisationBlock<VC: UIViewController> = (VC) -> Void
+
 public protocol Context: AnyObject {
     @discardableResult
     func close(animated: Bool, completion: (() -> Void)?) -> Bool
 
     @discardableResult
-    func change<VC: UIViewController>(to identifier: SingleUIIdentifier<VC>, token: Any, transition: Transition?) -> Context?
+    func change<VC: UIViewController>(to identifier: SingleUIIdentifier<VC>,
+                                      token: Any,
+                                      transition: Transition?,
+                                      customisation: CustomisationBlock<VC>?) -> Context?
     @discardableResult
-    func change<VC: UIViewController>(to identifier: MultiUIIdentifier<VC>, tokens: [Any], transition: Transition?) -> Context?
+    func change<VC: UIViewController>(to identifier: MultiUIIdentifier<VC>,
+                                      tokens: [Any],
+                                      transition: Transition?,
+                                      customisation: CustomisationBlock<VC>?) -> Context?
+    @discardableResult
+    func change<VC: UIViewController>(to identifier: SplitSingleUIIdentifier<VC>,
+                                      primaryToken: Any,
+                                      secondaryToken: Any,
+                                      transition: Transition?,
+                                      customisation: CustomisationBlock<VC>?) -> Context?
+    @discardableResult
+    func change<VC: UIViewController>(to identifier: SplitMultiUIIdentifier<VC>,
+                                      primaryToken: Any,
+                                      secondaryTokens: [Any],
+                                      transition: Transition?,
+                                      customisation: CustomisationBlock<VC>?) -> Context?
 }
 
 public extension Context {
@@ -36,11 +56,11 @@ public extension Context {
 
     @discardableResult
     func change<VC: UIViewController>(to identifier: SingleUIIdentifier<VC>, token: Any) -> Context? {
-        change(to: identifier, token: token, transition: nil)
+        change(to: identifier, token: token, transition: nil, customisation: nil)
     }
 
     @discardableResult
     func change<VC: UIViewController>(to identifier: MultiUIIdentifier<VC>, tokens: [Any]) -> Context? {
-        change(to: identifier, tokens: tokens, transition: nil)
+        change(to: identifier, tokens: tokens, transition: nil, customisation: nil)
     }
 }

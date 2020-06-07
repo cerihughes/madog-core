@@ -22,7 +22,7 @@ internal class BasicUI<Token>: MadogModalUIContainer<Token> {
     }
 }
 
-internal class BasicUIContainerViewController: UIViewController {
+open class BasicUIContainerViewController: UIViewController {
     deinit {
         contentViewController = nil
     }

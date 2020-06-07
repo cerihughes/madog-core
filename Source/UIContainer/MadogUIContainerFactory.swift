@@ -8,7 +8,7 @@
 
 import UIKit
 
-public typealias MadogRegistryFunction<Token, TokenHolder> = (Registry<Token>, TokenHolder) -> MadogModalUIContainer<Token>?
+public typealias MadogRegistryFunction<Token, TokenData> = (Registry<Token>, TokenData) -> MadogModalUIContainer<Token>?
 
 public typealias SingleVCUIRegistryFunction<Token> = MadogRegistryFunction<Token, SingleUITokenData<Token>>
 public typealias MultiVCUIRegistryFunction<Token> = MadogRegistryFunction<Token, MultiUITokenData<Token>>
@@ -25,10 +25,10 @@ internal class MadogUIContainerFactory<Token> {
     internal init(registry: Registry<Token>) {
         self.registry = registry
 
-        _ = addUICreationFunction(identifier: basicIdentifier) { BasicUI<Token>(registry: $0, tokenHolder: $1) }
-        _ = addUICreationFunction(identifier: navigationIdentifier) { NavigationUI<Token>(registry: $0, tokenHolder: $1) }
-        _ = addUICreationFunction(identifier: tabBarIdentifier) { TabBarUI<Token>(registry: $0, tokenHolder: $1) }
-        _ = addUICreationFunction(identifier: tabBarNavigationIdentifier) { TabBarNavigationUI<Token>(registry: $0, tokenHolder: $1) }
+        _ = addUICreationFunction(identifier: basicIdentifier) { BasicUI<Token>(registry: $0, tokenData: $1) }
+        _ = addUICreationFunction(identifier: navigationIdentifier) { NavigationUI<Token>(registry: $0, tokenData: $1) }
+        _ = addUICreationFunction(identifier: tabBarIdentifier) { TabBarUI<Token>(registry: $0, tokenData: $1) }
+        _ = addUICreationFunction(identifier: tabBarNavigationIdentifier) { TabBarNavigationUI<Token>(registry: $0, tokenData: $1) }
     }
 
     internal func addUICreationFunction(identifier: String, function: @escaping SingleVCUIRegistryFunction<Token>) -> Bool {
@@ -63,18 +63,18 @@ internal class MadogUIContainerFactory<Token> {
         return true
     }
 
-    internal func createUI<VC: UIViewController>(identifier: MadogUIIdentifier<VC>, tokenHolder: TokenData<Token>) -> MadogModalUIContainer<Token>? {
-        if let tokenHolder = tokenHolder as? SingleUITokenData<Token> {
-            return singleVCUIRegistry[identifier.value]?(registry, tokenHolder)
+    internal func createUI<VC: UIViewController>(identifier: MadogUIIdentifier<VC>, tokenData: TokenData<Token>) -> MadogModalUIContainer<Token>? {
+        if let tokenData = tokenData as? SingleUITokenData<Token> {
+            return singleVCUIRegistry[identifier.value]?(registry, tokenData)
         }
-        if let tokenHolder = tokenHolder as? MultiUITokenData<Token> {
-            return multiVCUIRegistry[identifier.value]?(registry, tokenHolder)
+        if let tokenData = tokenData as? MultiUITokenData<Token> {
+            return multiVCUIRegistry[identifier.value]?(registry, tokenData)
         }
-        if let tokenHolder = tokenHolder as? SplitSingleUITokenData<Token> {
-            return splitSingleVCUIRegistry[identifier.value]?(registry, tokenHolder)
+        if let tokenData = tokenData as? SplitSingleUITokenData<Token> {
+            return splitSingleVCUIRegistry[identifier.value]?(registry, tokenData)
         }
-        if let tokenHolder = tokenHolder as? SplitMultiUITokenData<Token> {
-            return splitMultiVCUIRegistry[identifier.value]?(registry, tokenHolder)
+        if let tokenData = tokenData as? SplitMultiUITokenData<Token> {
+            return splitMultiVCUIRegistry[identifier.value]?(registry, tokenData)
         }
         return nil
     }

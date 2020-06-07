@@ -12,7 +12,7 @@ public protocol ModalContext: AnyObject {
     // swiftlint:disable function_parameter_count
     @discardableResult
     func openModal<VC: UIViewController>(identifier: MadogUIIdentifier<VC>,
-                                         tokenHolder: TokenData<Any>,
+                                         tokenData: TokenData<Any>,
                                          from fromViewController: UIViewController?,
                                          presentationStyle: UIModalPresentationStyle?,
                                          transitionStyle: UIModalTransitionStyle?,
@@ -30,7 +30,7 @@ public protocol ModalContext: AnyObject {
 public extension ModalContext {
     @discardableResult
     func openModal<VC: UIViewController>(identifier: MadogUIIdentifier<VC>,
-                                         tokenHolder: TokenData<Any>,
+                                         tokenData: TokenData<Any>,
                                          from fromViewController: UIViewController? = nil,
                                          presentationStyle: UIModalPresentationStyle? = nil,
                                          transitionStyle: UIModalTransitionStyle? = nil,
@@ -38,7 +38,7 @@ public extension ModalContext {
                                          animated: Bool,
                                          completion: (() -> Void)? = nil) -> ModalToken? {
         openModal(identifier: identifier,
-                  tokenHolder: tokenHolder,
+                  tokenData: tokenData,
                   from: fromViewController,
                   presentationStyle: presentationStyle,
                   transitionStyle: transitionStyle,

@@ -26,7 +26,7 @@ public protocol Context: AnyObject {
 
     @discardableResult
     func change<VC: UIViewController>(to identifier: MadogUIIdentifier<VC>,
-                                      tokenHolder: TokenData<Any>,
+                                      tokenData: TokenData<Any>,
                                       transition: Transition?,
                                       customisation: CustomisationBlock<VC>?) -> Context?
 }
@@ -39,9 +39,9 @@ public extension Context {
 
     @discardableResult
     func change<VC: UIViewController>(to identifier: MadogUIIdentifier<VC>,
-                                      tokenHolder: TokenData<Any>,
+                                      tokenData: TokenData<Any>,
                                       transition: Transition? = nil,
                                       customisation: CustomisationBlock<VC>? = nil) -> Context? {
-        change(to: identifier, tokenHolder: tokenHolder, transition: transition, customisation: customisation)
+        change(to: identifier, tokenData: tokenData, transition: transition, customisation: customisation)
     }
 }

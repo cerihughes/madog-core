@@ -8,10 +8,10 @@
 
 import UIKit
 
-public typealias SingleVCUIRegistryFunction<Token> = (Registry<Token>, Token) -> MadogModalUIContainer<Token>?
-public typealias MultiVCUIRegistryFunction<Token> = (Registry<Token>, [Token]) -> MadogModalUIContainer<Token>?
-public typealias SplitSingleVCUIRegistryFunction<Token> = (Registry<Token>, Token, Token) -> MadogModalUIContainer<Token>?
-public typealias SplitMultiVCUIRegistryFunction<Token> = (Registry<Token>, Token, [Token]) -> MadogModalUIContainer<Token>?
+public typealias BasicUIContext = Context & ModalContext
+public typealias NavigationUIContext = BasicUIContext & ForwardBackNavigationContext
+public typealias TabBarUIContext = BasicUIContext & MultiContext
+public typealias TabBarNavigationUIContext = TabBarUIContext & ForwardBackNavigationContext
 
 public final class Madog<Token>: MadogUIContainerDelegate {
     private let registry = Registry<Token>()
@@ -52,64 +52,12 @@ public final class Madog<Token>: MadogUIContainerDelegate {
 
     @discardableResult
     public func renderUI<VC: UIViewController>(identifier: MadogUIIdentifier<VC>,
-                                               token: Any,
+                                               tokenHolder: TokenHolder<Any>,
                                                in window: UIWindow,
                                                transition: Transition? = nil,
                                                customisation: CustomisationBlock<VC>? = nil) -> Context? {
         guard let context = createUI(identifier: identifier,
-                                     token: token,
-                                     isModal: false,
-                                     customisation: customisation) else {
-            return nil
-        }
-        window.setRootViewController(context.viewController, transition: transition)
-        return context
-    }
-
-    @discardableResult
-    public func renderUI<VC: UIViewController>(identifier: MadogUIIdentifier<VC>,
-                                               tokens: [Any],
-                                               in window: UIWindow,
-                                               transition: Transition? = nil,
-                                               customisation: CustomisationBlock<VC>? = nil) -> Context? {
-        guard let context = createUI(identifier: identifier,
-                                     tokens: tokens,
-                                     isModal: false,
-                                     customisation: customisation) else {
-            return nil
-        }
-        window.setRootViewController(context.viewController, transition: transition)
-        return context
-    }
-
-    @discardableResult
-    public func renderUI<VC: UIViewController>(identifier: MadogUIIdentifier<VC>,
-                                               primaryToken: Any,
-                                               secondaryToken: Any,
-                                               in window: UIWindow,
-                                               transition: Transition? = nil,
-                                               customisation: CustomisationBlock<VC>? = nil) -> Context? {
-        guard let context = createUI(identifier: identifier,
-                                     primaryToken: primaryToken,
-                                     secondaryToken: secondaryToken,
-                                     isModal: false,
-                                     customisation: customisation) else {
-            return nil
-        }
-        window.setRootViewController(context.viewController, transition: transition)
-        return context
-    }
-
-    @discardableResult
-    public func renderUI<VC: UIViewController>(identifier: MadogUIIdentifier<VC>,
-                                               primaryToken: Any,
-                                               secondaryTokens: [Any],
-                                               in window: UIWindow,
-                                               transition: Transition? = nil,
-                                               customisation: CustomisationBlock<VC>? = nil) -> Context? {
-        guard let context = createUI(identifier: identifier,
-                                     primaryToken: primaryToken,
-                                     secondaryTokens: secondaryTokens,
+                                     tokenHolder: tokenHolder,
                                      isModal: false,
                                      customisation: customisation) else {
             return nil
@@ -129,72 +77,11 @@ public final class Madog<Token>: MadogUIContainerDelegate {
     // MARK: - MadogUIContainerDelegate
 
     func createUI<VC: UIViewController>(identifier: MadogUIIdentifier<VC>,
-                                        token: Any,
+                                        tokenHolder: TokenHolder<Any>,
                                         isModal: Bool,
                                         customisation: CustomisationBlock<VC>?) -> MadogUIContainer? {
-        guard let token = token as? Token,
-            let container = factory.createSingleUI(identifier: identifier, token: token) else {
-            return nil
-        }
-
-        container.delegate = self
-        persist(container: container, isModal: isModal)
-
-        guard let viewController = container.viewController as? VC else {
-            return nil
-        }
-        customisation?(viewController)
-        return container
-    }
-
-    func createUI<VC: UIViewController>(identifier: MadogUIIdentifier<VC>,
-                                        tokens: [Any],
-                                        isModal: Bool,
-                                        customisation: CustomisationBlock<VC>?) -> MadogUIContainer? {
-        guard let tokens = tokens as? [Token],
-            let container = factory.createMultiUI(identifier: identifier, tokens: tokens) else {
-            return nil
-        }
-
-        container.delegate = self
-        persist(container: container, isModal: isModal)
-
-        guard let viewController = container.viewController as? VC else {
-            return nil
-        }
-        customisation?(viewController)
-        return container
-    }
-
-    func createUI<VC: UIViewController>(identifier: MadogUIIdentifier<VC>,
-                                        primaryToken: Any,
-                                        secondaryToken: Any,
-                                        isModal: Bool,
-                                        customisation: CustomisationBlock<VC>?) -> MadogUIContainer? {
-        guard let primaryToken = primaryToken as? Token,
-            let secondaryToken = secondaryToken as? Token,
-            let container = factory.createSplitSingleUI(identifier: identifier, primaryToken: primaryToken, secondaryToken: secondaryToken) else {
-            return nil
-        }
-
-        container.delegate = self
-        persist(container: container, isModal: isModal)
-
-        guard let viewController = container.viewController as? VC else {
-            return nil
-        }
-        customisation?(viewController)
-        return container
-    }
-
-    func createUI<VC: UIViewController>(identifier: MadogUIIdentifier<VC>,
-                                        primaryToken: Any,
-                                        secondaryTokens: [Any],
-                                        isModal: Bool,
-                                        customisation: CustomisationBlock<VC>?) -> MadogUIContainer? {
-        guard let primaryToken = primaryToken as? Token,
-            let secondaryTokens = secondaryTokens as? [Token],
-            let container = factory.createSplitMultiUI(identifier: identifier, primaryToken: primaryToken, secondaryTokens: secondaryTokens) else {
+        guard let tokenHolder = tokenHolder as? TokenHolder<Token>,
+            let container = factory.createUI(identifier: identifier, tokenHolder: tokenHolder) else {
             return nil
         }
 

@@ -26,7 +26,7 @@ open class MadogModalUIContainer<Token>: MadogUIContainer, ModalContext {
 
     // swiftlint:disable function_parameter_count
     public func openModal<VC: UIViewController>(identifier: MadogUIIdentifier<VC>,
-                                                token: Any,
+                                                tokenHolder: TokenHolder<Any>,
                                                 from fromViewController: UIViewController?,
                                                 presentationStyle: UIModalPresentationStyle?,
                                                 transitionStyle: UIModalTransitionStyle?,
@@ -34,31 +34,7 @@ open class MadogModalUIContainer<Token>: MadogUIContainer, ModalContext {
                                                 animated: Bool,
                                                 completion: (() -> Void)?) -> ModalToken? {
         guard let delegate = delegate,
-            let container = delegate.createUI(identifier: identifier, token: token, isModal: true, customisation: nil) else {
-            return nil
-        }
-
-        let presentingViewController = fromViewController ?? viewController
-        let presentedViewController = container.viewController
-        presentingViewController.madog_presentModally(viewController: presentedViewController,
-                                                      presentationStyle: presentationStyle,
-                                                      transitionStyle: transitionStyle,
-                                                      popoverAnchor: popoverAnchor,
-                                                      animated: animated,
-                                                      completion: completion)
-        return createModalToken(viewController: presentedViewController, context: container)
-    }
-
-    public func openModal<VC: UIViewController>(identifier: MadogUIIdentifier<VC>,
-                                                tokens: [Any],
-                                                from fromViewController: UIViewController?,
-                                                presentationStyle: UIModalPresentationStyle?,
-                                                transitionStyle: UIModalTransitionStyle?,
-                                                popoverAnchor: Any?,
-                                                animated: Bool,
-                                                completion: (() -> Void)?) -> ModalToken? {
-        guard let delegate = delegate,
-            let container = delegate.createUI(identifier: identifier, tokens: tokens, isModal: true, customisation: nil) else {
+            let container = delegate.createUI(identifier: identifier, tokenHolder: tokenHolder, isModal: true, customisation: nil) else {
             return nil
         }
 

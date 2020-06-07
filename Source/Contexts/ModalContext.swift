@@ -12,17 +12,7 @@ public protocol ModalContext: AnyObject {
     // swiftlint:disable function_parameter_count
     @discardableResult
     func openModal<VC: UIViewController>(identifier: MadogUIIdentifier<VC>,
-                                         token: Any,
-                                         from fromViewController: UIViewController?,
-                                         presentationStyle: UIModalPresentationStyle?,
-                                         transitionStyle: UIModalTransitionStyle?,
-                                         popoverAnchor: Any?,
-                                         animated: Bool,
-                                         completion: (() -> Void)?) -> ModalToken?
-
-    @discardableResult
-    func openModal<VC: UIViewController>(identifier: MadogUIIdentifier<VC>,
-                                         tokens: [Any],
+                                         tokenHolder: TokenHolder<Any>,
                                          from fromViewController: UIViewController?,
                                          presentationStyle: UIModalPresentationStyle?,
                                          transitionStyle: UIModalTransitionStyle?,
@@ -40,7 +30,7 @@ public protocol ModalContext: AnyObject {
 public extension ModalContext {
     @discardableResult
     func openModal<VC: UIViewController>(identifier: MadogUIIdentifier<VC>,
-                                         token: Any,
+                                         tokenHolder: TokenHolder<Any>,
                                          from fromViewController: UIViewController? = nil,
                                          presentationStyle: UIModalPresentationStyle? = nil,
                                          transitionStyle: UIModalTransitionStyle? = nil,
@@ -48,26 +38,7 @@ public extension ModalContext {
                                          animated: Bool,
                                          completion: (() -> Void)? = nil) -> ModalToken? {
         openModal(identifier: identifier,
-                  token: token,
-                  from: fromViewController,
-                  presentationStyle: presentationStyle,
-                  transitionStyle: transitionStyle,
-                  popoverAnchor: popoverAnchor,
-                  animated: animated,
-                  completion: completion)
-    }
-
-    @discardableResult
-    func openModal<VC: UIViewController>(identifier: MadogUIIdentifier<VC>,
-                                         tokens: [Any],
-                                         from fromViewController: UIViewController? = nil,
-                                         presentationStyle: UIModalPresentationStyle? = nil,
-                                         transitionStyle: UIModalTransitionStyle? = nil,
-                                         popoverAnchor: Any? = nil,
-                                         animated: Bool,
-                                         completion: (() -> Void)? = nil) -> ModalToken? {
-        openModal(identifier: identifier,
-                  tokens: tokens,
+                  tokenHolder: tokenHolder,
                   from: fromViewController,
                   presentationStyle: presentationStyle,
                   transitionStyle: transitionStyle,

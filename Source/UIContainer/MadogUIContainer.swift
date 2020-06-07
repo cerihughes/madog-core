@@ -10,24 +10,7 @@ import UIKit
 
 internal protocol MadogUIContainerDelegate: AnyObject {
     func createUI<VC: UIViewController>(identifier: MadogUIIdentifier<VC>,
-                                        token: Any,
-                                        isModal: Bool,
-                                        customisation: CustomisationBlock<VC>?) -> MadogUIContainer?
-
-    func createUI<VC: UIViewController>(identifier: MadogUIIdentifier<VC>,
-                                        tokens: [Any],
-                                        isModal: Bool,
-                                        customisation: CustomisationBlock<VC>?) -> MadogUIContainer?
-
-    func createUI<VC: UIViewController>(identifier: MadogUIIdentifier<VC>,
-                                        primaryToken: Any,
-                                        secondaryToken: Any,
-                                        isModal: Bool,
-                                        customisation: CustomisationBlock<VC>?) -> MadogUIContainer?
-
-    func createUI<VC: UIViewController>(identifier: MadogUIIdentifier<VC>,
-                                        primaryToken: Any,
-                                        secondaryTokens: [Any],
+                                        tokenHolder: TokenHolder<Any>,
                                         isModal: Bool,
                                         customisation: CustomisationBlock<VC>?) -> MadogUIContainer?
 
@@ -50,68 +33,13 @@ open class MadogUIContainer: Context {
     }
 
     public func change<VC: UIViewController>(to identifier: MadogUIIdentifier<VC>,
-                                             token: Any,
+                                             tokenHolder: TokenHolder<Any>,
                                              transition: Transition?,
                                              customisation: CustomisationBlock<VC>?) -> Context? {
         guard let delegate = delegate,
             let window = viewController.view.window,
             let container = delegate.createUI(identifier: identifier,
-                                              token: token,
-                                              isModal: false,
-                                              customisation: customisation) else {
-            return nil
-        }
-
-        window.setRootViewController(container.viewController, transition: transition)
-        return container
-    }
-
-    public func change<VC: UIViewController>(to identifier: MadogUIIdentifier<VC>,
-                                             tokens: [Any],
-                                             transition: Transition?,
-                                             customisation: CustomisationBlock<VC>?) -> Context? {
-        guard let delegate = delegate,
-            let window = viewController.view.window,
-            let container = delegate.createUI(identifier: identifier,
-                                              tokens: tokens,
-                                              isModal: false,
-                                              customisation: customisation) else {
-            return nil
-        }
-
-        window.setRootViewController(container.viewController, transition: transition)
-        return container
-    }
-
-    public func change<VC: UIViewController>(to identifier: MadogUIIdentifier<VC>,
-                                             primaryToken: Any,
-                                             secondaryToken: Any,
-                                             transition: Transition?,
-                                             customisation: CustomisationBlock<VC>?) -> Context? {
-        guard let delegate = delegate,
-            let window = viewController.view.window,
-            let container = delegate.createUI(identifier: identifier,
-                                              primaryToken: primaryToken,
-                                              secondaryToken: secondaryToken,
-                                              isModal: false,
-                                              customisation: customisation) else {
-            return nil
-        }
-
-        window.setRootViewController(container.viewController, transition: transition)
-        return container
-    }
-
-    public func change<VC: UIViewController>(to identifier: MadogUIIdentifier<VC>,
-                                             primaryToken: Any,
-                                             secondaryTokens: [Any],
-                                             transition: Transition?,
-                                             customisation: CustomisationBlock<VC>?) -> Context? {
-        guard let delegate = delegate,
-            let window = viewController.view.window,
-            let container = delegate.createUI(identifier: identifier,
-                                              primaryToken: primaryToken,
-                                              secondaryTokens: secondaryTokens,
+                                              tokenHolder: tokenHolder,
                                               isModal: false,
                                               customisation: customisation) else {
             return nil

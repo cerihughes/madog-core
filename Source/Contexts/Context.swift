@@ -26,24 +26,7 @@ public protocol Context: AnyObject {
 
     @discardableResult
     func change<VC: UIViewController>(to identifier: MadogUIIdentifier<VC>,
-                                      token: Any,
-                                      transition: Transition?,
-                                      customisation: CustomisationBlock<VC>?) -> Context?
-    @discardableResult
-    func change<VC: UIViewController>(to identifier: MadogUIIdentifier<VC>,
-                                      tokens: [Any],
-                                      transition: Transition?,
-                                      customisation: CustomisationBlock<VC>?) -> Context?
-    @discardableResult
-    func change<VC: UIViewController>(to identifier: MadogUIIdentifier<VC>,
-                                      primaryToken: Any,
-                                      secondaryToken: Any,
-                                      transition: Transition?,
-                                      customisation: CustomisationBlock<VC>?) -> Context?
-    @discardableResult
-    func change<VC: UIViewController>(to identifier: MadogUIIdentifier<VC>,
-                                      primaryToken: Any,
-                                      secondaryTokens: [Any],
+                                      tokenHolder: TokenHolder<Any>,
                                       transition: Transition?,
                                       customisation: CustomisationBlock<VC>?) -> Context?
 }
@@ -55,12 +38,10 @@ public extension Context {
     }
 
     @discardableResult
-    func change<VC: UIViewController>(to identifier: MadogUIIdentifier<VC>, token: Any) -> Context? {
-        change(to: identifier, token: token, transition: nil, customisation: nil)
-    }
-
-    @discardableResult
-    func change<VC: UIViewController>(to identifier: MadogUIIdentifier<VC>, tokens: [Any]) -> Context? {
-        change(to: identifier, tokens: tokens, transition: nil, customisation: nil)
+    func change<VC: UIViewController>(to identifier: MadogUIIdentifier<VC>,
+                                      tokenHolder: TokenHolder<Any>,
+                                      transition: Transition? = nil,
+                                      customisation: CustomisationBlock<VC>? = nil) -> Context? {
+        change(to: identifier, tokenHolder: tokenHolder, transition: transition, customisation: customisation)
     }
 }

@@ -62,7 +62,6 @@ private class TestResolver: Resolver<Int> {
 }
 
 private class TestContext: Context {
-    func close(animated: Bool, completion: (() -> Void)?) -> Bool { return false }
-    func change<VC>(to _: SingleUIIdentifier<VC>, token _: Any, transition _: Transition?) -> Context? where VC: UIViewController { return nil }
-    func change<VC>(to _: MultiUIIdentifier<VC>, tokens _: [Any], transition _: Transition?) -> Context? where VC: UIViewController { return nil }
+    func close(animated: Bool, completion: CompletionBlock?) -> Bool { false }
+    func change<VC: UIViewController>(to _: MadogUIIdentifier<VC>, tokenData: TokenData, transition: Transition?, customisation: CustomisationBlock<VC>?) -> Context? { nil }
 }

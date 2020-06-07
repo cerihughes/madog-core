@@ -11,10 +11,10 @@ import UIKit
 internal class BasicUI<Token>: MadogModalUIContainer<Token> {
     private let containerController = BasicUIContainerViewController()
 
-    internal init?(registry: Registry<Token>, token: Token) {
+    internal init?(registry: Registry<Token>, tokenData: SingleUITokenData<Token>) {
         super.init(registry: registry, viewController: containerController)
 
-        guard let viewController = registry.createViewController(from: token, context: self) else {
+        guard let viewController = registry.createViewController(from: tokenData.token, context: self) else {
             return nil
         }
 
@@ -22,7 +22,7 @@ internal class BasicUI<Token>: MadogModalUIContainer<Token> {
     }
 }
 
-internal class BasicUIContainerViewController: UIViewController {
+open class BasicUIContainerViewController: UIViewController {
     deinit {
         contentViewController = nil
     }

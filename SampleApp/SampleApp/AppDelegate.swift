@@ -16,7 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         madog.resolve(resolver: SampleResolver(), launchOptions: launchOptions)
-        let result = madog.addSingleUICreationFunction(identifier: splitViewControllerIdentifier) { SplitUI(registry: $0, token: $1) }
+        let result = madog.addUICreationFunction(identifier: splitViewControllerIdentifier) { SplitUI(registry: $0, tokenData: $1) }
         guard result == true else {
             return false
         }
@@ -24,11 +24,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window.makeKeyAndVisible()
 
         let initial = SampleToken.login
-        let identifier = SingleUIIdentifier.createSplitViewControllerIdentifier { splitController in
+        let context = madog.renderUI(identifier: .split, tokenData: .splitSingle(initial, initial), in: window) { splitController in
             splitController.preferredDisplayMode = .allVisible
             splitController.presentsWithGesture = false
         }
-        return madog.renderUI(identifier: identifier, token: initial, in: window) != nil
+        return context != nil
     }
 
     func application(_: UIApplication, open url: URL, options _: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
@@ -40,18 +40,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if let navigationContext = currentContext as? ForwardBackNavigationContext {
             return navigationContext.navigateForward(token: token, animated: true)
         } else {
-            let identifier = SingleUIIdentifier.createNavigationIdentifier()
-            return currentContext.change(to: identifier, token: token) != nil
+            return currentContext.change(to: .navigation, tokenData: .single(token)) != nil
         }
     }
 }
 
 let splitViewControllerIdentifier = "splitViewControllerIdentifier"
-
-extension SingleUIIdentifier {
-    public static func createSplitViewControllerIdentifier(
-        customisation: @escaping (UISplitViewController) -> Void = { _ in }
-    ) -> SingleUIIdentifier<UISplitViewController> {
-        SingleUIIdentifier<UISplitViewController>(splitViewControllerIdentifier, customisation: customisation)
-    }
+extension MadogUIIdentifier where VC == UISplitViewController {
+    static let split = MadogUIIdentifier(splitViewControllerIdentifier)
 }

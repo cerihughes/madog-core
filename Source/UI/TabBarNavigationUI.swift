@@ -14,10 +14,10 @@ import UIKit
 internal class TabBarNavigationUI<Token>: MadogNavigatingModalUIContainer<Token>, MultiContext {
     private let tabBarController = UITabBarController()
 
-    internal init(registry: Registry<Token>, tokens: [Token]) {
+    internal init(registry: Registry<Token>, tokenData: MultiUITokenData<Token>) {
         super.init(registry: registry, viewController: tabBarController)
 
-        let viewControllers = tokens.compactMap { registry.createViewController(from: $0, context: self) }
+        let viewControllers = tokenData.tokens.compactMap { registry.createViewController(from: $0, context: self) }
             .map { UINavigationController(rootViewController: $0) }
 
         tabBarController.viewControllers = viewControllers

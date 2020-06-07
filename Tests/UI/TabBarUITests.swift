@@ -34,8 +34,7 @@ class TabBarUITests: MadogKIFTestCase {
     }
 
     private func renderUIAndAssert(tokens: String ...) -> TabBarUIContext? {
-        let identifier = MultiUIIdentifier.createTabBarIdentifier()
-        let context = madog.renderUI(identifier: identifier, tokens: tokens, in: window)
+        let context = madog.renderUI(identifier: .tabBar, tokenData: .multi(tokens), in: window)
 
         assert(tokens: tokens)
 

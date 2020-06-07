@@ -18,14 +18,18 @@ public struct Transition {
     }
 }
 
+public typealias CompletionBlock = () -> Void
+public typealias CustomisationBlock<VC: UIViewController> = (VC) -> Void
+
 public protocol Context: AnyObject {
     @discardableResult
-    func close(animated: Bool, completion: (() -> Void)?) -> Bool
+    func close(animated: Bool, completion: CompletionBlock?) -> Bool
 
     @discardableResult
-    func change<VC: UIViewController>(to identifier: SingleUIIdentifier<VC>, token: Any, transition: Transition?) -> Context?
-    @discardableResult
-    func change<VC: UIViewController>(to identifier: MultiUIIdentifier<VC>, tokens: [Any], transition: Transition?) -> Context?
+    func change<VC: UIViewController>(to identifier: MadogUIIdentifier<VC>,
+                                      tokenData: TokenData,
+                                      transition: Transition?,
+                                      customisation: CustomisationBlock<VC>?) -> Context?
 }
 
 public extension Context {
@@ -35,12 +39,10 @@ public extension Context {
     }
 
     @discardableResult
-    func change<VC: UIViewController>(to identifier: SingleUIIdentifier<VC>, token: Any) -> Context? {
-        change(to: identifier, token: token, transition: nil)
-    }
-
-    @discardableResult
-    func change<VC: UIViewController>(to identifier: MultiUIIdentifier<VC>, tokens: [Any]) -> Context? {
-        change(to: identifier, tokens: tokens, transition: nil)
+    func change<VC: UIViewController>(to identifier: MadogUIIdentifier<VC>,
+                                      tokenData: TokenData,
+                                      transition: Transition? = nil,
+                                      customisation: CustomisationBlock<VC>? = nil) -> Context? {
+        change(to: identifier, tokenData: tokenData, transition: transition, customisation: customisation)
     }
 }

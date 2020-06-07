@@ -9,8 +9,10 @@
 import UIKit
 
 internal protocol MadogUIContainerDelegate: AnyObject {
-    func createUI<VC: UIViewController>(identifier: SingleUIIdentifier<VC>, token: Any, isModal: Bool) -> MadogUIContainer?
-    func createUI<VC: UIViewController>(identifier: MultiUIIdentifier<VC>, tokens: [Any], isModal: Bool) -> MadogUIContainer?
+    func createUI<VC: UIViewController>(identifier: MadogUIIdentifier<VC>,
+                                        tokenData: TokenData,
+                                        isModal: Bool,
+                                        customisation: CustomisationBlock<VC>?) -> MadogUIContainer?
 
     func releaseContext(for viewController: UIViewController)
 }
@@ -25,26 +27,21 @@ open class MadogUIContainer: Context {
 
     // MARK: - Context
 
-    public func close(animated: Bool, completion: (() -> Void)?) -> Bool {
+    public func close(animated: Bool, completion: CompletionBlock?) -> Bool {
         // OVERRIDE
         false
     }
 
-    public func change<VC: UIViewController>(to identifier: SingleUIIdentifier<VC>, token: Any, transition: Transition?) -> Context? {
+    public func change<VC: UIViewController>(to identifier: MadogUIIdentifier<VC>,
+                                             tokenData: TokenData,
+                                             transition: Transition?,
+                                             customisation: CustomisationBlock<VC>?) -> Context? {
         guard let delegate = delegate,
             let window = viewController.view.window,
-            let container = delegate.createUI(identifier: identifier, token: token, isModal: false) else {
-            return nil
-        }
-
-        window.setRootViewController(container.viewController, transition: transition)
-        return container
-    }
-
-    public func change<VC: UIViewController>(to identifier: MultiUIIdentifier<VC>, tokens: [Any], transition: Transition?) -> Context? {
-        guard let delegate = delegate,
-            let window = viewController.view.window,
-            let container = delegate.createUI(identifier: identifier, tokens: tokens, isModal: false) else {
+            let container = delegate.createUI(identifier: identifier,
+                                              tokenData: tokenData,
+                                              isModal: false,
+                                              customisation: customisation) else {
             return nil
         }
 

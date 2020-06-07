@@ -11,68 +11,42 @@ import UIKit
 public protocol ModalContext: AnyObject {
     // swiftlint:disable function_parameter_count
     @discardableResult
-    func openModal<VC: UIViewController>(identifier: SingleUIIdentifier<VC>,
-                                         token: Any,
+    func openModal<VC: UIViewController>(identifier: MadogUIIdentifier<VC>,
+                                         tokenData: TokenData,
                                          from fromViewController: UIViewController?,
                                          presentationStyle: UIModalPresentationStyle?,
                                          transitionStyle: UIModalTransitionStyle?,
                                          popoverAnchor: Any?,
                                          animated: Bool,
-                                         completion: (() -> Void)?) -> ModalToken?
-
-    @discardableResult
-    func openModal<VC: UIViewController>(identifier: MultiUIIdentifier<VC>,
-                                         tokens: [Any],
-                                         from fromViewController: UIViewController?,
-                                         presentationStyle: UIModalPresentationStyle?,
-                                         transitionStyle: UIModalTransitionStyle?,
-                                         popoverAnchor: Any?,
-                                         animated: Bool,
-                                         completion: (() -> Void)?) -> ModalToken?
+                                         customisation: CustomisationBlock<VC>?,
+                                         completion: CompletionBlock?) -> ModalToken?
     // swiftlint:enable function_parameter_count
 
     @discardableResult
     func closeModal(token: ModalToken,
                     animated: Bool,
-                    completion: (() -> Void)?) -> Bool
+                    completion: CompletionBlock?) -> Bool
 }
 
 public extension ModalContext {
     @discardableResult
-    func openModal<VC: UIViewController>(identifier: SingleUIIdentifier<VC>,
-                                         token: Any,
+    func openModal<VC: UIViewController>(identifier: MadogUIIdentifier<VC>,
+                                         tokenData: TokenData,
                                          from fromViewController: UIViewController? = nil,
                                          presentationStyle: UIModalPresentationStyle? = nil,
                                          transitionStyle: UIModalTransitionStyle? = nil,
                                          popoverAnchor: Any? = nil,
                                          animated: Bool,
-                                         completion: (() -> Void)? = nil) -> ModalToken? {
+                                         customisation: CustomisationBlock<VC>? = nil,
+                                         completion: CompletionBlock? = nil) -> ModalToken? {
         openModal(identifier: identifier,
-                  token: token,
+                  tokenData: tokenData,
                   from: fromViewController,
                   presentationStyle: presentationStyle,
                   transitionStyle: transitionStyle,
                   popoverAnchor: popoverAnchor,
                   animated: animated,
-                  completion: completion)
-    }
-
-    @discardableResult
-    func openModal<VC: UIViewController>(identifier: MultiUIIdentifier<VC>,
-                                         tokens: [Any],
-                                         from fromViewController: UIViewController? = nil,
-                                         presentationStyle: UIModalPresentationStyle? = nil,
-                                         transitionStyle: UIModalTransitionStyle? = nil,
-                                         popoverAnchor: Any? = nil,
-                                         animated: Bool,
-                                         completion: (() -> Void)? = nil) -> ModalToken? {
-        openModal(identifier: identifier,
-                  tokens: tokens,
-                  from: fromViewController,
-                  presentationStyle: presentationStyle,
-                  transitionStyle: transitionStyle,
-                  popoverAnchor: popoverAnchor,
-                  animated: animated,
+                  customisation: customisation,
                   completion: completion)
     }
 

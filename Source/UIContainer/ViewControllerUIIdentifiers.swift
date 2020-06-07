@@ -13,52 +13,29 @@ import UIKit
 
 internal let basicIdentifier = "basicIdentifier"
 internal let navigationIdentifier = "navigationIdentifier"
-
-public class SingleUIIdentifier<VC: UIViewController> {
-    internal let value: String
-    internal let customisation: (VC) -> Void
-
-    public init(_ value: String, customisation: @escaping (VC) -> Void) {
-        self.value = value
-        self.customisation = customisation
-    }
-
-    public static func createBasicIdentifier(
-        customisation: @escaping (UIViewController) -> Void = { _ in }
-    ) -> SingleUIIdentifier<UIViewController> {
-        SingleUIIdentifier<UIViewController>(basicIdentifier, customisation: customisation)
-    }
-
-    public static func createNavigationIdentifier(
-        customisation: @escaping (UINavigationController) -> Void = { _ in }
-    ) -> SingleUIIdentifier<UINavigationController> {
-        SingleUIIdentifier<UINavigationController>(navigationIdentifier, customisation: customisation)
-    }
-}
-
 internal let tabBarIdentifier = "tabBarIdentifier"
 internal let tabBarNavigationIdentifier = "tabBarNavigationIdentifier"
 
-public class MultiUIIdentifier<VC: UIViewController> {
+public struct MadogUIIdentifier<VC: UIViewController> {
     internal let value: String
-    internal let customisation: (VC) -> Void
+    internal let type = VC.self
 
-    public init(_ value: String, customisation: @escaping (VC) -> Void) {
+    public init(_ value: String) {
         self.value = value
-        self.customisation = customisation
     }
+}
 
-    public static func createTabBarIdentifier(
-        customisation: @escaping (UITabBarController) -> Void = { _ in }
-    ) -> MultiUIIdentifier<UITabBarController> {
-        MultiUIIdentifier<UITabBarController>(tabBarIdentifier, customisation: customisation)
-    }
+public extension MadogUIIdentifier where VC == BasicUIContainerViewController {
+    static let basic = MadogUIIdentifier(basicIdentifier)
+}
 
-    public static func createTabBarNavigationIdentifier(
-        customisation: @escaping (UITabBarController) -> Void = { _ in }
-    ) -> MultiUIIdentifier<UITabBarController> {
-        MultiUIIdentifier<UITabBarController>(tabBarNavigationIdentifier, customisation: customisation)
-    }
+public extension MadogUIIdentifier where VC == UINavigationController {
+    static let navigation = MadogUIIdentifier(navigationIdentifier)
+}
+
+public extension MadogUIIdentifier where VC == UITabBarController {
+    static let tabBar = MadogUIIdentifier(tabBarIdentifier)
+    static let tabBarNavigation = MadogUIIdentifier(tabBarNavigationIdentifier)
 }
 
 #endif

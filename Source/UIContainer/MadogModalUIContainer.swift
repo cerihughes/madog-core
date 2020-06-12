@@ -76,7 +76,7 @@ open class MadogModalUIContainer<Token>: MadogUIContainer, ModalContext {
         delegate?.releaseContext(for: presentedViewController)
     }
 
-    public final func createModalToken(viewController: UIViewController, context: Context?) -> ModalToken {
+    public final func createModalToken(viewController: UIViewController, context: Context) -> ModalToken {
         ModalTokenImplementation(viewController: viewController, context: context)
     }
 }

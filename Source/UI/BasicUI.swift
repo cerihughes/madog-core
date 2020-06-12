@@ -48,15 +48,12 @@ open class BasicUIContainerViewController: UIViewController {
         }
 
         viewController.willMove(toParent: self)
+
         addChild(viewController)
         view.addSubview(viewController.view)
-        NSLayoutConstraint.activate(constraints(for: viewController.view))
+        viewController.view.frame = view.bounds
+        viewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
 
         viewController.didMove(toParent: self)
-    }
-
-    private func constraints(for subview: UIView) -> [NSLayoutConstraint] {
-        return NSLayoutConstraint.constraints(withVisualFormat: "H:|[subview]|", options: [], metrics: nil, views: ["subview": subview])
-            + NSLayoutConstraint.constraints(withVisualFormat: "V:|[subview]|", options: [], metrics: nil, views: ["subview": subview])
     }
 }

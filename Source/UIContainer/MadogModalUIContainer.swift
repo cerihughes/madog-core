@@ -28,7 +28,6 @@ open class MadogModalUIContainer<Token>: MadogUIContainer, ModalContext {
     // swiftlint:disable function_parameter_count
     public func openModal<VC, TD>(identifier: MadogUIIdentifier<VC, TD>,
                                   tokenData: TD,
-                                  from fromViewController: UIViewController?,
                                   presentationStyle: UIModalPresentationStyle?,
                                   transitionStyle: UIModalTransitionStyle?,
                                   popoverAnchor: Any?,
@@ -40,9 +39,8 @@ open class MadogModalUIContainer<Token>: MadogUIContainer, ModalContext {
             return nil
         }
 
-        let presentingViewController = fromViewController ?? viewController
         let presentedViewController = container.viewController
-        let result = modalPresentation.presentModally(presenting: presentingViewController,
+        let result = modalPresentation.presentModally(presenting: viewController,
                                                       modal: presentedViewController,
                                                       presentationStyle: presentationStyle,
                                                       transitionStyle: transitionStyle,

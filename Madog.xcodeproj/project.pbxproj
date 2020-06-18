@@ -31,6 +31,7 @@
 		65A250D521A81FBF0035FA0F /* NavigationUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A250CE21A81FBF0035FA0F /* NavigationUI.swift */; };
 		65A250DE21A8212F0035FA0F /* Context.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A250DD21A8212F0035FA0F /* Context.swift */; };
 		65A250E321A822990035FA0F /* TabBarNavigationUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A250E221A822990035FA0F /* TabBarNavigationUI.swift */; };
+		65CE2F4B249B3D4600844B67 /* ModalPresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CE2F4A249B3D4600844B67 /* ModalPresentation.swift */; };
 		65E89480227DDFF400EA7F11 /* MadogTypesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E8947F227DDFF400EA7F11 /* MadogTypesTests.swift */; };
 		65F8B673227DBA0D007EEBAF /* Provident.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65F8B672227DBA0C007EEBAF /* Provident.framework */; };
 		C29A0A222382E7280059104A /* UIViewController+MadogModalPresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29A0A212382E7280059104A /* UIViewController+MadogModalPresentation.swift */; };
@@ -95,6 +96,7 @@
 		65A250CE21A81FBF0035FA0F /* NavigationUI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationUI.swift; sourceTree = "<group>"; };
 		65A250DD21A8212F0035FA0F /* Context.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Context.swift; sourceTree = "<group>"; };
 		65A250E221A822990035FA0F /* TabBarNavigationUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarNavigationUI.swift; sourceTree = "<group>"; };
+		65CE2F4A249B3D4600844B67 /* ModalPresentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalPresentation.swift; sourceTree = "<group>"; };
 		65E8947F227DDFF400EA7F11 /* MadogTypesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MadogTypesTests.swift; sourceTree = "<group>"; usesTabs = 0; };
 		65F8B672227DBA0C007EEBAF /* Provident.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Provident.framework; path = Carthage/Build/iOS/Provident.framework; sourceTree = "<group>"; };
 		C29A0A212382E7280059104A /* UIViewController+MadogModalPresentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+MadogModalPresentation.swift"; sourceTree = "<group>"; };
@@ -229,6 +231,7 @@
 				F4F4B48A248A6A6A00072A9E /* MadogNavigatingModalUIContainer.swift */,
 				6527EC4521BAC5210032B70D /* MadogUIContainer.swift */,
 				6560D4A121B3F24600EA9BE3 /* MadogUIContainerFactory.swift */,
+				65CE2F4A249B3D4600844B67 /* ModalPresentation.swift */,
 				6560D49F21B3F20A00EA9BE3 /* ViewControllerUIIdentifiers.swift */,
 			);
 			path = UIContainer;
@@ -499,6 +502,7 @@
 				F479A9ED248D0156003D745F /* TokenData.swift in Sources */,
 				F49F11ED248AC7CA00444615 /* TabBarUI.swift in Sources */,
 				F479A9F1248D017C003D745F /* MultiUITokenData.swift in Sources */,
+				65CE2F4B249B3D4600844B67 /* ModalPresentation.swift in Sources */,
 				6560D4A221B3F24600EA9BE3 /* MadogUIContainerFactory.swift in Sources */,
 				65240405239D5F550034CE98 /* ForwardBackNavigationContext.swift in Sources */,
 				65A250D521A81FBF0035FA0F /* NavigationUI.swift in Sources */,

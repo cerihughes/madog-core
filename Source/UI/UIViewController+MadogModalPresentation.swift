@@ -16,8 +16,12 @@ internal extension UIViewController {
                               popoverAnchor: Any?,
                               animated: Bool,
                               completion: CompletionBlock?) {
-        viewController.modalPresentationStyle = presentationStyle ?? .fullScreen
-        viewController.modalTransitionStyle = transitionStyle ?? .coverVertical
+        if let presentationStyle = presentationStyle {
+            viewController.modalPresentationStyle = presentationStyle
+        }
+        if let transitionStyle = transitionStyle {
+            viewController.modalTransitionStyle = transitionStyle
+        }
         if let popoverAnchor = popoverAnchor {
             if let rect = popoverAnchor as? CGRect {
                 viewController.popoverPresentationController?.sourceRect = rect

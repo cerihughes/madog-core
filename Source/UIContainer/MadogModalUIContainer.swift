@@ -10,6 +10,7 @@ import UIKit
 
 open class MadogModalUIContainer<Token>: MadogUIContainer, ModalContext {
     public private(set) var registry: Registry<Token>
+    public var modalPresentation: ModalPresentation = DefaultModalPresentation()
 
     public init(registry: Registry<Token>, viewController: UIViewController) {
         self.registry = registry
@@ -41,13 +42,14 @@ open class MadogModalUIContainer<Token>: MadogUIContainer, ModalContext {
 
         let presentingViewController = fromViewController ?? viewController
         let presentedViewController = container.viewController
-        presentingViewController.madog_presentModally(viewController: presentedViewController,
+        let result = modalPresentation.presentModally(presenting: presentingViewController,
+                                                      modal: presentedViewController,
                                                       presentationStyle: presentationStyle,
                                                       transitionStyle: transitionStyle,
                                                       popoverAnchor: popoverAnchor,
                                                       animated: animated,
                                                       completion: completion)
-        return createModalToken(viewController: presentedViewController, context: container)
+        return result ? createModalToken(viewController: presentedViewController, context: container) : nil
     }
 
     // swiftlint:enable function_parameter_count

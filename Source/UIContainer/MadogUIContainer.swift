@@ -14,6 +14,7 @@ internal protocol MadogUIContainerDelegate: AnyObject {
                           isModal: Bool,
                           customisation: CustomisationBlock<VC>?) -> MadogUIContainer? where VC: UIViewController, TD: TokenData
 
+    func context(for viewController: UIViewController) -> Context?
     func releaseContext(for viewController: UIViewController)
 }
 
@@ -26,6 +27,13 @@ open class MadogUIContainer: Context {
     }
 
     // MARK: - Context
+
+    public var presentingContext: Context? {
+        guard let presentingViewController = viewController.presentingViewController else {
+            return nil
+        }
+        return delegate?.context(for: presentingViewController)
+    }
 
     public func close(animated: Bool, completion: CompletionBlock?) -> Bool {
         // OVERRIDE

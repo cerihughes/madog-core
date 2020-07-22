@@ -94,6 +94,13 @@ public final class Madog<Token>: MadogUIContainerDelegate {
         return container
     }
 
+    func context(for viewController: UIViewController) -> Context? {
+        if viewController == currentContainer?.viewController {
+            return currentContainer
+        }
+        return modalContainers[viewController]
+    }
+
     func releaseContext(for viewController: UIViewController) {
         if viewController == currentContainer?.viewController {
             currentContainer = nil

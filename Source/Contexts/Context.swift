@@ -22,6 +22,8 @@ public typealias CompletionBlock = () -> Void
 public typealias CustomisationBlock<VC> = (VC) -> Void where VC: UIViewController
 
 public protocol Context: AnyObject {
+    var presentingContext: Context? { get }
+
     @discardableResult
     func close(animated: Bool, completion: CompletionBlock?) -> Bool
 

@@ -1,0 +1,32 @@
+name: Build and test iOS13
+
+on: [pull_request]
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+      # Xcode select
+      - run: sudo xcode-select -switch /Applications/Xcode_11.7.app
+
+      # Caching
+      - name: Carthage Cache
+        uses: actions/cache@v2
+        with:
+          path: Carthage
+          key: ${{ runner.os }}-carthage-xcode11_7-${{ hashFiles('**/Cartfile.resolved') }}
+
+      # Install dependencies
+      - run: brew install carthage swiftlint || true
+      - run: brew outdated carthage || brew upgrade carthage
+      - run: brew outdated swiftlint || brew upgrade swiftlint
+
+      # Checkout
+      - uses: actions/checkout@v2
+      - run: mkdir build
+
+      # Build and test
+      - run: set -o pipefail
+      - run: carthage bootstrap --platform iOS --no-use-binaries --cache-builds
+      - run: xcodebuild clean test -project Madog.xcodeproj -scheme Madog -destination "OS=13.7,name=iPhone 11" -destination "OS=13.7,name=iPad (7th generation)" -sdk iphonesimulator CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=YES VALID_ARCHS=x86_64

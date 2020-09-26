@@ -12,9 +12,7 @@ jobs:
       - run: |
           sudo mkdir -p /Library/Developer/CoreSimulator/Profiles/Runtimes
           sudo ln -s /Applications/Xcode_10.3.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/Library/CoreSimulator/Profiles/Runtimes/iOS.simruntime /Library/Developer/CoreSimulator/Profiles/Runtimes/iOS\ 12.4.simruntime
-          xcrun simctl list runtimes
           xcrun simctl create custom-test-device "iPad (6th generation)" "com.apple.CoreSimulator.SimRuntime.iOS-12-4"
-          xcrun simctl list devices 12.4
 
       # Caching
       - name: Carthage Cache

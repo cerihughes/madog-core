@@ -15,7 +15,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: Carthage
-          key: ${{ runner.os }}-carthage-${{ hashFiles('**/Cartfile.resolved') }}
+          key: ${{ runner.os }}-carthage-xcode12-${{ hashFiles('**/Cartfile.resolved') }}
 
       # Install dependencies
       - run: brew install carthage swiftlint || true
@@ -29,9 +29,13 @@ jobs:
       # Build and test
       - run: set -o pipefail
       - run: ./wcarthage bootstrap --platform iOS --no-use-binaries --cache-builds
-      - run: xcodebuild clean test -project Madog.xcodeproj -scheme Madog -destination "OS=latest,name=iPhone 11" -destination "OS=latest,name=iPad (8th generation)" -sdk iphonesimulator CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=NO
+      - run: xcodebuild clean test -project Madog.xcodeproj -scheme Madog -destination "OS=14.0,name=iPhone 11" -destination "OS=14.0,name=iPad (8th generation)" -sdk iphonesimulator CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=YES VALID_ARCHS=x86_64
       - name: Codecov
-        uses: codecov/codecov-action@v1.0.6
+        uses: codecov/codecov-action@v1.0.13
+
+      # Build SPM
       - run: swift package generate-xcodeproj --output MadogSPM.xcodeproj
-      - run: xcodebuild clean build -project MadogSPM.xcodeproj -scheme Madog-Package -sdk iphonesimulator CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=NO
-      - run: xcodebuild clean build -project SampleApp/SampleApp.xcodeproj -scheme SampleApp -sdk iphonesimulator CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=NO
+      - run: xcodebuild clean build -project MadogSPM.xcodeproj -scheme Madog-Package -sdk iphonesimulator CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=YES VALID_ARCHS=x86_64
+
+      # Build sample app
+      - run: xcodebuild clean build -project SampleApp/SampleApp.xcodeproj -scheme SampleApp -sdk iphonesimulator CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=YES VALID_ARCHS=x86_64

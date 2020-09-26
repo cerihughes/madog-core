@@ -1,4 +1,4 @@
-name: Build and test PRs
+name: Build and test iOS14
 
 on: [push, pull_request]
 

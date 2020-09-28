@@ -9,6 +9,7 @@ jobs:
     steps:
       # Xcode select
       - run: sudo xcode-select -switch /Applications/Xcode_11.7.app
+      - run: |
           xcrun simctl list runtimes
           xcrun simctl list devices 14.0
           xcrun simctl list devices 13.7

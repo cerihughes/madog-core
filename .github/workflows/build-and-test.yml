@@ -10,8 +10,10 @@ jobs:
       # Xcode select
       - run: sudo xcode-select -switch /Applications/Xcode_11.5.app
       - run: |
-          xcrun simctl list runtimes
-          xcrun simctl list devices 13.5
+          find /Applications/Xcode_10.3.app/Contents/Developer/ -name iOS.simruntime
+          find /Applications/Xcode_11.5.app/Contents/Developer/ -name iOS.simruntime
+          find /Applications/Xcode_11.7.app/Contents/Developer/ -name iOS.simruntime
+          find /Applications/Xcode_12.app/Contents/Developer/ -name iOS.simruntime
 
       # Xcode select
       - run: sudo xcode-select -switch /Applications/Xcode_12.app

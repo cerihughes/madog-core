@@ -66,9 +66,10 @@ class TabBarNavigationUITests: MadogKIFTestCase {
         return context as? TabBarNavigationUIContext
     }
 
-    private func navigateForwardAndAssert(token: String, with: [String]? = nil) {
+    private func navigateForwardAndAssert(token: String, with tabTitles: [String]? = nil) {
         context.navigateForward(token: token, animated: true)
-        viewTester().usingLabel(token)?.waitForView()
+        tabTitles?.forEach { viewTester().usingLabel($0)?.waitForView() }
+        viewTester().usingLabel("Label: \(token)")?.waitForView()
     }
 }
 

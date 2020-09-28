@@ -55,7 +55,7 @@ private class TestViewControllerProvider: BaseViewControllerProvider {
     override func createViewController(token: String, context _: Context) -> UIViewController? {
         let viewController = TestViewController()
         viewController.title = token
-        viewController.label.text = token
+        viewController.label.text = "Label: \(token)"
         return viewController
     }
 }
@@ -66,7 +66,16 @@ private class TestViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        view.backgroundColor = .black
+        label.textColor = .white
+
         view.addSubview(label)
+
+        label.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            label.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            label.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
     }
 }
 

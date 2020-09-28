@@ -19,7 +19,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: Carthage
-          key: ${{ runner.os }}-carthage-xcode10_3-${{ hashFiles('**/Cartfile.resolved') }}
+          key: ${{ runner.os }}-carthage-xcode12_0-${{ hashFiles('**/Cartfile.resolved') }}
 
       # Install dependencies
       - run: brew install carthage swiftlint || true
@@ -32,5 +32,5 @@ jobs:
 
       # Build and test
       - run: set -o pipefail
-      - run: carthage bootstrap --platform iOS --no-use-binaries --cache-builds
+      - run: ./carthage-xcode12 bootstrap --platform iOS --no-use-binaries --cache-builds
       - run: xcodebuild clean test -project Madog.xcodeproj -scheme Madog -destination "OS=12.4,name=iPhone X" -destination "OS=12.4,name=iPad (6th generation)" -sdk iphonesimulator CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=YES VALID_ARCHS=x86_64

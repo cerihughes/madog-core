@@ -24,7 +24,8 @@ class LoginViewControllerProvider: SingleViewControllerProvider<SampleToken> {
 
     override func createViewController(token: SampleToken, context: Context) -> UIViewController? {
         guard token.identifier == loginIdentifier,
-            let authenticator = authenticator else {
+            let authenticator = authenticator
+        else {
             return nil
         }
 

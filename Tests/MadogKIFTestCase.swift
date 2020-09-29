@@ -33,16 +33,6 @@ class MadogKIFTestCase: KIFTestCase {
 
         super.tearDown()
     }
-
-    func assert(token: String) {
-        assert(tokens: [token])
-    }
-
-    func assert(tokens: [String]) {
-        tokens.forEach {
-            viewTester().usingLabel($0)?.waitForView()
-        }
-    }
 }
 
 private class TestResolver: Resolver<String> {
@@ -52,11 +42,21 @@ private class TestResolver: Resolver<String> {
 }
 
 private class TestViewControllerProvider: BaseViewControllerProvider {
-    override func createViewController(token: String, context _: Context) -> UIViewController? {
+    override func createViewController(token: String, context: Context) -> UIViewController? {
         let viewController = TestViewController()
-        viewController.title = token
-        viewController.label.text = "Label: \(token)"
+        viewController.title = token.viewControllerTitle
+        viewController.label.text = token.viewControllerLabel
         return viewController
+    }
+}
+
+private extension String {
+    var viewControllerTitle: String {
+        self
+    }
+
+    var viewControllerLabel: String {
+        "Label: \(self)"
     }
 }
 
@@ -66,8 +66,8 @@ private class TestViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = .black
-        label.textColor = .white
+        view.backgroundColor = .lightGray
+        label.textColor = .darkGray
 
         view.addSubview(label)
 
@@ -76,6 +76,26 @@ private class TestViewController: UIViewController {
             label.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             label.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
+    }
+}
+
+extension KIFUIViewTestActor {
+    @discardableResult
+    func waitForTitle(token: String) -> UIView? {
+        usingLabel(token.viewControllerTitle)?.waitForView()
+    }
+
+    func waitForAbsenceOfTitle(token: String) {
+        usingLabel(token.viewControllerTitle)?.waitForAbsenceOfView()
+    }
+
+    @discardableResult
+    func waitForLabel(token: String) -> UIView? {
+        usingLabel(token.viewControllerLabel)?.waitForView()
+    }
+
+    func waitForAbsenceOfLabel(token: String) {
+        usingLabel(token.viewControllerLabel)?.waitForAbsenceOfView()
     }
 }
 

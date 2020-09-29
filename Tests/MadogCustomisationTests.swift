@@ -17,16 +17,16 @@ class MadogCustomisationTests: MadogKIFTestCase {
     func testMainCustomisationBlock() {
         _ = madog.renderUI(identifier: .navigation, tokenData: .single("vc1"), in: window, customisation: customise(navigationController:))
 
-        viewTester().usingLabel("CUSTOMISED")?.waitForView()
+        viewTester().waitForTitle(token: "CUSTOMISED")
     }
 
     func testModalCustomisationBlock() {
         let context = madog.renderUI(identifier: .basic, tokenData: .single("vc1"), in: window) as? ModalContext
 
-        viewTester().usingLabel("CUSTOMISED")?.waitForAbsenceOfView()
+        viewTester().waitForAbsenceOfTitle(token: "CUSTOMISED")
         _ = context?.openModal(identifier: .navigation, tokenData: .single("vc1"), animated: true, customisation: customise(navigationController:))
 
-        viewTester().usingLabel("CUSTOMISED")?.waitForView()
+        viewTester().waitForTitle(token: "CUSTOMISED")
     }
 
     private func customise(navigationController: UINavigationController) {

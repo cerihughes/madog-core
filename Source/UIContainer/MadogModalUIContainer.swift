@@ -36,7 +36,8 @@ open class MadogModalUIContainer<Token>: MadogUIContainer, ModalContext {
                                   customisation: CustomisationBlock<VC>?,
                                   completion: CompletionBlock?) -> ModalToken? where VC: UIViewController, TD: TokenData {
         guard let delegate = delegate,
-            let container = delegate.createUI(identifier: identifier, tokenData: tokenData, isModal: true, customisation: customisation) else {
+            let container = delegate.createUI(identifier: identifier, tokenData: tokenData, isModal: true, customisation: customisation)
+        else {
             return nil
         }
 

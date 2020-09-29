@@ -59,7 +59,8 @@ public final class Madog<Token>: MadogUIContainerDelegate {
         guard let context = createUI(identifier: identifier,
                                      tokenData: tokenData,
                                      isModal: false,
-                                     customisation: customisation) else {
+                                     customisation: customisation)
+        else {
             return nil
         }
         window.setRootViewController(context.viewController, transition: transition)

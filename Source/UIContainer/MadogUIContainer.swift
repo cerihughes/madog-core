@@ -49,7 +49,8 @@ open class MadogUIContainer: Context {
             let container = delegate.createUI(identifier: identifier,
                                               tokenData: tokenData,
                                               isModal: false,
-                                              customisation: customisation) else {
+                                              customisation: customisation)
+        else {
             return nil
         }
 

@@ -24,7 +24,8 @@ class LogoutViewControllerProvider: SingleViewControllerProvider<SampleToken> {
 
     override func createViewController(token: SampleToken, context: Context) -> UIViewController? {
         guard let authenticator = authenticator,
-            token.identifier == logoutIdentifier else {
+            token.identifier == logoutIdentifier
+        else {
             return nil
         }
 

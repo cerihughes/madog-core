@@ -26,7 +26,8 @@ class ViewController2Provider: SingleViewControllerProvider<SampleToken> {
         guard let sharedService = sharedService,
             token.identifier == vc2Identifier,
             let stringData = token.stringData,
-            let context = context as? ForwardBackNavigationContext else {
+            let context = context as? ForwardBackNavigationContext
+        else {
             return nil
         }
 

@@ -43,7 +43,7 @@ class LoginViewController: UIViewController {
 
                 let tokens: [SampleToken] = [.vc1, .logout]
                 context.change(to: .tabBarNavigation, tokenData: .multi(tokens))
-			})
+            })
         }
     }
 }

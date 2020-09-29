@@ -33,11 +33,7 @@ jobs:
       # Build and test
       - run: set -o pipefail
       - run: ./carthage-xcode12 bootstrap --platform iOS --no-use-binaries --cache-builds
-      - run: xcodebuild clean test -project Madog.xcodeproj -scheme Madog $TEST_ON_IOS14 $TEST_ON_IOS13 $TEST_ON_IOS12 -sdk iphonesimulator CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=YES VALID_ARCHS=x86_64
-        env:
-          TEST_ON_IOS14: '-destination "OS=14.0,name=iPhone 11" -destination "OS=14.0,name=iPad (8th generation)"'
-          TEST_ON_IOS13: '-destination "OS=13.7,name=iPhone 11" -destination "OS=13.7,name=iPad (7th generation)"'
-          TEST_ON_IOS12: '-destination "OS=12.4,name=iPhone X" -destination "OS=12.4,name=iPad (6th generation)"'
+      - run: xcodebuild clean test -project Madog.xcodeproj -scheme Madog -destination "OS=14.0,name=iPhone 11" -destination "OS=14.0,name=iPad (8th generation)" -destination "OS=13.7,name=iPhone 11" -destination "OS=13.7,name=iPad (7th generation)" -destination "OS=12.4,name=iPhone X" -destination "OS=12.4,name=iPad (6th generation)" -sdk iphonesimulator CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=YES VALID_ARCHS=x86_64
       - name: Codecov
         uses: codecov/codecov-action@v1.0.13
 

@@ -17,31 +17,57 @@ class MadogKIFTestCase: KIFTestCase {
     var window: UIWindow!
     var madog: Madog<String>!
 
-    override func setUp() {
-        super.setUp()
+    override func beforeEach() {
+        super.beforeEach()
 
         window = UIWindow()
+        window.layer.speed = 100
         window.makeKeyAndVisible()
         madog = Madog()
         madog.resolve(resolver: TestResolver())
     }
 
-    override func tearDown() {
+    override func afterEach() {
         window.rootViewController = nil
         window = nil
         madog = nil
 
-        super.tearDown()
+        super.afterEach()
     }
 
-    func assert(token: String) {
-        assert(tokens: [token])
+    @discardableResult
+    func waitForTitle(token: String) -> UIView? {
+        kif.usingLabel(token.viewControllerTitle)?
+            .usingWindow(window)?
+            .waitForView()
     }
 
-    func assert(tokens: [String]) {
-        tokens.forEach {
-            viewTester().usingLabel($0)?.waitForView()
-        }
+    func waitForAbsenceOfTitle(token: String) {
+        kif.usingLabel(token.viewControllerTitle)?
+            .usingWindow(window)?
+            .waitForAbsenceOfView()
+    }
+
+    @discardableResult
+    func waitForLabel(token: String) -> UIView? {
+        kif.usingLabel(token.viewControllerLabel)?
+            .usingWindow(window)?
+            .waitForView()
+    }
+
+    func waitForAbsenceOfLabel(token: String) {
+        kif.usingLabel(token.viewControllerLabel)?
+            .usingWindow(window)?
+            .waitForAbsenceOfView()
+    }
+
+    private var kif: KIFUIViewTestActor {
+        viewTester()
+    }
+
+    private func inWindowPredicate(evaluatedObject: Any?, bindings: [String: Any]?) -> Bool {
+        guard let view = evaluatedObject as? UIView else { return false }
+        return view.window == window
     }
 }
 
@@ -52,11 +78,21 @@ private class TestResolver: Resolver<String> {
 }
 
 private class TestViewControllerProvider: BaseViewControllerProvider {
-    override func createViewController(token: String, context _: Context) -> UIViewController? {
+    override func createViewController(token: String, context: Context) -> UIViewController? {
         let viewController = TestViewController()
-        viewController.title = token
-        viewController.label.text = token
+        viewController.title = token.viewControllerTitle
+        viewController.label.text = token.viewControllerLabel
         return viewController
+    }
+}
+
+private extension String {
+    var viewControllerTitle: String {
+        self
+    }
+
+    var viewControllerLabel: String {
+        "Label: \(self)"
     }
 }
 
@@ -66,7 +102,42 @@ private class TestViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        view.backgroundColor = .lightGray
+        label.textColor = .darkGray
+
         view.addSubview(label)
+
+        label.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            label.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            label.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
+    }
+}
+
+extension KIFUIViewTestActor {
+    func usingWindow(_ window: UIWindow) -> KIFUIViewTestActor? {
+        usingPredicate(NSPredicate(block: { (evaluatedObject, _) -> Bool in
+            (evaluatedObject as? UIView)?.window == window
+        }))
+    }
+
+    @discardableResult
+    func waitForTitle(token: String, in window: UIWindow) -> UIView? {
+        usingLabel(token.viewControllerTitle)?.waitForView()
+    }
+
+    func waitForAbsenceOfTitle(token: String, in window: UIWindow) {
+        usingLabel(token.viewControllerTitle)?.waitForAbsenceOfView()
+    }
+
+    @discardableResult
+    func waitForLabel(token: String, in window: UIWindow) -> UIView? {
+        usingLabel(token.viewControllerLabel)?.waitForView()
+    }
+
+    func waitForAbsenceOfLabel(token: String, in window: UIWindow) {
+        usingLabel(token.viewControllerLabel)?.waitForAbsenceOfView()
     }
 }
 

@@ -35,7 +35,8 @@ open class MadogModalUIContainer<Token>: MadogUIContainer, ModalContext {
                                   customisation: CustomisationBlock<VC>?,
                                   completion: CompletionBlock?) -> ModalToken? where VC: UIViewController, TD: TokenData {
         guard let delegate = delegate,
-            let container = delegate.createUI(identifier: identifier, tokenData: tokenData, isModal: true, customisation: customisation) else {
+            let container = delegate.createUI(identifier: identifier, tokenData: tokenData, isModal: true, customisation: customisation)
+        else {
             return nil
         }
 
@@ -66,8 +67,6 @@ open class MadogModalUIContainer<Token>: MadogUIContainer, ModalContext {
     private func closeContext(presentedViewController: UIViewController,
                               animated: Bool = false,
                               completion: CompletionBlock? = nil) {
-        presentedViewController.children.forEach { closeContext(presentedViewController: $0, animated: animated) }
-
         if let presentedPresentedViewController = presentedViewController.presentedViewController {
             closeContext(presentedViewController: presentedPresentedViewController, animated: animated)
         }

@@ -59,7 +59,8 @@ public final class Madog<Token>: MadogUIContainerDelegate {
         guard let context = createUI(identifier: identifier,
                                      tokenData: tokenData,
                                      isModal: false,
-                                     customisation: customisation) else {
+                                     customisation: customisation)
+        else {
             return nil
         }
         window.setRootViewController(context.viewController, transition: transition)
@@ -92,6 +93,13 @@ public final class Madog<Token>: MadogUIContainerDelegate {
         }
         customisation?(viewController)
         return container
+    }
+
+    func context(for viewController: UIViewController) -> Context? {
+        if viewController == currentContainer?.viewController {
+            return currentContainer
+        }
+        return modalContainers[viewController]
     }
 
     func releaseContext(for viewController: UIViewController) {

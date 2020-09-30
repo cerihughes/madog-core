@@ -16,10 +16,10 @@ import XCTest
 class NavigationUITests: MadogKIFTestCase {
     private var context: NavigationUIContext!
 
-    override func tearDown() {
+    override func afterEach() {
         context = nil
 
-        super.tearDown()
+        super.afterEach()
     }
 
     func testProtocolConformance() {
@@ -37,27 +37,60 @@ class NavigationUITests: MadogKIFTestCase {
         navigateForwardAndAssert(token: "vc2")
 
         context.navigateBack(animated: true)
-        viewTester().usingLabel("vc1")?.waitForView()
+        waitForLabel(token: "vc1")
+        waitForAbsenceOfTitle(token: "vc2")
     }
 
     func testBackToRoot() {
         context = renderUIAndAssert(token: "vc1")
+
         navigateForwardAndAssert(token: "vc2")
+        waitForAbsenceOfLabel(token: "vc1")
+
         navigateForwardAndAssert(token: "vc3")
+        waitForAbsenceOfLabel(token: "vc2")
+        waitForAbsenceOfTitle(token: "vc1") // "Back" no longer shows "vc1"
 
         context?.navigateBackToRoot(animated: true)
-        viewTester().usingLabel("vc1")?.waitForView()
+        waitForTitle(token: "vc1")
+        waitForLabel(token: "vc1")
+    }
+
+    func testOpenNavigationModal() {
+        context = renderUIAndAssert(token: "vc1")
+
+        let modalToken = context.openModal(identifier: .navigation,
+                                           tokenData: .single("vc2"),
+                                           presentationStyle: .formSheet,
+                                           animated: true)
+        waitForTitle(token: "vc2")
+        waitForLabel(token: "vc2")
+
+        let modalContext = modalToken?.context as? ForwardBackNavigationContext
+        XCTAssertNotNil(modalContext)
+
+        modalContext?.navigateForward(token: "vc3", animated: true)
+        waitForTitle(token: "vc3")
+        waitForLabel(token: "vc3")
+        waitForAbsenceOfLabel(token: "vc2")
+
+        modalContext?.navigateForward(token: "vc4", animated: true)
+        waitForTitle(token: "vc4")
+        waitForLabel(token: "vc4")
+        waitForAbsenceOfTitle(token: "vc2") // "Back" no longer shows "vc2"
     }
 
     private func renderUIAndAssert(token: String) -> NavigationUIContext? {
         let context = madog.renderUI(identifier: .navigation, tokenData: .single(token), in: window)
-        viewTester().usingLabel(token)?.waitForView()
+        waitForTitle(token: token)
+        waitForLabel(token: token)
         return context as? NavigationUIContext
     }
 
     private func navigateForwardAndAssert(token: String) {
         context.navigateForward(token: token, animated: true)
-        viewTester().usingLabel(token)?.waitForView()
+        waitForTitle(token: token)
+        waitForLabel(token: token)
     }
 }
 

@@ -16,10 +16,10 @@ import XCTest
 class BasicUITests: MadogKIFTestCase {
     private var context: BasicUIContext!
 
-    override func tearDown() {
+    override func afterEach() {
         context = nil
 
-        super.tearDown()
+        super.afterEach()
     }
 
     func testProtocolConformance() {
@@ -35,7 +35,8 @@ class BasicUITests: MadogKIFTestCase {
 
     private func renderUIAndAssert(token: String) -> BasicUIContext? {
         let context = madog.renderUI(identifier: .basic, tokenData: .single(token), in: window)
-        viewTester().usingLabel(token)?.waitForView()
+        waitForAbsenceOfTitle(token: token) // There should be no "Back" titles
+        waitForLabel(token: token)
         return context as? BasicUIContext
     }
 }

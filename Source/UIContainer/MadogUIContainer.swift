@@ -14,6 +14,7 @@ internal protocol MadogUIContainerDelegate: AnyObject {
                           isModal: Bool,
                           customisation: CustomisationBlock<VC>?) -> MadogUIContainer? where VC: UIViewController, TD: TokenData
 
+    func context(for viewController: UIViewController) -> Context?
     func releaseContext(for viewController: UIViewController)
 }
 
@@ -27,6 +28,13 @@ open class MadogUIContainer: Context {
 
     // MARK: - Context
 
+    public var presentingContext: Context? {
+        guard let presentingViewController = viewController.presentingViewController else {
+            return nil
+        }
+        return delegate?.context(for: presentingViewController)
+    }
+
     public func close(animated: Bool, completion: CompletionBlock?) -> Bool {
         // OVERRIDE
         false
@@ -37,15 +45,27 @@ open class MadogUIContainer: Context {
                                transition: Transition?,
                                customisation: CustomisationBlock<VC>?) -> Context? where VC: UIViewController, TD: TokenData {
         guard let delegate = delegate,
-            let window = viewController.view.window,
+            let window = viewController.resolvedWindow,
             let container = delegate.createUI(identifier: identifier,
                                               tokenData: tokenData,
                                               isModal: false,
-                                              customisation: customisation) else {
+                                              customisation: customisation)
+        else {
             return nil
         }
 
         window.setRootViewController(container.viewController, transition: transition)
         return container
+    }
+}
+
+private extension UIViewController {
+    var resolvedWindow: UIWindow? {
+        if #available(iOS 13, *) {
+            return view.window
+        } else {
+            // On iOS12, the window of a modally presenting VC can be nil
+            return view.window ?? presentedViewController?.resolvedWindow
+        }
     }
 }

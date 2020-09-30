@@ -15,24 +15,24 @@ import XCTest
 
 class MadogCustomisationTests: MadogKIFTestCase {
     func testMainCustomisationBlock() {
-        _ = madog.renderUI(identifier: .navigation, tokenData: .single("vc1"), in: window, customisation: customise(navigationController:))
+        _ = madog.renderUI(identifier: .basic, tokenData: .single("vc1"), in: window, customisation: customise(viewController:))
 
-        viewTester().usingLabel("CUSTOMISED")?.waitForView()
+        waitForTitle(token: "CUSTOMISED")
     }
 
     func testModalCustomisationBlock() {
-        let context = madog.renderUI(identifier: .basic, tokenData: .single("vc1"), in: window) as? ModalContext
+        let context = madog.renderUI(identifier: .basic, tokenData: .single("vc1"), in: window) as? BasicUIContext
 
-        viewTester().usingLabel("CUSTOMISED")?.waitForAbsenceOfView()
-        _ = context?.openModal(identifier: .navigation, tokenData: .single("vc1"), animated: true, customisation: customise(navigationController:))
+        waitForAbsenceOfTitle(token: "CUSTOMISED")
+        _ = context?.openModal(identifier: .basic, tokenData: .single("vc1"), animated: true, customisation: customise(viewController:))
 
-        viewTester().usingLabel("CUSTOMISED")?.waitForView()
+        waitForTitle(token: "CUSTOMISED")
     }
 
-    private func customise(navigationController: UINavigationController) {
-        let viewController = UIViewController()
-        viewController.title = "CUSTOMISED"
-        navigationController.pushViewController(viewController, animated: true)
+    private func customise(viewController: UIViewController) {
+        let label = UILabel()
+        label.text = "CUSTOMISED"
+        viewController.view.addSubview(label)
     }
 }
 

@@ -1,4 +1,4 @@
-name: Build and test PRs
+name: Build and test
 
 on: [push, pull_request]
 
@@ -8,19 +8,22 @@ jobs:
 
     steps:
       # Xcode select
-      - run: sudo xcode-select -switch /Applications/Xcode_11.5.app
+      - run: sudo xcode-select -switch /Applications/Xcode_12.app
+      - run: |
+          sudo mkdir -p /Library/Developer/CoreSimulator/Profiles/Runtimes
+          sudo ln -s /Applications/Xcode_10.3.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/Library/CoreSimulator/Profiles/Runtimes/iOS.simruntime /Library/Developer/CoreSimulator/Profiles/Runtimes/iOS\ 12.4.simruntime
+          sudo ln -s /Applications/Xcode_11.7.app/Contents/Developer/Platforms/iPhoneOS.platform/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS.simruntime /Library/Developer/CoreSimulator/Profiles/Runtimes/iOS\ 13.7.simruntime
 
       # Caching
       - name: Carthage Cache
         uses: actions/cache@v2
         with:
           path: Carthage
-          key: ${{ runner.os }}-carthage-${{ hashFiles('**/Cartfile.resolved') }}
+          key: ${{ runner.os }}-carthage-xcode12-${{ hashFiles('**/Cartfile.resolved') }}
 
       # Install dependencies
-      - run: brew install carthage swiftformat swiftlint || true
+      - run: brew install carthage swiftlint || true
       - run: brew outdated carthage || brew upgrade carthage
-      - run: brew outdated swiftformat || brew upgrade swiftformat
       - run: brew outdated swiftlint || brew upgrade swiftlint
 
       # Checkout
@@ -29,11 +32,14 @@ jobs:
 
       # Build and test
       - run: set -o pipefail
-      - run: swiftlint
-      - run: carthage bootstrap --platform iOS --no-use-binaries --cache-builds
-      - run: xcodebuild clean test -project Madog.xcodeproj -scheme Madog -destination "OS=latest,name=iPhone 11" -destination "OS=latest,name=iPad (7th generation)" -sdk iphonesimulator CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=NO
-      - run: swift package generate-xcodeproj --output MadogSPM.xcodeproj
-      - run: xcodebuild clean test -project MadogSPM.xcodeproj -scheme Madog-Package -destination "OS=latest,name=iPhone 11" -destination "OS=latest,name=iPad (7th generation)" -sdk iphonesimulator CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=NO
+      - run: ./carthage-xcode12 bootstrap --platform iOS --no-use-binaries --cache-builds
+      - run: xcodebuild clean test -project Madog.xcodeproj -scheme Madog -destination "OS=14.0,name=iPhone 11" -destination "OS=14.0,name=iPad (8th generation)" -destination "OS=13.7,name=iPhone 11" -destination "OS=13.7,name=iPad (7th generation)" -destination "OS=12.4,name=iPhone X" -destination "OS=12.4,name=iPad (6th generation)" -sdk iphonesimulator CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=YES VALID_ARCHS=x86_64
       - name: Codecov
-        uses: codecov/codecov-action@v1.0.6
-      - run: xcodebuild clean build -project SampleApp/SampleApp.xcodeproj -scheme SampleApp -sdk iphonesimulator CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=NO
+        uses: codecov/codecov-action@v1.0.13
+
+      # Build SPM
+      - run: swift package generate-xcodeproj --output MadogSPM.xcodeproj
+      - run: xcodebuild clean build -project MadogSPM.xcodeproj -scheme Madog-Package -sdk iphonesimulator CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=YES VALID_ARCHS=x86_64
+
+      # Build sample app
+      - run: xcodebuild clean build -project SampleApp/SampleApp.xcodeproj -scheme SampleApp -sdk iphonesimulator CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=YES VALID_ARCHS=x86_64

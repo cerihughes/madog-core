@@ -16,10 +16,10 @@ import XCTest
 class TabBarNavigationUITests: MadogKIFTestCase {
     private var context: TabBarNavigationUIContext!
 
-    override func tearDown() {
+    override func afterEach() {
         context = nil
 
-        super.tearDown()
+        super.afterEach()
     }
 
     func testRenderInitialUI() {

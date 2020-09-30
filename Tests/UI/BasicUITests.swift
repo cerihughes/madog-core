@@ -16,10 +16,10 @@ import XCTest
 class BasicUITests: MadogKIFTestCase {
     private var context: BasicUIContext!
 
-    override func tearDown() {
+    override func afterEach() {
         context = nil
 
-        super.tearDown()
+        super.afterEach()
     }
 
     func testProtocolConformance() {

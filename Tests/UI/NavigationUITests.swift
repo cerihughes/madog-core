@@ -16,10 +16,10 @@ import XCTest
 class NavigationUITests: MadogKIFTestCase {
     private var context: NavigationUIContext!
 
-    override func tearDown() {
+    override func afterEach() {
         context = nil
 
-        super.tearDown()
+        super.afterEach()
     }
 
     func testProtocolConformance() {

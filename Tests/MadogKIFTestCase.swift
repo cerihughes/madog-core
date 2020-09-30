@@ -17,8 +17,8 @@ class MadogKIFTestCase: KIFTestCase {
     var window: UIWindow!
     var madog: Madog<String>!
 
-    override func setUp() {
-        super.setUp()
+    override func beforeEach() {
+        super.beforeEach()
 
         window = UIWindow()
         window.makeKeyAndVisible()
@@ -26,12 +26,12 @@ class MadogKIFTestCase: KIFTestCase {
         madog.resolve(resolver: TestResolver())
     }
 
-    override func tearDown() {
+    override func afterEach() {
         window.rootViewController = nil
         window = nil
         madog = nil
 
-        super.tearDown()
+        super.afterEach()
     }
 }
 

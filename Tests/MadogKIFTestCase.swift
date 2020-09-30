@@ -33,7 +33,7 @@ class MadogKIFTestCase: KIFTestCase {
 
         super.afterEach()
     }
-    
+
     @discardableResult
     func waitForTitle(token: String) -> UIView? {
         kif.usingLabel(token.viewControllerTitle)?
@@ -63,11 +63,11 @@ class MadogKIFTestCase: KIFTestCase {
     private var kif: KIFUIViewTestActor {
         viewTester()
     }
-    
-    private func inWindowPredicate(evaluatedObject: Any?, bindings: [String : Any]?) -> Bool {
+
+    private func inWindowPredicate(evaluatedObject: Any?, bindings: [String: Any]?) -> Bool {
         guard let view = evaluatedObject as? UIView else { return false }
         return view.window == window
-    }    
+    }
 }
 
 private class TestResolver: Resolver<String> {
@@ -116,11 +116,11 @@ private class TestViewController: UIViewController {
 
 extension KIFUIViewTestActor {
     func usingWindow(_ window: UIWindow) -> KIFUIViewTestActor? {
-        usingPredicate(NSPredicate(block: { (evaluatedObject, bindings) -> Bool in
+        usingPredicate(NSPredicate(block: { (evaluatedObject, _) -> Bool in
             (evaluatedObject as? UIView)?.window == window
         }))
     }
-    
+
     @discardableResult
     func waitForTitle(token: String, in window: UIWindow) -> UIView? {
         usingLabel(token.viewControllerTitle)?.waitForView()

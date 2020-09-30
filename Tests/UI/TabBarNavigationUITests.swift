@@ -41,10 +41,10 @@ class TabBarNavigationUITests: MadogKIFTestCase {
 
     func testBackToRoot() {
         context = renderUIAndAssert(tokens: "vc1", "vc2")
-        
+
         navigateForwardAndAssert(token: "vc3")
         waitForAbsenceOfLabel(token: "vc1")
-        
+
         navigateForwardAndAssert(token: "vc4")
         waitForAbsenceOfLabel(token: "vc3")
 

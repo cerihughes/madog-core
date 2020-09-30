@@ -69,8 +69,6 @@ open class MadogModalUIContainer<Token>: MadogUIContainer, ModalContext {
     private func closeContext(presentedViewController: UIViewController,
                               animated: Bool = false,
                               completion: CompletionBlock? = nil) {
-        presentedViewController.children.forEach { closeContext(presentedViewController: $0, animated: animated) }
-
         if let presentedPresentedViewController = presentedViewController.presentedViewController {
             closeContext(presentedViewController: presentedPresentedViewController, animated: animated)
         }

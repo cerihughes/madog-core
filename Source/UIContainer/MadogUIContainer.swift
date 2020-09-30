@@ -45,7 +45,7 @@ open class MadogUIContainer: Context {
                                transition: Transition?,
                                customisation: CustomisationBlock<VC>?) -> Context? where VC: UIViewController, TD: TokenData {
         guard let delegate = delegate,
-            let window = viewController.view.window,
+            let window = viewController.resolvedWindow,
             let container = delegate.createUI(identifier: identifier,
                                               tokenData: tokenData,
                                               isModal: false,
@@ -56,5 +56,16 @@ open class MadogUIContainer: Context {
 
         window.setRootViewController(container.viewController, transition: transition)
         return container
+    }
+}
+
+private extension UIViewController {
+    var resolvedWindow: UIWindow? {
+        if #available(iOS 13, *) {
+            return view.window
+        } else {
+            // On iOS12, the window of a modally presenting VC can be nil
+            return view.window ?? presentedViewController?.resolvedWindow
+        }
     }
 }

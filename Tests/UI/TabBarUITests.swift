@@ -35,8 +35,8 @@ class TabBarUITests: MadogKIFTestCase {
 
     private func renderUIAndAssert(tokens: String ...) -> TabBarUIContext? {
         let context = madog.renderUI(identifier: .tabBar, tokenData: .multi(tokens), in: window)
-        tokens.forEach { viewTester().waitForTitle(token: $0) }
-        viewTester().waitForLabel(token: tokens.first!)
+        tokens.forEach { waitForTitle(token: $0) }
+        waitForLabel(token: tokens.first!)
         return context as? TabBarUIContext
     }
 }

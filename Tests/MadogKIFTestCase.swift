@@ -33,6 +33,41 @@ class MadogKIFTestCase: KIFTestCase {
 
         super.afterEach()
     }
+    
+    @discardableResult
+    func waitForTitle(token: String) -> UIView? {
+        kif.usingLabel(token.viewControllerTitle)?
+            .usingWindow(window)?
+            .waitForView()
+    }
+
+    func waitForAbsenceOfTitle(token: String) {
+        kif.usingLabel(token.viewControllerTitle)?
+            .usingWindow(window)?
+            .waitForAbsenceOfView()
+    }
+
+    @discardableResult
+    func waitForLabel(token: String) -> UIView? {
+        kif.usingLabel(token.viewControllerLabel)?
+            .usingWindow(window)?
+            .waitForView()
+    }
+
+    func waitForAbsenceOfLabel(token: String) {
+        kif.usingLabel(token.viewControllerLabel)?
+            .usingWindow(window)?
+            .waitForAbsenceOfView()
+    }
+
+    private var kif: KIFUIViewTestActor {
+        viewTester()
+    }
+    
+    private func inWindowPredicate(evaluatedObject: Any?, bindings: [String : Any]?) -> Bool {
+        guard let view = evaluatedObject as? UIView else { return false }
+        return view.window == window
+    }    
 }
 
 private class TestResolver: Resolver<String> {
@@ -80,21 +115,27 @@ private class TestViewController: UIViewController {
 }
 
 extension KIFUIViewTestActor {
+    func usingWindow(_ window: UIWindow) -> KIFUIViewTestActor? {
+        usingPredicate(NSPredicate(block: { (evaluatedObject, bindings) -> Bool in
+            (evaluatedObject as? UIView)?.window == window
+        }))
+    }
+    
     @discardableResult
-    func waitForTitle(token: String) -> UIView? {
+    func waitForTitle(token: String, in window: UIWindow) -> UIView? {
         usingLabel(token.viewControllerTitle)?.waitForView()
     }
 
-    func waitForAbsenceOfTitle(token: String) {
+    func waitForAbsenceOfTitle(token: String, in window: UIWindow) {
         usingLabel(token.viewControllerTitle)?.waitForAbsenceOfView()
     }
 
     @discardableResult
-    func waitForLabel(token: String) -> UIView? {
+    func waitForLabel(token: String, in window: UIWindow) -> UIView? {
         usingLabel(token.viewControllerLabel)?.waitForView()
     }
 
-    func waitForAbsenceOfLabel(token: String) {
+    func waitForAbsenceOfLabel(token: String, in window: UIWindow) {
         usingLabel(token.viewControllerLabel)?.waitForAbsenceOfView()
     }
 }

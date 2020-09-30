@@ -21,6 +21,7 @@ class MadogKIFTestCase: KIFTestCase {
         super.beforeEach()
 
         window = UIWindow()
+        window.layer.speed = 100
         window.makeKeyAndVisible()
         madog = Madog()
         madog.resolve(resolver: TestResolver())

@@ -24,7 +24,7 @@ class MadogCustomisationTests: MadogKIFTestCase {
         let context = madog.renderUI(identifier: .basic, tokenData: .single("vc1"), in: window) as? BasicUIContext
 
         waitForAbsenceOfTitle(token: "CUSTOMISED")
-        _ = context?.openModal(identifier: .navigation, tokenData: .single("vc1"), animated: true, customisation: customise(viewController:))
+        _ = context?.openModal(identifier: .basic, tokenData: .single("vc1"), animated: true, customisation: customise(viewController:))
 
         waitForTitle(token: "CUSTOMISED")
     }

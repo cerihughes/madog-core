@@ -214,7 +214,7 @@ class MadogUIContainerTests: MadogKIFTestCase {
 
         let modalContext = modalToken!.context
         let completionExpectation = expectation(description: "Completion fired")
-        modalContext?.close(animated: true, completion: { completionExpectation.fulfill() })
+        modalContext.close(animated: true, completion: { completionExpectation.fulfill() })
         waitForExpectations(timeout: 10)
     }
 

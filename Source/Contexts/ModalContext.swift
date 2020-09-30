@@ -13,7 +13,6 @@ public protocol ModalContext: AnyObject {
     @discardableResult
     func openModal<VC, TD>(identifier: MadogUIIdentifier<VC, TD>,
                            tokenData: TD,
-                           from fromViewController: UIViewController?,
                            presentationStyle: UIModalPresentationStyle?,
                            transitionStyle: UIModalTransitionStyle?,
                            popoverAnchor: Any?,
@@ -32,7 +31,6 @@ public extension ModalContext {
     @discardableResult
     func openModal<VC, TD>(identifier: MadogUIIdentifier<VC, TD>,
                            tokenData: TD,
-                           from fromViewController: UIViewController? = nil,
                            presentationStyle: UIModalPresentationStyle? = nil,
                            transitionStyle: UIModalTransitionStyle? = nil,
                            popoverAnchor: Any? = nil,
@@ -41,7 +39,6 @@ public extension ModalContext {
                            completion: CompletionBlock? = nil) -> ModalToken? where VC: UIViewController, TD: TokenData {
         openModal(identifier: identifier,
                   tokenData: tokenData,
-                  from: fromViewController,
                   presentationStyle: presentationStyle,
                   transitionStyle: transitionStyle,
                   popoverAnchor: popoverAnchor,
@@ -57,14 +54,14 @@ public extension ModalContext {
 }
 
 public protocol ModalToken {
-    var context: Context? { get }
+    var context: Context { get }
 }
 
 internal class ModalTokenImplementation: ModalToken {
     internal let viewController: UIViewController
-    weak var context: Context?
+    let context: Context
 
-    internal init(viewController: UIViewController, context: Context? = nil) {
+    internal init(viewController: UIViewController, context: Context) {
         self.viewController = viewController
         self.context = context
     }

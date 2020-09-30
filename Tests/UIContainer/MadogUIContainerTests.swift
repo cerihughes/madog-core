@@ -19,7 +19,7 @@ class MadogUIContainerTests: MadogKIFTestCase {
         waitForLabel(token: "vc1")
         XCTAssertNotNil(context)
 
-        context?.close(animated: false)
+        context?.close(animated: true)
         XCTAssertNil(context)
     }
 
@@ -31,7 +31,7 @@ class MadogUIContainerTests: MadogKIFTestCase {
         weak var modalContext = createModalContext(context: context!, token: "vc2")
         XCTAssertNotNil(modalContext)
 
-        modalContext?.close(animated: false)
+        modalContext?.close(animated: true)
         XCTAssertNotNil(context)
         XCTAssertNil(modalContext)
     }

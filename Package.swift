@@ -15,5 +15,5 @@ let package = Package(name: "Madog",
                                   path: "Source"),
                           .testTarget(name: "MadogTests",
                                       dependencies: ["Madog"],
-                                      path: "Tests"),
+                                      path: "Tests")
                       ])

@@ -52,9 +52,7 @@ private class TestResolver: Resolver<String> {
     }
 
     override func viewControllerProviderFunctions() -> [() -> ViewControllerProvider<String>] {
-        [
-            { TestViewControllerProvider(matchString: "match") }
-        ]
+        [ { TestViewControllerProvider(matchString: "match") } ]
     }
 }
 

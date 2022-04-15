@@ -1,0 +1,33 @@
+name: Build Sample App
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: macos-11
+
+    steps:
+      # Xcode select
+      - run: sudo xcode-select -switch /Applications/Xcode_12.4.app
+
+      # Caching
+      - name: SPM Cache
+        uses: actions/cache@v2
+        with:
+          path: SPM
+          key: ${{ runner.os }}-spm-xcode12_4-${{ hashFiles('**/Package.resolved') }}
+          restore-keys: |
+            ${{ runner.os }}-spm-xcode12_4-
+
+      # Install dependencies
+      - run: brew install swiftlint || true
+      - run: brew outdated swiftlint || brew upgrade swiftlint
+
+      # Checkout
+      - uses: actions/checkout@v1
+        with:
+          submodules: recursive
+
+      # Build sample app
+      - run: set -o pipefail
+      - run: xcodebuild clean build -project SampleApp/SampleApp.xcodeproj -scheme SampleApp -sdk iphonesimulator CODE_SIGNING_REQUIRED=NO

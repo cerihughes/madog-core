@@ -1,4 +1,4 @@
-name: Build and test
+name: Test Xcode 12.4 iOS 14.4
 
 on: [push, pull_request]
 
@@ -31,13 +31,10 @@ jobs:
       # Build and test
       - run: set -o pipefail
       - run: mkdir build
-      - run: xcodebuild clean test -project Madog.xcodeproj -scheme Madog -destination "OS=14.4,name=iPhone 11" -destination "OS=14.4,name=iPad (8th generation)" -sdk iphonesimulator CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=YES VALID_ARCHS=x86_64
+      - run: xcodebuild clean test -project Madog.xcodeproj -scheme Madog -destination "OS=14.4,name=iPhone 11" -destination "OS=14.4,name=iPad (8th generation)" -sdk iphonesimulator CODE_SIGNING_REQUIRED=NO
       - name: Codecov
         uses: codecov/codecov-action@v1.0.13
 
       # Build SPM
       - run: swift package generate-xcodeproj --output MadogSPM.xcodeproj
-      - run: xcodebuild clean build -project MadogSPM.xcodeproj -scheme Madog-Package -sdk iphonesimulator CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=YES VALID_ARCHS=x86_64
-
-      # Build sample app
-      - run: xcodebuild clean build -project SampleApp/SampleApp.xcodeproj -scheme SampleApp -sdk iphonesimulator CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=YES VALID_ARCHS=x86_64
+      - run: xcodebuild clean build -project MadogSPM.xcodeproj -scheme Madog-Package -sdk iphonesimulator CODE_SIGNING_REQUIRED=NO

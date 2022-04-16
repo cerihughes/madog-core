@@ -5,7 +5,7 @@ on: [pull_request]
 jobs:
   reviewdog:
     name: reviewdog
-    runs-on: macOS-latest
+    runs-on: macos-11
     steps:
       - run: brew install swiftlint reviewdog/tap/reviewdog || true
       - run: brew outdated swiftlint || brew upgrade swiftlint

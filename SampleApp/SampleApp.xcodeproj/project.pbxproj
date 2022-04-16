@@ -26,7 +26,6 @@
 		651C7D09227DEEB3002B72EC /* ViewController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651C7CF4227DEE05002B72EC /* ViewController2.swift */; };
 		651C7D0A227DEEB8002B72EC /* LogoutViewControllerProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651C7CF9227DEE05002B72EC /* LogoutViewControllerProvider.swift */; };
 		651C7D0B227DEEBB002B72EC /* LogoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651C7CFA227DEE05002B72EC /* LogoutViewController.swift */; };
-		651C7D0D227DEED7002B72EC /* Provident.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 651C7D0C227DEED7002B72EC /* Provident.framework */; };
 		651C7D0E227DEEEB002B72EC /* Madog.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 651C7CDD227DED7E002B72EC /* Madog.framework */; };
 		651C7D10227DF24D002B72EC /* LoginViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 651C7CF1227DEE05002B72EC /* LoginViewController.storyboard */; };
 /* End PBXBuildFile section */
@@ -95,7 +94,6 @@
 		651C7CFA227DEE05002B72EC /* LogoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutViewController.swift; sourceTree = "<group>"; };
 		651C7CFC227DEE05002B72EC /* ResourceProvider1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceProvider1.swift; sourceTree = "<group>"; };
 		651C7CFD227DEE05002B72EC /* AuthenticatorProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticatorProvider.swift; sourceTree = "<group>"; };
-		651C7D0C227DEED7002B72EC /* Provident.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Provident.framework; path = ../Carthage/Build/iOS/Provident.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,7 +101,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				651C7D0D227DEED7002B72EC /* Provident.framework in Frameworks */,
 				651C7D0E227DEEEB002B72EC /* Madog.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -169,7 +166,6 @@
 		651C7CC5227DECFB002B72EC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				651C7D0C227DEED7002B72EC /* Provident.framework */,
 				651C7CD5227DED7E002B72EC /* Madog.xcodeproj */,
 			);
 			name = Frameworks;
@@ -259,7 +255,6 @@
 				65C774F0252616B400B0F970 /* swiftlint */,
 				651C7C91227DECBA002B72EC /* Frameworks */,
 				651C7C92227DECBA002B72EC /* Resources */,
-				651C7D0F227DEEFE002B72EC /* Copy Carthage Frameworks */,
 			);
 			buildRules = (
 			);
@@ -378,25 +373,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		651C7D0F227DEEFE002B72EC /* Copy Carthage Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"$(SRCROOT)/../Carthage/Build/iOS/Provident.framework",
-			);
-			name = "Copy Carthage Frameworks";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "/usr/local/bin/carthage copy-frameworks\n";
-		};
 		65C774F0252616B400B0F970 /* swiftlint */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -601,7 +577,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Y56955G4Q8;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
-				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../Carthage/Build/iOS";
 				INFOPLIST_FILE = SampleApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -622,7 +597,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Y56955G4Q8;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
-				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../Carthage/Build/iOS";
 				INFOPLIST_FILE = SampleApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (

@@ -16,6 +16,5 @@ jobs:
           submodules: recursive
 
       # Build SPM
-      - run: swift test
       - run: swift package generate-xcodeproj --output MadogSPM.xcodeproj
       - run: xcodebuild clean build -project MadogSPM.xcodeproj -scheme Madog-Package -sdk iphonesimulator CODE_SIGNING_REQUIRED=NO

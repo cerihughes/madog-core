@@ -1,23 +1,26 @@
-name: Test Xcode 11.7 iOS 13.7
+name: Test Xcode 12.4 iOS 12.4
 
 on: [push, pull_request]
 
 jobs:
   build:
-    runs-on: macos-11
+    runs-on: macos-10.15
 
     steps:
       # Xcode select
-      - run: sudo xcode-select -switch /Applications/Xcode_11.7.app
+      - run: sudo xcode-select -switch /Applications/Xcode_12.4.app
+      - run: |
+          sudo mkdir -p /Library/Developer/CoreSimulator/Profiles/Runtimes
+          sudo ln -s /Applications/Xcode_10.3.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/Library/CoreSimulator/Profiles/Runtimes/iOS.simruntime /Library/Developer/CoreSimulator/Profiles/Runtimes/iOS\ 12.4.simruntime
 
       # Caching
       - name: SPM Cache
         uses: actions/cache@v2
         with:
           path: SPM
-          key: ${{ runner.os }}-spm-xcode11_7-${{ hashFiles('**/Package.resolved') }}
+          key: ${{ runner.os }}-spm-xcode12_4-${{ hashFiles('**/Package.resolved') }}
           restore-keys: |
-            ${{ runner.os }}-spm-xcode11_7-
+            ${{ runner.os }}-spm-xcode12_4-
 
       # Install dependencies
       - run: brew install swiftlint || true
@@ -31,7 +34,7 @@ jobs:
       # Build and test
       - run: set -o pipefail
       - run: mkdir build
-      - run: xcodebuild clean test -project Madog.xcodeproj -scheme Madog -destination "OS=13.7,name=iPhone 11" -destination "OS=13.7,name=iPad (7th generation)" -sdk iphonesimulator CODE_SIGNING_REQUIRED=NO
+      - run: xcodebuild clean test -project Madog.xcodeproj -scheme Madog -destination "OS=12.4,name=iPhone X" -destination "OS=12.4,name=iPad (6th generation)" -sdk iphonesimulator
       - name: Codecov
         uses: codecov/codecov-action@v1.0.13
 

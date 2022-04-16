@@ -37,7 +37,3 @@ jobs:
       - run: xcodebuild clean test -project Madog.xcodeproj -scheme Madog -destination "OS=13.7,name=iPhone 11" -destination "OS=13.7,name=iPad (7th generation)" -sdk iphonesimulator CODE_SIGNING_REQUIRED=NO
       - name: Codecov
         uses: codecov/codecov-action@v1.0.13
-
-      # Build SPM
-      - run: swift package generate-xcodeproj --output MadogSPM.xcodeproj
-      - run: xcodebuild clean build -project MadogSPM.xcodeproj -scheme Madog-Package -sdk iphonesimulator CODE_SIGNING_REQUIRED=NO

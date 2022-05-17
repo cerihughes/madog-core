@@ -11,7 +11,7 @@ let package = Package(name: "Madog",
                       ],
                       targets: [
                           .target(name: "Madog",
-                                  dependencies: ["Provident"],
+                                  dependencies: [.product(name: "Provident", package: "provident")],
                                   path: "Source"),
                           .testTarget(name: "MadogTests",
                                       dependencies: ["Madog"],

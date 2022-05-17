@@ -1,8 +1,8 @@
-// swift-tools-version:5.0
+// swift-tools-version:5.3
 import PackageDescription
 
 let package = Package(name: "Madog",
-                      platforms: [.iOS(.v12)],
+                      platforms: [.iOS(.v13)],
                       products: [
                           .library(name: "Madog", targets: ["Madog"])
                       ],
@@ -11,7 +11,7 @@ let package = Package(name: "Madog",
                       ],
                       targets: [
                           .target(name: "Madog",
-                                  dependencies: ["Provident"],
+                                  dependencies: [.product(name: "Provident", package: "provident")],
                                   path: "Source"),
                           .testTarget(name: "MadogTests",
                                       dependencies: ["Madog"],

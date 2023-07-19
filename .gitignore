@@ -9,6 +9,7 @@
 build/
 DerivedData/
 Carthage/
+Madog.xcodeproj/
 MadogSPM.xcodeproj/
 
 ## Various settings

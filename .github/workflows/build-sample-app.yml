@@ -32,4 +32,6 @@ jobs:
       # Build sample app
       - run: set -o pipefail
       - run: xcodegen
-      - run: xcodebuild clean build -project SampleApp/SampleApp.xcodeproj -scheme SampleApp -sdk iphonesimulator CODE_SIGNING_REQUIRED=NO
+      - run: cd SampleApp
+      - run: xcodegen
+      - run: xcodebuild clean test -project SampleApp.xcodeproj -scheme SampleApp -destination "OS=15.2,name=iPhone 11" -sdk iphonesimulator CODE_SIGNING_REQUIRED=NO

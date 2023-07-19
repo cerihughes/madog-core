@@ -20,8 +20,9 @@ jobs:
             ${{ runner.os }}-spm-xcode13_2-
 
       # Install dependencies
-      - run: brew install swiftlint || true
+      - run: brew install swiftlint xcodegen || true
       - run: brew outdated swiftlint || brew upgrade swiftlint
+      - run: brew outdated xcodegen || brew upgrade xcodegen
 
       # Checkout
       - uses: actions/checkout@v1
@@ -31,6 +32,7 @@ jobs:
       # Build and test
       - run: set -o pipefail
       - run: mkdir build
+      - run: xcodegen
       - run: xcodebuild clean test -project Madog.xcodeproj -scheme Madog -destination "OS=15.2,name=iPhone 11" -destination "OS=15.2,name=iPad (9th generation)" -sdk iphonesimulator CODE_SIGNING_REQUIRED=NO
       - name: Codecov
         uses: codecov/codecov-action@v1.0.13

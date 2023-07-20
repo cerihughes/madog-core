@@ -18,7 +18,6 @@ class TabBarUITests: MadogKIFTestCase {
 
     override func afterEach() {
         context = nil
-
         super.afterEach()
     }
 

@@ -12,14 +12,14 @@ public struct SplitMultiUITokenData: TokenData {
     public let primaryToken: Any
     public let secondaryTokens: [Any]
 
-    public init<Token>(primaryToken: Token, secondaryTokens: [Token]) {
+    public init<T>(primaryToken: T, secondaryTokens: [T]) {
         self.primaryToken = primaryToken
         self.secondaryTokens = secondaryTokens
     }
 }
 
 public extension TokenData {
-    static func splitMulti<Token>(_ primaryToken: Token, _ secondaryTokens: [Token]) -> SplitMultiUITokenData {
+    static func splitMulti<T>(_ primaryToken: T, _ secondaryTokens: [T]) -> SplitMultiUITokenData {
         SplitMultiUITokenData(primaryToken: primaryToken, secondaryTokens: secondaryTokens)
     }
 }

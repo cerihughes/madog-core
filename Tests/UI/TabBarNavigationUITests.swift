@@ -18,7 +18,6 @@ class TabBarNavigationUITests: MadogKIFTestCase {
 
     override func afterEach() {
         context = nil
-
         super.afterEach()
     }
 
@@ -75,10 +74,12 @@ class TabBarNavigationUITests: MadogKIFTestCase {
         waitForLabel(token: "vc1")
         XCTAssertNotNil(context)
 
-        let modalToken = context!.openModal(identifier: .tabBarNavigation,
-                                            tokenData: .multi(["vc2", "vc3"]),
-                                            presentationStyle: .formSheet,
-                                            animated: true)
+        let modalToken = context!.openModal(
+            identifier: .tabBarNavigation,
+            tokenData: .multi(["vc2", "vc3"]),
+            presentationStyle: .formSheet,
+            animated: true
+        )
         waitForTitle(token: "vc2")
         waitForLabel(token: "vc2")
         waitForTitle(token: "vc3")

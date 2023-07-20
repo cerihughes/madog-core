@@ -10,12 +10,14 @@ import UIKit
 
 // swiftlint:disable function_parameter_count
 internal extension UIViewController {
-    func madog_presentModally(viewController: UIViewController,
-                              presentationStyle: UIModalPresentationStyle?,
-                              transitionStyle: UIModalTransitionStyle?,
-                              popoverAnchor: Any?,
-                              animated: Bool,
-                              completion: CompletionBlock?) {
+    func madog_presentModally(
+        viewController: UIViewController,
+        presentationStyle: UIModalPresentationStyle?,
+        transitionStyle: UIModalTransitionStyle?,
+        popoverAnchor: Any?,
+        animated: Bool,
+        completion: CompletionBlock?
+    ) {
         if let presentationStyle = presentationStyle {
             viewController.modalPresentationStyle = presentationStyle
         }
@@ -37,3 +39,4 @@ internal extension UIViewController {
         present(viewController, animated: animated, completion: completion)
     }
 }
+// swiftlint:enable function_parameter_count

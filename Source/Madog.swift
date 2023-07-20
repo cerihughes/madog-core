@@ -13,56 +13,65 @@ public typealias NavigationUIContext = BasicUIContext & ForwardBackNavigationCon
 public typealias TabBarUIContext = BasicUIContext & MultiContext
 public typealias TabBarNavigationUIContext = TabBarUIContext & ForwardBackNavigationContext
 
-public final class Madog<Token>: MadogUIContainerDelegate {
-    private let registry = Registry<Token>()
-    private let registrar: Registrar<Token>
-    private let factory: MadogUIContainerFactory<Token>
+public final class Madog<T>: MadogUIContainerDelegate {
+    private let registry = Registry<T>()
+    private let registrar: Registrar<T>
+    private let factory: MadogUIContainerFactory<T>
 
     private var currentContainer: MadogUIContainer?
     private var modalContainers = [UIViewController: Context]()
 
     public init() {
         registrar = Registrar(registry: registry)
-        factory = MadogUIContainerFactory<Token>(registry: registry)
+        factory = MadogUIContainerFactory<T>(registry: registry)
     }
 
-    public func resolve(resolver: Resolver<Token>, launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) {
+    public func resolve(resolver: Resolver<T>, launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) {
         registrar.resolve(resolver: resolver, launchOptions: launchOptions)
     }
 
     @discardableResult
-    public func addUICreationFunction(identifier: String, function: @escaping SingleVCUIRegistryFunction<Token>) -> Bool {
+    public func addUICreationFunction(identifier: String, function: @escaping SingleVCUIRegistryFunction<T>) -> Bool {
         factory.addUICreationFunction(identifier: identifier, function: function)
     }
 
     @discardableResult
-    public func addUICreationFunction(identifier: String, function: @escaping MultiVCUIRegistryFunction<Token>) -> Bool {
+    public func addUICreationFunction(identifier: String, function: @escaping MultiVCUIRegistryFunction<T>) -> Bool {
         factory.addUICreationFunction(identifier: identifier, function: function)
     }
 
     @discardableResult
-    public func addUICreationFunction(identifier: String, function: @escaping SplitSingleVCUIRegistryFunction<Token>) -> Bool {
+    public func addUICreationFunction(
+        identifier: String,
+        function: @escaping SplitSingleVCUIRegistryFunction<T>
+    ) -> Bool {
         factory.addUICreationFunction(identifier: identifier, function: function)
     }
 
     @discardableResult
-    public func addUICreationFunction(identifier: String, function: @escaping SplitMultiVCUIRegistryFunction<Token>) -> Bool {
+    public func addUICreationFunction(
+        identifier: String,
+        function: @escaping SplitMultiVCUIRegistryFunction<T>
+    ) -> Bool {
         factory.addUICreationFunction(identifier: identifier, function: function)
     }
 
     @discardableResult
-    public func renderUI<VC, TD>(identifier: MadogUIIdentifier<VC, TD>,
-                                 tokenData: TD,
-                                 in window: UIWindow,
-                                 transition: Transition? = nil,
-                                 customisation: CustomisationBlock<VC>? = nil) -> Context? where VC: UIViewController, TD: TokenData {
-        guard let context = createUI(identifier: identifier,
-                                     tokenData: tokenData,
-                                     isModal: false,
-                                     customisation: customisation)
-        else {
-            return nil
-        }
+    public func renderUI<VC, TD>(
+        identifier: MadogUIIdentifier<VC, TD>,
+        tokenData: TD,
+        in window: UIWindow,
+        transition: Transition? = nil,
+        customisation: CustomisationBlock<VC>? = nil
+    ) -> Context? where VC: UIViewController, TD: TokenData {
+        guard let context = createUI(
+            identifier: identifier,
+            tokenData: tokenData,
+            isModal: false,
+            customisation: customisation
+        )
+        else { return nil }
+
         window.setRootViewController(context.viewController, transition: transition)
         return context
     }
@@ -77,28 +86,23 @@ public final class Madog<Token>: MadogUIContainerDelegate {
 
     // MARK: - MadogUIContainerDelegate
 
-    func createUI<VC, TD>(identifier: MadogUIIdentifier<VC, TD>,
-                          tokenData: TD,
-                          isModal: Bool,
-                          customisation: CustomisationBlock<VC>?) -> MadogUIContainer? where VC: UIViewController, TD: TokenData {
-        guard let container = factory.createUI(identifier: identifier, tokenData: tokenData) else {
-            return nil
-        }
-
+    func createUI<VC, TD>(
+        identifier: MadogUIIdentifier<VC, TD>,
+        tokenData: TD,
+        isModal: Bool,
+        customisation: CustomisationBlock<VC>?
+    ) -> MadogUIContainer? where VC: UIViewController, TD: TokenData {
+        guard let container = factory.createUI(identifier: identifier, tokenData: tokenData) else { return nil }
         container.delegate = self
         persist(container: container, isModal: isModal)
 
-        guard let viewController = container.viewController as? VC else {
-            return nil
-        }
+        guard let viewController = container.viewController as? VC else { return nil }
         customisation?(viewController)
         return container
     }
 
     func context(for viewController: UIViewController) -> Context? {
-        if viewController == currentContainer?.viewController {
-            return currentContainer
-        }
+        if viewController == currentContainer?.viewController { return currentContainer }
         return modalContainers[viewController]
     }
 

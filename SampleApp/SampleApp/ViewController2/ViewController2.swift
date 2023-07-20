@@ -27,10 +27,7 @@ class ViewController2: UIViewController {
     }
 
     override func viewDidLoad() {
-        guard let view = view as? LabelView else {
-            return
-        }
-
+        guard let view = view as? LabelView else { return }
         view.label.text = stringData
 
         // Maybe do something with the shared service at this point?

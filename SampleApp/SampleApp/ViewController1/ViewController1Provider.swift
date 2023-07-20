@@ -23,12 +23,11 @@ class ViewController1Provider: SingleViewControllerProvider<SampleToken> {
     }
 
     override func createViewController(token: SampleToken, context: Context) -> UIViewController? {
-        guard let sharedService = sharedService,
+        guard
+            let sharedService = sharedService,
             token.identifier == vc1Identifier,
             let context = context as? ForwardBackNavigationContext
-        else {
-            return nil
-        }
+        else { return nil }
 
         let viewController = ViewController1(sharedService: sharedService, context: context)
         viewController.tabBarItem = UITabBarItem(tabBarSystemItem: .bookmarks, tag: 0)

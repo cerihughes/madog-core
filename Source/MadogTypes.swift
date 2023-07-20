@@ -8,10 +8,10 @@
 
 import Provident
 
-public typealias Registry<Token> = Provident.Registry<Token, Context>
-public typealias Registrar<Token> = Provident.Registrar<Token, Context>
-public typealias ViewControllerProvider<Token> = Provident.ViewControllerProvider<Token, Context>
-public typealias SingleViewControllerProvider<Token> = Provident.SingleViewControllerProvider<Token, Context>
-public typealias Resolver<Token> = Provident.Resolver<Token, Context>
+public typealias Registry<T> = Provident.Registry<T, Context>
+public typealias Registrar<T> = Provident.Registrar<T, Context>
+public typealias ViewControllerProvider<T> = Provident.ViewControllerProvider<T, Context>
+public typealias SingleViewControllerProvider<T> = Provident.SingleViewControllerProvider<T, Context>
+public typealias Resolver<T> = Provident.Resolver<T, Context>
 public typealias ServiceProvider = Provident.ServiceProvider
 public typealias ServiceProviderCreationContext = Provident.ServiceProviderCreationContext

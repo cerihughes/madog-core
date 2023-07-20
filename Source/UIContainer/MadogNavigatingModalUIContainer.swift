@@ -8,7 +8,7 @@
 
 import UIKit
 
-open class MadogNavigatingModalUIContainer<Token>: MadogModalUIContainer<Token>, ForwardBackNavigationContext {
+open class MadogNavigatingModalUIContainer<T>: MadogModalUIContainer<T>, ForwardBackNavigationContext {
     open func provideNavigationController() -> UINavigationController? {
         // OVERRIDE
         nil
@@ -17,7 +17,7 @@ open class MadogNavigatingModalUIContainer<Token>: MadogModalUIContainer<Token>,
     // MARK: - ForwardBackNavigationContext
 
     public func navigateForward(token: Any, animated: Bool) -> Bool {
-        guard let token = token as? Token,
+        guard let token = token as? T,
             let toViewController = registry.createViewController(from: token, context: self),
             let navigationController = provideNavigationController()
         else {

@@ -8,11 +8,11 @@
 
 import UIKit
 
-open class MadogModalUIContainer<Token>: MadogUIContainer, ModalContext {
-    public private(set) var registry: Registry<Token>
+open class MadogModalUIContainer<T>: MadogUIContainer, ModalContext {
+    public private(set) var registry: Registry<T>
     public var modalPresentation: ModalPresentation = DefaultModalPresentation()
 
-    public init(registry: Registry<Token>, viewController: UIViewController) {
+    public init(registry: Registry<T>, viewController: UIViewController) {
         self.registry = registry
         super.init(viewController: viewController)
     }

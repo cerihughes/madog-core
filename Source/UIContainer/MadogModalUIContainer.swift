@@ -17,8 +17,10 @@ open class MadogModalUIContainer<T>: MadogUIContainer, ModalContext {
         super.init(viewController: viewController)
     }
 
-    override public func close(animated: Bool,
-                               completion: CompletionBlock?) -> Bool {
+    override public func close(
+        animated: Bool,
+        completion: CompletionBlock?
+    ) -> Bool {
         closeContext(presentedViewController: viewController, animated: animated, completion: completion)
         return true
     }
@@ -26,47 +28,55 @@ open class MadogModalUIContainer<T>: MadogUIContainer, ModalContext {
     // MARK: - ModalContext
 
     // swiftlint:disable function_parameter_count
-    public func openModal<VC, TD>(identifier: MadogUIIdentifier<VC, TD>,
-                                  tokenData: TD,
-                                  presentationStyle: UIModalPresentationStyle?,
-                                  transitionStyle: UIModalTransitionStyle?,
-                                  popoverAnchor: Any?,
-                                  animated: Bool,
-                                  customisation: CustomisationBlock<VC>?,
-                                  completion: CompletionBlock?) -> ModalToken? where VC: UIViewController, TD: TokenData {
-        guard let delegate = delegate,
-            let container = delegate.createUI(identifier: identifier, tokenData: tokenData, isModal: true, customisation: customisation)
-        else {
-            return nil
-        }
+    public func openModal<VC, TD>(
+        identifier: MadogUIIdentifier<VC, TD>,
+        tokenData: TD,
+        presentationStyle: UIModalPresentationStyle?,
+        transitionStyle: UIModalTransitionStyle?,
+        popoverAnchor: Any?,
+        animated: Bool,
+        customisation: CustomisationBlock<VC>?,
+        completion: CompletionBlock?
+    ) -> ModalToken? where VC: UIViewController, TD: TokenData {
+        guard
+            let delegate = delegate,
+            let container = delegate.createUI(
+                identifier: identifier,
+                tokenData: tokenData,
+                isModal: true,
+                customisation: customisation
+            )
+        else { return nil }
 
         let presentedViewController = container.viewController
-        let result = modalPresentation.presentModally(presenting: viewController,
-                                                      modal: presentedViewController,
-                                                      presentationStyle: presentationStyle,
-                                                      transitionStyle: transitionStyle,
-                                                      popoverAnchor: popoverAnchor,
-                                                      animated: animated,
-                                                      completion: completion)
+        let result = modalPresentation.presentModally(
+            presenting: viewController,
+            modal: presentedViewController,
+            presentationStyle: presentationStyle,
+            transitionStyle: transitionStyle,
+            popoverAnchor: popoverAnchor,
+            animated: animated,
+            completion: completion
+        )
         return result ? createModalToken(viewController: presentedViewController, context: container) : nil
     }
-
     // swiftlint:enable function_parameter_count
 
-    public func closeModal(token: ModalToken,
-                           animated: Bool,
-                           completion: CompletionBlock?) -> Bool {
-        guard let token = token as? ModalTokenImplementation else {
-            return false
-        }
-
+    public func closeModal(
+        token: ModalToken,
+        animated: Bool,
+        completion: CompletionBlock?
+    ) -> Bool {
+        guard let token = token as? ModalTokenImplementation else { return false }
         closeContext(presentedViewController: token.viewController, animated: animated, completion: completion)
         return true
     }
 
-    private func closeContext(presentedViewController: UIViewController,
-                              animated: Bool = false,
-                              completion: CompletionBlock? = nil) {
+    private func closeContext(
+        presentedViewController: UIViewController,
+        animated: Bool = false,
+        completion: CompletionBlock? = nil
+    ) {
         if let presentedPresentedViewController = presentedViewController.presentedViewController {
             closeContext(presentedViewController: presentedPresentedViewController, animated: animated)
         }

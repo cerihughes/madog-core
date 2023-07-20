@@ -18,7 +18,6 @@ class BasicUITests: MadogKIFTestCase {
 
     override func afterEach() {
         context = nil
-
         super.afterEach()
     }
 

@@ -31,10 +31,7 @@ class ViewController1: UIViewController {
     }
 
     override func viewDidLoad() {
-        guard let view = view as? ButtonView else {
-            return
-        }
-
+        guard let view = view as? ButtonView else { return }
         view.button.setTitle("Push", for: .normal)
         view.button.addTarget(self, action: #selector(buttonTapGesture(sender:)), for: .touchUpInside)
     }

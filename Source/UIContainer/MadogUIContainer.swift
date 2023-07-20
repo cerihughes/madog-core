@@ -9,10 +9,13 @@
 import UIKit
 
 internal protocol MadogUIContainerDelegate: AnyObject {
-    func createUI<VC, TD>(identifier: MadogUIIdentifier<VC, TD>,
-                          tokenData: TD,
-                          isModal: Bool,
-                          customisation: CustomisationBlock<VC>?) -> MadogUIContainer? where VC: UIViewController, TD: TokenData
+    func createUI<VC, TD>(
+        identifier: MadogUIIdentifier<VC, TD>,
+        tokenData: TD,
+        isModal: Bool,
+        customisation: CustomisationBlock<VC>?
+    ) -> MadogUIContainer? where VC: UIViewController,
+        TD: TokenData
 
     func context(for viewController: UIViewController) -> Context?
     func releaseContext(for viewController: UIViewController)
@@ -29,9 +32,7 @@ open class MadogUIContainer: Context {
     // MARK: - Context
 
     public var presentingContext: Context? {
-        guard let presentingViewController = viewController.presentingViewController else {
-            return nil
-        }
+        guard let presentingViewController = viewController.presentingViewController else { return nil }
         return delegate?.context(for: presentingViewController)
     }
 
@@ -40,19 +41,22 @@ open class MadogUIContainer: Context {
         false
     }
 
-    public func change<VC, TD>(to identifier: MadogUIIdentifier<VC, TD>,
-                               tokenData: TD,
-                               transition: Transition?,
-                               customisation: CustomisationBlock<VC>?) -> Context? where VC: UIViewController, TD: TokenData {
-        guard let delegate = delegate,
+    public func change<VC, TD>(
+        to identifier: MadogUIIdentifier<VC, TD>,
+        tokenData: TD,
+        transition: Transition?,
+        customisation: CustomisationBlock<VC>?
+    ) -> Context? where VC: UIViewController, TD: TokenData {
+        guard
+            let delegate = delegate,
             let window = viewController.resolvedWindow,
-            let container = delegate.createUI(identifier: identifier,
-                                              tokenData: tokenData,
-                                              isModal: false,
-                                              customisation: customisation)
-        else {
-            return nil
-        }
+            let container = delegate.createUI(
+                identifier: identifier,
+                tokenData: tokenData,
+                isModal: false,
+                customisation: customisation
+            )
+        else { return nil }
 
         window.setRootViewController(container.viewController, transition: transition)
         return container

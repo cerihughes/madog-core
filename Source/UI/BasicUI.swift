@@ -14,10 +14,7 @@ internal class BasicUI<T>: MadogModalUIContainer<T> {
     internal init?(registry: Registry<T>, token: T) {
         super.init(registry: registry, viewController: containerController)
 
-        guard let viewController = registry.createViewController(from: token, context: self) else {
-            return nil
-        }
-
+        guard let viewController = registry.createViewController(from: token, context: self) else { return nil }
         containerController.contentViewController = viewController
     }
 }
@@ -43,10 +40,7 @@ open class BasicUIContainerViewController: UIViewController {
     }
 
     private func addContentViewController(_ viewController: UIViewController?) {
-        guard let viewController = viewController else {
-            return
-        }
-
+        guard let viewController = viewController else { return }
         viewController.willMove(toParent: self)
 
         addChild(viewController)

@@ -17,7 +17,8 @@ internal class TabBarNavigationUI<T>: MadogNavigatingModalUIContainer<T>, MultiC
     internal init(registry: Registry<T>, tokens: [T]) {
         super.init(registry: registry, viewController: tabBarController)
 
-        let viewControllers = tokens.compactMap { registry.createViewController(from: $0, context: self) }
+        let viewControllers = tokens
+            .compactMap { registry.createViewController(from: $0, context: self) }
             .map { UINavigationController(rootViewController: $0) }
 
         tabBarController.viewControllers = viewControllers

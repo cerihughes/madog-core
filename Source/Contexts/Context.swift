@@ -28,10 +28,12 @@ public protocol Context: AnyObject {
     func close(animated: Bool, completion: CompletionBlock?) -> Bool
 
     @discardableResult
-    func change<VC, TD>(to identifier: MadogUIIdentifier<VC, TD>,
-                        tokenData: TD,
-                        transition: Transition?,
-                        customisation: CustomisationBlock<VC>?) -> Context? where VC: UIViewController, TD: TokenData
+    func change<VC, TD>(
+        to identifier: MadogUIIdentifier<VC, TD>,
+        tokenData: TD,
+        transition: Transition?,
+        customisation: CustomisationBlock<VC>?
+    ) -> Context? where VC: UIViewController, TD: TokenData
 }
 
 public extension Context {
@@ -41,10 +43,12 @@ public extension Context {
     }
 
     @discardableResult
-    func change<VC, TD>(to identifier: MadogUIIdentifier<VC, TD>,
-                        tokenData: TD,
-                        transition: Transition? = nil,
-                        customisation: CustomisationBlock<VC>? = nil) -> Context? where VC: UIViewController, TD: TokenData {
+    func change<VC, TD>(
+        to identifier: MadogUIIdentifier<VC, TD>,
+        tokenData: TD,
+        transition: Transition? = nil,
+        customisation: CustomisationBlock<VC>? = nil
+    ) -> Context? where VC: UIViewController, TD: TokenData {
         change(to: identifier, tokenData: tokenData, transition: transition, customisation: customisation)
     }
 }

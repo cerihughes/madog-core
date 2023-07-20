@@ -16,10 +16,6 @@ let package = Package(
             dependencies: [.product(name: "Provident", package: "provident")],
             path: "Source"
         ),
-        .testTarget(
-            name: "MadogTests",
-            dependencies: ["Madog"],
-            path: "Tests"
-        )
+        .testTarget(name: "MadogTests", dependencies: ["Madog"], path: "Tests")
     ]
 )

@@ -29,8 +29,8 @@ class MadogUIContainerFactory<T> {
         _ = addUICreationFunction(identifier: .tabBarNavigation(), function: TabBarNavigationUI.init(registry:tokens:))
     }
 
-    func addUICreationFunction(
-        identifier: MadogUIIdentifier<some ViewController, some Context<T>, SingleUITokenData<T>, T>,
+    func addUICreationFunction<C>(
+        identifier: MadogUIIdentifier<some ViewController, C, SingleUITokenData<T>, T>,
         function: @escaping SingleVCUIRegistryFunction<T>
     ) -> Bool {
         guard singleVCUIRegistry[identifier.value] == nil else { return false }
@@ -38,8 +38,8 @@ class MadogUIContainerFactory<T> {
         return true
     }
 
-    func addUICreationFunction(
-        identifier: MadogUIIdentifier<some ViewController, some Context<T>, MultiUITokenData<T>, T>,
+    func addUICreationFunction<C>(
+        identifier: MadogUIIdentifier<some ViewController, C, MultiUITokenData<T>, T>,
         function: @escaping MultiVCUIRegistryFunction<T>
     ) -> Bool {
         guard multiVCUIRegistry[identifier.value] == nil else { return false }
@@ -47,8 +47,8 @@ class MadogUIContainerFactory<T> {
         return true
     }
 
-    func addUICreationFunction(
-        identifier: MadogUIIdentifier<some ViewController, some Context<T>, SplitSingleUITokenData<T>, T>,
+    func addUICreationFunction<C>(
+        identifier: MadogUIIdentifier<some ViewController, C, SplitSingleUITokenData<T>, T>,
         function: @escaping SplitSingleVCUIRegistryFunction<T>
     ) -> Bool {
         guard splitSingleVCUIRegistry[identifier.value] == nil else { return false }
@@ -56,8 +56,8 @@ class MadogUIContainerFactory<T> {
         return true
     }
 
-    func addUICreationFunction(
-        identifier: MadogUIIdentifier<some ViewController, some Context<T>, SplitMultiUITokenData<T>, T>,
+    func addUICreationFunction<C>(
+        identifier: MadogUIIdentifier<some ViewController, C, SplitMultiUITokenData<T>, T>,
         function: @escaping SplitMultiVCUIRegistryFunction<T>
     ) -> Bool {
         guard splitMultiVCUIRegistry[identifier.value] == nil else { return false }
@@ -65,8 +65,8 @@ class MadogUIContainerFactory<T> {
         return true
     }
 
-    func createUI<TD>(
-        identifier: MadogUIIdentifier<some UIViewController, some Context<T>, TD, T>,
+    func createUI<TD, C>(
+        identifier: MadogUIIdentifier<some UIViewController, C, TD, T>,
         tokenData: TD
     ) -> MadogUIContainer<T>? where TD: TokenData {
         if let td = tokenData as? SingleUITokenData<T> {

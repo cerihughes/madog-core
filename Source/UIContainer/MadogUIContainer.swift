@@ -18,7 +18,7 @@ protocol MadogUIContainerDelegate<T>: AnyObject {
         tokenData: TD,
         isModal: Bool,
         customisation: CustomisationBlock<VC>?
-    ) -> MadogUIContainer<T>? where VC: UIViewController, C: Context<T>, TD: TokenData
+    ) -> MadogUIContainer<T>? where VC: UIViewController, TD: TokenData
 
     func context(for viewController: UIViewController) -> AnyContext<T>?
     func releaseContext(for viewController: UIViewController)
@@ -49,7 +49,7 @@ open class MadogUIContainer<T>: Context {
         tokenData: TD,
         transition: Transition?,
         customisation: CustomisationBlock<VC>?
-    ) -> C? where VC: UIViewController, C: Context<T>, TD: TokenData {
+    ) -> C? where VC: UIViewController, TD: TokenData {
         guard
             let container = delegate?.createUI(
                 identifier: identifier,

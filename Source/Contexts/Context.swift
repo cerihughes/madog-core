@@ -36,7 +36,7 @@ public protocol Context<T>: AnyObject {
         tokenData: TD,
         transition: Transition?,
         customisation: CustomisationBlock<VC>?
-    ) -> C? where VC: UIViewController, C: Context<T>, TD: TokenData
+    ) -> C? where VC: UIViewController, TD: TokenData
 }
 
 public extension Context {
@@ -51,7 +51,7 @@ public extension Context {
         tokenData: TD,
         transition: Transition? = nil,
         customisation: CustomisationBlock<VC>? = nil
-    ) -> C? where VC: UIViewController, C: Context<T>, TD: TokenData {
+    ) -> C? where VC: UIViewController, TD: TokenData {
         change(to: identifier, tokenData: tokenData, transition: transition, customisation: customisation)
     }
 }

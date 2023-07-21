@@ -53,6 +53,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 }
 
-extension MadogUIIdentifier where VC == UISplitViewController, C == SplitUI<T>, TD == SplitSingleUITokenData<T> {
+typealias SplitUIContext<T> = ModalContext<T> & SplitContext<T>
+typealias AnySplitUIContext<T> = any SplitUIContext<T>
+extension MadogUIIdentifier
+where VC == UISplitViewController, C == AnySplitUIContext<T>, TD == SplitSingleUITokenData<T> {
     static func split() -> Self { MadogUIIdentifier("splitViewControllerIdentifier") }
 }

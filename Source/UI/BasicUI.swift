@@ -8,7 +8,7 @@
 
 import UIKit
 
-public class BasicUI<T>: MadogModalUIContainer<T> {
+class BasicUI<T>: MadogModalUIContainer<T> {
     private let containerController = BasicUIContainerViewController()
 
     init?(registry: AnyRegistry<T>, token: T) {

@@ -8,7 +8,7 @@
 
 import UIKit
 
-public class TabBarUI<T>: MadogModalUIContainer<T>, MultiContext {
+class TabBarUI<T>: MadogModalUIContainer<T>, MultiContext {
     private let tabBarController = UITabBarController()
 
     init(registry: AnyRegistry<T>, tokens: [T]) {
@@ -21,7 +21,7 @@ public class TabBarUI<T>: MadogModalUIContainer<T>, MultiContext {
 
     // MARK: - MultiContext
 
-    public var selectedIndex: Int {
+    var selectedIndex: Int {
         get { tabBarController.selectedIndex }
         set { tabBarController.selectedIndex = newValue }
     }

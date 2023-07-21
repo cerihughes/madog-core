@@ -257,7 +257,7 @@ class MadogUIContainerTests: MadogKIFTestCase {
     private func createModal(
         context: AnyModalContext<String>,
         token: String
-    ) -> AnyModalToken<String, BasicUI<String>>? {
+    ) -> AnyModalToken<AnyModalContext<String>>? {
         let modalToken = context.openModal(
             identifier: .basic(),
             tokenData: .single(token),
@@ -276,7 +276,7 @@ class MadogUIContainerTests: MadogKIFTestCase {
     private func createModal(
         context: AnyModalContext<String>,
         tokens: [String]
-    ) -> AnyModalToken<String, TabBarUI<String>>? {
+    ) -> AnyModalToken<AnyTabBarUIContext<String>>? {
         let modalToken = context.openModal(
             identifier: .tabBar(),
             tokenData: .multi(tokens),

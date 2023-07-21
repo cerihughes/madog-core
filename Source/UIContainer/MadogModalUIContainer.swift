@@ -37,7 +37,7 @@ open class MadogModalUIContainer<T>: MadogUIContainer<T>, ModalContext {
         animated: Bool,
         customisation: CustomisationBlock<VC>?,
         completion: CompletionBlock?
-    ) -> AnyModalToken<T, C>? where VC: UIViewController, C: Context<T>, TD: TokenData {
+    ) -> AnyModalToken<C>? where VC: UIViewController, TD: TokenData {
         guard
             let container = delegate?.createUI(
                 identifier: identifier,
@@ -63,11 +63,11 @@ open class MadogModalUIContainer<T>: MadogUIContainer<T>, ModalContext {
     // swiftlint:enable function_parameter_count
 
     public func closeModal<C>(
-        token: AnyModalToken<T, C>,
+        token: AnyModalToken<C>,
         animated: Bool,
         completion: CompletionBlock?
-    ) -> Bool where C: Context<T> {
-        guard let token = token as? ModalTokenImplementation<T, C> else { return false }
+    ) -> Bool {
+        guard let token = token as? ModalTokenImplementation<C> else { return false }
         closeContext(presentedViewController: token.viewController, animated: animated, completion: completion)
         return true
     }
@@ -88,7 +88,7 @@ open class MadogModalUIContainer<T>: MadogUIContainer<T>, ModalContext {
     public final func createModalToken<C>(
         viewController: UIViewController,
         context: C
-    ) -> AnyModalToken<T, C> where C: Context<T> {
+    ) -> AnyModalToken<C> {
         ModalTokenImplementation(viewController: viewController, context: context)
     }
 }

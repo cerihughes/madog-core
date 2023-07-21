@@ -23,11 +23,11 @@ public protocol ModalContext<T>: Context {
         animated: Bool,
         customisation: CustomisationBlock<VC>?,
         completion: CompletionBlock?
-    ) -> AnyModalToken<T, C>? where VC: UIViewController, C: Context<T>, TD: TokenData
+    ) -> AnyModalToken<C>? where VC: UIViewController, TD: TokenData
     // swiftlint:enable function_parameter_count
 
     @discardableResult
-    func closeModal(token: AnyModalToken<T, some Context<T>>, animated: Bool, completion: CompletionBlock?) -> Bool
+    func closeModal<C>(token: AnyModalToken<C>, animated: Bool, completion: CompletionBlock?) -> Bool
 }
 
 public extension ModalContext {
@@ -41,7 +41,7 @@ public extension ModalContext {
         animated: Bool,
         customisation: CustomisationBlock<VC>? = nil,
         completion: CompletionBlock? = nil
-    ) -> AnyModalToken<T, C>? where VC: UIViewController, C: Context<T>, TD: TokenData {
+    ) -> AnyModalToken<C>? where VC: UIViewController, TD: TokenData {
         openModal(
             identifier: identifier,
             tokenData: tokenData,
@@ -55,21 +55,20 @@ public extension ModalContext {
     }
 
     @discardableResult
-    func closeModal(token: AnyModalToken<T, some Context<T>>, animated: Bool) -> Bool {
+    func closeModal<C>(token: AnyModalToken<C>, animated: Bool) -> Bool {
         closeModal(token: token, animated: animated, completion: nil)
     }
 }
 
-public typealias AnyModalToken<T, C> = any ModalToken<T, C>
+public typealias AnyModalToken<C> = any ModalToken<C>
 
-public protocol ModalToken<T, C> where C: Context<T> {
-    associatedtype T
+public protocol ModalToken<C> {
     associatedtype C
 
     var context: C { get }
 }
 
-class ModalTokenImplementation<T, C>: ModalToken where C: Context<T> {
+class ModalTokenImplementation<C>: ModalToken {
     let viewController: UIViewController
     let context: C
 

@@ -9,7 +9,7 @@
 import Madog
 import UIKit
 
-protocol SplitContext: Context {
+protocol SplitContext<T>: Context {
     @discardableResult
     func showDetail(token: T) -> Bool
 }

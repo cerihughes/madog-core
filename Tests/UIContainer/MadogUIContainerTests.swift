@@ -15,7 +15,7 @@ import XCTest
 
 class MadogUIContainerTests: MadogKIFTestCase {
     func testCloseReleasesMainContext() {
-        weak var context = madog.renderUI(identifier: .basic, tokenData: .single("vc1"), in: window)
+        weak var context = madog.renderUI(identifier: .basic(), tokenData: .single("vc1"), in: window)
         waitForLabel(token: "vc1")
         XCTAssertNotNil(context)
 
@@ -24,7 +24,7 @@ class MadogUIContainerTests: MadogKIFTestCase {
     }
 
     func testCloseModalReleasesModalContext() {
-        weak var context = madog.renderUI(identifier: .basic, tokenData: .single("vc1"), in: window) as? ModalContext
+        weak var context = madog.renderUI(identifier: .basic(), tokenData: .single("vc1"), in: window)
         waitForLabel(token: "vc1")
         XCTAssertNotNil(context)
 
@@ -37,7 +37,7 @@ class MadogUIContainerTests: MadogKIFTestCase {
     }
 
     func testCloseMainReleasesBothContexts() {
-        weak var context = madog.renderUI(identifier: .basic, tokenData: .single("vc1"), in: window) as? BasicUIContext
+        weak var context = madog.renderUI(identifier: .basic(), tokenData: .single("vc1"), in: window)
         waitForLabel(token: "vc1")
         XCTAssertNotNil(context)
 
@@ -52,17 +52,17 @@ class MadogUIContainerTests: MadogKIFTestCase {
     }
 
     func testCloseWithNestedContexts() {
-        weak var context = madog.renderUI(identifier: .basic, tokenData: .single("vc1"), in: window) as? BasicUIContext
+        weak var context = madog.renderUI(identifier: .basic(), tokenData: .single("vc1"), in: window)
         waitForLabel(token: "vc1")
         XCTAssertNotNil(context)
 
-        weak var modal1Context = createModalContext(context: context!, token: "vc2") as? ModalContext
+        weak var modal1Context = createModalContext(context: context!, token: "vc2")
         XCTAssertNotNil(modal1Context)
 
-        weak var modal2Context = createModalContext(context: modal1Context!, token: "vc3") as? BasicUIContext
+        weak var modal2Context = createModalContext(context: modal1Context!, token: "vc3")
         XCTAssertNotNil(modal2Context)
 
-        weak var modal3Context = createModalContext(context: modal2Context!, token: "vc4") as? ModalContext
+        weak var modal3Context = createModalContext(context: modal2Context!, token: "vc4")
         XCTAssertNotNil(modal3Context)
 
         XCTAssertTrue(modal2Context!.close(animated: true)) // Closes modals vc3 and vc4
@@ -82,44 +82,44 @@ class MadogUIContainerTests: MadogKIFTestCase {
     }
 
     func testChangeSingleToMulti() {
-        var context = madog.renderUI(identifier: .basic, tokenData: .single("vc1"), in: window)
-        waitForLabel(token: "vc1")
-        XCTAssertNotNil(context)
-
-        context = context?.change(to: .tabBar, tokenData: .multi(["vc2", "vc3"]))
-        waitForAbsenceOfLabel(token: "vc1")
-        waitForTitle(token: "vc2") // Titles should appear in the tab bar
-        waitForTitle(token: "vc3")
-        XCTAssertNotNil(context)
-    }
-
-    func testChangeMultiToSingle() {
-        var context = madog.renderUI(identifier: .tabBar, tokenData: .multi(["vc1", "vc2"]), in: window)
-        waitForTitle(token: "vc1") // Titles should appear in the tab bar
-        waitForTitle(token: "vc2")
-        XCTAssertNotNil(context)
-
-        context = context?.change(to: .basic, tokenData: .single("vc3"))
-        waitForAbsenceOfTitle(token: "vc1")
-        waitForAbsenceOfTitle(token: "vc2")
-        waitForLabel(token: "vc3")
-        XCTAssertNotNil(context)
-    }
-
-    func testChangeReleasesOldModalContexts() {
-        weak var context1 = madog.renderUI(identifier: .basic, tokenData: .single("vc1"), in: window) as? BasicUIContext
+        let context1 = madog.renderUI(identifier: .basic(), tokenData: .single("vc1"), in: window)
         waitForLabel(token: "vc1")
         XCTAssertNotNil(context1)
 
-        weak var modal1Context = createModalContext(context: context1!, token: "vc2") as? ModalContext
+        let context2 = context1?.change(to: .tabBar(), tokenData: .multi(["vc2", "vc3"]))
+        waitForAbsenceOfLabel(token: "vc1")
+        waitForTitle(token: "vc2") // Titles should appear in the tab bar
+        waitForTitle(token: "vc3")
+        XCTAssertNotNil(context2)
+    }
+
+    func testChangeMultiToSingle() {
+        let context1 = madog.renderUI(identifier: .tabBar(), tokenData: .multi(["vc1", "vc2"]), in: window)
+        waitForTitle(token: "vc1") // Titles should appear in the tab bar
+        waitForTitle(token: "vc2")
+        XCTAssertNotNil(context1)
+
+        let context2 = context1?.change(to: .basic(), tokenData: .single("vc3"))
+        waitForAbsenceOfTitle(token: "vc1")
+        waitForAbsenceOfTitle(token: "vc2")
+        waitForLabel(token: "vc3")
+        XCTAssertNotNil(context2)
+    }
+
+    func testChangeReleasesOldModalContexts() {
+        weak var context1 = madog.renderUI(identifier: .basic(), tokenData: .single("vc1"), in: window)
+        waitForLabel(token: "vc1")
+        XCTAssertNotNil(context1)
+
+        weak var modal1Context = createModalContext(context: context1!, token: "vc2")
         waitForLabel(token: "vc2")
         XCTAssertNotNil(modal1Context)
 
-        weak var modal2Context = createModalContext(context: modal1Context!, token: "vc3") as? BasicUIContext
+        weak var modal2Context = createModalContext(context: modal1Context!, token: "vc3")
         waitForLabel(token: "vc3")
         XCTAssertNotNil(modal2Context)
 
-        weak var context2 = context1?.change(to: .basic, tokenData: .single("vc4"))
+        weak var context2 = context1?.change(to: .basic(), tokenData: .single("vc4"))
         waitForLabel(token: "vc4")
 
         XCTAssertNil(context1)
@@ -129,7 +129,7 @@ class MadogUIContainerTests: MadogKIFTestCase {
     }
 
     func testOpenSingleUIModal() {
-        let context = madog.renderUI(identifier: .basic, tokenData: .single("vc1"), in: window) as? ModalContext
+        let context = madog.renderUI(identifier: .basic(), tokenData: .single("vc1"), in: window)
         waitForLabel(token: "vc1")
         XCTAssertNotNil(context)
 
@@ -139,7 +139,7 @@ class MadogUIContainerTests: MadogKIFTestCase {
     }
 
     func testCloseSingleUIModal() {
-        let context = madog.renderUI(identifier: .basic, tokenData: .single("vc1"), in: window) as? ModalContext
+        let context = madog.renderUI(identifier: .basic(), tokenData: .single("vc1"), in: window)
         waitForLabel(token: "vc1")
         XCTAssertNotNil(context)
 
@@ -151,18 +151,18 @@ class MadogUIContainerTests: MadogKIFTestCase {
     }
 
     func testOpenMultiUIModal() {
-        let context = madog.renderUI(identifier: .basic, tokenData: .single("vc1"), in: window) as? ModalContext
+        let context = madog.renderUI(identifier: .basic(), tokenData: .single("vc1"), in: window)
         waitForLabel(token: "vc1")
         XCTAssertNotNil(context)
 
-        let modalContext = createModalContext(context: context!, tokens: ["vc2", "vc3"]) as? TabBarUIContext
+        let modalContext = createModalContext(context: context!, tokens: ["vc2", "vc3"])
         waitForTitle(token: "vc2") // Titles should appear in the tab bar
         waitForTitle(token: "vc3")
         XCTAssertNotNil(modalContext)
     }
 
     func testCloseMultiUIModal() {
-        let context = madog.renderUI(identifier: .basic, tokenData: .single("vc1"), in: window) as? ModalContext
+        let context = madog.renderUI(identifier: .basic(), tokenData: .single("vc1"), in: window)
         waitForLabel(token: "vc1")
         XCTAssertNotNil(context)
 
@@ -177,11 +177,11 @@ class MadogUIContainerTests: MadogKIFTestCase {
     }
 
     func testOpenModalCompletionIsFired() {
-        let context = madog.renderUI(identifier: .basic, tokenData: .single("vc1"), in: window) as? ModalContext
+        let context = madog.renderUI(identifier: .basic(), tokenData: .single("vc1"), in: window)
 
         let completionExpectation = expectation(description: "Completion fired")
         let modalToken = context!.openModal(
-            identifier: .basic,
+            identifier: .basic(),
             tokenData: .single("vc2"),
             presentationStyle: .formSheet,
             animated: true,
@@ -192,10 +192,10 @@ class MadogUIContainerTests: MadogKIFTestCase {
     }
 
     func testCloseModalCompletionIsFired() {
-        let context = madog.renderUI(identifier: .basic, tokenData: .single("vc1"), in: window) as? ModalContext
+        let context = madog.renderUI(identifier: .basic(), tokenData: .single("vc1"), in: window)
 
         let modalToken = context!.openModal(
-            identifier: .basic,
+            identifier: .basic(),
             tokenData: .single("vc2"),
             presentationStyle: .formSheet,
             animated: true
@@ -209,10 +209,10 @@ class MadogUIContainerTests: MadogKIFTestCase {
     }
 
     func testCloseCompletionIsFired() {
-        let context = madog.renderUI(identifier: .basic, tokenData: .single("vc1"), in: window) as? ModalContext
+        let context = madog.renderUI(identifier: .basic(), tokenData: .single("vc1"), in: window)
 
         let modalToken = context!.openModal(
-            identifier: .basic,
+            identifier: .basic(),
             tokenData: .single("vc2"),
             presentationStyle: .formSheet,
             animated: true
@@ -225,38 +225,41 @@ class MadogUIContainerTests: MadogKIFTestCase {
     }
 
     func testPresentingContext() {
-        let context = madog.renderUI(identifier: .basic, tokenData: .single("vc1"), in: window) as? BasicUIContext
+        let context = madog.renderUI(identifier: .basic(), tokenData: .single("vc1"), in: window)
         XCTAssertNil(context?.presentingContext)
 
         let completionExpectation1 = expectation(description: "Completion fired")
         var modalToken = context!.openModal(
-            identifier: .basic,
+            identifier: .basic(),
             tokenData: .single("vc2"),
             presentationStyle: .formSheet,
             animated: true,
             completion: { completionExpectation1.fulfill() }
         )
         wait(for: [completionExpectation1], timeout: 10)
-        let modalContext1 = modalToken?.context as? BasicUIContext
+        let modalContext1 = modalToken?.context
 
         let completionExpectation2 = expectation(description: "Completion fired")
         modalToken = modalContext1!.openModal(
-            identifier: .basic,
+            identifier: .basic(),
             tokenData: .single("vc3"),
             presentationStyle: .formSheet,
             animated: true,
             completion: { completionExpectation2.fulfill() }
         )
         wait(for: [completionExpectation2], timeout: 10)
-        let modalContext2 = modalToken?.context as? BasicUIContext
+        let modalContext2 = modalToken?.context as? AnyModalContext<String>
 
         XCTAssertTrue(context === modalContext1?.presentingContext)
         XCTAssertTrue(modalContext1 === modalContext2?.presentingContext)
     }
 
-    private func createModal(context: ModalContext, token: String) -> ModalToken? {
+    private func createModal(
+        context: AnyModalContext<String>,
+        token: String
+    ) -> AnyModalToken<String, BasicUI<String>>? {
         let modalToken = context.openModal(
-            identifier: .basic,
+            identifier: .basic(),
             tokenData: .single(token),
             presentationStyle: .formSheet,
             animated: true
@@ -265,14 +268,17 @@ class MadogUIContainerTests: MadogKIFTestCase {
         return modalToken
     }
 
-    private func createModalContext(context: ModalContext, token: String) -> Context? {
+    private func createModalContext(context: AnyModalContext<String>, token: String) -> AnyModalContext<String>? {
         let modalToken = createModal(context: context, token: token)
-        return modalToken?.context
+        return modalToken?.context as? AnyModalContext<String>
     }
 
-    private func createModal(context: ModalContext, tokens: [String]) -> ModalToken? {
+    private func createModal(
+        context: AnyModalContext<String>,
+        tokens: [String]
+    ) -> AnyModalToken<String, TabBarUI<String>>? {
         let modalToken = context.openModal(
-            identifier: .tabBar,
+            identifier: .tabBar(),
             tokenData: .multi(tokens),
             presentationStyle: .formSheet,
             animated: true
@@ -282,9 +288,9 @@ class MadogUIContainerTests: MadogKIFTestCase {
         return modalToken
     }
 
-    private func createModalContext(context: ModalContext, tokens: [String]) -> Context? {
+    private func createModalContext(context: AnyModalContext<String>, tokens: [String]) -> AnyModalContext<String>? {
         let modalToken = createModal(context: context, tokens: tokens)
-        return modalToken?.context
+        return modalToken?.context as? AnyModalContext<String>
     }
 }
 

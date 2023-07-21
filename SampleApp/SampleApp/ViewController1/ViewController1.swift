@@ -11,10 +11,10 @@ import UIKit
 
 class ViewController1: UIViewController {
     private let sharedService: Any
-    private weak var context: ForwardBackNavigationContext?
+    private weak var context: AnyForwardBackNavigationContext<SampleToken>?
     private var pushCount = 0
 
-    init(sharedService: Any, context: ForwardBackNavigationContext) {
+    init(sharedService: Any, context: AnyForwardBackNavigationContext<SampleToken>) {
         self.sharedService = sharedService
         self.context = context
 

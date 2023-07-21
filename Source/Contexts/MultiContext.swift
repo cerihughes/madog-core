@@ -8,6 +8,8 @@
 
 import Foundation
 
-public protocol MultiContext {
+public typealias AnyMultiContext<T> = any MultiContext<T>
+
+public protocol MultiContext<T>: Context {
     var selectedIndex: Int { get set }
 }

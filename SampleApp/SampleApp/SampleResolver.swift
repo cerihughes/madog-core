@@ -8,8 +8,8 @@
 
 import Madog
 
-class SampleResolver: Resolver<SampleToken> {
-    override func viewControllerProviderFunctions() -> [() -> ViewControllerProvider<SampleToken>] {
+class SampleResolver: Resolver {
+    func viewControllerProviderFunctions() -> [() -> AnyViewControllerProvider<SampleToken>] {
         [
             LoginViewControllerProvider.init,
             ViewController1Provider.init,
@@ -18,7 +18,7 @@ class SampleResolver: Resolver<SampleToken> {
         ]
     }
 
-    override func serviceProviderFunctions() -> [(ServiceProviderCreationContext) -> ServiceProvider] {
+    func serviceProviderFunctions() -> [(ServiceProviderCreationContext) -> ServiceProvider] {
         [
             AuthenticatorProvider.init(context:),
             ServiceProvider1.init(context:)

@@ -15,14 +15,11 @@ schemes:
 options:
   bundleIdPrefix: uk.co.cerihughes
   deploymentTarget:
-    iOS: "13.0"
+    iOS: "16.0"
 packages:
   KIF:
     url: https://github.com/kif-framework/KIF
     exactVersion: 3.8.6
-  Provident:
-    url: https://github.com/cerihughes/provident
-    exactVersion: 4.0.0
 targets:
   Madog:
     type: framework
@@ -31,8 +28,6 @@ targets:
       INFOPLIST_FILE: Source/Info.plist
     sources:
       - Source
-    dependencies:
-      - package: Provident
     postCompileScripts:
       - script: export PATH="/opt/homebrew/bin:$PATH";swiftlint
         name: Swift Lint

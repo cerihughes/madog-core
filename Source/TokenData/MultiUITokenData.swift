@@ -8,16 +8,12 @@
 
 import Foundation
 
-public struct MultiUITokenData: TokenData {
-    public let tokens: [Any]
-
-    public init(tokens: [Any]) {
-        self.tokens = tokens
-    }
+public struct MultiUITokenData<T>: TokenData {
+    let tokens: [T]
 }
 
 public extension TokenData {
-    static func multi(_ tokens: [Any]) -> MultiUITokenData {
+    static func multi<T>(_ tokens: [T]) -> MultiUITokenData<T> {
         MultiUITokenData(tokens: tokens)
     }
 }

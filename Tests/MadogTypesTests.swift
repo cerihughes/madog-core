@@ -11,13 +11,13 @@ import XCTest
 @testable import Madog
 
 class MadogTypesTests: XCTestCase {
-    private var registry: Registry<Int>!
+    private var registry: RegistryImplementation<Int>!
     private var registrar: Registrar<Int>!
 
     override func setUp() {
         super.setUp()
 
-        registry = Registry()
+        registry = RegistryImplementation()
         registrar = Registrar(registry: registry)
     }
 
@@ -43,31 +43,35 @@ class MadogTypesTests: XCTestCase {
     }
 }
 
-private class TestViewControllerProvider: SingleViewControllerProvider<Int> {
-    override func createViewController(token: Int, context: Context) -> UIViewController? {
+private class TestViewControllerProvider: ViewControllerProvider {
+    func createViewController(token: Int, context: AnyContext<Int>) -> UIViewController? {
         UIViewController()
     }
 }
 
-private class TestServiceProvider: ServiceProvider {}
+private class TestServiceProvider: ServiceProvider {
+    var name = "TestServiceProvider"
 
-private class TestResolver: Resolver<Int> {
-    override func viewControllerProviderFunctions() -> [() -> ViewControllerProvider<Int>] {
+    init(context _: ServiceProviderCreationContext) {}
+}
+
+private class TestResolver: Resolver {
+    func viewControllerProviderFunctions() -> [() -> AnyViewControllerProvider<Int>] {
         [TestViewControllerProvider.init]
     }
 
-    override func serviceProviderFunctions() -> [(ServiceProviderCreationContext) -> ServiceProvider] {
+    func serviceProviderFunctions() -> [(ServiceProviderCreationContext) -> ServiceProvider] {
         [TestServiceProvider.init(context:)]
     }
 }
 
 private class TestContext: Context {
-    var presentingContext: Context? { nil }
+    var presentingContext: AnyContext<Int>? { nil }
     func close(animated: Bool, completion: CompletionBlock?) -> Bool { false }
     func change<VC, TD>(
-        to _: MadogUIIdentifier<VC, TD>,
+        to _: MadogUIIdentifier<VC, some Context<Int>, TD, Int>,
         tokenData: TD,
         transition: Transition?,
         customisation: CustomisationBlock<VC>?
-    ) -> Context? { nil }
+    ) -> AnyContext<Int>? where VC: UIViewController, TD: TokenData { nil }
 }

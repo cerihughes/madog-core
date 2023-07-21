@@ -16,7 +16,7 @@ import XCTest
 class MadogCustomisationTests: MadogKIFTestCase {
     func testMainCustomisationBlock() {
         _ = madog.renderUI(
-            identifier: .basic,
+            identifier: .basic(),
             tokenData: .single("vc1"),
             in: window,
             customisation: customise(viewController:)
@@ -26,11 +26,11 @@ class MadogCustomisationTests: MadogKIFTestCase {
     }
 
     func testModalCustomisationBlock() {
-        let context = madog.renderUI(identifier: .basic, tokenData: .single("vc1"), in: window) as? BasicUIContext
+        let context = madog.renderUI(identifier: .basic(), tokenData: .single("vc1"), in: window)
 
         waitForAbsenceOfTitle(token: "CUSTOMISED")
         _ = context?.openModal(
-            identifier: .basic,
+            identifier: .basic(),
             tokenData: .single("vc1"),
             animated: true,
             customisation: customise(viewController:)

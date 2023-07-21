@@ -21,7 +21,7 @@ public protocol ModalPresentation {
     ) -> Bool
 }
 
-internal class DefaultModalPresentation: ModalPresentation {
+class DefaultModalPresentation: ModalPresentation {
     func presentModally(
         presenting: UIViewController,
         modal: UIViewController,

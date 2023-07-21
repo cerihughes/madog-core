@@ -14,7 +14,7 @@ schemes:
 options:
   bundleIdPrefix: uk.co.cerihughes
   deploymentTarget:
-    iOS: "13.0"
+    iOS: "16.0"
 projectReferences:
   Madog:
     path: ../Madog.xcodeproj

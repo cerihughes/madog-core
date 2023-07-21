@@ -8,10 +8,10 @@
 
 import UIKit
 
-internal class BasicUI<T>: MadogModalUIContainer<T> {
+public class BasicUI<T>: MadogModalUIContainer<T> {
     private let containerController = BasicUIContainerViewController()
 
-    internal init?(registry: Registry<T>, token: T) {
+    init?(registry: AnyRegistry<T>, token: T) {
         super.init(registry: registry, viewController: containerController)
 
         guard let viewController = registry.createViewController(from: token, context: self) else { return nil }
@@ -32,7 +32,7 @@ open class BasicUIContainerViewController: UIViewController {
     }
 
     private func removeContentViewController(_ viewController: UIViewController?) {
-        if let viewController = viewController {
+        if let viewController {
             viewController.willMove(toParent: nil)
             viewController.view.removeFromSuperview()
             viewController.removeFromParent()
@@ -40,7 +40,7 @@ open class BasicUIContainerViewController: UIViewController {
     }
 
     private func addContentViewController(_ viewController: UIViewController?) {
-        guard let viewController = viewController else { return }
+        guard let viewController else { return }
         viewController.willMove(toParent: self)
 
         addChild(viewController)

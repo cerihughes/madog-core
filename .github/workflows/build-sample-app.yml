@@ -1,23 +1,23 @@
-name: Build Sample App on Xcode 13.2 iOS 15.2
+name: Build Sample App on Xcode 14.2 iOS 16.2
 
 on: [push, pull_request]
 
 jobs:
   build:
-    runs-on: macos-11
+    runs-on: macos-12
 
     steps:
       # Xcode select
-      - run: sudo xcode-select -switch /Applications/Xcode_13.2.app
+      - run: sudo xcode-select -switch /Applications/Xcode_14.2.app
 
       # Caching
       - name: SPM Cache
         uses: actions/cache@v2
         with:
           path: SPM
-          key: ${{ runner.os }}-spm-xcode12_4-${{ hashFiles('**/Package.resolved') }}
+          key: ${{ runner.os }}-spm-xcode14_2-${{ hashFiles('**/Package.resolved') }}
           restore-keys: |
-            ${{ runner.os }}-spm-xcode13_2-
+            ${{ runner.os }}-spm-xcode14_2-
 
       # Install dependencies
       - run: brew install swiftlint xcodegen || true
@@ -33,4 +33,4 @@ jobs:
       - run: set -o pipefail
       - run: xcodegen
       - run: cd SampleApp; xcodegen
-      - run: xcodebuild clean test -project SampleApp/SampleApp.xcodeproj -scheme SampleApp -destination "OS=15.2,name=iPhone 11" -sdk iphonesimulator CODE_SIGNING_REQUIRED=NO
+      - run: xcodebuild clean test -project SampleApp/SampleApp.xcodeproj -scheme SampleApp -destination "OS=16.2,name=iPhone 11" -sdk iphonesimulator CODE_SIGNING_REQUIRED=NO

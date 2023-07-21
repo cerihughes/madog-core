@@ -15,11 +15,9 @@ class AuthenticatorProvider: ServiceProvider {
     let authenticator = Authenticator()
 
     // MARK: - ServiceProvider
+    var name = authenticatorProviderName
 
-    override init(context: ServiceProviderCreationContext) {
-        super.init(context: context)
-        name = authenticatorProviderName
-    }
+    init(context: ServiceProviderCreationContext) {}
 }
 
 class Authenticator {

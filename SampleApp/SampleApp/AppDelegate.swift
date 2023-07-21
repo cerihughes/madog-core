@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     ) -> Bool {
         madog.resolve(resolver: SampleResolver(), launchOptions: launchOptions)
         let result = madog.addUICreationFunction(
-            identifier: splitViewControllerIdentifier,
+            identifier: .split(),
             function: SplitUI.init(registry:primaryToken:secondaryToken:)
         )
         guard result == true else {
@@ -31,9 +31,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         let initial = SampleToken.login
         let context = madog.renderUI(
-            identifier: .split, tokenData: .splitSingle(initial, initial), in: window
+            identifier: .split(), tokenData: .splitSingle(initial, initial), in: window
         ) { splitController in
-            splitController.preferredDisplayMode = .allVisible
+            splitController.preferredDisplayMode = .oneBesideSecondary
             splitController.presentsWithGesture = false
         }
         return context != nil
@@ -45,15 +45,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
 
         let token = SampleToken.createVC2Identifier(stringData: String(url.absoluteString.count))
-        if let navigationContext = currentContext as? ForwardBackNavigationContext {
+        if let navigationContext = currentContext as? AnyForwardBackNavigationContext<SampleToken> {
             return navigationContext.navigateForward(token: token, animated: true)
         } else {
-            return currentContext.change(to: .navigation, tokenData: .single(token)) != nil
+            return currentContext.change(to: .navigation(), tokenData: .single(token)) != nil
         }
     }
 }
 
-let splitViewControllerIdentifier = "splitViewControllerIdentifier"
-extension MadogUIIdentifier where VC == UISplitViewController, TD == SplitSingleUITokenData {
-    static let split = MadogUIIdentifier(splitViewControllerIdentifier)
+extension MadogUIIdentifier where VC == UISplitViewController, C == SplitUI<T>, TD == SplitSingleUITokenData<T> {
+    static func split() -> Self { MadogUIIdentifier("splitViewControllerIdentifier") }
 }

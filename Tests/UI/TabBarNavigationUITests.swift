@@ -14,7 +14,7 @@ import XCTest
 @testable import Madog
 
 class TabBarNavigationUITests: MadogKIFTestCase {
-    private var context: TabBarNavigationUIContext!
+    private var context: AnyTabBarNavigationUIContext<String>!
 
     override func afterEach() {
         context = nil
@@ -70,12 +70,12 @@ class TabBarNavigationUITests: MadogKIFTestCase {
     }
 
     func testOpenMultiNavigationModal() {
-        let context = madog.renderUI(identifier: .basic, tokenData: .single("vc1"), in: window) as? ModalContext
+        let context = madog.renderUI(identifier: .basic(), tokenData: .single("vc1"), in: window)
         waitForLabel(token: "vc1")
         XCTAssertNotNil(context)
 
         let modalToken = context!.openModal(
-            identifier: .tabBarNavigation,
+            identifier: .tabBarNavigation(),
             tokenData: .multi(["vc2", "vc3"]),
             presentationStyle: .formSheet,
             animated: true
@@ -85,7 +85,7 @@ class TabBarNavigationUITests: MadogKIFTestCase {
         waitForTitle(token: "vc3")
         waitForAbsenceOfLabel(token: "vc3")
 
-        var modalContext = modalToken?.context as? TabBarNavigationUIContext
+        let modalContext = modalToken?.context
         XCTAssertNotNil(modalContext)
 
         modalContext?.navigateForward(token: "vc4", animated: true)
@@ -119,11 +119,11 @@ class TabBarNavigationUITests: MadogKIFTestCase {
         waitForLabel(token: "vc6")
     }
 
-    private func renderUIAndAssert(tokens: String ...) -> TabBarNavigationUIContext? {
-        let context = madog.renderUI(identifier: .tabBarNavigation, tokenData: .multi(tokens), in: window)
+    private func renderUIAndAssert(tokens: String ...) -> AnyTabBarNavigationUIContext<String>? {
+        let context = madog.renderUI(identifier: .tabBarNavigation(), tokenData: .multi(tokens), in: window)
         tokens.forEach { waitForTitle(token: $0) }
         waitForLabel(token: tokens.first!)
-        return context as? TabBarNavigationUIContext
+        return context
     }
 
     private func navigateForwardAndAssert(token: String) {

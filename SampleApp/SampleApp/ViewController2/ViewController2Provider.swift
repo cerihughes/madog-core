@@ -11,23 +11,23 @@ import UIKit
 
 private let vc2Identifier = "vc2Identifier"
 
-class ViewController2Provider: SingleViewControllerProvider<SampleToken> {
+class ViewController2Provider: ViewControllerProvider {
     private var sharedService: Any?
 
-    // MARK: - SingleViewControllerProvider
+    // MARK: - ViewControllerProvider
 
-    override func configure(with serviceProviders: [String: ServiceProvider]) {
+    func configure(with serviceProviders: [String: ServiceProvider]) {
         if let serviceProvider = serviceProviders[serviceProvider1Name] as? ServiceProvider1 {
             sharedService = serviceProvider.somethingShared
         }
     }
 
-    override func createViewController(token: SampleToken, context: Context) -> UIViewController? {
+    func createViewController(token: SampleToken, context: AnyContext<SampleToken>) -> UIViewController? {
         guard
-            let sharedService = sharedService,
+            let sharedService,
             token.identifier == vc2Identifier,
             let stringData = token.stringData,
-            let context = context as? ForwardBackNavigationContext
+            let context = context as? AnyForwardBackNavigationContext<SampleToken>
         else { return nil }
 
         let viewController = ViewController2(

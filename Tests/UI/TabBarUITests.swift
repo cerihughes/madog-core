@@ -14,7 +14,7 @@ import XCTest
 @testable import Madog
 
 class TabBarUITests: MadogKIFTestCase {
-    private var context: TabBarUIContext!
+    private var context: AnyTabBarUIContext<String>!
 
     override func afterEach() {
         context = nil
@@ -23,7 +23,7 @@ class TabBarUITests: MadogKIFTestCase {
 
     func testProtocolConformance() {
         context = renderUIAndAssert(tokens: "vc1", "vc2")
-        XCTAssertNil(context as? ForwardBackNavigationContext)
+        XCTAssertNil(context as? AnyForwardBackNavigationContext<String>)
     }
 
     func testRenderInitialUI() {
@@ -32,11 +32,11 @@ class TabBarUITests: MadogKIFTestCase {
         XCTAssertNotNil(context)
     }
 
-    private func renderUIAndAssert(tokens: String ...) -> TabBarUIContext? {
-        let context = madog.renderUI(identifier: .tabBar, tokenData: .multi(tokens), in: window)
+    private func renderUIAndAssert(tokens: String ...) -> AnyTabBarUIContext<String>? {
+        let context = madog.renderUI(identifier: .tabBar(), tokenData: .multi(tokens), in: window)
         tokens.forEach { waitForTitle(token: $0) }
         waitForLabel(token: tokens.first!)
-        return context as? TabBarUIContext
+        return context
     }
 }
 

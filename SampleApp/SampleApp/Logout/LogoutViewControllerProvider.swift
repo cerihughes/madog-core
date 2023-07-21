@@ -11,19 +11,19 @@ import UIKit
 
 private let logoutIdentifier = "logoutIdentifier"
 
-class LogoutViewControllerProvider: SingleViewControllerProvider<SampleToken> {
+class LogoutViewControllerProvider: ViewControllerProvider {
     private var authenticator: Authenticator?
 
-    // MARK: - SingleViewControllerProvider
+    // MARK: - ViewControllerProvider
 
-    override func configure(with serviceProviders: [String: ServiceProvider]) {
+    func configure(with serviceProviders: [String: ServiceProvider]) {
         if let authenticatorProvider = serviceProviders[authenticatorProviderName] as? AuthenticatorProvider {
             authenticator = authenticatorProvider.authenticator
         }
     }
 
-    override func createViewController(token: SampleToken, context: Context) -> UIViewController? {
-        guard let authenticator = authenticator, token.identifier == logoutIdentifier else { return nil }
+    func createViewController(token: SampleToken, context: AnyContext<SampleToken>) -> UIViewController? {
+        guard let authenticator, token.identifier == logoutIdentifier else { return nil }
         let viewController = LogoutViewController(authenticator: authenticator, context: context)
         viewController.tabBarItem = UITabBarItem(tabBarSystemItem: .history, tag: 0)
         return viewController

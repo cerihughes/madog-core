@@ -29,10 +29,10 @@ class MadogTests: XCTestCase {
     func testMadogKeepsStrongReferenceToCurrentContext() {
         let window = UIWindow()
 
-        weak var context1 = madog.renderUI(identifier: .navigation, tokenData: .single("match"), in: window)
+        weak var context1 = madog.renderUI(identifier: .navigation(), tokenData: .single("match"), in: window)
         XCTAssertNotNil(context1)
 
-        weak var context2 = madog.renderUI(identifier: .navigation, tokenData: .single("match"), in: window)
+        weak var context2 = madog.renderUI(identifier: .navigation(), tokenData: .single("match"), in: window)
         XCTAssertNil(context1)
         XCTAssertNotNil(context2)
     }
@@ -46,31 +46,34 @@ class MadogTests: XCTestCase {
     }
 }
 
-private class TestResolver: Resolver<String> {
-    override func serviceProviderFunctions() -> [(ServiceProviderCreationContext) -> ServiceProvider] {
+private class TestResolver: Resolver {
+    func serviceProviderFunctions() -> [(ServiceProviderCreationContext) -> ServiceProvider] {
         [TestServiceProvider.init(context:)]
     }
 
-    override func viewControllerProviderFunctions() -> [() -> ViewControllerProvider<String>] {
+    func viewControllerProviderFunctions() -> [() -> AnyViewControllerProvider<String>] {
         [ { TestViewControllerProvider(matchString: "match") } ]
     }
 }
 
-private class TestViewControllerProvider: BaseViewControllerProvider {
+private class TestViewControllerProvider: ViewControllerProvider {
     private let matchString: String
 
     init(matchString: String) {
         self.matchString = matchString
-        super.init()
     }
 
-    override func createViewController(token: String, context: Context) -> UIViewController? {
+    func createViewController(token: String, context: AnyContext<String>) -> UIViewController? {
         if token == matchString {
             return UIViewController()
         }
 
-        return super.createViewController(token: token, context: context)
+        return nil
     }
 }
 
-private class TestServiceProvider: ServiceProvider {}
+private class TestServiceProvider: ServiceProvider {
+    var name = "TestServiceProvider"
+
+    init(context _: ServiceProviderCreationContext) {}
+}

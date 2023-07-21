@@ -12,9 +12,9 @@ import UIKit
 class ViewController2: UIViewController {
     private let sharedService: Any
     private let stringData: String
-    private weak var context: ForwardBackNavigationContext?
+    private weak var context: AnyForwardBackNavigationContext<SampleToken>?
 
-    init(sharedService: Any, stringData: String, context: ForwardBackNavigationContext) {
+    init(sharedService: Any, stringData: String, context: AnyForwardBackNavigationContext<SampleToken>) {
         self.sharedService = sharedService
         self.stringData = stringData
         self.context = context

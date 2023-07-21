@@ -11,10 +11,10 @@ import UIKit
 /// A class that presents view controllers in a tab bar, and manages the navigation between them.
 ///
 /// At the moment, this is achieved with a UINavigationController that can be pushed / popped to / from.
-internal class TabBarNavigationUI<T>: MadogNavigatingModalUIContainer<T>, MultiContext {
+public class TabBarNavigationUI<T>: MadogNavigatingModalUIContainer<T>, MultiContext {
     private let tabBarController = UITabBarController()
 
-    internal init(registry: Registry<T>, tokens: [T]) {
+    init(registry: AnyRegistry<T>, tokens: [T]) {
         super.init(registry: registry, viewController: tabBarController)
 
         let viewControllers = tokens
@@ -24,13 +24,13 @@ internal class TabBarNavigationUI<T>: MadogNavigatingModalUIContainer<T>, MultiC
         tabBarController.viewControllers = viewControllers
     }
 
-    override func provideNavigationController() -> UINavigationController? {
+    override public func provideNavigationController() -> UINavigationController? {
         tabBarController.selectedViewController as? UINavigationController
     }
 
     // MARK: - MultiContext
 
-    var selectedIndex: Int {
+    public var selectedIndex: Int {
         get { tabBarController.selectedIndex }
         set { tabBarController.selectedIndex = newValue }
     }

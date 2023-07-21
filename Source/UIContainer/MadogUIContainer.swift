@@ -8,22 +8,25 @@
 
 import UIKit
 
-internal protocol MadogUIContainerDelegate: AnyObject {
-    func createUI<VC, TD>(
-        identifier: MadogUIIdentifier<VC, TD>,
+typealias AnyMadogUIContainerDelegate<T> = any MadogUIContainerDelegate<T>
+
+protocol MadogUIContainerDelegate<T>: AnyObject {
+    associatedtype T
+
+    func createUI<VC, C, TD>(
+        identifier: MadogUIIdentifier<VC, C, TD, T>,
         tokenData: TD,
         isModal: Bool,
         customisation: CustomisationBlock<VC>?
-    ) -> MadogUIContainer? where VC: UIViewController,
-        TD: TokenData
+    ) -> MadogUIContainer<T>? where VC: UIViewController, C: Context<T>, TD: TokenData
 
-    func context(for viewController: UIViewController) -> Context?
+    func context(for viewController: UIViewController) -> AnyContext<T>?
     func releaseContext(for viewController: UIViewController)
 }
 
-open class MadogUIContainer: Context {
-    internal weak var delegate: MadogUIContainerDelegate?
-    internal let viewController: UIViewController
+open class MadogUIContainer<T>: Context {
+    weak var delegate: AnyMadogUIContainerDelegate<T>?
+    let viewController: UIViewController
 
     public init(viewController: UIViewController) {
         self.viewController = viewController
@@ -31,7 +34,7 @@ open class MadogUIContainer: Context {
 
     // MARK: - Context
 
-    public var presentingContext: Context? {
+    public var presentingContext: AnyContext<T>? {
         guard let presentingViewController = viewController.presentingViewController else { return nil }
         return delegate?.context(for: presentingViewController)
     }
@@ -41,25 +44,24 @@ open class MadogUIContainer: Context {
         false
     }
 
-    public func change<VC, TD>(
-        to identifier: MadogUIIdentifier<VC, TD>,
+    public func change<VC, C, TD>(
+        to identifier: MadogUIIdentifier<VC, C, TD, T>,
         tokenData: TD,
         transition: Transition?,
         customisation: CustomisationBlock<VC>?
-    ) -> Context? where VC: UIViewController, TD: TokenData {
+    ) -> C? where VC: UIViewController, C: Context<T>, TD: TokenData {
         guard
-            let delegate = delegate,
-            let window = viewController.resolvedWindow,
-            let container = delegate.createUI(
+            let container = delegate?.createUI(
                 identifier: identifier,
                 tokenData: tokenData,
                 isModal: false,
                 customisation: customisation
-            )
+            ),
+            let window = viewController.resolvedWindow
         else { return nil }
 
         window.setRootViewController(container.viewController, transition: transition)
-        return container
+        return container as? C
     }
 }
 

@@ -12,12 +12,9 @@ import Madog
 let serviceProvider1Name = "serviceProvider1Name"
 
 class ServiceProvider1: ServiceProvider {
-    // MARK: - ServiceProvider
+    var name = serviceProvider1Name
 
-    override init(context: ServiceProviderCreationContext) {
-        super.init(context: context)
-        name = serviceProvider1Name
-    }
+    init(context: ServiceProviderCreationContext) {}
 
     let somethingShared: Any = "This is pretending to be a shared service"
 }

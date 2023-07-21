@@ -8,11 +8,14 @@
 
 import UIKit
 
-public protocol ModalContext: AnyObject {
+public typealias AnyModalContext<T> = any ModalContext<T>
+
+public protocol ModalContext<T>: Context {
+
     // swiftlint:disable function_parameter_count
     @discardableResult
-    func openModal<VC, TD>(
-        identifier: MadogUIIdentifier<VC, TD>,
+    func openModal<VC, C, TD>(
+        identifier: MadogUIIdentifier<VC, C, TD, T>,
         tokenData: TD,
         presentationStyle: UIModalPresentationStyle?,
         transitionStyle: UIModalTransitionStyle?,
@@ -20,21 +23,17 @@ public protocol ModalContext: AnyObject {
         animated: Bool,
         customisation: CustomisationBlock<VC>?,
         completion: CompletionBlock?
-    ) -> ModalToken? where VC: UIViewController, TD: TokenData
+    ) -> AnyModalToken<T, C>? where VC: UIViewController, C: Context<T>, TD: TokenData
     // swiftlint:enable function_parameter_count
 
     @discardableResult
-    func closeModal(
-        token: ModalToken,
-        animated: Bool,
-        completion: CompletionBlock?
-    ) -> Bool
+    func closeModal(token: AnyModalToken<T, some Context<T>>, animated: Bool, completion: CompletionBlock?) -> Bool
 }
 
 public extension ModalContext {
     @discardableResult
-    func openModal<VC, TD>(
-        identifier: MadogUIIdentifier<VC, TD>,
+    func openModal<VC, C, TD>(
+        identifier: MadogUIIdentifier<VC, C, TD, T>,
         tokenData: TD,
         presentationStyle: UIModalPresentationStyle? = nil,
         transitionStyle: UIModalTransitionStyle? = nil,
@@ -42,7 +41,7 @@ public extension ModalContext {
         animated: Bool,
         customisation: CustomisationBlock<VC>? = nil,
         completion: CompletionBlock? = nil
-    ) -> ModalToken? where VC: UIViewController, TD: TokenData {
+    ) -> AnyModalToken<T, C>? where VC: UIViewController, C: Context<T>, TD: TokenData {
         openModal(
             identifier: identifier,
             tokenData: tokenData,
@@ -56,20 +55,25 @@ public extension ModalContext {
     }
 
     @discardableResult
-    func closeModal(token: ModalToken, animated: Bool) -> Bool {
+    func closeModal(token: AnyModalToken<T, some Context<T>>, animated: Bool) -> Bool {
         closeModal(token: token, animated: animated, completion: nil)
     }
 }
 
-public protocol ModalToken {
-    var context: Context { get }
+public typealias AnyModalToken<T, C> = any ModalToken<T, C>
+
+public protocol ModalToken<T, C> where C: Context<T> {
+    associatedtype T
+    associatedtype C
+
+    var context: C { get }
 }
 
-internal class ModalTokenImplementation: ModalToken {
-    internal let viewController: UIViewController
-    let context: Context
+class ModalTokenImplementation<T, C>: ModalToken where C: Context<T> {
+    let viewController: UIViewController
+    let context: C
 
-    internal init(viewController: UIViewController, context: Context) {
+    init(viewController: UIViewController, context: C) {
         self.viewController = viewController
         self.context = context
     }

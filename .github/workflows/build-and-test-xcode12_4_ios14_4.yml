@@ -33,6 +33,9 @@ jobs:
       - run: set -o pipefail
       - run: mkdir build
       - run: xcodegen
-      - run: xcodebuild clean test -project Madog.xcodeproj -scheme Madog -destination "OS=14.4,name=iPhone 11" -destination "OS=14.4,name=iPad (8th generation)" -sdk iphonesimulator CODE_SIGNING_REQUIRED=NO
+      - run: xcodebuild clean test -project Madog.xcodeproj -scheme Madog -resultBundlePath coverage.xcresult -destination "OS=14.4,name=iPhone 11" -destination "OS=14.4,name=iPad (8th generation)" -sdk iphonesimulator CODE_SIGNING_REQUIRED=NO
       - name: Codecov
-        uses: codecov/codecov-action@v1.0.13
+        uses: codecov/codecov-action@v3.1.0
+        with:
+            xcode: true
+            xcode_archive_path: ${{ github.workspace }}/coverage.xcresult

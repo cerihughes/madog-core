@@ -37,7 +37,9 @@ targets:
     platform: iOS
     settings:
       TEST_TARGET_NAME: MadogTestApp
-    sources: Tests
+    sources:
+      - Tests
+      - SampleApp/SampleApp/Custom UI
     dependencies:
       - target: Madog
       - target: MadogTestApp

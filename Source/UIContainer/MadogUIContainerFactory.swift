@@ -10,7 +10,7 @@ import UIKit
 
 public typealias SingleVCUIRegistryFunction<T> = (AnyRegistry<T>, T) -> MadogModalUIContainer<T>?
 public typealias MultiVCUIRegistryFunction<T> = (AnyRegistry<T>, [T]) -> MadogModalUIContainer<T>?
-public typealias SplitSingleVCUIRegistryFunction<T> = (AnyRegistry<T>, T, T) -> MadogModalUIContainer<T>?
+public typealias SplitSingleVCUIRegistryFunction<T> = (AnyRegistry<T>, T, T?) -> MadogModalUIContainer<T>?
 public typealias SplitMultiVCUIRegistryFunction<T> = (AnyRegistry<T>, T, [T]) -> MadogModalUIContainer<T>?
 
 class MadogUIContainerFactory<T> {

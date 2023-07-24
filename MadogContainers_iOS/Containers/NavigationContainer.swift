@@ -3,6 +3,7 @@
 //  Copyright © 2019 Ceri Hughes. All rights reserved.
 //
 
+import MadogCore
 import UIKit
 
 /// A class that presents view controllers, and manages the navigation between them.

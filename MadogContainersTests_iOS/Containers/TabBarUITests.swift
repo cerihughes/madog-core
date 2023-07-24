@@ -3,12 +3,11 @@
 //  Copyright © 2020 Ceri Hughes. All rights reserved.
 //
 
-#if canImport(KIF)
-
 import KIF
+import MadogCore
 import XCTest
 
-@testable import Madog
+@testable import MadogContainers_iOS
 
 class TabBarUITests: MadogKIFTestCase {
     private var context: AnyTabBarUIContext<String>!
@@ -36,5 +35,3 @@ class TabBarUITests: MadogKIFTestCase {
         return context
     }
 }
-
-#endif

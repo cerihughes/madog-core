@@ -3,15 +3,18 @@ schemes:
   Madog:
     build:
       targets:
-        Madog: all
-        MadogTests: [test]
-        MadogTestApp: [run]
+        MadogCore: all
+        MadogContainers_iOS: all
+        MadogCoreTests: [test]
+        TestApp: [run]
     test:
       gatherCoverageData: true
       coverageTargets:
-        - Madog
+        - MadogCore
+        - MadogContainers_iOS
       targets: 
-        - MadogTests
+        - MadogCoreTests
+        - MadogContainersTests_iOS
 options:
   bundleIdPrefix: uk.co.cerihughes
   deploymentTarget:
@@ -21,30 +24,54 @@ packages:
     url: https://github.com/kif-framework/KIF
     exactVersion: 3.8.6
 targets:
-  Madog:
+  MadogCore:
     type: framework
     platform: iOS
     settings:
-      INFOPLIST_FILE: Source/Info.plist
+      INFOPLIST_FILE: MadogCore/Info.plist
     sources:
-      - Source
+      - MadogCore
     postCompileScripts:
       - script: export PATH="/opt/homebrew/bin:$PATH";swiftlint
         name: Swift Lint
         basedOnDependencyAnalysis: false
-  MadogTests:
+  MadogContainers_iOS:
+    type: framework
+    platform: iOS
+    settings:
+      INFOPLIST_FILE: MadogContainers_iOS/Info.plist
+    sources:
+      - MadogContainers_iOS
+    dependencies:
+      - target: MadogCore
+    postCompileScripts:
+      - script: export PATH="/opt/homebrew/bin:$PATH";swiftlint
+        name: Swift Lint
+        basedOnDependencyAnalysis: false
+  MadogCoreTests:
     type: bundle.unit-test
     platform: iOS
     settings:
-      TEST_TARGET_NAME: MadogTestApp
+      TEST_TARGET_NAME: TestApp
     sources:
-      - Tests
+      - MadogCoreTests
+    dependencies:
+      - target: MadogCore
+      - target: TestApp
+      - package: KIF
+  MadogContainersTests_iOS:
+    type: bundle.unit-test
+    platform: iOS
+    settings:
+      TEST_TARGET_NAME: TestApp
+    sources:
+      - MadogContainersTests_iOS
       - SampleApp/SampleApp/Custom UI
     dependencies:
-      - target: Madog
-      - target: MadogTestApp
+      - target: MadogCore
+      - target: TestApp
       - package: KIF
-  MadogTestApp:
+  TestApp:
     type: application
     platform: iOS
     settings:

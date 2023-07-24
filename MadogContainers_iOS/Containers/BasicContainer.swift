@@ -3,6 +3,7 @@
 //  Copyright © 2020 Ceri Hughes. All rights reserved.
 //
 
+import MadogCore
 import UIKit
 
 class BasicContainer<T>: MadogModalUIContainer<T> {

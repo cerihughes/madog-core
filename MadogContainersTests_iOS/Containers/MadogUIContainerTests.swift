@@ -3,12 +3,11 @@
 //  Copyright © 2019 Ceri Hughes. All rights reserved.
 //
 
-#if canImport(KIF)
-
 import KIF
+import MadogCore
 import XCTest
 
-@testable import Madog
+@testable import MadogContainers_iOS
 
 class MadogUIContainerTests: MadogKIFTestCase {
     func testCloseReleasesMainContext() {
@@ -290,5 +289,3 @@ class MadogUIContainerTests: MadogKIFTestCase {
         return modalToken?.context as? AnyModalContext<String>
     }
 }
-
-#endif

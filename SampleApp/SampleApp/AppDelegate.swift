@@ -3,7 +3,8 @@
 //  Copyright © 2019 Ceri Hughes. All rights reserved.
 //
 
-import Madog
+import MadogContainers_iOS
+import MadogCore
 import UIKit
 
 @UIApplicationMain
@@ -16,6 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool {
         madog.resolve(resolver: SampleResolver(), launchOptions: launchOptions)
+        madog.registerDefaultContainers()
         let result = madog.addUIFactory(
             identifier: .split(),
             function: SplitUI.init(registry:primaryToken:secondaryToken:)

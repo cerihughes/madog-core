@@ -3,12 +3,10 @@
 //  Copyright © 2019 Ceri Hughes. All rights reserved.
 //
 
-#if canImport(KIF)
-
 import KIF
 import XCTest
 
-@testable import Madog
+@testable import MadogContainers_iOS
 
 class TabBarNavigationUITests: MadogKIFTestCase {
     private var context: AnyTabBarNavigationUIContext<String>!
@@ -128,5 +126,3 @@ class TabBarNavigationUITests: MadogKIFTestCase {
         waitForLabel(token: token)
     }
 }
-
-#endif

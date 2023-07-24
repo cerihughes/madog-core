@@ -5,7 +5,7 @@
 
 import XCTest
 
-@testable import Madog
+@testable import MadogCore
 
 class MadogTests: XCTestCase {
     private var madog: Madog<String>!
@@ -15,6 +15,7 @@ class MadogTests: XCTestCase {
 
         madog = Madog()
         madog.resolve(resolver: TestResolver())
+        madog.addUIFactory(identifier: .test(), function: TestContainer.init(registry:token:))
     }
 
     override func tearDown() {
@@ -26,10 +27,10 @@ class MadogTests: XCTestCase {
     func testMadogKeepsStrongReferenceToCurrentContext() {
         let window = UIWindow()
 
-        weak var context1 = madog.renderUI(identifier: .navigation(), tokenData: .single("match"), in: window)
+        weak var context1 = madog.renderUI(identifier: .test(), tokenData: .single("match"), in: window)
         XCTAssertNotNil(context1)
 
-        weak var context2 = madog.renderUI(identifier: .navigation(), tokenData: .single("match"), in: window)
+        weak var context2 = madog.renderUI(identifier: .test(), tokenData: .single("match"), in: window)
         XCTAssertNil(context1)
         XCTAssertNotNil(context2)
     }

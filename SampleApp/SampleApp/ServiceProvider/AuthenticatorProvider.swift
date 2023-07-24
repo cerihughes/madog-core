@@ -4,7 +4,7 @@
 //
 
 import Foundation
-import Madog
+import MadogCore
 
 let authenticatorProviderName = "authenticatorProviderName"
 

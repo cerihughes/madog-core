@@ -3,7 +3,7 @@
 //  Copyright © 2019 Ceri Hughes. All rights reserved.
 //
 
-import Madog
+import MadogCore
 import UIKit
 
 class ViewController1: UIViewController {

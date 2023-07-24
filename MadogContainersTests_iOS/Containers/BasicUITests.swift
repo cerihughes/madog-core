@@ -3,12 +3,10 @@
 //  Copyright © 2020 Ceri Hughes. All rights reserved.
 //
 
-#if canImport(KIF)
-
 import KIF
 import XCTest
 
-@testable import Madog
+@testable import MadogCore
 
 class BasicUITests: MadogKIFTestCase {
     private var context: AnyModalContext<String>!
@@ -36,5 +34,3 @@ class BasicUITests: MadogKIFTestCase {
         return context
     }
 }
-
-#endif

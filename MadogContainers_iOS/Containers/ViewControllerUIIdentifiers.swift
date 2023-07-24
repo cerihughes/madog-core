@@ -3,18 +3,9 @@
 //  Copyright © 2019 Ceri Hughes. All rights reserved.
 //
 
-#if canImport(UIKit)
-
 import Foundation
+import MadogCore
 import UIKit
-
-public struct MadogUIIdentifier<VC, C, TD, T> where VC: UIViewController, TD: TokenData {
-    let value: String
-
-    public init(_ value: String) {
-        self.value = value
-    }
-}
 
 public extension MadogUIIdentifier
 where VC == BasicUIContainerViewController, C == AnyModalContext<T>, TD == SingleUITokenData<T> {
@@ -42,4 +33,11 @@ where VC == UITabBarController, C == AnyTabBarNavigationUIContext<T>, TD == Mult
     static func tabBarNavigation() -> Self { MadogUIIdentifier("tabBarNavigationIdentifier") }
 }
 
-#endif
+public extension Madog {
+    func registerDefaultContainers() {
+        _ = addUIFactory(identifier: .basic(), function: BasicContainer.init(registry:token:))
+        _ = addUIFactory(identifier: .navigation(), function: NavigationContainer.init(registry:token:))
+        _ = addUIFactory(identifier: .tabBar(), function: TabBarContainer.init(registry:tokens:))
+        _ = addUIFactory(identifier: .tabBarNavigation(), function: TabBarNavigationContainer.init(registry:tokens:))
+    }
+}

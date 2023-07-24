@@ -3,7 +3,7 @@
 //  Copyright © 2019 Ceri Hughes. All rights reserved.
 //
 
-import Madog
+import MadogCore
 import UIKit
 
 private let vc1Identifier = "vc1Identifier"

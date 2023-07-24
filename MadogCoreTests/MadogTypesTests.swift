@@ -5,7 +5,7 @@
 
 import XCTest
 
-@testable import Madog
+@testable import MadogCore
 
 class MadogTypesTests: XCTestCase {
     private var registry: RegistryImplementation<Int>!

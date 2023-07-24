@@ -3,7 +3,7 @@
 //  Copyright © 2023 Ceri Hughes. All rights reserved.
 //
 
-import Madog
+import MadogCore
 import UIKit
 
 typealias SplitMultiUIContext<T> = ModalContext<T> & SplitMultiContext<T>

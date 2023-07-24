@@ -3,6 +3,7 @@
 //  Copyright © 2019 Ceri Hughes. All rights reserved.
 //
 
+import MadogCore
 import UIKit
 
 /// A class that presents view controllers in a tab bar, and manages the navigation between them.

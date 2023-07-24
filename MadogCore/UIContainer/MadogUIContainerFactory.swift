@@ -3,7 +3,7 @@
 //  Copyright © 2019 Ceri Hughes. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
 class MadogUIContainerFactory<T> {
     private let registry: RegistryImplementation<T>
@@ -14,11 +14,6 @@ class MadogUIContainerFactory<T> {
 
     init(registry: RegistryImplementation<T>) {
         self.registry = registry
-
-        _ = addUIFactory(identifier: .basic(), function: BasicContainer.init(registry:token:))
-        _ = addUIFactory(identifier: .navigation(), function: NavigationContainer.init(registry:token:))
-        _ = addUIFactory(identifier: .tabBar(), function: TabBarContainer.init(registry:tokens:))
-        _ = addUIFactory(identifier: .tabBarNavigation(), function: TabBarNavigationContainer.init(registry:tokens:))
     }
 
     func addUIFactory<C>(
@@ -58,7 +53,7 @@ class MadogUIContainerFactory<T> {
     }
 
     func createUI<TD, C>(
-        identifier: MadogUIIdentifier<some UIViewController, C, TD, T>,
+        identifier: MadogUIIdentifier<some ViewController, C, TD, T>,
         tokenData: TD
     ) -> MadogUIContainer<T>? where TD: TokenData {
         if let td = tokenData as? SingleUITokenData<T> {

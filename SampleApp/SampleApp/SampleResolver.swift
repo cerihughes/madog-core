@@ -3,7 +3,7 @@
 //  Copyright © 2019 Ceri Hughes. All rights reserved.
 //
 
-import Madog
+import MadogCore
 
 class SampleResolver: Resolver {
     func viewControllerProviderFunctions() -> [() -> AnyViewControllerProvider<SampleToken>] {

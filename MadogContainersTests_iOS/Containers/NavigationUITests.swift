@@ -3,12 +3,11 @@
 //  Copyright © 2019 Ceri Hughes. All rights reserved.
 //
 
-#if canImport(KIF)
-
 import KIF
+import MadogCore
 import XCTest
 
-@testable import Madog
+@testable import MadogContainers_iOS
 
 class NavigationUITests: MadogKIFTestCase {
     private var context: AnyNavigationUIContext<String>!
@@ -92,5 +91,3 @@ class NavigationUITests: MadogKIFTestCase {
         waitForLabel(token: token)
     }
 }
-
-#endif

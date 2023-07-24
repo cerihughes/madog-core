@@ -8,7 +8,7 @@
 import KIF
 import XCTest
 
-@testable import Madog
+@testable import MadogContainers_iOS
 
 class MadogCustomisationTests: MadogKIFTestCase {
     func testMainCustomisationBlock() {

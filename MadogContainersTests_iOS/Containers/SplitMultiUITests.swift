@@ -3,12 +3,10 @@
 //  Copyright © 2023 Ceri Hughes. All rights reserved.
 //
 
-#if canImport(KIF)
-
 import KIF
 import XCTest
 
-@testable import Madog
+@testable import MadogCore
 
 class SplitMultiUITests: MadogKIFTestCase {
     private var context: AnySplitMultiUIContext<String>!
@@ -72,5 +70,3 @@ class SplitMultiUITests: MadogKIFTestCase {
         return context
     }
 }
-
-#endif

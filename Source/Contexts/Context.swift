@@ -1,7 +1,4 @@
 //
-//  Context.swift
-//  Madog
-//
 //  Created by Ceri Hughes on 23/11/2018.
 //  Copyright © 2019 Ceri Hughes. All rights reserved.
 //

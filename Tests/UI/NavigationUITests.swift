@@ -1,7 +1,4 @@
 //
-//  NavigationUITests.swift
-//  MadogTests
-//
 //  Created by Ceri Hughes on 06/12/2019.
 //  Copyright © 2019 Ceri Hughes. All rights reserved.
 //

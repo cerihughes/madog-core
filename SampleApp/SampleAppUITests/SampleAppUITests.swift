@@ -1,7 +1,4 @@
 //
-//  SampleAppUITests.swift
-//  SampleAppUITests
-//
 //  Created by Ceri Hughes on 04/05/2019.
 //  Copyright © 2019 Ceri Hughes. All rights reserved.
 //

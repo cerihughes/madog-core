@@ -1,7 +1,4 @@
 //
-//  UIViewController+MadogModalPresentation.swift
-//  Madog
-//
 //  Created by Ceri Hughes on 18/11/2019.
 //  Copyright © 2019 Ceri Hughes. All rights reserved.
 //

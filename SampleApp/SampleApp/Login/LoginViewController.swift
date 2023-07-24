@@ -1,7 +1,4 @@
 //
-//  LoginViewController.swift
-//  MadogSample
-//
 //  Created by Ceri Hughes on 02/12/2018.
 //  Copyright © 2019 Ceri Hughes. All rights reserved.
 //

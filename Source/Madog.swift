@@ -6,6 +6,11 @@
 import UIKit
 
 public final class Madog<T>: MadogUIContainerDelegate {
+    public typealias SingleUIFunction = (AnyRegistry<T>, T) -> MadogModalUIContainer<T>?
+    public typealias MultiUIFunction = (AnyRegistry<T>, [T]) -> MadogModalUIContainer<T>?
+    public typealias SplitSingleUIFunction = (AnyRegistry<T>, T, T?) -> MadogModalUIContainer<T>?
+    public typealias SplitMultiUIFunction = (AnyRegistry<T>, T, [T]) -> MadogModalUIContainer<T>?
+
     private let registry = RegistryImplementation<T>()
     private let registrar: Registrar<T>
     private let factory: MadogUIContainerFactory<T>
@@ -23,35 +28,35 @@ public final class Madog<T>: MadogUIContainerDelegate {
     }
 
     @discardableResult
-    public func addUICreationFunction<C>(
+    public func addUIFactory<C>(
         identifier: MadogUIIdentifier<some ViewController, C, SingleUITokenData<T>, T>,
-        function: @escaping SingleVCUIRegistryFunction<T>
+        function: @escaping SingleUIFunction
     ) -> Bool {
-        factory.addUICreationFunction(identifier: identifier, function: function)
+        factory.addUIFactory(identifier: identifier, function: function)
     }
 
     @discardableResult
-    public func addUICreationFunction<C>(
+    public func addUIFactory<C>(
         identifier: MadogUIIdentifier<some ViewController, C, MultiUITokenData<T>, T>,
-        function: @escaping MultiVCUIRegistryFunction<T>
+        function: @escaping MultiUIFunction
     ) -> Bool {
-        factory.addUICreationFunction(identifier: identifier, function: function)
+        factory.addUIFactory(identifier: identifier, function: function)
     }
 
     @discardableResult
-    public func addUICreationFunction<C>(
+    public func addUIFactory<C>(
         identifier: MadogUIIdentifier<some ViewController, C, SplitSingleUITokenData<T>, T>,
-        function: @escaping SplitSingleVCUIRegistryFunction<T>
+        function: @escaping SplitSingleUIFunction
     ) -> Bool {
-        factory.addUICreationFunction(identifier: identifier, function: function)
+        factory.addUIFactory(identifier: identifier, function: function)
     }
 
     @discardableResult
-    public func addUICreationFunction<C>(
+    public func addUIFactory<C>(
         identifier: MadogUIIdentifier<some ViewController, C, SplitMultiUITokenData<T>, T>,
-        function: @escaping SplitMultiVCUIRegistryFunction<T>
+        function: @escaping SplitMultiUIFunction
     ) -> Bool {
-        factory.addUICreationFunction(identifier: identifier, function: function)
+        factory.addUIFactory(identifier: identifier, function: function)
     }
 
     @discardableResult

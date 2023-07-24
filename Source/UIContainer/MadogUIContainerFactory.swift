@@ -5,57 +5,52 @@
 
 import UIKit
 
-public typealias SingleVCUIRegistryFunction<T> = (AnyRegistry<T>, T) -> MadogModalUIContainer<T>?
-public typealias MultiVCUIRegistryFunction<T> = (AnyRegistry<T>, [T]) -> MadogModalUIContainer<T>?
-public typealias SplitSingleVCUIRegistryFunction<T> = (AnyRegistry<T>, T, T?) -> MadogModalUIContainer<T>?
-public typealias SplitMultiVCUIRegistryFunction<T> = (AnyRegistry<T>, T, [T]) -> MadogModalUIContainer<T>?
-
 class MadogUIContainerFactory<T> {
     private let registry: RegistryImplementation<T>
-    private var singleVCUIRegistry = [String: SingleVCUIRegistryFunction<T>]()
-    private var multiVCUIRegistry = [String: MultiVCUIRegistryFunction<T>]()
-    private var splitSingleVCUIRegistry = [String: SplitSingleVCUIRegistryFunction<T>]()
-    private var splitMultiVCUIRegistry = [String: SplitMultiVCUIRegistryFunction<T>]()
+    private var singleVCUIRegistry = [String: Madog<T>.SingleUIFunction]()
+    private var multiVCUIRegistry = [String: Madog<T>.MultiUIFunction]()
+    private var splitSingleVCUIRegistry = [String: Madog<T>.SplitSingleUIFunction]()
+    private var splitMultiVCUIRegistry = [String: Madog<T>.SplitMultiUIFunction]()
 
     init(registry: RegistryImplementation<T>) {
         self.registry = registry
 
-        _ = addUICreationFunction(identifier: .basic(), function: BasicUI.init(registry:token:))
-        _ = addUICreationFunction(identifier: .navigation(), function: NavigationUI.init(registry:token:))
-        _ = addUICreationFunction(identifier: .tabBar(), function: TabBarUI.init(registry:tokens:))
-        _ = addUICreationFunction(identifier: .tabBarNavigation(), function: TabBarNavigationUI.init(registry:tokens:))
+        _ = addUIFactory(identifier: .basic(), function: BasicContainer.init(registry:token:))
+        _ = addUIFactory(identifier: .navigation(), function: NavigationContainer.init(registry:token:))
+        _ = addUIFactory(identifier: .tabBar(), function: TabBarContainer.init(registry:tokens:))
+        _ = addUIFactory(identifier: .tabBarNavigation(), function: TabBarNavigationContainer.init(registry:tokens:))
     }
 
-    func addUICreationFunction<C>(
+    func addUIFactory<C>(
         identifier: MadogUIIdentifier<some ViewController, C, SingleUITokenData<T>, T>,
-        function: @escaping SingleVCUIRegistryFunction<T>
+        function: @escaping Madog<T>.SingleUIFunction
     ) -> Bool {
         guard singleVCUIRegistry[identifier.value] == nil else { return false }
         singleVCUIRegistry[identifier.value] = function
         return true
     }
 
-    func addUICreationFunction<C>(
+    func addUIFactory<C>(
         identifier: MadogUIIdentifier<some ViewController, C, MultiUITokenData<T>, T>,
-        function: @escaping MultiVCUIRegistryFunction<T>
+        function: @escaping Madog<T>.MultiUIFunction
     ) -> Bool {
         guard multiVCUIRegistry[identifier.value] == nil else { return false }
         multiVCUIRegistry[identifier.value] = function
         return true
     }
 
-    func addUICreationFunction<C>(
+    func addUIFactory<C>(
         identifier: MadogUIIdentifier<some ViewController, C, SplitSingleUITokenData<T>, T>,
-        function: @escaping SplitSingleVCUIRegistryFunction<T>
+        function: @escaping Madog<T>.SplitSingleUIFunction
     ) -> Bool {
         guard splitSingleVCUIRegistry[identifier.value] == nil else { return false }
         splitSingleVCUIRegistry[identifier.value] = function
         return true
     }
 
-    func addUICreationFunction<C>(
+    func addUIFactory<C>(
         identifier: MadogUIIdentifier<some ViewController, C, SplitMultiUITokenData<T>, T>,
-        function: @escaping SplitMultiVCUIRegistryFunction<T>
+        function: @escaping Madog<T>.SplitMultiUIFunction
     ) -> Bool {
         guard splitMultiVCUIRegistry[identifier.value] == nil else { return false }
         splitMultiVCUIRegistry[identifier.value] = function

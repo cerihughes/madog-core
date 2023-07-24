@@ -8,7 +8,7 @@ import UIKit
 /// A class that presents view controllers, and manages the navigation between them.
 ///
 /// At the moment, this is achieved with a UINavigationController that can be pushed / popped to / from.
-class NavigationUI<T>: MadogNavigatingModalUIContainer<T> {
+class NavigationContainer<T>: MadogNavigatingModalUIContainer<T> {
     private let navigationController = UINavigationController()
 
     init?(registry: AnyRegistry<T>, token: T) {

@@ -16,7 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool {
         madog.resolve(resolver: SampleResolver(), launchOptions: launchOptions)
-        let result = madog.addUICreationFunction(
+        let result = madog.addUIFactory(
             identifier: .split(),
             function: SplitUI.init(registry:primaryToken:secondaryToken:)
         )

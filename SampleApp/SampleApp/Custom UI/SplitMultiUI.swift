@@ -21,20 +21,20 @@ protocol SplitMultiContext<T>: Context {
 class SplitMultiUI<T>: MadogModalUIContainer<T>, SplitMultiContext {
     private let splitController = UISplitViewController()
 
-    init?(registry: AnyRegistry<T>, primaryToken: T, secondaryTokens: [T]) {
+    init?(registry: AnyRegistry<T>, tokenData: SplitMultiUITokenData<T>) {
         super.init(registry: registry, viewController: splitController)
 
-        guard let primaryViewController = registry.createViewController(from: primaryToken, context: self) else {
+        guard let primary = registry.createViewController(from: tokenData.primaryToken, context: self) else {
             return nil
         }
 
         let navigationController = UINavigationController()
-        navigationController.viewControllers = secondaryTokens
+        navigationController.viewControllers = tokenData.secondaryTokens
             .compactMap { registry.createViewController(from: $0, context: self) }
 
         splitController.preferredDisplayMode = .oneBesideSecondary
         splitController.presentsWithGesture = false
-        splitController.viewControllers = [primaryViewController, navigationController]
+        splitController.viewControllers = [primary, navigationController]
     }
 
     // MARK: - SplitMultiContext
@@ -45,5 +45,11 @@ class SplitMultiUI<T>: MadogModalUIContainer<T>, SplitMultiContext {
             .compactMap { registry.createViewController(from: $0, context: self) }
         splitController.showDetailViewController(navigationController, sender: nil)
         return true
+    }
+}
+
+struct SplitMultiUIFactory<T>: SplitMultiContainerFactory {
+    func createContainer(registry: AnyRegistry<T>, tokenData: SplitMultiUITokenData<T>) -> MadogModalUIContainer<T>? {
+        SplitMultiUI(registry: registry, tokenData: tokenData)
     }
 }

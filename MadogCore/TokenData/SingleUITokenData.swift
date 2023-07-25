@@ -6,11 +6,17 @@
 import Foundation
 
 public struct SingleUITokenData<T>: TokenData {
-    let token: T
+    public let token: T
 }
 
 public extension TokenData {
     static func single<T>(_ token: T) -> SingleUITokenData<T> {
         SingleUITokenData(token: token)
     }
+}
+
+public typealias AnySingleContainerFactory<T> = any SingleContainerFactory<T>
+public protocol SingleContainerFactory<T> {
+    associatedtype T
+    func createContainer(registry: AnyRegistry<T>, tokenData: SingleUITokenData<T>) -> MadogModalUIContainer<T>?
 }

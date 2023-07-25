@@ -6,21 +6,16 @@
 import UIKit
 
 public final class Madog<T>: MadogUIContainerDelegate {
-    public typealias SingleUIFunction = (AnyRegistry<T>, T) -> MadogModalUIContainer<T>?
-    public typealias MultiUIFunction = (AnyRegistry<T>, [T]) -> MadogModalUIContainer<T>?
-    public typealias SplitSingleUIFunction = (AnyRegistry<T>, T, T?) -> MadogModalUIContainer<T>?
-    public typealias SplitMultiUIFunction = (AnyRegistry<T>, T, [T]) -> MadogModalUIContainer<T>?
-
     private let registry = RegistryImplementation<T>()
     private let registrar: Registrar<T>
-    private let factory: MadogUIContainerFactory<T>
+    private let containerRepository: ContainerRepository<T>
 
     private var currentContainer: MadogUIContainer<T>?
     private var modalContainers = [UIViewController: AnyContext<T>]()
 
     public init() {
         registrar = Registrar(registry: registry)
-        factory = MadogUIContainerFactory<T>(registry: registry)
+        containerRepository = ContainerRepository<T>(registry: registry)
     }
 
     public func resolve(resolver: AnyResolver<T>, launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) {
@@ -28,35 +23,35 @@ public final class Madog<T>: MadogUIContainerDelegate {
     }
 
     @discardableResult
-    public func addUIFactory<C>(
-        identifier: MadogUIIdentifier<some ViewController, C, SingleUITokenData<T>, T>,
-        function: @escaping SingleUIFunction
-    ) -> Bool {
-        factory.addUIFactory(identifier: identifier, function: function)
+    public func addContainerFactory<VC, C>(
+        identifier: MadogUIIdentifier<VC, C, SingleUITokenData<T>, T>,
+        factory: AnySingleContainerFactory<T>
+    ) -> Bool where VC: ViewController {
+        containerRepository.addContainerFactory(identifier: identifier.value, factory: factory)
     }
 
     @discardableResult
-    public func addUIFactory<C>(
-        identifier: MadogUIIdentifier<some ViewController, C, MultiUITokenData<T>, T>,
-        function: @escaping MultiUIFunction
-    ) -> Bool {
-        factory.addUIFactory(identifier: identifier, function: function)
+    public func addContainerFactory<VC, C>(
+        identifier: MadogUIIdentifier<VC, C, MultiUITokenData<T>, T>,
+        factory: AnyMultiContainerFactory<T>
+    ) -> Bool where VC: ViewController {
+        containerRepository.addContainerFactory(identifier: identifier.value, factory: factory)
     }
 
     @discardableResult
-    public func addUIFactory<C>(
-        identifier: MadogUIIdentifier<some ViewController, C, SplitSingleUITokenData<T>, T>,
-        function: @escaping SplitSingleUIFunction
-    ) -> Bool {
-        factory.addUIFactory(identifier: identifier, function: function)
+    public func addContainerFactory<VC, C>(
+        identifier: MadogUIIdentifier<VC, C, SplitSingleUITokenData<T>, T>,
+        factory: AnySplitSingleContainerFactory<T>
+    ) -> Bool where VC: ViewController {
+        containerRepository.addContainerFactory(identifier: identifier.value, factory: factory)
     }
 
     @discardableResult
-    public func addUIFactory<C>(
-        identifier: MadogUIIdentifier<some ViewController, C, SplitMultiUITokenData<T>, T>,
-        function: @escaping SplitMultiUIFunction
-    ) -> Bool {
-        factory.addUIFactory(identifier: identifier, function: function)
+    public func addContainerFactory<VC, C>(
+        identifier: MadogUIIdentifier<VC, C, SplitMultiUITokenData<T>, T>,
+        factory: AnySplitMultiContainerFactory<T>
+    ) -> Bool where VC: ViewController {
+        containerRepository.addContainerFactory(identifier: identifier.value, factory: factory)
     }
 
     @discardableResult
@@ -95,7 +90,7 @@ public final class Madog<T>: MadogUIContainerDelegate {
         customisation: CustomisationBlock<VC>?
     ) -> MadogUIContainer<T>? where VC: UIViewController, TD: TokenData {
         guard
-            let container = factory.createUI(identifier: identifier, tokenData: tokenData),
+            let container = containerRepository.createContainer(identifier: identifier.value, tokenData: tokenData),
             container is C,
             let viewController = container.viewController as? VC
         else {

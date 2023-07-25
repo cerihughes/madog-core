@@ -12,10 +12,10 @@ import UIKit
 class TabBarNavigationContainer<T>: MadogNavigatingModalUIContainer<T>, MultiContext {
     private let tabBarController = UITabBarController()
 
-    init(registry: AnyRegistry<T>, tokens: [T]) {
+    init(registry: AnyRegistry<T>, tokenData: MultiUITokenData<T>) {
         super.init(registry: registry, viewController: tabBarController)
 
-        let viewControllers = tokens
+        let viewControllers = tokenData.tokens
             .compactMap { registry.createViewController(from: $0, context: self) }
             .map { UINavigationController(rootViewController: $0) }
 
@@ -31,5 +31,11 @@ class TabBarNavigationContainer<T>: MadogNavigatingModalUIContainer<T>, MultiCon
     var selectedIndex: Int {
         get { tabBarController.selectedIndex }
         set { tabBarController.selectedIndex = newValue }
+    }
+}
+
+struct TabBarNavigationContainerFactory<T>: MultiContainerFactory {
+    func createContainer(registry: AnyRegistry<T>, tokenData: MultiUITokenData<T>) -> MadogModalUIContainer<T>? {
+        TabBarNavigationContainer(registry: registry, tokenData: tokenData)
     }
 }

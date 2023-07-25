@@ -9,19 +9,25 @@ import UIKit
 class TestContainer<T>: MadogModalUIContainer<T> {
     private let containerController = UIViewController()
 
-    init?(registry: AnyRegistry<T>, token: T) {
+    init?(registry: AnyRegistry<T>, tokenData: SingleUITokenData<T>) {
         super.init(registry: registry, viewController: containerController)
 
-        guard let viewController = registry.createViewController(from: token, context: self) else { return nil }
+        guard let vc = registry.createViewController(from: tokenData.token, context: self) else { return nil }
 
-        viewController.willMove(toParent: containerController)
+        vc.willMove(toParent: containerController)
 
-        containerController.addChild(viewController)
-        containerController.view.addSubview(viewController.view)
-        viewController.view.frame = containerController.view.bounds
-        viewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        containerController.addChild(vc)
+        containerController.view.addSubview(vc.view)
+        vc.view.frame = containerController.view.bounds
+        vc.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
 
-        viewController.didMove(toParent: containerController)
+        vc.didMove(toParent: containerController)
+    }
+}
+
+struct TestContainerFactory<T>: SingleContainerFactory {
+    func createContainer(registry: AnyRegistry<T>, tokenData: SingleUITokenData<T>) -> MadogModalUIContainer<T>? {
+        TestContainer(registry: registry, tokenData: tokenData)
     }
 }
 

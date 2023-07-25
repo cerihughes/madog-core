@@ -12,14 +12,22 @@ import UIKit
 class NavigationContainer<T>: MadogNavigatingModalUIContainer<T> {
     private let navigationController = UINavigationController()
 
-    init?(registry: AnyRegistry<T>, token: T) {
+    init?(registry: AnyRegistry<T>, tokenData: SingleUITokenData<T>) {
         super.init(registry: registry, viewController: navigationController)
 
-        guard let viewController = registry.createViewController(from: token, context: self) else { return nil }
+        guard let viewController = registry.createViewController(from: tokenData.token, context: self) else {
+            return nil
+        }
         navigationController.setViewControllers([viewController], animated: false)
     }
 
     override func provideNavigationController() -> UINavigationController? {
         navigationController
+    }
+}
+
+struct NavigationContainerFactory<T>: SingleContainerFactory {
+    func createContainer(registry: AnyRegistry<T>, tokenData: SingleUITokenData<T>) -> MadogModalUIContainer<T>? {
+        NavigationContainer(registry: registry, tokenData: tokenData)
     }
 }

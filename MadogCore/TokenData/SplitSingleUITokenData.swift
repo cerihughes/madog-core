@@ -6,12 +6,18 @@
 import Foundation
 
 public struct SplitSingleUITokenData<T>: TokenData {
-    let primaryToken: T
-    let secondaryToken: T?
+    public let primaryToken: T
+    public let secondaryToken: T?
 }
 
 public extension TokenData {
-    static func splitSingle<T>(_ primaryToken: T, _ secondaryToken: T?) -> SplitSingleUITokenData<T> {
+    static func splitSingle<T>(_ primaryToken: T, _ secondaryToken: T? = nil) -> SplitSingleUITokenData<T> {
         SplitSingleUITokenData(primaryToken: primaryToken, secondaryToken: secondaryToken)
     }
+}
+
+public typealias AnySplitSingleContainerFactory<T> = any SplitSingleContainerFactory<T>
+public protocol SplitSingleContainerFactory<T> {
+    associatedtype T
+    func createContainer(registry: AnyRegistry<T>, tokenData: SplitSingleUITokenData<T>) -> MadogModalUIContainer<T>?
 }

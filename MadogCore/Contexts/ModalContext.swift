@@ -3,7 +3,7 @@
 //  Copyright © 2019 Ceri Hughes. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
 public typealias AnyModalContext<T> = any ModalContext<T>
 
@@ -14,13 +14,13 @@ public protocol ModalContext<T>: Context {
     func openModal<VC, C, TD>(
         identifier: MadogUIIdentifier<VC, C, TD, T>,
         tokenData: TD,
-        presentationStyle: UIModalPresentationStyle?,
-        transitionStyle: UIModalTransitionStyle?,
+        presentationStyle: PresentationStyle?,
+        transitionStyle: TransitionStyle?,
         popoverAnchor: Any?,
         animated: Bool,
         customisation: CustomisationBlock<VC>?,
         completion: CompletionBlock?
-    ) -> AnyModalToken<C>? where VC: UIViewController, TD: TokenData
+    ) -> AnyModalToken<C>? where VC: ViewController, TD: TokenData
     // swiftlint:enable function_parameter_count
 
     @discardableResult
@@ -32,13 +32,13 @@ public extension ModalContext {
     func openModal<VC, C, TD>(
         identifier: MadogUIIdentifier<VC, C, TD, T>,
         tokenData: TD,
-        presentationStyle: UIModalPresentationStyle? = nil,
-        transitionStyle: UIModalTransitionStyle? = nil,
+        presentationStyle: PresentationStyle? = nil,
+        transitionStyle: TransitionStyle? = nil,
         popoverAnchor: Any? = nil,
         animated: Bool,
         customisation: CustomisationBlock<VC>? = nil,
         completion: CompletionBlock? = nil
-    ) -> AnyModalToken<C>? where VC: UIViewController, TD: TokenData {
+    ) -> AnyModalToken<C>? where VC: ViewController, TD: TokenData {
         openModal(
             identifier: identifier,
             tokenData: tokenData,
@@ -66,10 +66,10 @@ public protocol ModalToken<C> {
 }
 
 class ModalTokenImplementation<C>: ModalToken {
-    let viewController: UIViewController
+    let viewController: ViewController
     let context: C
 
-    init(viewController: UIViewController, context: C) {
+    init(viewController: ViewController, context: C) {
         self.viewController = viewController
         self.context = context
     }

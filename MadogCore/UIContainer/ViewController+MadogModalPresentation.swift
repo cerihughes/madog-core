@@ -6,11 +6,11 @@
 import UIKit
 
 // swiftlint:disable function_parameter_count
-extension UIViewController {
+extension ViewController {
     func madog_presentModally(
-        viewController: UIViewController,
-        presentationStyle: UIModalPresentationStyle?,
-        transitionStyle: UIModalTransitionStyle?,
+        viewController: ViewController,
+        presentationStyle: PresentationStyle?,
+        transitionStyle: TransitionStyle?,
         popoverAnchor: Any?,
         animated: Bool,
         completion: CompletionBlock?

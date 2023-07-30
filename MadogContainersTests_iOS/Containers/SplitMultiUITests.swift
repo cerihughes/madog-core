@@ -14,10 +14,7 @@ class SplitMultiUITests: MadogKIFTestCase {
     override func beforeEach() {
         super.beforeEach()
 
-        let result = madog.addContainerFactory(
-            identifier: .splitMulti(),
-            factory: SplitMultiUIFactory()
-        )
+        let result = madog.addContainerFactory(identifier: .splitMulti(), factory: SplitMultiUIFactory())
         XCTAssertTrue(result)
     }
 

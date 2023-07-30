@@ -3,13 +3,13 @@
 //  Copyright © 2019 Ceri Hughes. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
 public struct Transition {
     public let duration: TimeInterval
-    public let options: UIView.AnimationOptions
+    public let options: AnimationOptions
 
-    public init(duration: TimeInterval, options: UIView.AnimationOptions) {
+    public init(duration: TimeInterval, options: AnimationOptions) {
         self.duration = duration
         self.options = options
     }
@@ -33,7 +33,7 @@ public protocol Context<T>: AnyObject {
         tokenData: TD,
         transition: Transition?,
         customisation: CustomisationBlock<VC>?
-    ) -> C? where VC: UIViewController, TD: TokenData
+    ) -> C? where VC: ViewController, TD: TokenData
 }
 
 public extension Context {
@@ -48,7 +48,7 @@ public extension Context {
         tokenData: TD,
         transition: Transition? = nil,
         customisation: CustomisationBlock<VC>? = nil
-    ) -> C? where VC: UIViewController, TD: TokenData {
+    ) -> C? where VC: ViewController, TD: TokenData {
         change(to: identifier, tokenData: tokenData, transition: transition, customisation: customisation)
     }
 }

@@ -3,15 +3,15 @@
 //  Copyright © 2020 Ceri Hughes. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
 // swiftlint:disable function_parameter_count
 protocol ModalPresentation {
     func presentModally(
-        presenting: UIViewController,
-        modal: UIViewController,
-        presentationStyle: UIModalPresentationStyle?,
-        transitionStyle: UIModalTransitionStyle?,
+        presenting: ViewController,
+        modal: ViewController,
+        presentationStyle: PresentationStyle?,
+        transitionStyle: TransitionStyle?,
         popoverAnchor: Any?,
         animated: Bool,
         completion: CompletionBlock?
@@ -20,10 +20,10 @@ protocol ModalPresentation {
 
 class DefaultModalPresentation: ModalPresentation {
     func presentModally(
-        presenting: UIViewController,
-        modal: UIViewController,
-        presentationStyle: UIModalPresentationStyle?,
-        transitionStyle: UIModalTransitionStyle?,
+        presenting: ViewController,
+        modal: ViewController,
+        presentationStyle: PresentationStyle?,
+        transitionStyle: TransitionStyle?,
         popoverAnchor: Any?,
         animated: Bool,
         completion: CompletionBlock?

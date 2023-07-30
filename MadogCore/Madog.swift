@@ -3,7 +3,7 @@
 //  Copyright © 2019 Ceri Hughes. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
 public final class Madog<T>: MadogUIContainerDelegate {
     private let registry = RegistryImplementation<T>()
@@ -11,14 +11,14 @@ public final class Madog<T>: MadogUIContainerDelegate {
     private let containerRepository: ContainerRepository<T>
 
     private var currentContainer: MadogUIContainer<T>?
-    private var modalContainers = [UIViewController: AnyContext<T>]()
+    private var modalContainers = [ViewController: AnyContext<T>]()
 
     public init() {
         registrar = Registrar(registry: registry)
         containerRepository = ContainerRepository<T>(registry: registry)
     }
 
-    public func resolve(resolver: AnyResolver<T>, launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) {
+    public func resolve(resolver: AnyResolver<T>, launchOptions: LaunchOptions? = nil) {
         registrar.resolve(resolver: resolver, launchOptions: launchOptions)
     }
 
@@ -58,10 +58,10 @@ public final class Madog<T>: MadogUIContainerDelegate {
     public func renderUI<VC, C, TD>(
         identifier: MadogUIIdentifier<VC, C, TD, T>,
         tokenData: TD,
-        in window: UIWindow,
+        in window: Window,
         transition: Transition? = nil,
         customisation: CustomisationBlock<VC>? = nil
-    ) -> C? where VC: UIViewController, TD: TokenData {
+    ) -> C? where VC: ViewController, TD: TokenData {
         guard let container = createUI(
             identifier: identifier,
             tokenData: tokenData,
@@ -88,7 +88,7 @@ public final class Madog<T>: MadogUIContainerDelegate {
         tokenData: TD,
         isModal: Bool,
         customisation: CustomisationBlock<VC>?
-    ) -> MadogUIContainer<T>? where VC: UIViewController, TD: TokenData {
+    ) -> MadogUIContainer<T>? where VC: ViewController, TD: TokenData {
         guard
             let container = containerRepository.createContainer(identifier: identifier.value, tokenData: tokenData),
             container is C,
@@ -103,12 +103,12 @@ public final class Madog<T>: MadogUIContainerDelegate {
         return container
     }
 
-    func context(for viewController: UIViewController) -> AnyContext<T>? {
+    func context(for viewController: ViewController) -> AnyContext<T>? {
         if viewController == currentContainer?.viewController { return currentContainer }
         return modalContainers[viewController]
     }
 
-    func releaseContext(for viewController: UIViewController) {
+    func releaseContext(for viewController: ViewController) {
         if viewController == currentContainer?.viewController {
             currentContainer = nil
         } else {
@@ -128,12 +128,12 @@ public final class Madog<T>: MadogUIContainerDelegate {
     }
 }
 
-extension UIWindow {
-    func setRootViewController(_ viewController: UIViewController, transition: Transition?) {
+extension Window {
+    func setRootViewController(_ viewController: ViewController, transition: Transition?) {
         rootViewController = viewController
 
         if let transition {
-            UIView.transition(with: self, duration: transition.duration, options: transition.options, animations: {})
+            View.transition(with: self, duration: transition.duration, options: transition.options, animations: {})
         }
     }
 }

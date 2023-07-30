@@ -3,13 +3,13 @@
 //  Copyright © 2020 Ceri Hughes. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
 open class MadogModalUIContainer<T>: MadogUIContainer<T>, ModalContext {
     public private(set) var registry: AnyRegistry<T>
     var modalPresentation: ModalPresentation = DefaultModalPresentation()
 
-    public init(registry: AnyRegistry<T>, viewController: UIViewController) {
+    public init(registry: AnyRegistry<T>, viewController: ViewController) {
         self.registry = registry
         super.init(viewController: viewController)
     }
@@ -28,13 +28,13 @@ open class MadogModalUIContainer<T>: MadogUIContainer<T>, ModalContext {
     public func openModal<VC, C, TD>(
         identifier: MadogUIIdentifier<VC, C, TD, T>,
         tokenData: TD,
-        presentationStyle: UIModalPresentationStyle?,
-        transitionStyle: UIModalTransitionStyle?,
+        presentationStyle: PresentationStyle?,
+        transitionStyle: TransitionStyle?,
         popoverAnchor: Any?,
         animated: Bool,
         customisation: CustomisationBlock<VC>?,
         completion: CompletionBlock?
-    ) -> AnyModalToken<C>? where VC: UIViewController, TD: TokenData {
+    ) -> AnyModalToken<C>? where VC: ViewController, TD: TokenData {
         guard
             let container = delegate?.createUI(
                 identifier: identifier,
@@ -70,7 +70,7 @@ open class MadogModalUIContainer<T>: MadogUIContainer<T>, ModalContext {
     }
 
     private func closeContext(
-        presentedViewController: UIViewController,
+        presentedViewController: ViewController,
         animated: Bool = false,
         completion: CompletionBlock? = nil
     ) {
@@ -82,10 +82,7 @@ open class MadogModalUIContainer<T>: MadogUIContainer<T>, ModalContext {
         delegate?.releaseContext(for: presentedViewController)
     }
 
-    public final func createModalToken<C>(
-        viewController: UIViewController,
-        context: C
-    ) -> AnyModalToken<C> {
+    public final func createModalToken<C>(viewController: ViewController, context: C) -> AnyModalToken<C> {
         ModalTokenImplementation(viewController: viewController, context: context)
     }
 }

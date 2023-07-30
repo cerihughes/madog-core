@@ -3,7 +3,7 @@
 //  Copyright © 2019 Ceri Hughes. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
 typealias AnyMadogUIContainerDelegate<T> = any MadogUIContainerDelegate<T>
 
@@ -15,17 +15,17 @@ protocol MadogUIContainerDelegate<T>: AnyObject {
         tokenData: TD,
         isModal: Bool,
         customisation: CustomisationBlock<VC>?
-    ) -> MadogUIContainer<T>? where VC: UIViewController, TD: TokenData
+    ) -> MadogUIContainer<T>? where VC: ViewController, TD: TokenData
 
-    func context(for viewController: UIViewController) -> AnyContext<T>?
-    func releaseContext(for viewController: UIViewController)
+    func context(for viewController: ViewController) -> AnyContext<T>?
+    func releaseContext(for viewController: ViewController)
 }
 
 open class MadogUIContainer<T>: Context {
     weak var delegate: AnyMadogUIContainerDelegate<T>?
-    let viewController: UIViewController
+    let viewController: ViewController
 
-    public init(viewController: UIViewController) {
+    public init(viewController: ViewController) {
         self.viewController = viewController
     }
 
@@ -46,7 +46,7 @@ open class MadogUIContainer<T>: Context {
         tokenData: TD,
         transition: Transition?,
         customisation: CustomisationBlock<VC>?
-    ) -> C? where VC: UIViewController, TD: TokenData {
+    ) -> C? where VC: ViewController, TD: TokenData {
         guard
             let container = delegate?.createUI(
                 identifier: identifier,
@@ -62,8 +62,8 @@ open class MadogUIContainer<T>: Context {
     }
 }
 
-private extension UIViewController {
-    var resolvedWindow: UIWindow? {
+private extension ViewController {
+    var resolvedWindow: Window? {
         if #available(iOS 13, *) {
             return view.window
         } else {

@@ -3,10 +3,10 @@
 //  Copyright © 2020 Ceri Hughes. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
 open class MadogNavigatingModalUIContainer<T>: MadogModalUIContainer<T>, ForwardBackNavigationContext {
-    open func provideNavigationController() -> UINavigationController? {
+    open func provideNavigationController() -> NavigationController? {
         // OVERRIDE
         nil
     }

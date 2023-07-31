@@ -26,7 +26,7 @@ class TestContainer<T>: MadogModalUIContainer<T> {
 }
 
 struct TestContainerFactory<T>: SingleContainerFactory {
-    func createContainer(registry: AnyRegistry<T>, tokenData: SingleUITokenData<T>) -> MadogModalUIContainer<T>? {
+    func createContainer(registry: AnyRegistry<T>, tokenData: SingleUITokenData<T>) -> MadogUIContainer<T>? {
         TestContainer(registry: registry, tokenData: tokenData)
     }
 }

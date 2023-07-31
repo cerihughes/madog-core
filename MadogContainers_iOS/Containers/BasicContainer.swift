@@ -20,7 +20,7 @@ class BasicContainer<T>: MadogModalUIContainer<T> {
 }
 
 struct BasicContainerFactory<T>: SingleContainerFactory {
-    func createContainer(registry: AnyRegistry<T>, tokenData: SingleUITokenData<T>) -> MadogModalUIContainer<T>? {
+    func createContainer(registry: AnyRegistry<T>, tokenData: SingleUITokenData<T>) -> MadogUIContainer<T>? {
         BasicContainer(registry: registry, tokenData: tokenData)
     }
 }

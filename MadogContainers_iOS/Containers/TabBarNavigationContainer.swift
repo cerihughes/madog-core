@@ -35,7 +35,7 @@ class TabBarNavigationContainer<T>: MadogNavigatingModalUIContainer<T>, MultiCon
 }
 
 struct TabBarNavigationContainerFactory<T>: MultiContainerFactory {
-    func createContainer(registry: AnyRegistry<T>, tokenData: MultiUITokenData<T>) -> MadogModalUIContainer<T>? {
+    func createContainer(registry: AnyRegistry<T>, tokenData: MultiUITokenData<T>) -> MadogUIContainer<T>? {
         TabBarNavigationContainer(registry: registry, tokenData: tokenData)
     }
 }

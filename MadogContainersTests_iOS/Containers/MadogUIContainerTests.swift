@@ -82,7 +82,7 @@ class MadogUIContainerTests: MadogKIFTestCase {
         waitForLabel(token: "vc1")
         XCTAssertNotNil(context1)
 
-        let context2 = context1?.change(to: .tabBar(), tokenData: .multi(["vc2", "vc3"]))
+        let context2 = context1?.change(to: .tabBar(), tokenData: .multi("vc2", "vc3"))
         waitForAbsenceOfLabel(token: "vc1")
         waitForTitle(token: "vc2") // Titles should appear in the tab bar
         waitForTitle(token: "vc3")
@@ -90,7 +90,7 @@ class MadogUIContainerTests: MadogKIFTestCase {
     }
 
     func testChangeMultiToSingle() {
-        let context1 = madog.renderUI(identifier: .tabBar(), tokenData: .multi(["vc1", "vc2"]), in: window)
+        let context1 = madog.renderUI(identifier: .tabBar(), tokenData: .multi("vc1", "vc2"), in: window)
         waitForTitle(token: "vc1") // Titles should appear in the tab bar
         waitForTitle(token: "vc2")
         XCTAssertNotNil(context1)

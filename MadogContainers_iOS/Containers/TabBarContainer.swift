@@ -26,7 +26,7 @@ class TabBarContainer<T>: MadogModalUIContainer<T>, MultiContext {
 }
 
 struct TabBarContainerFactory<T>: MultiContainerFactory {
-    func createContainer(registry: AnyRegistry<T>, tokenData: MultiUITokenData<T>) -> MadogModalUIContainer<T>? {
+    func createContainer(registry: AnyRegistry<T>, tokenData: MultiUITokenData<T>) -> MadogUIContainer<T>? {
         TabBarContainer(registry: registry, tokenData: tokenData)
     }
 }

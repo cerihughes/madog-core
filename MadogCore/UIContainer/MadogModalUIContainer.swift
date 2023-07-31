@@ -6,13 +6,7 @@
 import Foundation
 
 open class MadogModalUIContainer<T>: MadogUIContainer<T>, ModalContext {
-    public private(set) var registry: AnyRegistry<T>
     var modalPresentation: ModalPresentation = DefaultModalPresentation()
-
-    public init(registry: AnyRegistry<T>, viewController: ViewController) {
-        self.registry = registry
-        super.init(viewController: viewController)
-    }
 
     override public func close(
         animated: Bool,

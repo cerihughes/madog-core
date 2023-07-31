@@ -13,10 +13,14 @@ public extension TokenData {
     static func multi<T>(_ tokens: [T]) -> MultiUITokenData<T> {
         MultiUITokenData(tokens: tokens)
     }
+
+    static func multi<T>(_ tokens: T...) -> MultiUITokenData<T> {
+        multi(tokens)
+    }
 }
 
 public typealias AnyMultiContainerFactory<T> = any MultiContainerFactory<T>
 public protocol MultiContainerFactory<T> {
     associatedtype T
-    func createContainer(registry: AnyRegistry<T>, tokenData: MultiUITokenData<T>) -> MadogModalUIContainer<T>?
+    func createContainer(registry: AnyRegistry<T>, tokenData: MultiUITokenData<T>) -> MadogUIContainer<T>?
 }

@@ -71,7 +71,7 @@ class TabBarNavigationUITests: MadogKIFTestCase {
 
         let modalToken = context!.openModal(
             identifier: .tabBarNavigation(),
-            tokenData: .multi(["vc2", "vc3"]),
+            tokenData: .multi("vc2", "vc3"),
             presentationStyle: .formSheet,
             animated: true
         )

@@ -22,10 +22,13 @@ protocol MadogUIContainerDelegate<T>: AnyObject {
 }
 
 open class MadogUIContainer<T>: Context {
-    weak var delegate: AnyMadogUIContainerDelegate<T>?
+    public private(set) var registry: AnyRegistry<T>
     let viewController: ViewController
 
-    public init(viewController: ViewController) {
+    weak var delegate: AnyMadogUIContainerDelegate<T>?
+
+    public init(registry: AnyRegistry<T>, viewController: ViewController) {
+        self.registry = registry
         self.viewController = viewController
     }
 

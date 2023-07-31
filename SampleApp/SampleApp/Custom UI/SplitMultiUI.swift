@@ -49,7 +49,7 @@ class SplitMultiUI<T>: MadogModalUIContainer<T>, SplitMultiContext {
 }
 
 struct SplitMultiUIFactory<T>: SplitMultiContainerFactory {
-    func createContainer(registry: AnyRegistry<T>, tokenData: SplitMultiUITokenData<T>) -> MadogModalUIContainer<T>? {
+    func createContainer(registry: AnyRegistry<T>, tokenData: SplitMultiUITokenData<T>) -> MadogUIContainer<T>? {
         SplitMultiUI(registry: registry, tokenData: tokenData)
     }
 }

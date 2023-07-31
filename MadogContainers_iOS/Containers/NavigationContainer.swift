@@ -27,7 +27,7 @@ class NavigationContainer<T>: MadogNavigatingModalUIContainer<T> {
 }
 
 struct NavigationContainerFactory<T>: SingleContainerFactory {
-    func createContainer(registry: AnyRegistry<T>, tokenData: SingleUITokenData<T>) -> MadogModalUIContainer<T>? {
+    func createContainer(registry: AnyRegistry<T>, tokenData: SingleUITokenData<T>) -> MadogUIContainer<T>? {
         NavigationContainer(registry: registry, tokenData: tokenData)
     }
 }

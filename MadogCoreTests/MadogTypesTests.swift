@@ -71,4 +71,15 @@ private class TestContext: Context {
         transition: Transition?,
         customisation: CustomisationBlock<VC>?
     ) -> C? where VC: UIViewController, TD: TokenData { nil }
+    func openModal<VC, C, TD>(
+        identifier: MadogUIIdentifier<VC, C, TD, Int>,
+        tokenData: TD,
+        presentationStyle: PresentationStyle?,
+        transitionStyle: TransitionStyle?,
+        popoverAnchor: Any?,
+        animated: Bool,
+        customisation: CustomisationBlock<VC>?,
+        completion: CompletionBlock?
+    ) -> AnyModalToken<C>? where VC: UIViewController, TD: TokenData { nil }
+    func closeModal<C>(token: AnyModalToken<C>, animated: Bool, completion: CompletionBlock?) -> Bool { false }
 }

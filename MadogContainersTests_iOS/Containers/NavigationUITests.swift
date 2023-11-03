@@ -10,7 +10,7 @@ import XCTest
 @testable import MadogContainers_iOS
 
 class NavigationUITests: MadogKIFTestCase {
-    private var context: AnyNavigationUIContext<String>!
+    private var context: AnyForwardBackNavigationContext<String>!
 
     override func afterEach() {
         context = nil
@@ -77,8 +77,8 @@ class NavigationUITests: MadogKIFTestCase {
         waitForAbsenceOfTitle(token: "vc2") // "Back" no longer shows "vc2"
     }
 
-    private func renderUIAndAssert(token: String) -> AnyNavigationUIContext<String>? {
-        let context = madog.renderUI(identifier: .navigation(), tokenData: .single(token), in: window)
+    private func renderUIAndAssert(token: String) -> AnyForwardBackNavigationContext<String>? {
+        let context = renderUIAndWait(identifier: .navigation(), tokenData: .single(token))
         waitForTitle(token: token)
         waitForLabel(token: token)
         return context

@@ -8,28 +8,24 @@ import MadogCore
 import UIKit
 
 public extension MadogUIIdentifier
-where VC == BasicUIContainerViewController, C == AnyModalContext<T>, TD == SingleUITokenData<T> {
+where VC == BasicUIContainerViewController, C == AnyContext<T>, TD == SingleUITokenData<T> {
     static func basic() -> Self { MadogUIIdentifier("basicIdentifier") }
 }
 
-public protocol NavigationUIContext<T>: ModalContext, ForwardBackNavigationContext {}
-public typealias AnyNavigationUIContext<T> = any NavigationUIContext<T>
 public extension MadogUIIdentifier
-where VC == UINavigationController, C == AnyNavigationUIContext<T>, TD == SingleUITokenData<T> {
+where VC == UINavigationController, C == AnyForwardBackNavigationContext<T>, TD == SingleUITokenData<T> {
     static func navigation() -> Self { MadogUIIdentifier("navigationIdentifier") }
 }
 
-public protocol TabBarUIContext<T>: ModalContext, MultiContext {}
-public typealias AnyTabBarUIContext<T> = any TabBarUIContext<T>
 public extension MadogUIIdentifier
-where VC == UITabBarController, C == AnyTabBarUIContext<T>, TD == MultiUITokenData<T> {
+where VC == UITabBarController, C == AnyMultiContext<T>, TD == MultiUITokenData<T> {
     static func tabBar() -> Self { MadogUIIdentifier("tabBarIdentifier") }
 }
 
-public protocol TabBarNavigationUIContext<T>: TabBarUIContext, ForwardBackNavigationContext {}
-public typealias AnyTabBarNavigationUIContext<T> = any TabBarNavigationUIContext<T>
+public protocol MultiForwardBackNavigationContext<T>: MultiContext, ForwardBackNavigationContext {}
+public typealias AnyMultiForwardBackNavigationContext<T> = any MultiForwardBackNavigationContext<T>
 public extension MadogUIIdentifier
-where VC == UITabBarController, C == AnyTabBarNavigationUIContext<T>, TD == MultiUITokenData<T> {
+where VC == UITabBarController, C == AnyMultiForwardBackNavigationContext<T>, TD == MultiUITokenData<T> {
     static func tabBarNavigation() -> Self { MadogUIIdentifier("tabBarNavigationIdentifier") }
 }
 

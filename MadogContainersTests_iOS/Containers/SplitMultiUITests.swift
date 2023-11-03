@@ -9,7 +9,7 @@ import XCTest
 @testable import MadogCore
 
 class SplitMultiUITests: MadogKIFTestCase {
-    private var context: AnySplitMultiUIContext<String>!
+    private var context: AnySplitMultiContext<String>!
 
     override func beforeEach() {
         super.beforeEach()
@@ -60,8 +60,8 @@ class SplitMultiUITests: MadogKIFTestCase {
         waitForLabel(token: "vc3")
     }
 
-    private func renderUIAndAssert(_ token: String, _ tokens: [String]) -> AnySplitMultiUIContext<String>? {
-        let context = madog.renderUI(identifier: .splitMulti(), tokenData: .splitMulti(token, tokens), in: window)
+    private func renderUIAndAssert(_ token: String, _ tokens: [String]) -> AnySplitMultiContext<String>? {
+        let context = renderUIAndWait(identifier: .splitMulti(), tokenData: .splitMulti(token, tokens))
         waitForAbsenceOfTitle(token: token) // There should be no "Back" titles
         waitForLabel(token: token)
         return context

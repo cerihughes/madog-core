@@ -22,6 +22,8 @@ protocol MadogUIContainerDelegate<T>: AnyObject {
 }
 
 open class MadogUIContainer<T>: Context {
+    private let modalPresentation: ModalPresentation = DefaultModalPresentation()
+
     public private(set) var registry: AnyRegistry<T>
     let viewController: ViewController
 
@@ -40,8 +42,8 @@ open class MadogUIContainer<T>: Context {
     }
 
     public func close(animated: Bool, completion: CompletionBlock?) -> Bool {
-        // OVERRIDE
-        false
+        closeContext(presentedViewController: viewController, animated: animated, completion: completion)
+        return true
     }
 
     public func change<VC, C, TD>(
@@ -57,21 +59,72 @@ open class MadogUIContainer<T>: Context {
                 isModal: false,
                 customisation: customisation
             ),
-            let window = viewController.resolvedWindow
+            let window = viewController.view.window
         else { return nil }
 
         window.setRootViewController(container.viewController, transition: transition)
         return container as? C
     }
-}
 
-private extension ViewController {
-    var resolvedWindow: Window? {
-        if #available(iOS 13, *) {
-            return view.window
-        } else {
-            // On iOS12, the window of a modally presenting VC can be nil
-            return view.window ?? presentedViewController?.resolvedWindow
+    // swiftlint:disable function_parameter_count
+    public func openModal<VC, C, TD>(
+        identifier: MadogUIIdentifier<VC, C, TD, T>,
+        tokenData: TD,
+        presentationStyle: PresentationStyle?,
+        transitionStyle: TransitionStyle?,
+        popoverAnchor: Any?,
+        animated: Bool,
+        customisation: CustomisationBlock<VC>?,
+        completion: CompletionBlock?
+    ) -> AnyModalToken<C>? where VC: ViewController, TD: TokenData {
+        guard
+            let container = delegate?.createUI(
+                identifier: identifier,
+                tokenData: tokenData,
+                isModal: true,
+                customisation: customisation
+            ),
+            let context = container as? C
+        else { return nil }
+
+        let presentedViewController = container.viewController
+        let result = modalPresentation.presentModally(
+            presenting: viewController,
+            modal: presentedViewController,
+            presentationStyle: presentationStyle,
+            transitionStyle: transitionStyle,
+            popoverAnchor: popoverAnchor,
+            animated: animated,
+            completion: completion
+        )
+        return result ? createModalToken(viewController: presentedViewController, context: context) : nil
+    }
+    // swiftlint:enable function_parameter_count
+
+    public func closeModal<C>(
+        token: AnyModalToken<C>,
+        animated: Bool,
+        completion: CompletionBlock?
+    ) -> Bool {
+        guard let token = token as? ModalTokenImplementation<C> else { return false }
+        closeContext(presentedViewController: token.viewController, animated: animated, completion: completion)
+        return true
+    }
+
+    private func closeContext(
+        presentedViewController: ViewController,
+        animated: Bool = false,
+        completion: CompletionBlock? = nil
+    ) {
+        if let presentedPresentedViewController = presentedViewController.presentedViewController {
+            closeContext(presentedViewController: presentedPresentedViewController, animated: animated)
         }
+
+        presentedViewController.dismiss(animated: animated, completion: completion)
+        delegate?.releaseContext(for: presentedViewController)
+    }
+
+    private func createModalToken<C>(viewController: ViewController, context: C) -> AnyModalToken<C> {
+        ModalTokenImplementation(viewController: viewController, context: context)
     }
 }

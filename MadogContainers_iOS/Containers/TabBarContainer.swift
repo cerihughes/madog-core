@@ -6,7 +6,7 @@
 import MadogCore
 import UIKit
 
-class TabBarContainer<T>: MadogModalUIContainer<T>, MultiContext {
+class TabBarContainer<T>: MadogModalUIContainer<T>, TabBarUIContext {
     private let tabBarController = UITabBarController()
 
     init(registry: AnyRegistry<T>, tokenData: MultiUITokenData<T>) {

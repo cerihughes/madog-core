@@ -85,8 +85,7 @@ class NavigationUITests: MadogKIFTestCase {
     }
 
     private func navigateForwardAndAssert(token: String) {
-        let modalContext = context as? AnyForwardBackNavigationContext<String>
-        modalContext?.navigateForward(token: token, animated: true)
+        context?.navigateForward(token: token, animated: true)
         waitForTitle(token: token)
         waitForLabel(token: token)
     }

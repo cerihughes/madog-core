@@ -6,7 +6,7 @@
 import MadogCore
 import UIKit
 
-typealias SplitMultiUIContext<T> = ModalContext<T> & SplitMultiContext<T>
+protocol SplitMultiUIContext<T>: ModalContext, SplitMultiContext {}
 typealias AnySplitMultiUIContext<T> = any SplitMultiUIContext<T>
 extension MadogUIIdentifier
 where VC == UISplitViewController, C == AnySplitMultiUIContext<T>, TD == SplitMultiUITokenData<T> {
@@ -18,7 +18,7 @@ protocol SplitMultiContext<T>: Context {
     func showDetail(tokens: [T]) -> Bool
 }
 
-class SplitMultiUI<T>: MadogModalUIContainer<T>, SplitMultiContext {
+class SplitMultiUI<T>: MadogModalUIContainer<T>, SplitMultiUIContext {
     private let splitController = UISplitViewController()
 
     init?(registry: AnyRegistry<T>, tokenData: SplitMultiUITokenData<T>) {

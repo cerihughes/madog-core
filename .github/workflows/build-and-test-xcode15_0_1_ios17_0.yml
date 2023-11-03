@@ -1,4 +1,4 @@
-name: Test Xcode 14.2 iOS 16.2
+name: Test Xcode 15.0.1 iOS 17.0.1
 
 on: [push, pull_request]
 
@@ -8,16 +8,16 @@ jobs:
 
     steps:
       # Xcode select
-      - run: sudo xcode-select -switch /Applications/Xcode_14.3.1.app
+      - run: sudo xcode-select -switch /Applications/Xcode_15.0.1.app
 
       # Caching
       - name: SPM Cache
         uses: actions/cache@v2
         with:
           path: SPM
-          key: ${{ runner.os }}-spm-xcode14_3_1-${{ hashFiles('**/Package.resolved') }}
+          key: ${{ runner.os }}-spm-xcode15_0_1-${{ hashFiles('**/Package.resolved') }}
           restore-keys: |
-            ${{ runner.os }}-spm-xcode14_3_1-
+            ${{ runner.os }}-spm-xcode15_0_1-
 
       # Install dependencies
       - run: brew install swiftlint xcodegen || true
@@ -33,7 +33,12 @@ jobs:
       - run: set -o pipefail
       - run: mkdir build
       - run: xcodegen
-      - run: xcodebuild clean test -project Madog.xcodeproj -scheme Madog -resultBundlePath coverage.xcresult -destination "OS=16.4,name=iPhone 14" -destination "OS=16.4,name=iPad (10th generation)" -sdk iphonesimulator CODE_SIGNING_REQUIRED=NO
+      - run: xcodebuild clean test -project Madog.xcodeproj -scheme Madog -resultBundlePath coverage.xcresult -destination "OS=17.0.1,name=iPhone 14" -destination "OS=17.0.1,name=iPad (10th generation)" -sdk iphonesimulator CODE_SIGNING_REQUIRED=NO
+      - uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: test-session.xcresult
+          path: ${{ github.workspace }}/coverage.xcresult
       - name: Codecov
         uses: codecov/codecov-action@v3.1.0
         with:

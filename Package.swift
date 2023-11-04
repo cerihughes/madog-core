@@ -2,14 +2,13 @@
 import PackageDescription
 
 let package = Package(
-    name: "Madog",
+    name: "MadogCore",
     platforms: [.iOS(.v16)],
     products: [
-        .library(name: "Madog", targets: ["MadogCore", "MadogContainers_iOS"])
+        .library(name: "MadogCore", targets: ["MadogCore"])
     ],
     targets: [
         .target(name: "MadogCore", path: "MadogCore"),
-        .target(name: "MadogContainers_iOS", dependencies: ["MadogCore"], path: "MadogContainers_iOS"),
         .testTarget(name: "MadogCoreTests", dependencies: ["MadogCore"], path: "MadogCoreTests")
     ]
 )

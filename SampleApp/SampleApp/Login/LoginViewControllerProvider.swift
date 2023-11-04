@@ -6,8 +6,6 @@
 import MadogCore
 import UIKit
 
-private let loginIdentifier = "loginIdentifier"
-
 class LoginViewControllerProvider: ViewControllerProvider {
     private var authenticator: Authenticator?
 
@@ -20,13 +18,7 @@ class LoginViewControllerProvider: ViewControllerProvider {
     }
 
     func createViewController(token: SampleToken, context: AnyContext<SampleToken>) -> UIViewController? {
-        guard token.identifier == loginIdentifier, let authenticator else { return nil }
+        guard token == .login, let authenticator else { return nil }
         return LoginViewController.createLoginViewController(authenticator: authenticator, context: context)
-    }
-}
-
-extension SampleToken {
-    static var login: SampleToken {
-        SampleToken(identifier: loginIdentifier, data: [:])
     }
 }

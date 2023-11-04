@@ -6,8 +6,6 @@
 import MadogCore
 import UIKit
 
-private let logoutIdentifier = "logoutIdentifier"
-
 class LogoutViewControllerProvider: ViewControllerProvider {
     private var authenticator: Authenticator?
 
@@ -20,15 +18,9 @@ class LogoutViewControllerProvider: ViewControllerProvider {
     }
 
     func createViewController(token: SampleToken, context: AnyContext<SampleToken>) -> UIViewController? {
-        guard let authenticator, token.identifier == logoutIdentifier else { return nil }
+        guard let authenticator, token == .logout else { return nil }
         let viewController = LogoutViewController(authenticator: authenticator, context: context)
         viewController.tabBarItem = UITabBarItem(tabBarSystemItem: .history, tag: 0)
         return viewController
-    }
-}
-
-extension SampleToken {
-    static var logout: SampleToken {
-        SampleToken(identifier: logoutIdentifier, data: [:])
     }
 }

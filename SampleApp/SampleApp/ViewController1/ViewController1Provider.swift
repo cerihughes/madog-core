@@ -6,8 +6,6 @@
 import MadogCore
 import UIKit
 
-private let vc1Identifier = "vc1Identifier"
-
 class ViewController1Provider: ViewControllerProvider {
     private var sharedService: Any?
 
@@ -22,18 +20,12 @@ class ViewController1Provider: ViewControllerProvider {
     func createViewController(token: SampleToken, context: AnyContext<SampleToken>) -> UIViewController? {
         guard
             let sharedService,
-            token.identifier == vc1Identifier,
+            token == .vc1,
             let context = context as? AnyForwardBackNavigationContext<SampleToken>
         else { return nil }
 
         let viewController = ViewController1(sharedService: sharedService, context: context)
         viewController.tabBarItem = UITabBarItem(tabBarSystemItem: .bookmarks, tag: 0)
         return viewController
-    }
-}
-
-extension SampleToken {
-    static var vc1: SampleToken {
-        SampleToken(identifier: vc1Identifier, data: [:])
     }
 }

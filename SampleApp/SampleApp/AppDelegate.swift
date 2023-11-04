@@ -38,7 +38,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             return false
         }
 
-        let token = SampleToken.createVC2Identifier(stringData: String(url.absoluteString.count))
+        let token = SampleToken.vc2(String(url.absoluteString.count))
         if let navigationContext = currentContext as? AnyForwardBackNavigationContext<SampleToken> {
             return navigationContext.navigateForward(token: token, animated: true)
         } else {

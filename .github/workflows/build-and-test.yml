@@ -7,13 +7,24 @@ jobs:
     strategy:
       matrix:
         xcode: [14.3.1, 15.0.1]
+        sdk: [iphonesimulator, appletvsimulator]
         include:
-          - ios: 16.4
+          - name: "iPhone 14"
+            sdk: iphonesimulator
+          - name: "Apple TV"
+            sdk: appletvsimulator
+          - os: "16.4"
+            sdk: iphonesimulator
             xcode: 14.3.1
-          - ios: 17.0.1
+          - os: "17.0.1"
+            sdk: iphonesimulator
             xcode: 15.0.1
-          - iphone: "iPhone 14"
-          - ipad: "iPad (10th generation)"
+          - os: "16.4"
+            sdk: appletvsimulator
+            xcode: 14.3.1
+          - os: "17.0"
+            sdk: appletvsimulator
+            xcode: 15.0.1
 
     runs-on: macos-13
 
@@ -35,7 +46,7 @@ jobs:
       - run: set -o pipefail
       - run: mkdir build
       - run: xcodegen
-      - run: xcodebuild clean test -project MadogCore.xcodeproj -scheme MadogCore -resultBundlePath coverage.xcresult -destination "OS=${{ matrix.ios }},name=${{ matrix.iphone }}" -destination "OS=${{ matrix.ios }},name=${{ matrix.ipad }}" -sdk iphonesimulator CODE_SIGNING_REQUIRED=NO
+      - run: xcodebuild clean test -project MadogCore.xcodeproj -scheme MadogCore -resultBundlePath coverage.xcresult -destination "OS=${{ matrix.os }},name=${{ matrix.name }}" -sdk ${{ matrix.sdk }} CODE_SIGNING_REQUIRED=NO
       - uses: actions/upload-artifact@v3
         if: always()
         with:

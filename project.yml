@@ -15,10 +15,11 @@ options:
   bundleIdPrefix: uk.co.cerihughes
   deploymentTarget:
     iOS: "16.0"
+    tvOS: "16.0"
 targets:
   MadogCore:
     type: framework
-    platform: iOS
+    supportedDestinations: [iOS, tvOS]
     settings:
       INFOPLIST_FILE: MadogCore/Info.plist
     sources:
@@ -29,7 +30,7 @@ targets:
         basedOnDependencyAnalysis: false
   MadogCoreTests:
     type: bundle.unit-test
-    platform: iOS
+    supportedDestinations: [iOS, tvOS]
     sources:
       - MadogCoreTests
     dependencies:

@@ -21,13 +21,6 @@ jobs:
       # Xcode select
       - run: sudo xcode-select -switch /Applications/Xcode_${{ matrix.xcode }}.app
 
-      # Caching
-      - name: SPM Cache
-        uses: actions/cache@v2
-        with:
-          path: SPM
-          key: ${{ runner.os }}-build-xcode${{ matrix.xcode }}-${{ hashFiles('project.yml') }}
-
       # Install dependencies
       - run: brew install swiftlint xcodegen || true
       - run: brew outdated swiftlint || brew upgrade swiftlint
@@ -42,7 +35,7 @@ jobs:
       - run: set -o pipefail
       - run: mkdir build
       - run: xcodegen
-      - run: xcodebuild clean test -project Madog.xcodeproj -scheme Madog -clonedSourcePackagesDirPath SPM -resultBundlePath coverage.xcresult -destination "OS=${{ matrix.ios }},name=${{ matrix.iphone }}" -destination "OS=${{ matrix.ios }},name=${{ matrix.ipad }}" -sdk iphonesimulator CODE_SIGNING_REQUIRED=NO
+      - run: xcodebuild clean test -project MadogCore.xcodeproj -scheme MadogCore -resultBundlePath coverage.xcresult -destination "OS=${{ matrix.ios }},name=${{ matrix.iphone }}" -destination "OS=${{ matrix.ios }},name=${{ matrix.ipad }}" -sdk iphonesimulator CODE_SIGNING_REQUIRED=NO
       - uses: actions/upload-artifact@v3
         if: always()
         with:

@@ -1,23 +1,31 @@
-name: Build Sample App on Xcode 15.0.1 iOS 17.0.1
+name: Build sample app
 
 on: [push, pull_request]
 
 jobs:
   build:
+    strategy:
+      matrix:
+        xcode: [14.3.1, 15.0.1]
+        include:
+          - ios: 16.4
+            xcode: 14.3.1
+          - ios: 17.0.1
+            xcode: 15.0.1
+          - iphone: "iPhone 14"
+
     runs-on: macos-13
 
     steps:
       # Xcode select
-      - run: sudo xcode-select -switch /Applications/Xcode_15.0.1.app
+      - run: sudo xcode-select -switch /Applications/Xcode_${{ matrix.xcode }}.app
 
       # Caching
       - name: SPM Cache
         uses: actions/cache@v2
         with:
           path: SPM
-          key: ${{ runner.os }}-spm-xcode14_2-${{ hashFiles('**/Package.resolved') }}
-          restore-keys: |
-            ${{ runner.os }}-sample-app-xcode15_0_1-
+          key: ${{ runner.os }}-sample-app-xcode${{ matrix.xcode }}-${{ hashFiles('SampleApp/project.yml') }}
 
       # Install dependencies
       - run: brew install swiftlint xcodegen || true
@@ -33,4 +41,14 @@ jobs:
       - run: set -o pipefail
       - run: xcodegen
       - run: cd SampleApp; xcodegen
-      - run: xcodebuild clean test -project SampleApp/SampleApp.xcodeproj -scheme SampleApp -destination "OS=17.0.1,name=iPhone 14" -sdk iphonesimulator CODE_SIGNING_REQUIRED=NO
+      - run: xcodebuild clean test -project SampleApp/SampleApp.xcodeproj -scheme SampleApp -clonedSourcePackagesDirPath SPM -resultBundlePath coverage.xcresult -destination "OS=${{ matrix.ios }},name=${{ matrix.iphone }}" -sdk iphonesimulator CODE_SIGNING_REQUIRED=NO
+      - uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: test-session.xcresult
+          path: ${{ github.workspace }}/coverage.xcresult
+      - name: Codecov
+        uses: codecov/codecov-action@v3.1.0
+        with:
+            xcode: true
+            xcode_archive_path: ${{ github.workspace }}/coverage.xcresult

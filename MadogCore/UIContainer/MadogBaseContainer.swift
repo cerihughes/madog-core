@@ -1,11 +1,9 @@
 //
-//  MadogBaseContainer.swift
-//  MadogCore
-//
 //  Created by Ceri Hughes on 05/11/2023.
+//  Copyright © 2023 Ceri Hughes. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
 open class MadogBaseContainer<T> {
     public private(set) var registry: AnyRegistry<T>

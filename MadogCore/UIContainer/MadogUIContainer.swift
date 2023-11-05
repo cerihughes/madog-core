@@ -31,7 +31,9 @@ open class MadogUIContainer<T>: MadogModalUIContainer<T>, Context {
     }
 
     public func close(animated: Bool, completion: CompletionBlock?) -> Bool {
+#if canImport(UIKit)
         closeContext(presentedViewController: viewController, animated: animated, completion: completion)
+#endif
         return true
     }
 

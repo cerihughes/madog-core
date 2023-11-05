@@ -25,7 +25,7 @@ class MadogTests: XCTestCase {
     }
 
     func testMadogKeepsStrongReferenceToCurrentContext() {
-        let window = UIWindow()
+        let window = Window()
 
         weak var context1 = madog.renderUI(identifier: .test(), tokenData: .single("match"), in: window)
         XCTAssertNotNil(context1)
@@ -61,9 +61,9 @@ private class TestViewControllerProvider: ViewControllerProvider {
         self.matchString = matchString
     }
 
-    func createViewController(token: String, context: AnyContext<String>) -> UIViewController? {
+    func createViewController(token: String, context: AnyContext<String>) -> ViewController? {
         if token == matchString {
-            return UIViewController()
+            return ViewController()
         }
 
         return nil

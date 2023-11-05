@@ -3,6 +3,8 @@
 //  Copyright © 2019 Ceri Hughes. All rights reserved.
 //
 
+#if canImport(UIKit)
+
 import UIKit
 
 // swiftlint:disable function_parameter_count
@@ -37,3 +39,5 @@ extension ViewController {
     }
 }
 // swiftlint:enable function_parameter_count
+
+#endif

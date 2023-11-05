@@ -3,6 +3,8 @@
 //  Copyright © 2019 Ceri Hughes. All rights reserved.
 //
 
+#if canImport(UIKit)
+
 import Foundation
 
 public typealias AnyForwardBackNavigationContext<T> = any ForwardBackNavigationContext<T>
@@ -16,3 +18,5 @@ public protocol ForwardBackNavigationContext<T>: Context {
     @discardableResult
     func navigateBackToRoot(animated: Bool) -> Bool
 }
+
+#endif

@@ -3,7 +3,7 @@ import PackageDescription
 
 let package = Package(
     name: "MadogCore",
-    platforms: [.iOS(.v16), .tvOS(.v16)],
+    platforms: [.iOS(.v16), .macOS(.v13), .tvOS(.v16)],
     products: [
         .library(name: "MadogCore", targets: ["MadogCore"])
     ],

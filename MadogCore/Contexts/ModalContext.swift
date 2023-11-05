@@ -9,6 +9,8 @@ public typealias AnyModalContext<T> = any ModalContext<T>
 public protocol ModalContext<T>: AnyObject {
     associatedtype T
 
+#if canImport(UIKit)
+
     // swiftlint:disable function_parameter_count
     @discardableResult
     func openModal<VC, C, TD>(
@@ -22,9 +24,14 @@ public protocol ModalContext<T>: AnyObject {
         completion: CompletionBlock?
     ) -> AnyModalToken<C>? where VC: ViewController, TD: TokenData
     // swiftlint:enable function_parameter_count
+
     @discardableResult
     func closeModal<C>(token: AnyModalToken<C>, animated: Bool, completion: CompletionBlock?) -> Bool
+
+#endif
 }
+
+#if canImport(UIKit)
 
 public extension ModalContext {
     @discardableResult
@@ -73,3 +80,5 @@ class ModalTokenImplementation<C>: ModalToken {
         self.context = context
     }
 }
+
+#endif

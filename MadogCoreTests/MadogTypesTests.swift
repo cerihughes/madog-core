@@ -41,8 +41,8 @@ class MadogTypesTests: XCTestCase {
 }
 
 private class TestViewControllerProvider: ViewControllerProvider {
-    func createViewController(token: Int, context: AnyContext<Int>) -> UIViewController? {
-        UIViewController()
+    func createViewController(token: Int, context: AnyContext<Int>) -> ViewController? {
+        ViewController()
     }
 }
 
@@ -63,6 +63,8 @@ private class TestResolver: Resolver {
 }
 
 private class TestContext: Context {
+    typealias T = Int
+
     var presentingContext: AnyContext<Int>? { nil }
     func close(animated: Bool, completion: CompletionBlock?) -> Bool { false }
     func change<VC, C, TD>(
@@ -70,7 +72,8 @@ private class TestContext: Context {
         tokenData: TD,
         transition: Transition?,
         customisation: CustomisationBlock<VC>?
-    ) -> C? where VC: UIViewController, TD: TokenData { nil }
+    ) -> C? where VC: ViewController, TD: TokenData { nil }
+#if canImport(UIKit)
     func openModal<VC, C, TD>(
         identifier: MadogUIIdentifier<VC, C, TD, Int>,
         tokenData: TD,
@@ -82,4 +85,5 @@ private class TestContext: Context {
         completion: CompletionBlock?
     ) -> AnyModalToken<C>? where VC: UIViewController, TD: TokenData { nil }
     func closeModal<C>(token: AnyModalToken<C>, animated: Bool, completion: CompletionBlock?) -> Bool { false }
+#endif
 }

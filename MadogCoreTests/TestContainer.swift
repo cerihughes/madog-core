@@ -4,26 +4,6 @@
 //
 
 import MadogCore
-import UIKit
-
-class TestContainer<T>: MadogUIContainer<T> {
-    private let containerController = UIViewController()
-
-    init?(registry: AnyRegistry<T>, tokenData: SingleUITokenData<T>) {
-        super.init(registry: registry, viewController: containerController)
-
-        guard let vc = registry.createViewController(from: tokenData.token, context: self) else { return nil }
-
-        vc.willMove(toParent: containerController)
-
-        containerController.addChild(vc)
-        containerController.view.addSubview(vc.view)
-        vc.view.frame = containerController.view.bounds
-        vc.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-
-        vc.didMove(toParent: containerController)
-    }
-}
 
 struct TestContainerFactory<T>: SingleContainerFactory {
     func createContainer(registry: AnyRegistry<T>, tokenData: SingleUITokenData<T>) -> MadogUIContainer<T>? {
@@ -31,6 +11,6 @@ struct TestContainerFactory<T>: SingleContainerFactory {
     }
 }
 
-extension MadogUIIdentifier where VC == UIViewController, C == AnyContext<T>, TD == SingleUITokenData<T> {
+extension MadogUIIdentifier where VC == ViewController, C == AnyContext<T>, TD == SingleUITokenData<T> {
     static func test() -> Self { MadogUIIdentifier("testIdentifier") }
 }

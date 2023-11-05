@@ -5,6 +5,9 @@
 import Foundation
 
 open class MadogModalUIContainer<T>: MadogBaseContainer<T>, ModalContext {
+
+#if canImport(UIKit)
+
     private let modalPresentation: ModalPresentation = DefaultModalPresentation()
 
     // MARK: - ModalContext
@@ -68,4 +71,6 @@ open class MadogModalUIContainer<T>: MadogBaseContainer<T>, ModalContext {
     public final func createModalToken<C>(viewController: ViewController, context: C) -> AnyModalToken<C> {
         ModalTokenImplementation(viewController: viewController, context: context)
     }
+
+#endif
 }

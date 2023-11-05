@@ -3,6 +3,8 @@
 //  Copyright © 2020 Ceri Hughes. All rights reserved.
 //
 
+#if canImport(UIKit)
+
 import Foundation
 
 open class MadogNavigatingModalUIContainer<T>: MadogUIContainer<T>, ForwardBackNavigationContext {
@@ -33,3 +35,5 @@ open class MadogNavigatingModalUIContainer<T>: MadogUIContainer<T>, ForwardBackN
         return navigationController.popToRootViewController(animated: true) != nil
     }
 }
+
+#endif

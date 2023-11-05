@@ -1,32 +1,25 @@
-name: Madog
+name: MadogCore
 schemes:
-  Madog:
+  MadogCore:
     build:
       targets:
         MadogCore: all
-        MadogContainers_iOS: all
         MadogCoreTests: [test]
-        TestApp: [run]
     test:
       gatherCoverageData: true
       coverageTargets:
         - MadogCore
-        - MadogContainers_iOS
-      targets: 
+      targets:
         - MadogCoreTests
-        - MadogContainersTests_iOS
 options:
   bundleIdPrefix: uk.co.cerihughes
   deploymentTarget:
     iOS: "16.0"
-packages:
-  KIF:
-    url: https://github.com/kif-framework/KIF
-    exactVersion: 3.8.6
+    tvOS: "16.0"
 targets:
   MadogCore:
     type: framework
-    platform: iOS
+    supportedDestinations: [iOS, tvOS]
     settings:
       INFOPLIST_FILE: MadogCore/Info.plist
     sources:
@@ -35,45 +28,10 @@ targets:
       - script: export PATH="/opt/homebrew/bin:$PATH";swiftlint
         name: Swift Lint
         basedOnDependencyAnalysis: false
-  MadogContainers_iOS:
-    type: framework
-    platform: iOS
-    settings:
-      INFOPLIST_FILE: MadogContainers_iOS/Info.plist
-    sources:
-      - MadogContainers_iOS
-    dependencies:
-      - target: MadogCore
-    postCompileScripts:
-      - script: export PATH="/opt/homebrew/bin:$PATH";swiftlint
-        name: Swift Lint
-        basedOnDependencyAnalysis: false
   MadogCoreTests:
     type: bundle.unit-test
-    platform: iOS
-    settings:
-      TEST_TARGET_NAME: TestApp
+    supportedDestinations: [iOS, tvOS]
     sources:
       - MadogCoreTests
     dependencies:
       - target: MadogCore
-      - target: TestApp
-      - package: KIF
-  MadogContainersTests_iOS:
-    type: bundle.unit-test
-    platform: iOS
-    settings:
-      TEST_TARGET_NAME: TestApp
-    sources:
-      - MadogContainersTests_iOS
-      - SampleApp/SampleApp/Custom UI
-    dependencies:
-      - target: MadogCore
-      - target: TestApp
-      - package: KIF
-  TestApp:
-    type: application
-    platform: iOS
-    settings:
-      INFOPLIST_FILE: TestApp/Info.plist
-    sources: TestApp

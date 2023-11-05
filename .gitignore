@@ -9,9 +9,7 @@
 build/
 DerivedData/
 Carthage/
-Madog.xcodeproj/
-MadogSPM.xcodeproj/
-SampleApp/SampleApp.xcodeproj/
+MadogCore.xcodeproj/
 
 ## Various settings
 *.pbxuser

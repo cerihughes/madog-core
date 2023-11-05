@@ -5,9 +5,9 @@
 
 import Foundation
 
-public typealias AnySplitContext<T> = any SplitContext<T>
+public typealias AnySplitSingleContext<T> = any SplitSingleContext<T>
 
-public protocol SplitContext<T>: Context {
+public protocol SplitSingleContext<T>: Context {
     @discardableResult
     func showDetail(token: T) -> Bool
 }

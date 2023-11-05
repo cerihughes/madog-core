@@ -1,0 +1,23 @@
+name: Build spm
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        xcode: [14.3.1, 15.0.1]
+
+    runs-on: macos-13
+
+    steps:
+      # Xcode select
+      - run: sudo xcode-select -switch /Applications/Xcode_${{ matrix.xcode }}.app
+
+      # Checkout
+      - uses: actions/checkout@v1
+        with:
+          submodules: recursive
+
+      # Build SPM
+      - run: swift build

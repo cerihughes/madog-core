@@ -128,6 +128,8 @@ public final class Madog<T>: MadogUIContainerDelegate {
     }
 }
 
+#if canImport(UIKit)
+
 extension Window {
     func setRootViewController(_ viewController: ViewController, transition: Transition?) {
         rootViewController = viewController
@@ -137,3 +139,13 @@ extension Window {
         }
     }
 }
+
+#elseif canImport(AppKit)
+
+extension Window {
+    func setRootViewController(_ viewController: ViewController, transition: Transition?) {
+        contentViewController = viewController
+    }
+}
+
+#endif

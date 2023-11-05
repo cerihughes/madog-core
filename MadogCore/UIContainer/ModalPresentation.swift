@@ -3,6 +3,8 @@
 //  Copyright © 2020 Ceri Hughes. All rights reserved.
 //
 
+#if canImport(UIKit)
+
 import Foundation
 
 // swiftlint:disable function_parameter_count
@@ -40,3 +42,5 @@ class DefaultModalPresentation: ModalPresentation {
     }
 }
 // swiftlint:enable function_parameter_count
+
+#endif

@@ -6,16 +6,14 @@
 import Foundation
 
 public final class Madog<T>: MadogUIContainerDelegate {
-    private let registry = RegistryImplementation<T>()
-    private let registrar: Registrar<T>
+    private let registrar = Registrar<T>()
     private let containerRepository: ContainerRepository<T>
 
     private var currentContainer: MadogUIContainer<T>?
     private var modalContainers = [ViewController: AnyContext<T>]()
 
     public init() {
-        registrar = Registrar(registry: registry)
-        containerRepository = ContainerRepository<T>(registry: registry)
+        containerRepository = ContainerRepository<T>(registry: registrar.registry)
     }
 
     public func resolve(resolver: AnyResolver<T>, launchOptions: LaunchOptions? = nil) {

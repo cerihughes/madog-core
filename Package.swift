@@ -7,8 +7,17 @@ let package = Package(
     products: [
         .library(name: "MadogCore", targets: ["MadogCore"])
     ],
+    dependencies: [
+        .package(url: "https://github.com/cerihughes/provident", .upToNextMajor(from: "6.0.0"))
+    ],
     targets: [
-        .target(name: "MadogCore", path: "MadogCore"),
+        .target(
+            name: "MadogCore",
+            dependencies: [
+                .product(name: "Provident", package: "provident")
+            ],
+            path: "MadogCore"
+        ),
         .testTarget(name: "MadogCoreTests", dependencies: ["MadogCore"], path: "MadogCoreTests")
     ]
 )

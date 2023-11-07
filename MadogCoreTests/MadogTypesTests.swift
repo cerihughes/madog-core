@@ -8,14 +8,14 @@ import XCTest
 @testable import MadogCore
 
 class MadogTypesTests: XCTestCase {
-    private var registry: RegistryImplementation<Int>!
     private var registrar: Registrar<Int>!
+    private var registry: AnyRegistry<Int>!
 
     override func setUp() {
         super.setUp()
 
-        registry = RegistryImplementation()
-        registrar = Registrar(registry: registry)
+        registrar = Registrar()
+        registry = registrar.registry
     }
 
     override func tearDown() {

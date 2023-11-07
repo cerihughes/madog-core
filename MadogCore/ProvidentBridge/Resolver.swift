@@ -4,6 +4,7 @@
 //
 
 import Foundation
+import Provident
 
 public typealias ServiceProviderFunction = (ServiceProviderCreationContext) -> ServiceProvider
 public typealias ViewControllerProviderFunction<T> = () -> AnyViewControllerProvider<T>
@@ -22,4 +23,36 @@ public protocol Resolver<T> {
 
 public extension Resolver {
     func serviceProviderFunctions() -> [ServiceProviderFunction] { [] }
+}
+
+extension Resolver {
+    func bridged() -> Provident.AnyResolver<T, AnyContext<T>> {
+        ResolverBridge(bridged: self)
+    }
+}
+
+class ResolverBridge<T>: Provident.Resolver {
+    typealias C = AnyContext<T>
+
+    private let bridged: AnyResolver<T>
+
+    init(bridged: AnyResolver<T>) {
+        self.bridged = bridged
+    }
+
+    func serviceProviderFunctions() -> [Provident.ServiceProviderFunction] {
+        bridged.serviceProviderFunctions()
+    }
+
+    func viewControllerProviderFunctions() -> [Provident.ViewControllerProviderFunction<T, C>] {
+        bridged.viewControllerProviderFunctions().map {
+            Self.bridge(madog: $0)
+        }
+    }
+
+    static func bridge(
+        madog: @escaping ViewControllerProviderFunction<T>
+    ) -> Provident.ViewControllerProviderFunction<T, C> {
+        { madog().bridged() }
+    }
 }

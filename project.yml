@@ -17,6 +17,10 @@ options:
     iOS: "16.0"
     macOS: "13.0"
     tvOS: "16.0"
+packages:
+  Provident:
+    url: https://github.com/cerihughes/provident
+    branch: align-with-madog
 targets:
   MadogCore:
     type: framework
@@ -25,6 +29,8 @@ targets:
       INFOPLIST_FILE: MadogCore/Info.plist
     sources:
       - MadogCore
+    dependencies:
+      - package: Provident
     postCompileScripts:
       - script: export PATH="/opt/homebrew/bin:$PATH";swiftlint
         name: Swift Lint

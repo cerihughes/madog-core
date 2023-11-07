@@ -6,13 +6,13 @@
 import Foundation
 
 class ContainerRepository<T> {
-    private let registry: RegistryImplementation<T>
+    private let registry: AnyRegistry<T>
     private var singleRegistry = [String: AnySingleContainerFactory<T>]()
     private var multiRegistry = [String: AnyMultiContainerFactory<T>]()
     private var splitSingleRegistry = [String: AnySplitSingleContainerFactory<T>]()
     private var splitMultiRegistry = [String: AnySplitMultiContainerFactory<T>]()
 
-    init(registry: RegistryImplementation<T>) {
+    init(registry: AnyRegistry<T>) {
         self.registry = registry
     }
 

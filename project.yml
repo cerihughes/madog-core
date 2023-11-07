@@ -20,7 +20,7 @@ options:
 packages:
   Provident:
     url: https://github.com/cerihughes/provident
-    branch: align-with-madog
+    majorVersion: 6.0.0
 targets:
   MadogCore:
     type: framework

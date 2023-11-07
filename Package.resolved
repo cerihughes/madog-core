@@ -1,0 +1,14 @@
+{
+  "pins" : [
+    {
+      "identity" : "provident",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/cerihughes/provident",
+      "state" : {
+        "revision" : "1d65f77cd2242576c6796e9be129e0ac433ff133",
+        "version" : "6.0.0"
+      }
+    }
+  ],
+  "version" : 2
+}

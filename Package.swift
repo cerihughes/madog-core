@@ -8,7 +8,7 @@ let package = Package(
         .library(name: "MadogCore", targets: ["MadogCore"])
     ],
     dependencies: [
-        .package(url: "https://github.com/cerihughes/provident", .upToNextMajor(from: "6.0.0")),
+        .package(url: "https://github.com/cerihughes/provident", .upToNextMajor(from: "6.0.0"))
     ],
     targets: [
         .target(

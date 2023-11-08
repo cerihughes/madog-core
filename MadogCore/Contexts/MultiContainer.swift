@@ -6,7 +6,7 @@
 import Foundation
 
 public protocol MultiContainer {
-    var selectedIndex: Int { get set }
+    var selectedIndex: Int { get nonmutating set }
 }
 
 public extension Container {

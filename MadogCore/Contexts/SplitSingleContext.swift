@@ -16,6 +16,6 @@ public protocol SplitSingleContext<T> {
 
 public extension Context {
     var splitSingle: AnySplitSingleContext<T>? {
-        self as? AnySplitSingleContext<T>
+        castValue as? AnySplitSingleContext<T>
     }
 }

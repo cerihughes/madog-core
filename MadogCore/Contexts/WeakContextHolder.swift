@@ -27,6 +27,10 @@ class WeakContextHolder<T>: Context {
     ) -> AnyContext<T>? where VC: ViewController, TD: TokenData {
         wrapped?.change(to: identifier, tokenData: tokenData, transition: transition, customisation: customisation)
     }
+
+    var castValue: AnyContext<T>? {
+        wrapped
+    }
 }
 
 extension MadogUIContainer {

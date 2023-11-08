@@ -22,7 +22,7 @@ public protocol ForwardBackNavigationContext<T> {
 
 public extension Context {
     var forwardBack: AnyForwardBackNavigationContext<T>? {
-        self as? AnyForwardBackNavigationContext<T>
+        castValue as? AnyForwardBackNavigationContext<T>
     }
 }
 

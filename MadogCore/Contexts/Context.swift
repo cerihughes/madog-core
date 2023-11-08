@@ -24,6 +24,8 @@ public protocol Context<T> {
 
     var presentingContext: AnyContext<T>? { get }
 
+    var castValue: AnyContext<T>? { get }
+
     @discardableResult
     func close(animated: Bool, completion: CompletionBlock?) -> Bool
 
@@ -50,5 +52,11 @@ public extension Context {
         customisation: CustomisationBlock<VC>? = nil
     ) -> AnyContext<T>? where VC: ViewController, TD: TokenData {
         change(to: identifier, tokenData: tokenData, transition: transition, customisation: customisation)
+    }
+}
+
+public extension Context {
+    var castValue: AnyContext<T>? {
+        self
     }
 }

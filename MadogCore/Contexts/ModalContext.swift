@@ -80,7 +80,7 @@ class ModalTokenImplementation<T>: ModalToken {
 
 public extension Context {
     var modal: AnyModalContext<T>? {
-        self as? AnyModalContext<T>
+        castValue as? AnyModalContext<T>
     }
 }
 

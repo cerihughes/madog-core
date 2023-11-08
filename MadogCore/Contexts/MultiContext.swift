@@ -11,6 +11,6 @@ public protocol MultiContext {
 
 public extension Context {
     var multi: MultiContext? {
-        self as? MultiContext
+        castValue as? MultiContext
     }
 }

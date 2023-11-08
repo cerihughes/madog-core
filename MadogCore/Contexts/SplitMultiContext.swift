@@ -16,6 +16,6 @@ public protocol SplitMultiContext<T> {
 
 public extension Context {
     var splitMulti: AnySplitMultiContext<T>? {
-        self as? AnySplitMultiContext<T>
+        castValue as? AnySplitMultiContext<T>
     }
 }

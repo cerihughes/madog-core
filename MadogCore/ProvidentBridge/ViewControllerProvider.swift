@@ -13,7 +13,7 @@ public protocol ViewControllerProvider<T> {
     associatedtype T
 
     func configure(with serviceProvider: [String: ServiceProvider])
-    func createViewController(token: T, context: AnyContext<T>) -> ViewController?
+    func createViewController(token: T, container: AnyContainer<T>) -> ViewController?
 }
 
 public extension ViewControllerProvider {
@@ -21,19 +21,19 @@ public extension ViewControllerProvider {
 }
 
 extension ViewControllerProvider {
-    func bridged() -> Provident.AnyViewControllerProvider<T, AnyContext<T>> {
+    func bridged() -> Provident.AnyViewControllerProvider<T, AnyContainer<T>> {
         ViewControllerProviderMadogBridge(bridged: self)
     }
 }
 
-extension Provident.ViewControllerProvider where C == AnyContext<T> {
+extension Provident.ViewControllerProvider where C == AnyContainer<T> {
     func bridged() -> AnyViewControllerProvider<T> {
         ViewControllerProviderProvidentBridge(bridged: self)
     }
 }
 
 class ViewControllerProviderMadogBridge<T>: Provident.ViewControllerProvider {
-    typealias C = AnyContext<T>
+    typealias C = AnyContainer<T>
 
     private let bridged: AnyViewControllerProvider<T>
 
@@ -50,15 +50,14 @@ class ViewControllerProviderMadogBridge<T>: Provident.ViewControllerProvider {
     }
 
     func createViewController(token: T, context: C) -> Provident.ViewController? {
-        bridged.createViewController(token: token, context: context)
+        bridged.createViewController(token: token, container: context)
     }
-
 }
 
 class ViewControllerProviderProvidentBridge<T>: ViewControllerProvider {
-    private let bridged: Provident.AnyViewControllerProvider<T, AnyContext<T>>
+    private let bridged: Provident.AnyViewControllerProvider<T, AnyContainer<T>>
 
-    init(bridged: Provident.AnyViewControllerProvider<T, AnyContext<T>>) {
+    init(bridged: Provident.AnyViewControllerProvider<T, AnyContainer<T>>) {
         self.bridged = bridged
     }
 
@@ -66,8 +65,7 @@ class ViewControllerProviderProvidentBridge<T>: ViewControllerProvider {
         bridged.configure(with: serviceProviders)
     }
 
-    func createViewController(token: T, context: AnyContext<T>) -> Provident.ViewController? {
-        bridged.createViewController(token: token, context: context)
+    func createViewController(token: T, container: AnyContainer<T>) -> Provident.ViewController? {
+        bridged.createViewController(token: token, context: container)
     }
-
 }

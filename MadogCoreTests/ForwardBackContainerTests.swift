@@ -9,7 +9,7 @@ import XCTest
 
 @testable import MadogCore
 
-class ForwardBackContextTests: XCTestCase {
+class ForwardBackContainerTests: XCTestCase {
     private var madog: Madog<Int>!
 
     override func setUp() {
@@ -27,14 +27,14 @@ class ForwardBackContextTests: XCTestCase {
         super.tearDown()
     }
 
-    func testContextIsForwardBack() throws {
+    func testContainerIsForwardBack() throws {
         let window = Window()
 
-        let context1 = try XCTUnwrap(madog.renderUI(identifier: .test(), tokenData: .single(0), in: window))
-        XCTAssertNil(context1.forwardBack)
+        let container1 = try XCTUnwrap(madog.renderUI(identifier: .test(), tokenData: .single(0), in: window))
+        XCTAssertNil(container1.forwardBack)
 
-        let context2 = try XCTUnwrap(madog.renderUI(identifier: .testNavigation(), tokenData: .single(0), in: window))
-        XCTAssertNotNil(context2.forwardBack)
+        let container2 = try XCTUnwrap(madog.renderUI(identifier: .testNavigation(), tokenData: .single(0), in: window))
+        XCTAssertNotNil(container2.forwardBack)
     }
 }
 

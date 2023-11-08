@@ -5,14 +5,14 @@
 
 import Foundation
 
-class WeakContextHolder<T>: Context {
+class ContainerProxy<T>: Container {
     weak var wrapped: ContainerUI<T>?
 
     init(wrapped: ContainerUI<T>) {
         self.wrapped = wrapped
     }
 
-    var presentingContext: AnyContext<T>? { wrapped?.presentingContext }
+    var presentingContainer: AnyContainer<T>? { wrapped?.presentingContainer }
 
     func close(animated: Bool, completion: CompletionBlock?) -> Bool {
         wrapped?.close(animated: animated, completion: completion) ?? false
@@ -24,17 +24,17 @@ class WeakContextHolder<T>: Context {
         tokenData: TD,
         transition: Transition?,
         customisation: CustomisationBlock<VC>?
-    ) -> AnyContext<T>? where VC: ViewController, TD: TokenData {
+    ) -> AnyContainer<T>? where VC: ViewController, TD: TokenData {
         wrapped?.change(to: identifier, tokenData: tokenData, transition: transition, customisation: customisation)
     }
 
-    var castValue: AnyContext<T>? {
+    var castValue: AnyContainer<T>? {
         wrapped
     }
 }
 
 extension ContainerUI {
-    func wrapped() -> AnyContext<T> {
-        WeakContextHolder(wrapped: self)
+    func proxy() -> AnyContainer<T> {
+        ContainerProxy(wrapped: self)
     }
 }

@@ -17,11 +17,11 @@ protocol ContainerDelegate<T>: AnyObject {
         customisation: CustomisationBlock<VC>?
     ) -> ContainerUI<T>? where VC: ViewController, TD: TokenData
 
-    func context(for viewController: ViewController) -> AnyContext<T>?
-    func releaseContext(for viewController: ViewController)
+    func container(for viewController: ViewController) -> AnyContainer<T>?
+    func releaseContainer(for viewController: ViewController)
 }
 
-open class ContainerUI<T>: Context {
+open class ContainerUI<T>: Container {
 
     public struct Identifier<VC, TD> where VC: ViewController, TD: TokenData {
         let value: String
@@ -41,16 +41,16 @@ open class ContainerUI<T>: Context {
         self.viewController = viewController
     }
 
-    // MARK: - Context
+    // MARK: - Container
 
-    public var presentingContext: AnyContext<T>? {
+    public var presentingContainer: AnyContainer<T>? {
         guard let presentingViewController = viewController.presentingViewController else { return nil }
-        return delegate?.context(for: presentingViewController)
+        return delegate?.container(for: presentingViewController)
     }
 
     public func close(animated: Bool, completion: CompletionBlock?) -> Bool {
 #if canImport(UIKit)
-        closeContext(presentedViewController: viewController, animated: animated, completion: completion)
+        closeContainer(presentedViewController: viewController, animated: animated, completion: completion)
 #endif
         return true
     }
@@ -60,7 +60,7 @@ open class ContainerUI<T>: Context {
         tokenData: TD,
         transition: Transition?,
         customisation: CustomisationBlock<VC>?
-    ) -> AnyContext<T>? where VC: ViewController, TD: TokenData {
+    ) -> AnyContainer<T>? where VC: ViewController, TD: TokenData {
         guard
             let container = delegate?.createUI(
                 identifier: identifier,
@@ -72,6 +72,6 @@ open class ContainerUI<T>: Context {
         else { return nil }
 
         window.setRootViewController(container.viewController, transition: transition)
-        return container.wrapped()
+        return container.proxy()
     }
 }

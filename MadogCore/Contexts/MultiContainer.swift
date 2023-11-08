@@ -5,12 +5,12 @@
 
 import Foundation
 
-public protocol MultiContext {
+public protocol MultiContainer {
     var selectedIndex: Int { get set }
 }
 
-public extension Context {
-    var multi: MultiContext? {
-        castValue as? MultiContext
+public extension Container {
+    var multi: MultiContainer? {
+        castValue as? MultiContainer
     }
 }

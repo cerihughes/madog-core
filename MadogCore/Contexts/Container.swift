@@ -17,14 +17,14 @@ public struct Transition {
 
 public typealias CompletionBlock = () -> Void
 public typealias CustomisationBlock<VC> = (VC) -> Void where VC: ViewController
-public typealias AnyContext<T> = any Context<T>
+public typealias AnyContainer<T> = any Container<T>
 
-public protocol Context<T> {
+public protocol Container<T> {
     associatedtype T
 
-    var presentingContext: AnyContext<T>? { get }
+    var presentingContainer: AnyContainer<T>? { get }
 
-    var castValue: AnyContext<T>? { get }
+    var castValue: AnyContainer<T>? { get }
 
     @discardableResult
     func close(animated: Bool, completion: CompletionBlock?) -> Bool
@@ -35,10 +35,10 @@ public protocol Context<T> {
         tokenData: TD,
         transition: Transition?,
         customisation: CustomisationBlock<VC>?
-    ) -> AnyContext<T>? where VC: ViewController, TD: TokenData
+    ) -> AnyContainer<T>? where VC: ViewController, TD: TokenData
 }
 
-public extension Context {
+public extension Container {
     @discardableResult
     func close(animated: Bool) -> Bool {
         close(animated: animated, completion: nil)
@@ -50,13 +50,13 @@ public extension Context {
         tokenData: TD,
         transition: Transition? = nil,
         customisation: CustomisationBlock<VC>? = nil
-    ) -> AnyContext<T>? where VC: ViewController, TD: TokenData {
+    ) -> AnyContainer<T>? where VC: ViewController, TD: TokenData {
         change(to: identifier, tokenData: tokenData, transition: transition, customisation: customisation)
     }
 }
 
-public extension Context {
-    var castValue: AnyContext<T>? {
+public extension Container {
+    var castValue: AnyContainer<T>? {
         self
     }
 }

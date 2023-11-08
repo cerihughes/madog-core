@@ -9,8 +9,8 @@ public final class Madog<T>: ContainerDelegate {
     private let registrar = Registrar<T>()
     private let containerRepository: ContainerUIRepository<T>
 
-    private var currentContainer: ContainerUI<T>?
-    private var modalContainers = [ViewController: AnyContext<T>]()
+    private var container: ContainerUI<T>?
+    private var modalContainers = [ViewController: AnyContainer<T>]()
 
     public init() {
         containerRepository = ContainerUIRepository<T>(registry: registrar.registry)
@@ -59,7 +59,7 @@ public final class Madog<T>: ContainerDelegate {
         in window: Window,
         transition: Transition? = nil,
         customisation: CustomisationBlock<VC>? = nil
-    ) -> AnyContext<T>? where VC: ViewController, TD: TokenData {
+    ) -> AnyContainer<T>? where VC: ViewController, TD: TokenData {
         guard let container = createUI(
             identifier: identifier,
             tokenData: tokenData,
@@ -68,11 +68,11 @@ public final class Madog<T>: ContainerDelegate {
         ) else { return nil }
 
         window.setRootViewController(container.viewController, transition: transition)
-        return container.wrapped()
+        return container.proxy()
     }
 
-    public var currentContext: AnyContext<T>? {
-        currentContainer
+    public var currentContainer: AnyContainer<T>? {
+        container
     }
 
     public var serviceProviders: [String: ServiceProvider] {
@@ -100,14 +100,14 @@ public final class Madog<T>: ContainerDelegate {
         return container
     }
 
-    func context(for viewController: ViewController) -> AnyContext<T>? {
-        if viewController == currentContainer?.viewController { return currentContainer }
+    func container(for viewController: ViewController) -> AnyContainer<T>? {
+        if viewController == container?.viewController { return container }
         return modalContainers[viewController]
     }
 
-    func releaseContext(for viewController: ViewController) {
-        if viewController == currentContainer?.viewController {
-            currentContainer = nil
+    func releaseContainer(for viewController: ViewController) {
+        if viewController == container?.viewController {
+            container = nil
         } else {
             modalContainers[viewController] = nil
         }
@@ -119,8 +119,8 @@ public final class Madog<T>: ContainerDelegate {
         if isModal {
             modalContainers[container.viewController] = container
         } else {
-            currentContainer = container
-            modalContainers = [:] // Clear old modal contexts
+            self.container = container
+            modalContainers = [:] // Clear old modal containers
         }
     }
 }

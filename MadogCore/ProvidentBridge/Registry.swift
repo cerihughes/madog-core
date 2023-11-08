@@ -15,18 +15,18 @@ public protocol Registry<T>: AnyObject {
 }
 
 class RegistryBridge<T>: Registry {
-    private let bridged: Provident.AnyRegistry<T, AnyContext<T>>
+    private let bridged: Provident.AnyRegistry<T, AnyContainer<T>>
 
-    init(bridged: Provident.AnyRegistry<T, AnyContext<T>>) {
+    init(bridged: Provident.AnyRegistry<T, AnyContainer<T>>) {
         self.bridged = bridged
     }
 
     func createViewController(from token: T, container: ContainerUI<T>) -> ViewController? {
-        bridged.createViewController(from: token, context: container.wrapped())
+        bridged.createViewController(from: token, context: container.proxy())
     }
 }
 
-extension Provident.Registry where C == AnyContext<T> {
+extension Provident.Registry where C == AnyContainer<T> {
     func  bridged() -> AnyRegistry<T> {
         RegistryBridge(bridged: self)
     }

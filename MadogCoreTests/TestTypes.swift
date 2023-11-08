@@ -18,8 +18,8 @@ class TestResolver: Resolver {
 }
 
 class TestViewControllerProvider: ViewControllerProvider {
-    func createViewController(token: Int, context: AnyContext<Int>) -> ViewController? {
-        TestViewController(context: context)
+    func createViewController(token: Int, container: AnyContainer<Int>) -> ViewController? {
+        TestViewController(container: container)
     }
 }
 
@@ -28,12 +28,12 @@ protocol TestViewControllerDelegate: AnyObject {
 }
 
 class TestViewController<Int>: ViewController {
-    let context: AnyContext<Int>
+    let container: AnyContainer<Int>
 
     weak var delegate: TestViewControllerDelegate?
 
-    init(context: AnyContext<Int>) {
-        self.context = context
+    init(container: AnyContainer<Int>) {
+        self.container = container
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -49,5 +49,5 @@ class TestViewController<Int>: ViewController {
 class TestServiceProvider: ServiceProvider {
     var name = "TestServiceProvider"
 
-    init(context _: ServiceProviderCreationContext) {}
+    init(context: ServiceProviderCreationContext) {}
 }

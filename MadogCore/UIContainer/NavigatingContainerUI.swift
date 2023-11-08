@@ -7,13 +7,13 @@
 
 import Foundation
 
-open class NavigatingContainerUI<T>: ContainerUI<T>, ForwardBackContext {
+open class NavigatingContainerUI<T>: ContainerUI<T>, ForwardBackContainer {
     open func provideNavigationController() -> NavigationController? {
         // OVERRIDE
         nil
     }
 
-    // MARK: - ForwardBackContext
+    // MARK: - ForwardBackContainer
 
     public func navigateForward(token: T, animated: Bool) -> Bool {
         guard

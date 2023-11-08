@@ -7,9 +7,9 @@
 
 import Foundation
 
-public typealias AnyModalContext<T> = any ModalContext<T>
+public typealias AnyModalContainer<T> = any ModalContainer<T>
 
-public protocol ModalContext<T> {
+public protocol ModalContainer<T> {
     associatedtype T
 
     // swiftlint:disable function_parameter_count
@@ -30,7 +30,7 @@ public protocol ModalContext<T> {
     func closeModal(token: AnyModalToken<T>, animated: Bool, completion: CompletionBlock?) -> Bool
 }
 
-public extension ModalContext {
+public extension ModalContainer {
     @discardableResult
     func openModal<VC, TD>(
         identifier: ContainerUI<T>.Identifier<VC, TD>,
@@ -65,22 +65,22 @@ public typealias AnyModalToken<T> = any ModalToken<T>
 public protocol ModalToken<T> {
     associatedtype T
 
-    var context: AnyContext<T> { get }
+    var container: AnyContainer<T> { get }
 }
 
 class ModalTokenImplementation<T>: ModalToken {
     let viewController: ViewController
-    let context: AnyContext<T>
+    let container: AnyContainer<T>
 
-    init(viewController: ViewController, context: AnyContext<T>) {
+    init(viewController: ViewController, container: AnyContainer<T>) {
         self.viewController = viewController
-        self.context = context
+        self.container = container
     }
 }
 
-public extension Context {
-    var modal: AnyModalContext<T>? {
-        castValue as? AnyModalContext<T>
+public extension Container {
+    var modal: AnyModalContainer<T>? {
+        castValue as? AnyModalContainer<T>
     }
 }
 

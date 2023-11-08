@@ -21,13 +21,7 @@ protocol MadogUIContainerDelegate<T>: AnyObject {
     func releaseContext(for viewController: ViewController)
 }
 
-#if canImport(UIKit)
-public typealias MadogUIContainerSuper = MadogModalUIContainer
-#elseif canImport(AppKit)
-public typealias MadogUIContainerSuper = MadogBaseContainer
-#endif
-
-open class MadogUIContainer<T>: MadogUIContainerSuper<T>, Context {
+open class MadogUIContainer<T>: MadogBaseContainer<T>, Context {
 
     // MARK: - Context
 

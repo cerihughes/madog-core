@@ -6,11 +6,10 @@ import Foundation
 
 #if canImport(UIKit)
 
-open class MadogModalUIContainer<T>: MadogBaseContainer<T>, ModalContext {
-
-    private let modalPresentation: ModalPresentation = DefaultModalPresentation()
+extension MadogUIContainer: ModalContext {
 
     // MARK: - ModalContext
+
     // swiftlint:disable function_parameter_count
     public func openModal<VC, TD>(
         identifier: MadogUIIdentifier<VC, TD, T>,
@@ -32,18 +31,19 @@ open class MadogModalUIContainer<T>: MadogBaseContainer<T>, ModalContext {
         else { return nil }
 
         let presentedViewController = container.viewController
-        let result = modalPresentation.presentModally(
-            presenting: viewController,
-            modal: presentedViewController,
+        viewController.madog_presentModally(
+            viewController: presentedViewController,
             presentationStyle: presentationStyle,
             transitionStyle: transitionStyle,
             popoverAnchor: popoverAnchor,
             animated: animated,
             completion: completion
         )
+
         let context = container.wrapped()
-        return result ? createModalToken(viewController: presentedViewController, context: context) : nil
+        return createModalToken(viewController: presentedViewController, context: context)
     }
+
     // swiftlint:enable function_parameter_count
     public func closeModal(
         token: AnyModalToken<T>,
@@ -68,7 +68,7 @@ open class MadogModalUIContainer<T>: MadogBaseContainer<T>, ModalContext {
         delegate?.releaseContext(for: presentedViewController)
     }
 
-    public final func createModalToken(viewController: ViewController, context: AnyContext<T>) -> AnyModalToken<T> {
+    private func createModalToken(viewController: ViewController, context: AnyContext<T>) -> AnyModalToken<T> {
         ModalTokenImplementation(viewController: viewController, context: context)
     }
 }

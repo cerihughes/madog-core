@@ -8,10 +8,7 @@
 import MadogCore
 import UIKit
 
-/// A class that presents view controllers, and manages the navigation between them.
-///
-/// At the moment, this is achieved with a UINavigationController that can be pushed / popped to / from.
-class TestNavigationContainer<T>: MadogNavigatingModalUIContainer<T> {
+class TestNavigatingContainer<T>: NavigatingContainer<T> {
     private let navigationController = UINavigationController()
 
     init?(registry: AnyRegistry<T>, tokenData: SingleUITokenData<T>) {
@@ -28,14 +25,14 @@ class TestNavigationContainer<T>: MadogNavigatingModalUIContainer<T> {
     }
 }
 
-struct TestNavigationContainerFactory<T>: SingleContainerFactory {
-    func createContainer(registry: AnyRegistry<T>, tokenData: SingleUITokenData<T>) -> MadogUIContainer<T>? {
-        TestNavigationContainer(registry: registry, tokenData: tokenData)
+struct TestNavigatingContainerFactory<T>: SingleContainerFactory {
+    func createContainer(registry: AnyRegistry<T>, tokenData: SingleUITokenData<T>) -> Container<T>? {
+        TestNavigatingContainer(registry: registry, tokenData: tokenData)
     }
 }
 
-extension MadogUIIdentifier where VC == UINavigationController, TD == SingleUITokenData<T> {
-    static func testNavigation() -> Self { MadogUIIdentifier("testNavigationIdentifier") }
+extension Container.Identifier where VC == UINavigationController, TD == SingleUITokenData<T> {
+    static func testNavigation() -> Self { .init("testNavigatingIdentifier") }
 }
 
 #endif

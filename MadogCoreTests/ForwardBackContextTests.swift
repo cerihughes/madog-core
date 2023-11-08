@@ -9,7 +9,7 @@ import XCTest
 
 @testable import MadogCore
 
-class MadogForwardBackContextTests: XCTestCase {
+class ForwardBackContextTests: XCTestCase {
     private var madog: Madog<Int>!
 
     override func setUp() {
@@ -18,7 +18,7 @@ class MadogForwardBackContextTests: XCTestCase {
         madog = Madog()
         madog.resolve(resolver: TestResolver())
         madog.addContainerFactory(identifier: .test(), factory: TestContainerFactory())
-        madog.addContainerFactory(identifier: .testNavigation(), factory: TestNavigationContainerFactory())
+        madog.addContainerFactory(identifier: .testNavigation(), factory: TestNavigatingContainerFactory())
     }
 
     override func tearDown() {

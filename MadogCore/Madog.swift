@@ -21,45 +21,45 @@ public final class Madog<T>: MadogUIContainerDelegate {
     }
 
     @discardableResult
-    public func addContainerFactory<VC, C>(
-        identifier: MadogUIIdentifier<VC, C, SingleUITokenData<T>, T>,
+    public func addContainerFactory<VC>(
+        identifier: MadogUIIdentifier<VC, SingleUITokenData<T>, T>,
         factory: AnySingleContainerFactory<T>
     ) -> Bool where VC: ViewController {
         containerRepository.addContainerFactory(identifier: identifier.value, factory: factory)
     }
 
     @discardableResult
-    public func addContainerFactory<VC, C>(
-        identifier: MadogUIIdentifier<VC, C, MultiUITokenData<T>, T>,
+    public func addContainerFactory<VC>(
+        identifier: MadogUIIdentifier<VC, MultiUITokenData<T>, T>,
         factory: AnyMultiContainerFactory<T>
     ) -> Bool where VC: ViewController {
         containerRepository.addContainerFactory(identifier: identifier.value, factory: factory)
     }
 
     @discardableResult
-    public func addContainerFactory<VC, C>(
-        identifier: MadogUIIdentifier<VC, C, SplitSingleUITokenData<T>, T>,
+    public func addContainerFactory<VC>(
+        identifier: MadogUIIdentifier<VC, SplitSingleUITokenData<T>, T>,
         factory: AnySplitSingleContainerFactory<T>
     ) -> Bool where VC: ViewController {
         containerRepository.addContainerFactory(identifier: identifier.value, factory: factory)
     }
 
     @discardableResult
-    public func addContainerFactory<VC, C>(
-        identifier: MadogUIIdentifier<VC, C, SplitMultiUITokenData<T>, T>,
+    public func addContainerFactory<VC>(
+        identifier: MadogUIIdentifier<VC, SplitMultiUITokenData<T>, T>,
         factory: AnySplitMultiContainerFactory<T>
     ) -> Bool where VC: ViewController {
         containerRepository.addContainerFactory(identifier: identifier.value, factory: factory)
     }
 
     @discardableResult
-    public func renderUI<VC, C, TD>(
-        identifier: MadogUIIdentifier<VC, C, TD, T>,
+    public func renderUI<VC, TD>(
+        identifier: MadogUIIdentifier<VC, TD, T>,
         tokenData: TD,
         in window: Window,
         transition: Transition? = nil,
         customisation: CustomisationBlock<VC>? = nil
-    ) -> C? where VC: ViewController, TD: TokenData {
+    ) -> AnyContext<T>? where VC: ViewController, TD: TokenData {
         guard let container = createUI(
             identifier: identifier,
             tokenData: tokenData,
@@ -68,7 +68,7 @@ public final class Madog<T>: MadogUIContainerDelegate {
         ) else { return nil }
 
         window.setRootViewController(container.viewController, transition: transition)
-        return container as? C
+        return container.wrapped()
     }
 
     public var currentContext: AnyContext<T>? {
@@ -81,15 +81,14 @@ public final class Madog<T>: MadogUIContainerDelegate {
 
     // MARK: - MadogUIContainerDelegate
 
-    func createUI<VC, C, TD>(
-        identifier: MadogUIIdentifier<VC, C, TD, T>,
+    func createUI<VC, TD>(
+        identifier: MadogUIIdentifier<VC, TD, T>,
         tokenData: TD,
         isModal: Bool,
         customisation: CustomisationBlock<VC>?
     ) -> MadogUIContainer<T>? where VC: ViewController, TD: TokenData {
         guard
             let container = containerRepository.createContainer(identifier: identifier.value, tokenData: tokenData),
-            container is C,
             let viewController = container.viewController as? VC
         else {
             return nil

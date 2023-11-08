@@ -7,7 +7,15 @@ import Foundation
 
 public typealias AnySplitMultiContext<T> = any SplitMultiContext<T>
 
-public protocol SplitMultiContext<T>: Context {
+public protocol SplitMultiContext<T> {
+    associatedtype T
+
     @discardableResult
     func showDetail(tokens: [T]) -> Bool
+}
+
+public extension Context {
+    var splitMulti: AnySplitMultiContext<T>? {
+        self as? AnySplitMultiContext<T>
+    }
 }

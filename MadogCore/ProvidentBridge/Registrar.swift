@@ -11,7 +11,7 @@ class Registrar<T> {
 
     var serviceProviders: [String: ServiceProvider] { bridged.serviceProviders }
     var viewControllerProviders: [AnyViewControllerProvider<T>] { bridged.viewControllerProviders.map { $0.bridged() } }
-    var registry: AnyRegistry<T> { bridged.registry }
+    var registry: AnyRegistry<T> { bridged.registry.bridged() }
 
     func resolve(
         serviceProviderFunctions: [ServiceProviderFunction],

@@ -5,8 +5,12 @@
 
 import Foundation
 
-public typealias AnyMultiContext<T> = any MultiContext<T>
-
-public protocol MultiContext<T>: Context {
+public protocol MultiContext {
     var selectedIndex: Int { get set }
+}
+
+public extension Context {
+    var multi: MultiContext? {
+        self as? MultiContext
+    }
 }

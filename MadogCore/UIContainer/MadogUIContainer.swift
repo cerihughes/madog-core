@@ -10,8 +10,8 @@ typealias AnyMadogUIContainerDelegate<T> = any MadogUIContainerDelegate<T>
 protocol MadogUIContainerDelegate<T>: AnyObject {
     associatedtype T
 
-    func createUI<VC, C, TD>(
-        identifier: MadogUIIdentifier<VC, C, TD, T>,
+    func createUI<VC, TD>(
+        identifier: MadogUIIdentifier<VC, TD, T>,
         tokenData: TD,
         isModal: Bool,
         customisation: CustomisationBlock<VC>?
@@ -21,7 +21,13 @@ protocol MadogUIContainerDelegate<T>: AnyObject {
     func releaseContext(for viewController: ViewController)
 }
 
-open class MadogUIContainer<T>: MadogModalUIContainer<T>, Context {
+#if canImport(UIKit)
+public typealias MadogUIContainerSuper = MadogModalUIContainer
+#elseif canImport(AppKit)
+public typealias MadogUIContainerSuper = MadogBaseContainer
+#endif
+
+open class MadogUIContainer<T>: MadogUIContainerSuper<T>, Context {
 
     // MARK: - Context
 
@@ -37,12 +43,12 @@ open class MadogUIContainer<T>: MadogModalUIContainer<T>, Context {
         return true
     }
 
-    public func change<VC, C, TD>(
-        to identifier: MadogUIIdentifier<VC, C, TD, T>,
+    public func change<VC, TD>(
+        to identifier: MadogUIIdentifier<VC, TD, T>,
         tokenData: TD,
         transition: Transition?,
         customisation: CustomisationBlock<VC>?
-    ) -> C? where VC: ViewController, TD: TokenData {
+    ) -> AnyContext<T>? where VC: ViewController, TD: TokenData {
         guard
             let container = delegate?.createUI(
                 identifier: identifier,
@@ -54,6 +60,6 @@ open class MadogUIContainer<T>: MadogModalUIContainer<T>, Context {
         else { return nil }
 
         window.setRootViewController(container.viewController, transition: transition)
-        return container as? C
+        return container.wrapped()
     }
 }

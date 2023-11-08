@@ -28,7 +28,7 @@ protocol TestViewControllerDelegate: AnyObject {
 }
 
 class TestViewController<Int>: ViewController {
-    weak var context: AnyContext<Int>?
+    let context: AnyContext<Int>
 
     weak var delegate: TestViewControllerDelegate?
 
@@ -50,30 +50,4 @@ class TestServiceProvider: ServiceProvider {
     var name = "TestServiceProvider"
 
     init(context _: ServiceProviderCreationContext) {}
-}
-
-class TestContext: Context {
-    typealias T = Int
-
-    var presentingContext: AnyContext<Int>? { nil }
-    func close(animated: Bool, completion: CompletionBlock?) -> Bool { false }
-    func change<VC, C, TD>(
-        to identifier: MadogUIIdentifier<VC, C, TD, Int>,
-        tokenData: TD,
-        transition: Transition?,
-        customisation: CustomisationBlock<VC>?
-    ) -> C? where VC: ViewController, TD: TokenData { nil }
-#if canImport(UIKit)
-    func openModal<VC, C, TD>(
-        identifier: MadogUIIdentifier<VC, C, TD, Int>,
-        tokenData: TD,
-        presentationStyle: PresentationStyle?,
-        transitionStyle: TransitionStyle?,
-        popoverAnchor: Any?,
-        animated: Bool,
-        customisation: CustomisationBlock<VC>?,
-        completion: CompletionBlock?
-    ) -> AnyModalToken<C>? where VC: UIViewController, TD: TokenData { nil }
-    func closeModal<C>(token: AnyModalToken<C>, animated: Bool, completion: CompletionBlock?) -> Bool { false }
-#endif
 }

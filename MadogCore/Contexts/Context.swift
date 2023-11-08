@@ -19,19 +19,21 @@ public typealias CompletionBlock = () -> Void
 public typealias CustomisationBlock<VC> = (VC) -> Void where VC: ViewController
 public typealias AnyContext<T> = any Context<T>
 
-public protocol Context<T>: ModalContext {
+public protocol Context<T> {
+    associatedtype T
+
     var presentingContext: AnyContext<T>? { get }
 
     @discardableResult
     func close(animated: Bool, completion: CompletionBlock?) -> Bool
 
     @discardableResult
-    func change<VC, C, TD>(
-        to identifier: MadogUIIdentifier<VC, C, TD, T>,
+    func change<VC, TD>(
+        to identifier: MadogUIIdentifier<VC, TD, T>,
         tokenData: TD,
         transition: Transition?,
         customisation: CustomisationBlock<VC>?
-    ) -> C? where VC: ViewController, TD: TokenData
+    ) -> AnyContext<T>? where VC: ViewController, TD: TokenData
 }
 
 public extension Context {
@@ -41,12 +43,12 @@ public extension Context {
     }
 
     @discardableResult
-    func change<VC, C, TD>(
-        to identifier: MadogUIIdentifier<VC, C, TD, T>,
+    func change<VC, TD>(
+        to identifier: MadogUIIdentifier<VC, TD, T>,
         tokenData: TD,
         transition: Transition? = nil,
         customisation: CustomisationBlock<VC>? = nil
-    ) -> C? where VC: ViewController, TD: TokenData {
+    ) -> AnyContext<T>? where VC: ViewController, TD: TokenData {
         change(to: identifier, tokenData: tokenData, transition: transition, customisation: customisation)
     }
 }

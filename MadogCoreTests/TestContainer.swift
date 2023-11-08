@@ -11,6 +11,6 @@ struct TestContainerFactory<T>: SingleContainerFactory {
     }
 }
 
-extension MadogUIIdentifier where VC == ViewController, C == AnyContext<T>, TD == SingleUITokenData<T> {
+extension MadogUIIdentifier where VC == ViewController, TD == SingleUITokenData<T> {
     static func test() -> Self { MadogUIIdentifier("testIdentifier") }
 }

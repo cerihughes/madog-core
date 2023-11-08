@@ -12,7 +12,9 @@ class ContainerProxy<T>: Container {
         self.wrapped = wrapped
     }
 
+    var uuid: UUID { wrapped?.uuid ?? UUID() }
     var presentingContainer: AnyContainer<T>? { wrapped?.presentingContainer }
+    var castValue: AnyContainer<T>? { wrapped }
 
     func close(animated: Bool, completion: CompletionBlock?) -> Bool {
         wrapped?.close(animated: animated, completion: completion) ?? false
@@ -26,10 +28,6 @@ class ContainerProxy<T>: Container {
         customisation: CustomisationBlock<VC>?
     ) -> AnyContainer<T>? where VC: ViewController, TD: TokenData {
         wrapped?.change(to: identifier, tokenData: tokenData, transition: transition, customisation: customisation)
-    }
-
-    var castValue: AnyContainer<T>? {
-        wrapped
     }
 }
 

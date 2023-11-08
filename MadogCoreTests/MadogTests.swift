@@ -8,7 +8,7 @@ import XCTest
 @testable import MadogCore
 
 class MadogTests: XCTestCase {
-    private var madog: Madog<String>!
+    private var madog: Madog<Int>!
 
     override func setUp() {
         super.setUp()
@@ -27,12 +27,41 @@ class MadogTests: XCTestCase {
     func testMadogKeepsStrongReferenceToCurrentContext() {
         let window = Window()
 
-        weak var context1 = madog.renderUI(identifier: .test(), tokenData: .single("match"), in: window)
+        weak var context1 = madog.renderUI(identifier: .test(), tokenData: .single(0), in: window)
         XCTAssertNotNil(context1)
 
-        weak var context2 = madog.renderUI(identifier: .test(), tokenData: .single("match"), in: window)
+        weak var context2 = madog.renderUI(identifier: .test(), tokenData: .single(1), in: window)
         XCTAssertNil(context1)
         XCTAssertNotNil(context2)
+    }
+
+    func testMadogReleasesContext() throws {
+        let window = Window()
+        let tracker = DeallocationTracker()
+
+        try autoreleasepool {
+            weak var context = madog.renderUI(identifier: .test(), tokenData: .single(0), in: window)
+            XCTAssertNotNil(context)
+            try context?.assignDelegate(tracker)
+        }
+
+        XCTAssertEqual(tracker.deallocations, 0)
+
+        try autoreleasepool {
+            weak var context = madog.renderUI(identifier: .test(), tokenData: .single(0), in: window)
+            XCTAssertNotNil(context)
+            try context?.assignDelegate(tracker)
+        }
+
+        XCTAssertEqual(tracker.deallocations, 1)
+
+        try autoreleasepool {
+            weak var context = madog.renderUI(identifier: .test(), tokenData: .single(0), in: window)
+            XCTAssertNotNil(context)
+            try context?.assignDelegate(tracker)
+        }
+
+        XCTAssertEqual(tracker.deallocations, 2)
     }
 
     func testServiceProviderAccess() {
@@ -44,34 +73,18 @@ class MadogTests: XCTestCase {
     }
 }
 
-private class TestResolver: Resolver {
-    func serviceProviderFunctions() -> [(ServiceProviderCreationContext) -> ServiceProvider] {
-        [TestServiceProvider.init(context:)]
-    }
-
-    func viewControllerProviderFunctions() -> [() -> AnyViewControllerProvider<String>] {
-        [ { TestViewControllerProvider(matchString: "match") } ]
+private extension AnyContext where T == Int {
+    func assignDelegate(_ delegate: TestViewControllerDelegate) throws {
+        let container = try XCTUnwrap(self as? TestContainer<Int>)
+        let vc = try XCTUnwrap(container.viewController.children[0] as? TestViewController<Int>)
+        vc.delegate = delegate
     }
 }
 
-private class TestViewControllerProvider: ViewControllerProvider {
-    private let matchString: String
-
-    init(matchString: String) {
-        self.matchString = matchString
+private class DeallocationTracker: TestViewControllerDelegate {
+    var deallocations = 0
+    func testViewControllerDidDeallocate() {
+        print("*** delegate fired")
+        deallocations += 1
     }
-
-    func createViewController(token: String, context: AnyContext<String>) -> ViewController? {
-        if token == matchString {
-            return ViewController()
-        }
-
-        return nil
-    }
-}
-
-private class TestServiceProvider: ServiceProvider {
-    var name = "TestServiceProvider"
-
-    init(context _: ServiceProviderCreationContext) {}
 }

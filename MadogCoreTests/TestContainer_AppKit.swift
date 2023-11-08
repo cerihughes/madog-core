@@ -14,7 +14,7 @@ class TestContainer<T>: MadogUIContainer<T> {
     init?(registry: AnyRegistry<T>, tokenData: SingleUITokenData<T>) {
         super.init(registry: registry, viewController: containerController)
 
-        guard let vc = registry.createViewController(from: tokenData.token, context: self) else { return nil }
+        guard let vc = registry.createViewController(from: tokenData.token, container: self) else { return nil }
 
         containerController.addChild(vc)
         containerController.view.addSubview(vc.view)

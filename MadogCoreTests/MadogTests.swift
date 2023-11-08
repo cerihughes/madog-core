@@ -24,13 +24,16 @@ class MadogTests: XCTestCase {
         super.tearDown()
     }
 
-    func testMadogKeepsStrongReferenceToCurrentContext() {
+    func testMadogKeepsStrongReferenceToCurrentContext() throws {
         let window = Window()
 
-        weak var context1 = madog.renderUI(identifier: .test(), tokenData: .single(0), in: window)
-        XCTAssertNotNil(context1)
+        weak var context1: TestContainer<Int>?
+        try autoreleasepool {
+            context1 = try madog.renderUI(identifier: .test(), tokenData: .single(0), in: window)?.asContainer()
+            XCTAssertNotNil(context1)
+        }
 
-        weak var context2 = madog.renderUI(identifier: .test(), tokenData: .single(1), in: window)
+        weak var context2 = try madog.renderUI(identifier: .test(), tokenData: .single(1), in: window)?.asContainer()
         XCTAssertNil(context1)
         XCTAssertNotNil(context2)
     }
@@ -40,7 +43,7 @@ class MadogTests: XCTestCase {
         let tracker = DeallocationTracker()
 
         try autoreleasepool {
-            weak var context = madog.renderUI(identifier: .test(), tokenData: .single(0), in: window)
+            weak var context = try madog.renderUI(identifier: .test(), tokenData: .single(0), in: window)?.asContainer()
             XCTAssertNotNil(context)
             try context?.assignDelegate(tracker)
         }
@@ -48,7 +51,7 @@ class MadogTests: XCTestCase {
         XCTAssertEqual(tracker.deallocations, 0)
 
         try autoreleasepool {
-            weak var context = madog.renderUI(identifier: .test(), tokenData: .single(0), in: window)
+            weak var context = try madog.renderUI(identifier: .test(), tokenData: .single(0), in: window)?.asContainer()
             XCTAssertNotNil(context)
             try context?.assignDelegate(tracker)
         }
@@ -56,7 +59,7 @@ class MadogTests: XCTestCase {
         XCTAssertEqual(tracker.deallocations, 1)
 
         try autoreleasepool {
-            weak var context = madog.renderUI(identifier: .test(), tokenData: .single(0), in: window)
+            weak var context = try madog.renderUI(identifier: .test(), tokenData: .single(0), in: window)?.asContainer()
             XCTAssertNotNil(context)
             try context?.assignDelegate(tracker)
         }
@@ -74,9 +77,15 @@ class MadogTests: XCTestCase {
 }
 
 private extension AnyContext where T == Int {
+    func asContainer() throws -> TestContainer<Int> {
+        let wrapped = try XCTUnwrap(self as? WeakContextHolder<Int>)
+        return try XCTUnwrap(wrapped.wrapped as? TestContainer<Int>)
+    }
+}
+
+private extension TestContainer {
     func assignDelegate(_ delegate: TestViewControllerDelegate) throws {
-        let container = try XCTUnwrap(self as? TestContainer<Int>)
-        let vc = try XCTUnwrap(container.viewController.children[0] as? TestViewController<Int>)
+        let vc = try XCTUnwrap(viewController.children[0] as? TestViewController<Int>)
         vc.delegate = delegate
     }
 }
@@ -84,7 +93,6 @@ private extension AnyContext where T == Int {
 private class DeallocationTracker: TestViewControllerDelegate {
     var deallocations = 0
     func testViewControllerDidDeallocate() {
-        print("*** delegate fired")
         deallocations += 1
     }
 }

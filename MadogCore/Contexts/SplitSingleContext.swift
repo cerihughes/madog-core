@@ -7,7 +7,15 @@ import Foundation
 
 public typealias AnySplitSingleContext<T> = any SplitSingleContext<T>
 
-public protocol SplitSingleContext<T>: Context {
+public protocol SplitSingleContext<T> {
+    associatedtype T
+
     @discardableResult
     func showDetail(token: T) -> Bool
+}
+
+public extension Context {
+    var splitSingle: AnySplitSingleContext<T>? {
+        castValue as? AnySplitSingleContext<T>
+    }
 }

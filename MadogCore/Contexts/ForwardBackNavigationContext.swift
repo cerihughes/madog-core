@@ -9,7 +9,8 @@ import Foundation
 
 public typealias AnyForwardBackNavigationContext<T> = any ForwardBackNavigationContext<T>
 
-public protocol ForwardBackNavigationContext<T>: Context {
+public protocol ForwardBackNavigationContext<T> {
+    associatedtype T
 
     @discardableResult
     func navigateForward(token: T, animated: Bool) -> Bool
@@ -17,6 +18,12 @@ public protocol ForwardBackNavigationContext<T>: Context {
     func navigateBack(animated: Bool) -> Bool
     @discardableResult
     func navigateBackToRoot(animated: Bool) -> Bool
+}
+
+public extension Context {
+    var forwardBack: AnyForwardBackNavigationContext<T>? {
+        castValue as? AnyForwardBackNavigationContext<T>
+    }
 }
 
 #endif

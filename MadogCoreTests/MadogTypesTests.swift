@@ -32,10 +32,10 @@ class MadogTypesTests: XCTestCase {
         XCTAssertEqual(resolver.serviceProviderFunctions().count, 1)
         XCTAssertEqual(resolver.viewControllerProviderFunctions().count, 1)
 
-        let context = TestContext()
+        let container = MadogUIContainer(registry: registry, viewController: ViewController())
 
-        XCTAssertNil(registry.createViewController(from: 1, context: context))
+        XCTAssertNil(registry.createViewController(from: 1, container: container))
         registrar.resolve(resolver: resolver)
-        XCTAssertNotNil(registry.createViewController(from: 0, context: context))
+        XCTAssertNotNil(registry.createViewController(from: 0, container: container))
     }
 }

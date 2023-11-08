@@ -5,7 +5,7 @@
 
 import Foundation
 
-public struct MadogUIIdentifier<VC, C, TD, T> where VC: ViewController, TD: TokenData {
+public struct MadogUIIdentifier<VC, TD, T> where VC: ViewController, TD: TokenData {
     let value: String
 
     public init(_ value: String) {

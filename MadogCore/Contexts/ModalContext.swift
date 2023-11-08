@@ -2,19 +2,20 @@
 //  Created by Ceri Hughes on 08/12/2019.
 //  Copyright © 2019 Ceri Hughes. All rights reserved.
 //
+
+#if canImport(UIKit)
+
 import Foundation
 
 public typealias AnyModalContext<T> = any ModalContext<T>
 
-public protocol ModalContext<T>: AnyObject {
+public protocol ModalContext<T> {
     associatedtype T
-
-#if canImport(UIKit)
 
     // swiftlint:disable function_parameter_count
     @discardableResult
-    func openModal<VC, C, TD>(
-        identifier: MadogUIIdentifier<VC, C, TD, T>,
+    func openModal<VC, TD>(
+        identifier: MadogUIIdentifier<VC, TD, T>,
         tokenData: TD,
         presentationStyle: PresentationStyle?,
         transitionStyle: TransitionStyle?,
@@ -22,21 +23,17 @@ public protocol ModalContext<T>: AnyObject {
         animated: Bool,
         customisation: CustomisationBlock<VC>?,
         completion: CompletionBlock?
-    ) -> AnyModalToken<C>? where VC: ViewController, TD: TokenData
+    ) -> AnyModalToken<T>? where VC: ViewController, TD: TokenData
     // swiftlint:enable function_parameter_count
 
     @discardableResult
-    func closeModal<C>(token: AnyModalToken<C>, animated: Bool, completion: CompletionBlock?) -> Bool
-
-#endif
+    func closeModal(token: AnyModalToken<T>, animated: Bool, completion: CompletionBlock?) -> Bool
 }
-
-#if canImport(UIKit)
 
 public extension ModalContext {
     @discardableResult
-    func openModal<VC, C, TD>(
-        identifier: MadogUIIdentifier<VC, C, TD, T>,
+    func openModal<VC, TD>(
+        identifier: MadogUIIdentifier<VC, TD, T>,
         tokenData: TD,
         presentationStyle: PresentationStyle? = nil,
         transitionStyle: TransitionStyle? = nil,
@@ -44,7 +41,7 @@ public extension ModalContext {
         animated: Bool,
         customisation: CustomisationBlock<VC>? = nil,
         completion: CompletionBlock? = nil
-    ) -> AnyModalToken<C>? where VC: ViewController, TD: TokenData {
+    ) -> AnyModalToken<T>? where VC: ViewController, TD: TokenData {
         openModal(
             identifier: identifier,
             tokenData: tokenData,
@@ -58,26 +55,32 @@ public extension ModalContext {
     }
 
     @discardableResult
-    func closeModal<C>(token: AnyModalToken<C>, animated: Bool) -> Bool {
+    func closeModal(token: AnyModalToken<T>, animated: Bool) -> Bool {
         closeModal(token: token, animated: animated, completion: nil)
     }
 }
 
-public typealias AnyModalToken<C> = any ModalToken<C>
+public typealias AnyModalToken<T> = any ModalToken<T>
 
-public protocol ModalToken<C> {
-    associatedtype C
+public protocol ModalToken<T> {
+    associatedtype T
 
-    var context: C { get }
+    var context: AnyContext<T> { get }
 }
 
-class ModalTokenImplementation<C>: ModalToken {
+class ModalTokenImplementation<T>: ModalToken {
     let viewController: ViewController
-    let context: C
+    let context: AnyContext<T>
 
-    init(viewController: ViewController, context: C) {
+    init(viewController: ViewController, context: AnyContext<T>) {
         self.viewController = viewController
         self.context = context
+    }
+}
+
+public extension Context {
+    var modal: AnyModalContext<T>? {
+        castValue as? AnyModalContext<T>
     }
 }
 

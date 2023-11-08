@@ -3,6 +3,8 @@
 //  Copyright © 2023 Ceri Hughes. All rights reserved.
 //
 
+#if canImport(UIKit)
+
 import MadogCore
 import UIKit
 
@@ -35,3 +37,5 @@ struct TestNavigationContainerFactory<T>: SingleContainerFactory {
 extension MadogUIIdentifier where VC == UINavigationController, TD == SingleUITokenData<T> {
     static func testNavigation() -> Self { MadogUIIdentifier("testNavigationIdentifier") }
 }
+
+#endif

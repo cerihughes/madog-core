@@ -3,11 +3,13 @@
 //  Copyright © 2023 Ceri Hughes. All rights reserved.
 //
 
+#if canImport(UIKit)
+
 import XCTest
 
 @testable import MadogCore
 
-class MadogContextTests: XCTestCase {
+class MadogForwardBackContextTests: XCTestCase {
     private var madog: Madog<Int>!
 
     override func setUp() {
@@ -35,3 +37,5 @@ class MadogContextTests: XCTestCase {
         XCTAssertNotNil(context2.forwardBack)
     }
 }
+
+#endif

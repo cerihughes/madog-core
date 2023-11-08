@@ -32,6 +32,7 @@ open class ContainerUI<T>: Container {
     }
 
     public private(set) var registry: AnyRegistry<T>
+    public let uuid = UUID()
     let viewController: ViewController
 
     weak var delegate: AnyContainerDelegate<T>?

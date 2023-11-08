@@ -7,9 +7,9 @@
 
 import Foundation
 
-public typealias AnyForwardBackNavigationContext<T> = any ForwardBackNavigationContext<T>
+public typealias AnyForwardBackContext<T> = any ForwardBackContext<T>
 
-public protocol ForwardBackNavigationContext<T> {
+public protocol ForwardBackContext<T> {
     associatedtype T
 
     @discardableResult
@@ -21,8 +21,8 @@ public protocol ForwardBackNavigationContext<T> {
 }
 
 public extension Context {
-    var forwardBack: AnyForwardBackNavigationContext<T>? {
-        castValue as? AnyForwardBackNavigationContext<T>
+    var forwardBack: AnyForwardBackContext<T>? {
+        castValue as? AnyForwardBackContext<T>
     }
 }
 

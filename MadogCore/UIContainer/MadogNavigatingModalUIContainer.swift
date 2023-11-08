@@ -7,13 +7,13 @@
 
 import Foundation
 
-open class MadogNavigatingModalUIContainer<T>: MadogUIContainer<T>, ForwardBackNavigationContext {
+open class MadogNavigatingModalUIContainer<T>: MadogUIContainer<T>, ForwardBackContext {
     open func provideNavigationController() -> NavigationController? {
         // OVERRIDE
         nil
     }
 
-    // MARK: - ForwardBackNavigationContext
+    // MARK: - ForwardBackContext
 
     public func navigateForward(token: T, animated: Bool) -> Bool {
         guard

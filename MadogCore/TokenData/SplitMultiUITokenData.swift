@@ -16,8 +16,8 @@ public extension TokenData {
     }
 }
 
-public typealias AnySplitMultiContainerFactory<T> = any SplitMultiContainerFactory<T>
-public protocol SplitMultiContainerFactory<T> {
+public typealias AnySplitMultiContainerUIFactory<T> = any SplitMultiContainerUIFactory<T>
+public protocol SplitMultiContainerUIFactory<T> {
     associatedtype T
     func createContainer(registry: AnyRegistry<T>, tokenData: SplitMultiUITokenData<T>) -> ContainerUI<T>?
 }

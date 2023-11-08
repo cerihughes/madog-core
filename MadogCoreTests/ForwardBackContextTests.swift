@@ -17,8 +17,8 @@ class ForwardBackContextTests: XCTestCase {
 
         madog = Madog()
         madog.resolve(resolver: TestResolver())
-        madog.addContainerFactory(identifier: .test(), factory: TestContainerFactory())
-        madog.addContainerFactory(identifier: .testNavigation(), factory: TestNavigatingContainerFactory())
+        madog.addContainerUIFactory(identifier: .test(), factory: TestContainerUIFactory())
+        madog.addContainerUIFactory(identifier: .testNavigation(), factory: TestNavigatingContainerUIFactory())
     }
 
     override func tearDown() {

@@ -15,8 +15,8 @@ public extension TokenData {
     }
 }
 
-public typealias AnySingleContainerFactory<T> = any SingleContainerFactory<T>
-public protocol SingleContainerFactory<T> {
+public typealias AnySingleContainerUIFactory<T> = any SingleContainerUIFactory<T>
+public protocol SingleContainerUIFactory<T> {
     associatedtype T
     func createContainer(registry: AnyRegistry<T>, tokenData: SingleUITokenData<T>) -> ContainerUI<T>?
 }

@@ -5,9 +5,9 @@
 
 import MadogCore
 
-struct TestContainerFactory<T>: SingleContainerFactory {
+struct TestContainerUIFactory<T>: SingleContainerUIFactory {
     func createContainer(registry: AnyRegistry<T>, tokenData: SingleUITokenData<T>) -> ContainerUI<T>? {
-        TestContainer(registry: registry, tokenData: tokenData)
+        TestContainerUI(registry: registry, tokenData: tokenData)
     }
 }
 

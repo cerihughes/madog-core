@@ -7,34 +7,34 @@ import Foundation
 
 class ContainerUIRepository<T> {
     private let registry: AnyRegistry<T>
-    private var singleRegistry = [String: AnySingleContainerFactory<T>]()
-    private var multiRegistry = [String: AnyMultiContainerFactory<T>]()
-    private var splitSingleRegistry = [String: AnySplitSingleContainerFactory<T>]()
-    private var splitMultiRegistry = [String: AnySplitMultiContainerFactory<T>]()
+    private var singleRegistry = [String: AnySingleContainerUIFactory<T>]()
+    private var multiRegistry = [String: AnyMultiContainerUIFactory<T>]()
+    private var splitSingleRegistry = [String: AnySplitSingleContainerUIFactory<T>]()
+    private var splitMultiRegistry = [String: AnySplitMultiContainerUIFactory<T>]()
 
     init(registry: AnyRegistry<T>) {
         self.registry = registry
     }
 
-    func addContainerFactory(identifier: String, factory: AnySingleContainerFactory<T>) -> Bool {
+    func addContainerUIFactory(identifier: String, factory: AnySingleContainerUIFactory<T>) -> Bool {
         guard singleRegistry[identifier] == nil else { return false }
         singleRegistry[identifier] = factory
         return true
     }
 
-    func addContainerFactory(identifier: String, factory: AnyMultiContainerFactory<T>) -> Bool {
+    func addContainerUIFactory(identifier: String, factory: AnyMultiContainerUIFactory<T>) -> Bool {
         guard multiRegistry[identifier] == nil else { return false }
         multiRegistry[identifier] = factory
         return true
     }
 
-    func addContainerFactory(identifier: String, factory: AnySplitSingleContainerFactory<T>) -> Bool {
+    func addContainerUIFactory(identifier: String, factory: AnySplitSingleContainerUIFactory<T>) -> Bool {
         guard splitSingleRegistry[identifier] == nil else { return false }
         splitSingleRegistry[identifier] = factory
         return true
     }
 
-    func addContainerFactory(identifier: String, factory: AnySplitMultiContainerFactory<T>) -> Bool {
+    func addContainerUIFactory(identifier: String, factory: AnySplitMultiContainerUIFactory<T>) -> Bool {
         guard splitMultiRegistry[identifier] == nil else { return false }
         splitMultiRegistry[identifier] = factory
         return true

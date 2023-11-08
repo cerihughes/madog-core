@@ -15,7 +15,7 @@ class MadogTests: XCTestCase {
 
         madog = Madog()
         madog.resolve(resolver: TestResolver())
-        madog.addContainerFactory(identifier: .test(), factory: TestContainerFactory())
+        madog.addContainerUIFactory(identifier: .test(), factory: TestContainerUIFactory())
     }
 
     override func tearDown() {
@@ -27,7 +27,7 @@ class MadogTests: XCTestCase {
     func testMadogKeepsStrongReferenceToCurrentContext() throws {
         let window = Window()
 
-        weak var context1: TestContainer<Int>?
+        weak var context1: TestContainerUI<Int>?
         try autoreleasepool {
             context1 = try madog.renderUI(identifier: .test(), tokenData: .single(0), in: window)?.asContainer()
             XCTAssertNotNil(context1)
@@ -77,13 +77,13 @@ class MadogTests: XCTestCase {
 }
 
 private extension AnyContext where T == Int {
-    func asContainer() throws -> TestContainer<Int> {
+    func asContainer() throws -> TestContainerUI<Int> {
         let wrapped = try XCTUnwrap(self as? WeakContextHolder<Int>)
-        return try XCTUnwrap(wrapped.wrapped as? TestContainer<Int>)
+        return try XCTUnwrap(wrapped.wrapped as? TestContainerUI<Int>)
     }
 }
 
-private extension TestContainer {
+private extension TestContainerUI {
     func assignDelegate(_ delegate: TestViewControllerDelegate) throws {
         let vc = try XCTUnwrap(viewController.children[0] as? TestViewController<Int>)
         vc.delegate = delegate

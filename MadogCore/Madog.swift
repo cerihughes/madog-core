@@ -21,35 +21,35 @@ public final class Madog<T>: ContainerDelegate {
     }
 
     @discardableResult
-    public func addContainerFactory<VC>(
+    public func addContainerUIFactory<VC>(
         identifier: ContainerUI<T>.Identifier<VC, SingleUITokenData<T>>,
-        factory: AnySingleContainerFactory<T>
+        factory: AnySingleContainerUIFactory<T>
     ) -> Bool where VC: ViewController {
-        containerRepository.addContainerFactory(identifier: identifier.value, factory: factory)
+        containerRepository.addContainerUIFactory(identifier: identifier.value, factory: factory)
     }
 
     @discardableResult
-    public func addContainerFactory<VC>(
+    public func addContainerUIFactory<VC>(
         identifier: ContainerUI<T>.Identifier<VC, MultiUITokenData<T>>,
-        factory: AnyMultiContainerFactory<T>
+        factory: AnyMultiContainerUIFactory<T>
     ) -> Bool where VC: ViewController {
-        containerRepository.addContainerFactory(identifier: identifier.value, factory: factory)
+        containerRepository.addContainerUIFactory(identifier: identifier.value, factory: factory)
     }
 
     @discardableResult
-    public func addContainerFactory<VC>(
+    public func addContainerUIFactory<VC>(
         identifier: ContainerUI<T>.Identifier<VC, SplitSingleUITokenData<T>>,
-        factory: AnySplitSingleContainerFactory<T>
+        factory: AnySplitSingleContainerUIFactory<T>
     ) -> Bool where VC: ViewController {
-        containerRepository.addContainerFactory(identifier: identifier.value, factory: factory)
+        containerRepository.addContainerUIFactory(identifier: identifier.value, factory: factory)
     }
 
     @discardableResult
-    public func addContainerFactory<VC>(
+    public func addContainerUIFactory<VC>(
         identifier: ContainerUI<T>.Identifier<VC, SplitMultiUITokenData<T>>,
-        factory: AnySplitMultiContainerFactory<T>
+        factory: AnySplitMultiContainerUIFactory<T>
     ) -> Bool where VC: ViewController {
-        containerRepository.addContainerFactory(identifier: identifier.value, factory: factory)
+        containerRepository.addContainerUIFactory(identifier: identifier.value, factory: factory)
     }
 
     @discardableResult

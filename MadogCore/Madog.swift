@@ -5,15 +5,15 @@
 
 import Foundation
 
-public final class Madog<T>: MadogUIContainerDelegate {
+public final class Madog<T>: ContainerDelegate {
     private let registrar = Registrar<T>()
-    private let containerRepository: ContainerRepository<T>
+    private let containerRepository: ContainerUIRepository<T>
 
-    private var currentContainer: MadogUIContainer<T>?
-    private var modalContainers = [ViewController: AnyContext<T>]()
+    private var container: ContainerUI<T>?
+    private var modalContainers = [ViewController: AnyContainer<T>]()
 
     public init() {
-        containerRepository = ContainerRepository<T>(registry: registrar.registry)
+        containerRepository = ContainerUIRepository<T>(registry: registrar.registry)
     }
 
     public func resolve(resolver: AnyResolver<T>, launchOptions: LaunchOptions? = nil) {
@@ -21,45 +21,45 @@ public final class Madog<T>: MadogUIContainerDelegate {
     }
 
     @discardableResult
-    public func addContainerFactory<VC>(
-        identifier: MadogUIIdentifier<VC, SingleUITokenData<T>, T>,
-        factory: AnySingleContainerFactory<T>
+    public func addContainerUIFactory<VC>(
+        identifier: ContainerUI<T>.Identifier<VC, SingleUITokenData<T>>,
+        factory: AnySingleContainerUIFactory<T>
     ) -> Bool where VC: ViewController {
-        containerRepository.addContainerFactory(identifier: identifier.value, factory: factory)
+        containerRepository.addContainerUIFactory(identifier: identifier.value, factory: factory)
     }
 
     @discardableResult
-    public func addContainerFactory<VC>(
-        identifier: MadogUIIdentifier<VC, MultiUITokenData<T>, T>,
-        factory: AnyMultiContainerFactory<T>
+    public func addContainerUIFactory<VC>(
+        identifier: ContainerUI<T>.Identifier<VC, MultiUITokenData<T>>,
+        factory: AnyMultiContainerUIFactory<T>
     ) -> Bool where VC: ViewController {
-        containerRepository.addContainerFactory(identifier: identifier.value, factory: factory)
+        containerRepository.addContainerUIFactory(identifier: identifier.value, factory: factory)
     }
 
     @discardableResult
-    public func addContainerFactory<VC>(
-        identifier: MadogUIIdentifier<VC, SplitSingleUITokenData<T>, T>,
-        factory: AnySplitSingleContainerFactory<T>
+    public func addContainerUIFactory<VC>(
+        identifier: ContainerUI<T>.Identifier<VC, SplitSingleUITokenData<T>>,
+        factory: AnySplitSingleContainerUIFactory<T>
     ) -> Bool where VC: ViewController {
-        containerRepository.addContainerFactory(identifier: identifier.value, factory: factory)
+        containerRepository.addContainerUIFactory(identifier: identifier.value, factory: factory)
     }
 
     @discardableResult
-    public func addContainerFactory<VC>(
-        identifier: MadogUIIdentifier<VC, SplitMultiUITokenData<T>, T>,
-        factory: AnySplitMultiContainerFactory<T>
+    public func addContainerUIFactory<VC>(
+        identifier: ContainerUI<T>.Identifier<VC, SplitMultiUITokenData<T>>,
+        factory: AnySplitMultiContainerUIFactory<T>
     ) -> Bool where VC: ViewController {
-        containerRepository.addContainerFactory(identifier: identifier.value, factory: factory)
+        containerRepository.addContainerUIFactory(identifier: identifier.value, factory: factory)
     }
 
     @discardableResult
     public func renderUI<VC, TD>(
-        identifier: MadogUIIdentifier<VC, TD, T>,
+        identifier: ContainerUI<T>.Identifier<VC, TD>,
         tokenData: TD,
         in window: Window,
         transition: Transition? = nil,
         customisation: CustomisationBlock<VC>? = nil
-    ) -> AnyContext<T>? where VC: ViewController, TD: TokenData {
+    ) -> AnyContainer<T>? where VC: ViewController, TD: TokenData {
         guard let container = createUI(
             identifier: identifier,
             tokenData: tokenData,
@@ -68,11 +68,11 @@ public final class Madog<T>: MadogUIContainerDelegate {
         ) else { return nil }
 
         window.setRootViewController(container.viewController, transition: transition)
-        return container.wrapped()
+        return container.proxy()
     }
 
-    public var currentContext: AnyContext<T>? {
-        currentContainer
+    public var currentContainer: AnyContainer<T>? {
+        container
     }
 
     public var serviceProviders: [String: ServiceProvider] {
@@ -82,11 +82,11 @@ public final class Madog<T>: MadogUIContainerDelegate {
     // MARK: - MadogUIContainerDelegate
 
     func createUI<VC, TD>(
-        identifier: MadogUIIdentifier<VC, TD, T>,
+        identifier: ContainerUI<T>.Identifier<VC, TD>,
         tokenData: TD,
         isModal: Bool,
         customisation: CustomisationBlock<VC>?
-    ) -> MadogUIContainer<T>? where VC: ViewController, TD: TokenData {
+    ) -> ContainerUI<T>? where VC: ViewController, TD: TokenData {
         guard
             let container = containerRepository.createContainer(identifier: identifier.value, tokenData: tokenData),
             let viewController = container.viewController as? VC
@@ -100,14 +100,14 @@ public final class Madog<T>: MadogUIContainerDelegate {
         return container
     }
 
-    func context(for viewController: ViewController) -> AnyContext<T>? {
-        if viewController == currentContainer?.viewController { return currentContainer }
+    func container(for viewController: ViewController) -> AnyContainer<T>? {
+        if viewController == container?.viewController { return container }
         return modalContainers[viewController]
     }
 
-    func releaseContext(for viewController: ViewController) {
-        if viewController == currentContainer?.viewController {
-            currentContainer = nil
+    func releaseContainer(for viewController: ViewController) {
+        if viewController == container?.viewController {
+            container = nil
         } else {
             modalContainers[viewController] = nil
         }
@@ -115,12 +115,12 @@ public final class Madog<T>: MadogUIContainerDelegate {
 
     // MARK: - Private
 
-    private func persist(container: MadogUIContainer<T>, isModal: Bool) {
+    private func persist(container: ContainerUI<T>, isModal: Bool) {
         if isModal {
             modalContainers[container.viewController] = container
         } else {
-            currentContainer = container
-            modalContainers = [:] // Clear old modal contexts
+            self.container = container
+            modalContainers = [:] // Clear old modal containers
         }
     }
 }

@@ -6,13 +6,13 @@ import Foundation
 
 #if canImport(UIKit)
 
-extension MadogUIContainer: ModalContext {
+extension ContainerUI: ModalContainer {
 
-    // MARK: - ModalContext
+    // MARK: - ModalContainer
 
     // swiftlint:disable function_parameter_count
     public func openModal<VC, TD>(
-        identifier: MadogUIIdentifier<VC, TD, T>,
+        identifier: Identifier<VC, TD>,
         tokenData: TD,
         presentationStyle: PresentationStyle?,
         transitionStyle: TransitionStyle?,
@@ -40,8 +40,8 @@ extension MadogUIContainer: ModalContext {
             completion: completion
         )
 
-        let context = container.wrapped()
-        return createModalToken(viewController: presentedViewController, context: context)
+        let proxy = container.proxy()
+        return createModalToken(viewController: presentedViewController, container: proxy)
     }
 
     // swiftlint:enable function_parameter_count
@@ -51,25 +51,25 @@ extension MadogUIContainer: ModalContext {
         completion: CompletionBlock?
     ) -> Bool {
         guard let token = token as? ModalTokenImplementation<T> else { return false }
-        closeContext(presentedViewController: token.viewController, animated: animated, completion: completion)
+        closeContainer(presentedViewController: token.viewController, animated: animated, completion: completion)
         return true
     }
 
-    func closeContext(
+    func closeContainer(
         presentedViewController: ViewController,
         animated: Bool = false,
         completion: CompletionBlock? = nil
     ) {
         if let presentedPresentedViewController = presentedViewController.presentedViewController {
-            closeContext(presentedViewController: presentedPresentedViewController, animated: animated)
+            closeContainer(presentedViewController: presentedPresentedViewController, animated: animated)
         }
 
         presentedViewController.dismiss(animated: animated, completion: completion)
-        delegate?.releaseContext(for: presentedViewController)
+        delegate?.releaseContainer(for: presentedViewController)
     }
 
-    private func createModalToken(viewController: ViewController, context: AnyContext<T>) -> AnyModalToken<T> {
-        ModalTokenImplementation(viewController: viewController, context: context)
+    private func createModalToken(viewController: ViewController, container: AnyContainer<T>) -> AnyModalToken<T> {
+        ModalTokenImplementation(viewController: viewController, container: container)
     }
 }
 

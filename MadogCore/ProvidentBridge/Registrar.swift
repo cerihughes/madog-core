@@ -7,7 +7,7 @@ import Foundation
 import Provident
 
 class Registrar<T> {
-    private let bridged = Provident.Registrar<T, AnyContext<T>>()
+    private let bridged = Provident.Registrar<T, AnyContainer<T>>()
 
     var serviceProviders: [String: ServiceProvider] { bridged.serviceProviders }
     var viewControllerProviders: [AnyViewControllerProvider<T>] { bridged.viewControllerProviders.map { $0.bridged() } }

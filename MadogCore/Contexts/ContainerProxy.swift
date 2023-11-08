@@ -5,14 +5,14 @@
 
 import Foundation
 
-class WeakContextHolder<T>: Context {
-    weak var wrapped: MadogUIContainer<T>?
+class ContainerProxy<T>: Container {
+    weak var wrapped: ContainerUI<T>?
 
-    init(wrapped: MadogUIContainer<T>) {
+    init(wrapped: ContainerUI<T>) {
         self.wrapped = wrapped
     }
 
-    var presentingContext: AnyContext<T>? { wrapped?.presentingContext }
+    var presentingContainer: AnyContainer<T>? { wrapped?.presentingContainer }
 
     func close(animated: Bool, completion: CompletionBlock?) -> Bool {
         wrapped?.close(animated: animated, completion: completion) ?? false
@@ -20,21 +20,21 @@ class WeakContextHolder<T>: Context {
 
     @discardableResult
     func change<VC, TD>(
-        to identifier: MadogUIIdentifier<VC, TD, T>,
+        to identifier: ContainerUI<T>.Identifier<VC, TD>,
         tokenData: TD,
         transition: Transition?,
         customisation: CustomisationBlock<VC>?
-    ) -> AnyContext<T>? where VC: ViewController, TD: TokenData {
+    ) -> AnyContainer<T>? where VC: ViewController, TD: TokenData {
         wrapped?.change(to: identifier, tokenData: tokenData, transition: transition, customisation: customisation)
     }
 
-    var castValue: AnyContext<T>? {
+    var castValue: AnyContainer<T>? {
         wrapped
     }
 }
 
-extension MadogUIContainer {
-    func wrapped() -> AnyContext<T> {
-        WeakContextHolder(wrapped: self)
+extension ContainerUI {
+    func proxy() -> AnyContainer<T> {
+        ContainerProxy(wrapped: self)
     }
 }

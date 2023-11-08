@@ -26,13 +26,13 @@ public extension Resolver {
 }
 
 extension Resolver {
-    func bridged() -> Provident.AnyResolver<T, AnyContext<T>> {
+    func bridged() -> Provident.AnyResolver<T, AnyContainer<T>> {
         ResolverBridge(bridged: self)
     }
 }
 
 class ResolverBridge<T>: Provident.Resolver {
-    typealias C = AnyContext<T>
+    typealias C = AnyContainer<T>
 
     private let bridged: AnyResolver<T>
 

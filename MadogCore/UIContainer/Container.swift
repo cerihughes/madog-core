@@ -5,23 +5,41 @@
 
 import Foundation
 
-typealias AnyMadogUIContainerDelegate<T> = any MadogUIContainerDelegate<T>
+typealias AnyContainerDelegate<T> = any ContainerDelegate<T>
 
-protocol MadogUIContainerDelegate<T>: AnyObject {
+protocol ContainerDelegate<T>: AnyObject {
     associatedtype T
 
     func createUI<VC, TD>(
-        identifier: MadogUIIdentifier<VC, TD, T>,
+        identifier: Container<T>.Identifier<VC, TD>,
         tokenData: TD,
         isModal: Bool,
         customisation: CustomisationBlock<VC>?
-    ) -> MadogUIContainer<T>? where VC: ViewController, TD: TokenData
+    ) -> Container<T>? where VC: ViewController, TD: TokenData
 
     func context(for viewController: ViewController) -> AnyContext<T>?
     func releaseContext(for viewController: ViewController)
 }
 
-open class MadogUIContainer<T>: MadogBaseContainer<T>, Context {
+open class Container<T>: Context {
+
+    public struct Identifier<VC, TD> where VC: ViewController, TD: TokenData {
+        let value: String
+
+        public init(_ value: String) {
+            self.value = value
+        }
+    }
+
+    public private(set) var registry: AnyRegistry<T>
+    let viewController: ViewController
+
+    weak var delegate: AnyContainerDelegate<T>?
+
+    public init(registry: AnyRegistry<T>, viewController: ViewController) {
+        self.registry = registry
+        self.viewController = viewController
+    }
 
     // MARK: - Context
 
@@ -38,7 +56,7 @@ open class MadogUIContainer<T>: MadogBaseContainer<T>, Context {
     }
 
     public func change<VC, TD>(
-        to identifier: MadogUIIdentifier<VC, TD, T>,
+        to identifier: Identifier<VC, TD>,
         tokenData: TD,
         transition: Transition?,
         customisation: CustomisationBlock<VC>?

@@ -8,7 +8,7 @@
 import UIKit
 
 // swiftlint:disable function_parameter_count
-extension ViewController {
+extension UIViewController {
     func madog_presentModally(
         viewController: ViewController,
         presentationStyle: PresentationStyle?,

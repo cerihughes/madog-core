@@ -6,9 +6,9 @@
 import Foundation
 
 class WeakContextHolder<T>: Context {
-    weak var wrapped: MadogUIContainer<T>?
+    weak var wrapped: Container<T>?
 
-    init(wrapped: MadogUIContainer<T>) {
+    init(wrapped: Container<T>) {
         self.wrapped = wrapped
     }
 
@@ -20,7 +20,7 @@ class WeakContextHolder<T>: Context {
 
     @discardableResult
     func change<VC, TD>(
-        to identifier: MadogUIIdentifier<VC, TD, T>,
+        to identifier: Container<T>.Identifier<VC, TD>,
         tokenData: TD,
         transition: Transition?,
         customisation: CustomisationBlock<VC>?
@@ -33,7 +33,7 @@ class WeakContextHolder<T>: Context {
     }
 }
 
-extension MadogUIContainer {
+extension Container {
     func wrapped() -> AnyContext<T> {
         WeakContextHolder(wrapped: self)
     }

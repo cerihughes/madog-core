@@ -31,7 +31,7 @@ public protocol Context<T> {
 
     @discardableResult
     func change<VC, TD>(
-        to identifier: MadogUIIdentifier<VC, TD, T>,
+        to identifier: Container<T>.Identifier<VC, TD>,
         tokenData: TD,
         transition: Transition?,
         customisation: CustomisationBlock<VC>?
@@ -46,7 +46,7 @@ public extension Context {
 
     @discardableResult
     func change<VC, TD>(
-        to identifier: MadogUIIdentifier<VC, TD, T>,
+        to identifier: Container<T>.Identifier<VC, TD>,
         tokenData: TD,
         transition: Transition? = nil,
         customisation: CustomisationBlock<VC>? = nil

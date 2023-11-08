@@ -11,7 +11,7 @@ public typealias AnyRegistry<T> = any Registry<T>
 public protocol Registry<T>: AnyObject {
     associatedtype T
 
-    func createViewController(from token: T, container: MadogUIContainer<T>) -> ViewController?
+    func createViewController(from token: T, container: Container<T>) -> ViewController?
 }
 
 class RegistryBridge<T>: Registry {
@@ -21,7 +21,7 @@ class RegistryBridge<T>: Registry {
         self.bridged = bridged
     }
 
-    func createViewController(from token: T, container: MadogUIContainer<T>) -> ViewController? {
+    func createViewController(from token: T, container: Container<T>) -> ViewController? {
         bridged.createViewController(from: token, context: container.wrapped())
     }
 }

@@ -6,13 +6,13 @@ import Foundation
 
 #if canImport(UIKit)
 
-extension MadogUIContainer: ModalContext {
+extension Container: ModalContext {
 
     // MARK: - ModalContext
 
     // swiftlint:disable function_parameter_count
     public func openModal<VC, TD>(
-        identifier: MadogUIIdentifier<VC, TD, T>,
+        identifier: Identifier<VC, TD>,
         tokenData: TD,
         presentationStyle: PresentationStyle?,
         transitionStyle: TransitionStyle?,

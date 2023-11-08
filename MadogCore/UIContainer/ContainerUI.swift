@@ -11,17 +11,17 @@ protocol ContainerDelegate<T>: AnyObject {
     associatedtype T
 
     func createUI<VC, TD>(
-        identifier: Container<T>.Identifier<VC, TD>,
+        identifier: ContainerUI<T>.Identifier<VC, TD>,
         tokenData: TD,
         isModal: Bool,
         customisation: CustomisationBlock<VC>?
-    ) -> Container<T>? where VC: ViewController, TD: TokenData
+    ) -> ContainerUI<T>? where VC: ViewController, TD: TokenData
 
     func context(for viewController: ViewController) -> AnyContext<T>?
     func releaseContext(for viewController: ViewController)
 }
 
-open class Container<T>: Context {
+open class ContainerUI<T>: Context {
 
     public struct Identifier<VC, TD> where VC: ViewController, TD: TokenData {
         let value: String

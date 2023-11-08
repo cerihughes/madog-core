@@ -5,7 +5,7 @@
 
 import Foundation
 
-class ContainerRepository<T> {
+class ContainerUIRepository<T> {
     private let registry: AnyRegistry<T>
     private var singleRegistry = [String: AnySingleContainerFactory<T>]()
     private var multiRegistry = [String: AnyMultiContainerFactory<T>]()
@@ -40,7 +40,7 @@ class ContainerRepository<T> {
         return true
     }
 
-    func createContainer<TD>(identifier: String, tokenData: TD) -> Container<T>? where TD: TokenData {
+    func createContainer<TD>(identifier: String, tokenData: TD) -> ContainerUI<T>? where TD: TokenData {
         if let td = tokenData as? SingleUITokenData<T> {
             return singleRegistry[identifier]?.createContainer(registry: registry, tokenData: td)
         }

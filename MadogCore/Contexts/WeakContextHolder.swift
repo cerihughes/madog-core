@@ -6,9 +6,9 @@
 import Foundation
 
 class WeakContextHolder<T>: Context {
-    weak var wrapped: Container<T>?
+    weak var wrapped: ContainerUI<T>?
 
-    init(wrapped: Container<T>) {
+    init(wrapped: ContainerUI<T>) {
         self.wrapped = wrapped
     }
 
@@ -20,7 +20,7 @@ class WeakContextHolder<T>: Context {
 
     @discardableResult
     func change<VC, TD>(
-        to identifier: Container<T>.Identifier<VC, TD>,
+        to identifier: ContainerUI<T>.Identifier<VC, TD>,
         tokenData: TD,
         transition: Transition?,
         customisation: CustomisationBlock<VC>?
@@ -33,7 +33,7 @@ class WeakContextHolder<T>: Context {
     }
 }
 
-extension Container {
+extension ContainerUI {
     func wrapped() -> AnyContext<T> {
         WeakContextHolder(wrapped: self)
     }

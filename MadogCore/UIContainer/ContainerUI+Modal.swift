@@ -6,7 +6,7 @@ import Foundation
 
 #if canImport(UIKit)
 
-extension Container: ModalContext {
+extension ContainerUI: ModalContext {
 
     // MARK: - ModalContext
 

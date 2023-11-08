@@ -8,7 +8,7 @@
 import MadogCore
 import UIKit
 
-class TestNavigatingContainer<T>: NavigatingContainer<T> {
+class TestNavigatingContainer<T>: NavigatingContainerUI<T> {
     private let navigationController = UINavigationController()
 
     init?(registry: AnyRegistry<T>, tokenData: SingleUITokenData<T>) {
@@ -26,12 +26,12 @@ class TestNavigatingContainer<T>: NavigatingContainer<T> {
 }
 
 struct TestNavigatingContainerFactory<T>: SingleContainerFactory {
-    func createContainer(registry: AnyRegistry<T>, tokenData: SingleUITokenData<T>) -> Container<T>? {
+    func createContainer(registry: AnyRegistry<T>, tokenData: SingleUITokenData<T>) -> ContainerUI<T>? {
         TestNavigatingContainer(registry: registry, tokenData: tokenData)
     }
 }
 
-extension Container.Identifier where VC == UINavigationController, TD == SingleUITokenData<T> {
+extension ContainerUI.Identifier where VC == UINavigationController, TD == SingleUITokenData<T> {
     static func testNavigation() -> Self { .init("testNavigatingIdentifier") }
 }
 

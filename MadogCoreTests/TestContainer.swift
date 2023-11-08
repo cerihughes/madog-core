@@ -6,11 +6,11 @@
 import MadogCore
 
 struct TestContainerFactory<T>: SingleContainerFactory {
-    func createContainer(registry: AnyRegistry<T>, tokenData: SingleUITokenData<T>) -> Container<T>? {
+    func createContainer(registry: AnyRegistry<T>, tokenData: SingleUITokenData<T>) -> ContainerUI<T>? {
         TestContainer(registry: registry, tokenData: tokenData)
     }
 }
 
-extension Container.Identifier where VC == ViewController, TD == SingleUITokenData<T> {
+extension ContainerUI.Identifier where VC == ViewController, TD == SingleUITokenData<T> {
     static func test() -> Self { .init("testIdentifier") }
 }

@@ -16,8 +16,27 @@ public extension TokenData {
     }
 }
 
-public typealias AnySplitMultiContainerUIFactory<T> = any SplitMultiContainerUIFactory<T>
-public protocol SplitMultiContainerUIFactory<T> {
+public typealias AnySplitMultiContainerUIFactory<T, VC> = any SplitMultiContainerUIFactory<T, VC>
+public protocol SplitMultiContainerUIFactory<T, VC> where VC: ViewController {
     associatedtype T
-    func createContainer(registry: AnyRegistry<T>, tokenData: SplitMultiUITokenData<T>) -> ContainerUI<T>?
+    associatedtype VC
+    func createContainer(registry: AnyRegistry<T>, tokenData: SplitMultiUITokenData<T>) -> ContainerUI<T, VC>?
+}
+
+struct ErasedSplitMultiContainerUIFactory<T> {
+    private let createContainerClosure: (AnyRegistry<T>, SplitMultiUITokenData<T>) -> Any?
+
+    init<VC, F: SplitMultiContainerUIFactory<T, VC>>(_ factory: F) {
+        createContainerClosure = { factory.createContainer(registry: $0, tokenData: $1) }
+    }
+
+    func createContainer<VC>(registry: AnyRegistry<T>, tokenData: SplitMultiUITokenData<T>) -> ContainerUI<T, VC>? {
+        createContainerClosure(registry, tokenData) as? ContainerUI<T, VC>
+    }
+}
+
+extension SplitMultiContainerUIFactory {
+    func typeErased() -> ErasedSplitMultiContainerUIFactory<T> {
+        .init(self)
+    }
 }

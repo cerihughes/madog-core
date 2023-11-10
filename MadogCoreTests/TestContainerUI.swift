@@ -6,7 +6,7 @@
 import MadogCore
 
 struct TestContainerUIFactory<T>: SingleContainerUIFactory {
-    func createContainer(registry: AnyRegistry<T>, tokenData: SingleUITokenData<T>) -> ContainerUI<T>? {
+    func createContainer(registry: AnyRegistry<T>, tokenData: SingleUITokenData<T>) -> ContainerUI<T, ViewController>? {
         TestContainerUI(registry: registry, tokenData: tokenData)
     }
 }

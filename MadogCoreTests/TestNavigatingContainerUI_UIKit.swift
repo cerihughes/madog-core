@@ -26,7 +26,10 @@ class TestNavigatingContainerUI<T>: NavigatingContainerUI<T> {
 }
 
 struct TestNavigatingContainerUIFactory<T>: SingleContainerUIFactory {
-    func createContainer(registry: AnyRegistry<T>, tokenData: SingleUITokenData<T>) -> ContainerUI<T>? {
+    func createContainer(
+        registry: AnyRegistry<T>,
+        tokenData: SingleUITokenData<T>
+    ) -> ContainerUI<T, NavigationController>? {
         TestNavigatingContainerUI(registry: registry, tokenData: tokenData)
     }
 }

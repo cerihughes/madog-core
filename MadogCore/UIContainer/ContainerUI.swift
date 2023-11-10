@@ -10,20 +10,20 @@ typealias AnyContainerDelegate<T> = any ContainerDelegate<T>
 protocol ContainerDelegate<T>: AnyObject {
     associatedtype T
 
-    func createUI<VC, TD>(
-        identifier: ContainerUI<T>.Identifier<VC, TD>,
+    func createContainer<VC, TD>(
+        identifier: ContainerUI<T, VC>.Identifier<TD>,
         tokenData: TD,
         isModal: Bool,
         customisation: CustomisationBlock<VC>?
-    ) -> ContainerUI<T>? where VC: ViewController, TD: TokenData
+    ) -> ContainerUI<T, VC>? where VC: ViewController, TD: TokenData
 
     func container(for viewController: ViewController) -> AnyContainer<T>?
     func releaseContainer(for viewController: ViewController)
 }
 
-open class ContainerUI<T>: Container {
+open class ContainerUI<T, VC>: Container where VC: ViewController {
 
-    public struct Identifier<VC, TD> where VC: ViewController, TD: TokenData {
+    public struct Identifier<TD> where TD: TokenData {
         let value: String
 
         public init(_ value: String) {
@@ -33,21 +33,16 @@ open class ContainerUI<T>: Container {
 
     public private(set) var registry: AnyRegistry<T>
     public let uuid = UUID()
-    let viewController: ViewController
+    let viewController: VC
 
     weak var delegate: AnyContainerDelegate<T>?
 
-    public init(registry: AnyRegistry<T>, viewController: ViewController) {
+    public init(registry: AnyRegistry<T>, viewController: VC) {
         self.registry = registry
         self.viewController = viewController
     }
 
     // MARK: - Container
-
-    public var presentingContainer: AnyContainer<T>? {
-        guard let presentingViewController = viewController.presentingViewController else { return nil }
-        return delegate?.container(for: presentingViewController)
-    }
 
     public func close(animated: Bool, completion: CompletionBlock?) -> Bool {
 #if canImport(UIKit)
@@ -56,14 +51,14 @@ open class ContainerUI<T>: Container {
         return true
     }
 
-    public func change<VC, TD>(
-        to identifier: Identifier<VC, TD>,
+    public func change<VC2, TD>(
+        to identifier: ContainerUI<T, VC2>.Identifier<TD>,
         tokenData: TD,
         transition: Transition?,
-        customisation: CustomisationBlock<VC>?
-    ) -> AnyContainer<T>? where VC: ViewController, TD: TokenData {
+        customisation: CustomisationBlock<VC2>?
+    ) -> AnyContainer<T>? where VC2: ViewController, TD: TokenData {
         guard
-            let container = delegate?.createUI(
+            let container = delegate?.createContainer(
                 identifier: identifier,
                 tokenData: tokenData,
                 isModal: false,

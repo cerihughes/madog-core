@@ -11,18 +11,18 @@ extension ContainerUI: ModalContainer {
     // MARK: - ModalContainer
 
     // swiftlint:disable function_parameter_count
-    public func openModal<VC, TD>(
-        identifier: Identifier<VC, TD>,
+    public func openModal<VC2, TD>(
+        identifier: ContainerUI<T, VC2>.Identifier<TD>,
         tokenData: TD,
         presentationStyle: PresentationStyle?,
         transitionStyle: TransitionStyle?,
         popoverAnchor: Any?,
         animated: Bool,
-        customisation: CustomisationBlock<VC>?,
+        customisation: CustomisationBlock<VC2>?,
         completion: CompletionBlock?
-    ) -> AnyModalToken<T>? where VC: ViewController, TD: TokenData {
+    ) -> AnyModalToken<T>? where VC2: ViewController, TD: TokenData {
         guard
-            let container = delegate?.createUI(
+            let container = delegate?.createContainer(
                 identifier: identifier,
                 tokenData: tokenData,
                 isModal: true,

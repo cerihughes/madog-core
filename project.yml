@@ -4,13 +4,17 @@ schemes:
     build:
       targets:
         MadogCore: all
-        MadogCoreTests: [test]
     test:
       gatherCoverageData: true
       coverageTargets:
         - MadogCore
       targets:
         - MadogCoreTests
+        - MadogCoreKIFTests
+  MadogCoreTestUtilities:
+    build:
+      targets:
+        MadogCoreTestUtilities: all
 options:
   bundleIdPrefix: uk.co.cerihughes
   deploymentTarget:
@@ -21,6 +25,9 @@ packages:
   Provident:
     url: https://github.com/cerihughes/provident
     majorVersion: 6.0.0
+  KIF:
+    url: https://github.com/kif-framework/KIF
+    majorVersion: 3.8.0
 targets:
   MadogCore:
     type: framework
@@ -35,6 +42,22 @@ targets:
       - script: export PATH="/opt/homebrew/bin:$PATH";swiftlint
         name: Swift Lint
         basedOnDependencyAnalysis: false
+  MadogCoreTestUtilities:
+    type: framework
+    supportedDestinations: [iOS, tvOS]
+    settings:
+      INFOPLIST_FILE: MadogCoreTestUtilities/Info.plist
+    sources:
+      - MadogCoreTestUtilities
+    dependencies:
+      - target: MadogCore
+      - package: KIF
+        destinationFilters: [iOS]
+      - sdk: XCTest.framework
+    postCompileScripts:
+      - script: export PATH="/opt/homebrew/bin:$PATH";swiftlint
+        name: Swift Lint
+        basedOnDependencyAnalysis: false
   MadogCoreTests:
     type: bundle.unit-test
     supportedDestinations: [iOS, macOS, tvOS]
@@ -42,3 +65,22 @@ targets:
       - MadogCoreTests
     dependencies:
       - target: MadogCore
+  MadogCoreKIFTests:
+    type: bundle.unit-test
+    supportedDestinations: [iOS, tvOS]
+    settings:
+      TEST_TARGET_NAME: TestApp
+    sources:
+      - MadogCoreKIFTests
+    dependencies:
+      - target: MadogCore
+      - target: MadogCoreTestUtilities
+      - target: TestApp
+      - package: KIF
+        destinationFilters: [iOS]
+  TestApp:
+    type: application
+    supportedDestinations: [iOS, tvOS]
+    settings:
+      INFOPLIST_FILE: TestApp/Info.plist
+    sources: TestApp

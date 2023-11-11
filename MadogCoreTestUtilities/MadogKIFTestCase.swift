@@ -15,7 +15,7 @@ open class MadogKIFTestCase: KIFTestCase, MadogCUT {
     public var window: UIWindow!
     public var madog: Madog<String>!
 
-    public override func beforeEach() {
+    open override func beforeEach() {
         super.beforeEach()
 
         window = UIWindow()
@@ -25,7 +25,7 @@ open class MadogKIFTestCase: KIFTestCase, MadogCUT {
         madog.registerTestContainers()
     }
 
-    public override func afterEach() {
+    open override func afterEach() {
         window.rootViewController = nil
         window = nil
         madog = nil

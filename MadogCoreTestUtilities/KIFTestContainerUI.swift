@@ -39,4 +39,10 @@ public extension ContainerUI.Identifier where VC == ViewController, TD == Single
     static func kifTest() -> Self { .init("kifTestIdentifier") }
 }
 
+public extension Madog {
+    func registerTestContainers() {
+        _ = addContainerUIFactory(identifier: .kifTest(), factory: KIFTestContainerUI.Factory())
+    }
+}
+
 #endif

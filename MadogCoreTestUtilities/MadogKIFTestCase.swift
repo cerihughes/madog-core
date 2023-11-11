@@ -34,12 +34,6 @@ open class MadogKIFTestCase: KIFTestCase, MadogCUT {
     }
 }
 
-public extension Madog {
-    func registerTestContainers() {
-        _ = addContainerUIFactory(identifier: .kifTest(), factory: KIFTestContainerUI.Factory())
-    }
-}
-
 private class KIFTestResolver: Resolver {
     func viewControllerProviderFunctions() -> [() -> AnyViewControllerProvider<String>] {
         [KIFTestViewControllerProvider.init]

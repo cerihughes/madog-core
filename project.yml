@@ -12,6 +12,10 @@ schemes:
       targets:
         - MadogCoreTests
         - MadogCoreKIFTests
+  MadogCoreTestUtilities:
+    build:
+      targets:
+        MadogCoreTestUtilities: all
 options:
   bundleIdPrefix: uk.co.cerihughes
   deploymentTarget:
@@ -39,6 +43,21 @@ targets:
       - script: export PATH="/opt/homebrew/bin:$PATH";swiftlint
         name: Swift Lint
         basedOnDependencyAnalysis: false
+  MadogCoreTestUtilities:
+    type: framework
+    supportedDestinations: [iOS]
+    settings:
+      INFOPLIST_FILE: MadogCoreTestUtilities/Info.plist
+    sources:
+      - MadogCoreTestUtilities
+    dependencies:
+      - target: MadogCore
+      - package: KIF
+      - sdk: XCTest.framework
+    postCompileScripts:
+      - script: export PATH="/opt/homebrew/bin:$PATH";swiftlint
+        name: Swift Lint
+        basedOnDependencyAnalysis: false
   MadogCoreTests:
     type: bundle.unit-test
     supportedDestinations: [iOS, macOS, tvOS]
@@ -55,6 +74,7 @@ targets:
       - MadogCoreKIFTests
     dependencies:
       - target: MadogCore
+      - target: MadogCoreTestUtilities
       - target: TestApp
       - package: KIF
   TestApp:

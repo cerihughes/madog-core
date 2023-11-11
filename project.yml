@@ -4,7 +4,6 @@ schemes:
     build:
       targets:
         MadogCore: all
-        TestApp: [run]
     test:
       gatherCoverageData: true
       coverageTargets:
@@ -45,7 +44,7 @@ targets:
         basedOnDependencyAnalysis: false
   MadogCoreTestUtilities:
     type: framework
-    supportedDestinations: [iOS]
+    supportedDestinations: [iOS, tvOS]
     settings:
       INFOPLIST_FILE: MadogCoreTestUtilities/Info.plist
     sources:
@@ -53,6 +52,7 @@ targets:
     dependencies:
       - target: MadogCore
       - package: KIF
+        destinationFilters: [iOS]
       - sdk: XCTest.framework
     postCompileScripts:
       - script: export PATH="/opt/homebrew/bin:$PATH";swiftlint
@@ -67,7 +67,7 @@ targets:
       - target: MadogCore
   MadogCoreKIFTests:
     type: bundle.unit-test
-    supportedDestinations: [iOS]
+    supportedDestinations: [iOS, tvOS]
     settings:
       TEST_TARGET_NAME: TestApp
     sources:
@@ -77,6 +77,7 @@ targets:
       - target: MadogCoreTestUtilities
       - target: TestApp
       - package: KIF
+        destinationFilters: [iOS]
   TestApp:
     type: application
     supportedDestinations: [iOS, tvOS]

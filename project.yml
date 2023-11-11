@@ -4,13 +4,14 @@ schemes:
     build:
       targets:
         MadogCore: all
-        MadogCoreTests: [test]
+        TestApp: [run]
     test:
       gatherCoverageData: true
       coverageTargets:
         - MadogCore
       targets:
         - MadogCoreTests
+        - MadogCoreKIFTests
 options:
   bundleIdPrefix: uk.co.cerihughes
   deploymentTarget:
@@ -21,6 +22,9 @@ packages:
   Provident:
     url: https://github.com/cerihughes/provident
     majorVersion: 6.0.0
+  KIF:
+    url: https://github.com/kif-framework/KIF
+    majorVersion: 3.8.0
 targets:
   MadogCore:
     type: framework
@@ -42,3 +46,20 @@ targets:
       - MadogCoreTests
     dependencies:
       - target: MadogCore
+  MadogCoreKIFTests:
+    type: bundle.unit-test
+    supportedDestinations: [iOS]
+    settings:
+      TEST_TARGET_NAME: TestApp
+    sources:
+      - MadogCoreKIFTests
+    dependencies:
+      - target: MadogCore
+      - target: TestApp
+      - package: KIF
+  TestApp:
+    type: application
+    platform: iOS
+    settings:
+      INFOPLIST_FILE: TestApp/Info.plist
+    sources: TestApp

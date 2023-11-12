@@ -44,7 +44,7 @@ targets:
         basedOnDependencyAnalysis: false
   MadogCoreTestUtilities:
     type: framework
-    supportedDestinations: [iOS, tvOS]
+    supportedDestinations: [iOS, macOS, tvOS]
     settings:
       INFOPLIST_FILE: MadogCoreTestUtilities/Info.plist
     sources:
@@ -67,7 +67,7 @@ targets:
       - target: MadogCore
   MadogCoreKIFTests:
     type: bundle.unit-test
-    supportedDestinations: [iOS, tvOS]
+    supportedDestinations: [iOS, macOS, tvOS]
     settings:
       TEST_TARGET_NAME: TestApp
     sources:
@@ -80,7 +80,7 @@ targets:
         destinationFilters: [iOS]
   TestApp:
     type: application
-    supportedDestinations: [iOS, tvOS]
+    supportedDestinations: [iOS, macOS, tvOS]
     settings:
       INFOPLIST_FILE: TestApp/Info.plist
     sources: TestApp

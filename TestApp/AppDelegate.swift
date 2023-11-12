@@ -3,6 +3,8 @@
 //  Copyright © 2019 Ceri Hughes. All rights reserved.
 //
 
+#if canImport(UIKit)
+
 import UIKit
 
 @UIApplicationMain
@@ -20,3 +22,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
 }
+
+#elseif canImport(AppKit)
+
+import AppKit
+
+@NSApplicationMain
+class AppDelegate: NSObject, NSApplicationDelegate {
+    var window: NSWindow?
+
+    func applicationWillFinishLaunching(_ notification: Notification) {
+        window?.makeKeyAndOrderFront(self)
+    }
+}
+
+#endif

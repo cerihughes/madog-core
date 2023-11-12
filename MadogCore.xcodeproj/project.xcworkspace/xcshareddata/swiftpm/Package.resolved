@@ -1,6 +1,15 @@
 {
   "pins" : [
     {
+      "identity" : "kif",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/kif-framework/KIF",
+      "state" : {
+        "revision" : "6c3ff27d9449eab614dae63e571596e4982a5205",
+        "version" : "3.8.9"
+      }
+    },
+    {
       "identity" : "provident",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/cerihughes/provident",

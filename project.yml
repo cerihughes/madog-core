@@ -83,4 +83,5 @@ targets:
     supportedDestinations: [iOS, macOS, tvOS]
     settings:
       INFOPLIST_FILE: TestApp/Info.plist
+      CODE_SIGN_IDENTITY[sdk=macosx*]: "-"
     sources: TestApp

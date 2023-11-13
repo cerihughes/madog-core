@@ -14,16 +14,16 @@ public protocol ModalContainer<T> {
 
     // swiftlint:disable function_parameter_count
     @discardableResult
-    func openModal<VC2, TD>(
-        identifier: ContainerUI<T, VC2>.Identifier<TD>,
-        tokenData: TD,
+    func openModal<VC2, TD2>(
+        identifier: ContainerUI<T, TD2, VC2>.Identifier,
+        tokenData: TD2,
         presentationStyle: PresentationStyle?,
         transitionStyle: TransitionStyle?,
         popoverAnchor: Any?,
         animated: Bool,
         customisation: CustomisationBlock<VC2>?,
         completion: CompletionBlock?
-    ) -> AnyModalToken<T>? where VC2: ViewController, TD: TokenData
+    ) -> AnyModalToken<T>? where VC2: ViewController, TD2: TokenData
     // swiftlint:enable function_parameter_count
 
     @discardableResult
@@ -32,16 +32,16 @@ public protocol ModalContainer<T> {
 
 public extension ModalContainer {
     @discardableResult
-    func openModal<VC2, TD>(
-        identifier: ContainerUI<T, VC2>.Identifier<TD>,
-        tokenData: TD,
+    func openModal<VC2, TD2>(
+        identifier: ContainerUI<T, TD2, VC2>.Identifier,
+        tokenData: TD2,
         presentationStyle: PresentationStyle? = nil,
         transitionStyle: TransitionStyle? = nil,
         popoverAnchor: Any? = nil,
         animated: Bool,
         customisation: CustomisationBlock<VC2>? = nil,
         completion: CompletionBlock? = nil
-    ) -> AnyModalToken<T>? where VC2: ViewController, TD: TokenData {
+    ) -> AnyModalToken<T>? where VC2: ViewController, TD2: TokenData {
         openModal(
             identifier: identifier,
             tokenData: tokenData,

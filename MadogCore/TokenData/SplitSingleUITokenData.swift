@@ -20,23 +20,14 @@ public typealias AnySplitSingleContainerUIFactory<T, VC> = any SplitSingleContai
 public protocol SplitSingleContainerUIFactory<T, VC> where VC: ViewController {
     associatedtype T
     associatedtype VC
-    func createContainer(registry: AnyRegistry<T>, tokenData: SplitSingleUITokenData<T>) -> ContainerUI<T, VC>?
-}
 
-struct ErasedSplitSingleContainerUIFactory<T> {
-    private let createContainerClosure: (AnyRegistry<T>, SplitSingleUITokenData<T>) -> Any?
+    typealias TD = SplitSingleUITokenData<T>
 
-    init<VC, F: SplitSingleContainerUIFactory<T, VC>>(_ factory: F) where VC: ViewController {
-        createContainerClosure = { factory.createContainer(registry: $0, tokenData: $1) }
-    }
-
-    func createContainer<VC>(registry: AnyRegistry<T>, tokenData: SplitSingleUITokenData<T>) -> ContainerUI<T, VC>? {
-        createContainerClosure(registry, tokenData) as? ContainerUI<T, VC>
-    }
+    func createContainer(registry: AnyRegistry<T>, tokenData: TD) -> ContainerUI<T, TD, VC>?
 }
 
 extension SplitSingleContainerUIFactory {
-    func typeErased() -> ErasedSplitSingleContainerUIFactory<T> {
-        .init(self)
+    func wrapped() -> SplitSingleContainerUIFactoryWrapper<T> {
+        .init(createContainer(registry:tokenData:))
     }
 }

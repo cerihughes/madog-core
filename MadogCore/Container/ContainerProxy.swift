@@ -5,10 +5,10 @@
 
 import Foundation
 
-class ContainerProxy<T, VC>: Container where VC: ViewController {
-    weak var wrapped: ContainerUI<T, VC>?
+class ContainerProxy<T, TD, VC>: Container where TD: TokenData, VC: ViewController {
+    weak var wrapped: ContainerUI<T, TD, VC>?
 
-    init(wrapped: ContainerUI<T, VC>) {
+    init(wrapped: ContainerUI<T, TD, VC>) {
         self.wrapped = wrapped
     }
 
@@ -21,9 +21,9 @@ class ContainerProxy<T, VC>: Container where VC: ViewController {
     }
 
     @discardableResult
-    func change<VC2, TD>(
-        to identifier: ContainerUI<T, VC2>.Identifier<TD>,
-        tokenData: TD,
+    func change<VC2, TD2>(
+        to identifier: ContainerUI<T, TD2, VC2>.Identifier,
+        tokenData: TD2,
         transition: Transition?,
         customisation: CustomisationBlock<VC2>?
     ) -> AnyContainer<T>? where VC2: ViewController, TD: TokenData {

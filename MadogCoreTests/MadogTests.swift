@@ -74,11 +74,71 @@ class MadogTests: XCTestCase {
         madog.resolve(resolver: TestResolver())
         XCTAssertEqual(madog.serviceProviders.count, 1)
     }
+
+    func testSingleTokenFactory() {
+        typealias TD = SingleUITokenData<Int>
+        typealias VC = UINavigationController
+        class TestContainer: ContainerUI<Int, TD, VC> {}
+        class TestFactory: SingleContainerUIFactory {
+            func createContainer(registry: AnyRegistry<Int>, tokenData: TD) -> ContainerUI<Int, TD, VC>? {
+                TestContainer(registry: registry, viewController: .init())
+            }
+
+        }
+        let identifier = ContainerUI<Int, TD, VC>.Identifier("testSingleTokenFactory")
+        XCTAssertTrue(madog.addContainerUIFactory(identifier: identifier, factory: TestFactory()))
+        XCTAssertNotNil(madog.renderUI(identifier: identifier, tokenData: .single(1), in: Window()))
+    }
+
+    func testMultiTokenFactory() {
+        typealias TD = MultiUITokenData<Int>
+        typealias VC = UITabBarController
+        class TestContainer: ContainerUI<Int, TD, VC> {}
+        class TestFactory: MultiContainerUIFactory {
+            func createContainer(registry: AnyRegistry<Int>, tokenData: TD) -> ContainerUI<Int, TD, VC>? {
+                TestContainer(registry: registry, viewController: .init())
+            }
+
+        }
+        let identifier = ContainerUI<Int, TD, VC>.Identifier("testMultiTokenFactory")
+        XCTAssertTrue(madog.addContainerUIFactory(identifier: identifier, factory: TestFactory()))
+        XCTAssertNotNil(madog.renderUI(identifier: identifier, tokenData: .multi(1, 2, 3), in: Window()))
+    }
+
+    func testSplitSingleTokenFactory() {
+        typealias TD = SplitSingleUITokenData<Int>
+        typealias VC = UINavigationController
+        class TestContainer: ContainerUI<Int, TD, VC> {}
+        class TestFactory: SplitSingleContainerUIFactory {
+            func createContainer(registry: AnyRegistry<Int>, tokenData: TD) -> ContainerUI<Int, TD, VC>? {
+                TestContainer(registry: registry, viewController: .init())
+            }
+
+        }
+        let identifier = ContainerUI<Int, TD, VC>.Identifier("testSingleTokenFactory")
+        XCTAssertTrue(madog.addContainerUIFactory(identifier: identifier, factory: TestFactory()))
+        XCTAssertNotNil(madog.renderUI(identifier: identifier, tokenData: .splitSingle(1, 2), in: Window()))
+    }
+
+    func testSplitMultiTokenFactory() {
+        typealias TD = SplitMultiUITokenData<Int>
+        typealias VC = UITabBarController
+        class TestContainer: ContainerUI<Int, TD, VC> {}
+        class TestFactory: SplitMultiContainerUIFactory {
+            func createContainer(registry: AnyRegistry<Int>, tokenData: TD) -> ContainerUI<Int, TD, VC>? {
+                TestContainer(registry: registry, viewController: .init())
+            }
+
+        }
+        let identifier = ContainerUI<Int, TD, VC>.Identifier("testMultiTokenFactory")
+        XCTAssertTrue(madog.addContainerUIFactory(identifier: identifier, factory: TestFactory()))
+        XCTAssertNotNil(madog.renderUI(identifier: identifier, tokenData: .splitMulti(1, [2, 3]), in: Window()))
+    }
 }
 
 private extension AnyContainer where T == Int {
     func asImpl() throws -> TestContainerUI<Int> {
-        let wrapped = try XCTUnwrap(self as? ContainerProxy<Int, ViewController>)
+        let wrapped = try XCTUnwrap(self as? ContainerProxy<Int, SingleUITokenData<T>, ViewController>)
         return try XCTUnwrap(wrapped.wrapped as? TestContainerUI<Int>)
     }
 }

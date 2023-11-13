@@ -6,15 +6,19 @@
 import Foundation
 
 public struct MultiUITokenData<T>: TokenData {
-    public let tokens: [T]
+    public let tokens: [Token<T>]
 }
 
 public extension TokenData {
     static func multi<T>(_ tokens: [T]) -> MultiUITokenData<T> {
+        .multi(tokens.map { Token.use($0) })
+    }
+
+    static func multi<T>(_ tokens: [Token<T>]) -> MultiUITokenData<T> {
         MultiUITokenData(tokens: tokens)
     }
 
-    static func multi<T>(_ tokens: T...) -> MultiUITokenData<T> {
+    static func multi<T>(_ tokens: Token<T>...) -> MultiUITokenData<T> {
         multi(tokens)
     }
 }

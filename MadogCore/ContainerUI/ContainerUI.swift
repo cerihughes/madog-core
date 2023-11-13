@@ -42,7 +42,7 @@ open class ContainerUI<T, VC>: Container where VC: ViewController {
         self.viewController = viewController
     }
 
-    public func createViewController(from token: Token<T>) -> ViewController? where VC: ViewController {
+    public func createViewController(from token: Token<T>) -> ViewController? {
         if let use = token.use {
             return registry.createViewController(from: use, container: self)
         } else if let intent = token.changeIntent {

@@ -35,24 +35,26 @@ open class ContainerUI<T, TD, VC>: Container where TD: TokenData, VC: ViewContro
         }
     }
 
-    private let registry: AnyRegistry<T>
+    var registry: AnyRegistry<T>?
     public let uuid = UUID()
-    let viewController: VC
+    public let viewController: VC
 
     weak var delegate: AnyContainerDelegate<T>?
 
-    public init(registry: AnyRegistry<T>, viewController: VC) {
-        self.registry = registry
+    public init(viewController: VC) {
         self.viewController = viewController
     }
 
-    public func createViewController(from token: Token<T>) -> ViewController? {
-        if let use = token.use {
-            return registry.createViewController(from: use, container: self)
-        } else if let intent = token.changeIntent {
-            return nil
-        }
-        return nil
+    public func createContentViewController(
+        contentFactory: AnyContainerUIContentFactory<T>,
+        from token: Token<T>
+    ) throws -> ViewController {
+        // TODO: Remove force unwrap
+        contentFactory.createContentViewController(from: token, container: self)!
+    }
+
+    open func populateContainer(contentFactory: AnyContainerUIContentFactory<T>, tokenData: TD) throws {
+        // Override point
     }
 
     // MARK: - Container

@@ -11,7 +11,7 @@ public class Token<T> {
     }
 
     public static func create<VC2>(
-        identifier: ContainerUI<T, VC2>.Identifier<SingleUITokenData<T>>,
+        identifier: ContainerUI<T, SingleUITokenData<T>, VC2>.Identifier,
         tokenData: SingleUITokenData<T>,
         customisation: CustomisationBlock<VC2>? = nil
     ) -> Token<T> where VC2: ViewController {
@@ -19,7 +19,7 @@ public class Token<T> {
     }
 
     public static func create<VC2>(
-        identifier: ContainerUI<T, VC2>.Identifier<MultiUITokenData<T>>,
+        identifier: ContainerUI<T, MultiUITokenData<T>, VC2>.Identifier,
         tokenData: MultiUITokenData<T>,
         customisation: CustomisationBlock<VC2>? = nil
     ) -> Token<T> where VC2: ViewController {
@@ -27,7 +27,7 @@ public class Token<T> {
     }
 
     public static func create<VC2>(
-        identifier: ContainerUI<T, VC2>.Identifier<SplitSingleUITokenData<T>>,
+        identifier: ContainerUI<T, SplitSingleUITokenData<T>, VC2>.Identifier,
         tokenData: SplitSingleUITokenData<T>,
         customisation: CustomisationBlock<VC2>? = nil
     ) -> Token<T> where VC2: ViewController {
@@ -35,7 +35,7 @@ public class Token<T> {
     }
 
     public static func create<VC2>(
-        identifier: ContainerUI<T, VC2>.Identifier<SplitMultiUITokenData<T>>,
+        identifier: ContainerUI<T, SplitMultiUITokenData<T>, VC2>.Identifier,
         tokenData: SplitMultiUITokenData<T>,
         customisation: CustomisationBlock<VC2>? = nil
     ) -> Token<T> where VC2: ViewController {

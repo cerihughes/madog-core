@@ -79,9 +79,9 @@ class MadogTests: XCTestCase {
         typealias TD = SingleUITokenData<Int>
         typealias VC = UINavigationController
         class TestContainer: ContainerUI<Int, TD, VC> {}
-        class TestFactory: SingleContainerUIFactory {
-            func createContainer(registry: AnyRegistry<Int>, tokenData: TD) -> ContainerUI<Int, TD, VC>? {
-                TestContainer(registry: registry, viewController: .init())
+        class TestFactory: ContainerUIFactory {
+            func createContainer() -> ContainerUI<Int, TD, VC> {
+                TestContainer(viewController: .init())
             }
 
         }
@@ -94,9 +94,9 @@ class MadogTests: XCTestCase {
         typealias TD = MultiUITokenData<Int>
         typealias VC = UITabBarController
         class TestContainer: ContainerUI<Int, TD, VC> {}
-        class TestFactory: MultiContainerUIFactory {
-            func createContainer(registry: AnyRegistry<Int>, tokenData: TD) -> ContainerUI<Int, TD, VC>? {
-                TestContainer(registry: registry, viewController: .init())
+        class TestFactory: ContainerUIFactory {
+            func createContainer() -> ContainerUI<Int, TD, VC> {
+                TestContainer(viewController: .init())
             }
 
         }
@@ -109,9 +109,9 @@ class MadogTests: XCTestCase {
         typealias TD = SplitSingleUITokenData<Int>
         typealias VC = UINavigationController
         class TestContainer: ContainerUI<Int, TD, VC> {}
-        class TestFactory: SplitSingleContainerUIFactory {
-            func createContainer(registry: AnyRegistry<Int>, tokenData: TD) -> ContainerUI<Int, TD, VC>? {
-                TestContainer(registry: registry, viewController: .init())
+        class TestFactory: ContainerUIFactory {
+            func createContainer() -> ContainerUI<Int, TD, VC> {
+                TestContainer(viewController: .init())
             }
 
         }
@@ -124,9 +124,9 @@ class MadogTests: XCTestCase {
         typealias TD = SplitMultiUITokenData<Int>
         typealias VC = UITabBarController
         class TestContainer: ContainerUI<Int, TD, VC> {}
-        class TestFactory: SplitMultiContainerUIFactory {
-            func createContainer(registry: AnyRegistry<Int>, tokenData: TD) -> ContainerUI<Int, TD, VC>? {
-                TestContainer(registry: registry, viewController: .init())
+        class TestFactory: ContainerUIFactory {
+            func createContainer() -> ContainerUI<Int, TD, VC> {
+                TestContainer(viewController: .init())
             }
 
         }

@@ -7,13 +7,15 @@ import Foundation
 
 class ContainerUIRepository<T> {
     private let registry: AnyRegistry<T>
+    private let contentFactory: AnyContainerUIContentFactory<T>
     private var singleRegistry = [String: SingleContainerUIFactoryWrapper<T>]()
     private var multiRegistry = [String: MultiContainerUIFactoryWrapper<T>]()
     private var splitSingleRegistry = [String: SplitSingleContainerUIFactoryWrapper<T>]()
     private var splitMultiRegistry = [String: SplitMultiContainerUIFactoryWrapper<T>]()
 
-    init(registry: AnyRegistry<T>) {
+    init(registry: AnyRegistry<T>, contentFactory: AnyContainerUIContentFactory<T>) {
         self.registry = registry
+        self.contentFactory = contentFactory
     }
 
     func addContainerUIFactory(identifier: String, factory: SingleContainerUIFactoryWrapper<T>) -> Bool {
@@ -43,20 +45,34 @@ class ContainerUIRepository<T> {
     func createContainer<VC, TD>(
         identifiableToken: IdentifiableToken<T, TD, VC>
     ) -> ContainerUI<T, TD, VC>? where VC: ViewController, TD: TokenData {
+        guard let container = _createContainer(identifiableToken: identifiableToken) else { return nil }
+        container.registry = registry
+        return container
+    }
+
+    private func _createContainer<VC, TD>(
+        identifiableToken: IdentifiableToken<T, TD, VC>
+    ) -> ContainerUI<T, TD, VC>? where VC: ViewController, TD: TokenData {
         let key = identifiableToken.identifier.value
         if let typed = identifiableToken.typed(SingleUITokenData<T>.self), let factory = singleRegistry[key] {
-            return factory.createContainer(registry: registry, identifiableToken: typed) as? ContainerUI<T, TD, VC>
+            return factory.createContainer(contentFactory: contentFactory, identifiableToken: typed)?.erased()
         }
         if let typed = identifiableToken.typed(MultiUITokenData<T>.self), let factory = multiRegistry[key] {
-            return factory.createContainer(registry: registry, identifiableToken: typed) as? ContainerUI<T, TD, VC>
+            return factory.createContainer(contentFactory: contentFactory, identifiableToken: typed)?.erased()
         }
         if let typed = identifiableToken.typed(SplitSingleUITokenData<T>.self), let factory = splitSingleRegistry[key] {
-            return factory.createContainer(registry: registry, identifiableToken: typed) as? ContainerUI<T, TD, VC>
+            return factory.createContainer(contentFactory: contentFactory, identifiableToken: typed)?.erased()
         }
         if let typed = identifiableToken.typed(SplitMultiUITokenData<T>.self), let factory = splitMultiRegistry[key] {
-            return factory.createContainer(registry: registry, identifiableToken: typed) as? ContainerUI<T, TD, VC>
+            return factory.createContainer(contentFactory: contentFactory, identifiableToken: typed)?.erased()
         }
         return nil
+    }
+}
+
+private extension ContainerUI {
+    func erased<T2, TD2, VC2>() -> ContainerUI<T2, TD2, VC2>? {
+        self as? ContainerUI<T2, TD2, VC2>
     }
 }
 
@@ -66,7 +82,7 @@ typealias SplitSingleContainerUIFactoryWrapper<T> = ContainerUIFactoryWrapper<T,
 typealias SplitMultiContainerUIFactoryWrapper<T> = ContainerUIFactoryWrapper<T, SplitMultiUITokenData<T>>
 
 struct ContainerUIFactoryWrapper<T, TD> where TD: TokenData {
-    typealias Closure = (AnyRegistry<T>, TD) -> Any?
+    typealias Closure = (Any, TD) -> Any?
 
     private let closure: Closure
 
@@ -75,10 +91,31 @@ struct ContainerUIFactoryWrapper<T, TD> where TD: TokenData {
     }
 
     func createContainer<VC>(
-        registry: AnyRegistry<T>,
+        contentFactory: AnyContainerUIContentFactory<T>,
         identifiableToken: IdentifiableToken<T, TD, VC>
     ) -> ContainerUI<T, TD, VC>? {
-        closure(registry, identifiableToken.data) as? ContainerUI<T, TD, VC>
+        closure(contentFactory, identifiableToken.data) as? ContainerUI<T, TD, VC>
+    }
+}
+
+extension ContainerUIFactory {
+    func wrapped() -> ContainerUIFactoryWrapper<T, TD> {
+        let closure: ContainerUIFactoryWrapper<T, TD>.Closure = {
+            guard let contentFactory = $0 as? AnyContainerUIContentFactory<T> else { return nil }
+            return try? createAndPopulateContainer(contentFactory: contentFactory, tokenData: $1)
+        }
+        return .init(closure)
+    }
+}
+
+extension ContainerUIFactory {
+    func createAndPopulateContainer(
+        contentFactory: AnyContainerUIContentFactory<T>,
+        tokenData: TD
+    ) throws -> ContainerUI<T, TD, VC> {
+        let container = createContainer()
+        try container.populateContainer(contentFactory: contentFactory, tokenData: tokenData)
+        return container
     }
 }
 

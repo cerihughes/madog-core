@@ -9,29 +9,21 @@ import MadogCore
 import UIKit
 
 class TestNavigatingContainerUI<T>: NavigatingContainerUI<T> {
-    private let navigationController = UINavigationController()
+    override func populateContainer(
+        contentFactory: AnyContainerUIContentFactory<T>,
+        tokenData: SingleUITokenData<T>
+    ) throws {
+        try super.populateContainer(contentFactory: contentFactory, tokenData: tokenData)
 
-    init?(registry: AnyRegistry<T>, tokenData: SingleUITokenData<T>) {
-        super.init(registry: registry, viewController: navigationController)
-
-        guard let viewController = createViewController(from: tokenData.token) else {
-            return nil
-        }
-        navigationController.setViewControllers([viewController], animated: false)
-    }
-
-    override func provideNavigationController() -> UINavigationController? {
-        navigationController
+        let vc = try createContentViewController(contentFactory: contentFactory, from: tokenData.token)
+        viewController.setViewControllers([vc], animated: false)
     }
 }
 
 extension TestNavigatingContainerUI {
-    struct Factory: SingleContainerUIFactory {
-        func createContainer(
-            registry: AnyRegistry<T>,
-            tokenData: SingleUITokenData<T>
-        ) -> ContainerUI<T, SingleUITokenData<T>, NavigationController>? {
-            TestNavigatingContainerUI(registry: registry, tokenData: tokenData)
+    struct Factory: ContainerUIFactory {
+        func createContainer() -> ContainerUI<T, SingleUITokenData<T>, NavigationController> {
+            TestNavigatingContainerUI(viewController: .init())
         }
     }
 }

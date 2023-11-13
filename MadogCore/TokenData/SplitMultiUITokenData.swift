@@ -23,19 +23,3 @@ public extension TokenData {
         splitMulti(primaryToken, secondaryTokens)
     }
 }
-
-public typealias AnySplitMultiContainerUIFactory<T, VC> = any SplitMultiContainerUIFactory<T, VC>
-public protocol SplitMultiContainerUIFactory<T, VC> where VC: ViewController {
-    associatedtype T
-    associatedtype VC
-
-    typealias TD = SplitMultiUITokenData<T>
-
-    func createContainer(registry: AnyRegistry<T>, tokenData: TD) -> ContainerUI<T, TD, VC>?
-}
-
-extension SplitMultiContainerUIFactory {
-    func wrapped() -> SplitMultiContainerUIFactoryWrapper<T> {
-        .init(createContainer(registry:tokenData:))
-    }
-}

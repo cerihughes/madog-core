@@ -31,7 +31,7 @@ open class ContainerUI<T, VC>: Container where VC: ViewController {
         }
     }
 
-    public private(set) var registry: AnyRegistry<T>
+    private let registry: AnyRegistry<T>
     public let uuid = UUID()
     let viewController: VC
 
@@ -40,6 +40,15 @@ open class ContainerUI<T, VC>: Container where VC: ViewController {
     public init(registry: AnyRegistry<T>, viewController: VC) {
         self.registry = registry
         self.viewController = viewController
+    }
+
+    public func createViewController(from token: Token<T>) -> ViewController? where VC: ViewController {
+        if let use = token.use {
+            return registry.createViewController(from: use, container: self)
+        } else if let intent = token.changeIntent {
+            return nil
+        }
+        return nil
     }
 
     // MARK: - Container

@@ -14,7 +14,7 @@ class TestContainerUI<T>: ContainerUI<T, ViewController> {
     init?(registry: AnyRegistry<T>, tokenData: SingleUITokenData<T>) {
         super.init(registry: registry, viewController: containerController)
 
-        guard let vc = registry.createViewController(from: tokenData.token, container: self) else { return nil }
+        guard let vc = createViewController(from: tokenData.token) else { return nil }
 
         vc.willMove(toParent: containerController)
 

@@ -13,7 +13,7 @@ public protocol ForwardBackContainer<T> {
     associatedtype T
 
     @discardableResult
-    func navigateForward(token: T, animated: Bool) -> Bool
+    func navigateForward(token: Token<T>, animated: Bool) -> Bool
     @discardableResult
     func navigateBack(animated: Bool) -> Bool
     @discardableResult

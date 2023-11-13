@@ -15,9 +15,9 @@ open class NavigatingContainerUI<T>: ContainerUI<T, NavigationController>, Forwa
 
     // MARK: - ForwardBackContainer
 
-    public func navigateForward(token: T, animated: Bool) -> Bool {
+    public func navigateForward(token: Token<T>, animated: Bool) -> Bool {
         guard
-            let toViewController = registry.createViewController(from: token, container: self),
+            let toViewController = createViewController(from: token),
             let navigationController = provideNavigationController()
         else { return false }
 

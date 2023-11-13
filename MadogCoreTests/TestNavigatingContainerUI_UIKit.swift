@@ -14,7 +14,7 @@ class TestNavigatingContainerUI<T>: NavigatingContainerUI<T> {
     init?(registry: AnyRegistry<T>, tokenData: SingleUITokenData<T>) {
         super.init(registry: registry, viewController: navigationController)
 
-        guard let viewController = registry.createViewController(from: tokenData.token, container: self) else {
+        guard let viewController = createViewController(from: tokenData.token) else {
             return nil
         }
         navigationController.setViewControllers([viewController], animated: false)

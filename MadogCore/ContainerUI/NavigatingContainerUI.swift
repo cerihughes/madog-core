@@ -7,7 +7,7 @@
 
 import Foundation
 
-open class NavigatingContainerUI<T>: ContainerUI<T, NavigationController>, ForwardBackContainer {
+open class NavigatingContainerUI<T>: ContainerUI<T, SingleUITokenData<T>, NavigationController>, ForwardBackContainer {
     open func provideNavigationController() -> NavigationController? {
         // OVERRIDE
         nil

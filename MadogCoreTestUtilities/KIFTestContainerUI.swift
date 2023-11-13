@@ -8,7 +8,7 @@
 import MadogCore
 import UIKit
 
-class KIFTestContainerUI<T>: ContainerUI<T, ViewController> {
+class KIFTestContainerUI<T>: ContainerUI<T, SingleUITokenData<T>, ViewController> {
     private let containerController = ViewController()
 
     init?(registry: AnyRegistry<T>, tokenData: SingleUITokenData<T>) {
@@ -32,7 +32,7 @@ extension KIFTestContainerUI {
         func createContainer(
             registry: AnyRegistry<T>,
             tokenData: SingleUITokenData<T>
-        ) -> ContainerUI<T, ViewController>? {
+        ) -> ContainerUI<T, SingleUITokenData<T>, ViewController>? {
             KIFTestContainerUI(registry: registry, tokenData: tokenData)
         }
     }

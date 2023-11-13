@@ -20,18 +20,26 @@ public typealias AnySplitMultiContainerUIFactory<T, VC> = any SplitMultiContaine
 public protocol SplitMultiContainerUIFactory<T, VC> where VC: ViewController {
     associatedtype T
     associatedtype VC
-    func createContainer(registry: AnyRegistry<T>, tokenData: SplitMultiUITokenData<T>) -> ContainerUI<T, VC>?
+
+    typealias TD = SplitMultiUITokenData<T>
+
+    func createContainer(registry: AnyRegistry<T>, tokenData: TD) -> ContainerUI<T, TD, VC>?
 }
 
 struct ErasedSplitMultiContainerUIFactory<T> {
-    private let createContainerClosure: (AnyRegistry<T>, SplitMultiUITokenData<T>) -> Any?
+    private let createContainerClosure: (AnyRegistry<T>, TD) -> Any?
 
-    init<VC, F: SplitMultiContainerUIFactory<T, VC>>(_ factory: F) {
+    typealias TD = SplitMultiUITokenData<T>
+
+    init<VC, F>(_ factory: F) where VC: ViewController, F: SplitMultiContainerUIFactory<T, VC> {
         createContainerClosure = { factory.createContainer(registry: $0, tokenData: $1) }
     }
 
-    func createContainer<VC>(registry: AnyRegistry<T>, tokenData: SplitMultiUITokenData<T>) -> ContainerUI<T, VC>? {
-        createContainerClosure(registry, tokenData) as? ContainerUI<T, VC>
+    func createContainer<VC>(
+        registry: AnyRegistry<T>,
+        identifiableToken: IdentifiableToken<T, TD, VC>
+    ) -> ContainerUI<T, TD, VC>? {
+        createContainerClosure(registry, identifiableToken.data) as? ContainerUI<T, TD, VC>
     }
 }
 

@@ -23,18 +23,26 @@ public typealias AnyMultiContainerUIFactory<T, VC> = any MultiContainerUIFactory
 public protocol MultiContainerUIFactory<T, VC> where VC: ViewController {
     associatedtype T
     associatedtype VC
-    func createContainer(registry: AnyRegistry<T>, tokenData: MultiUITokenData<T>) -> ContainerUI<T, VC>?
+
+    typealias TD = MultiUITokenData<T>
+
+    func createContainer(registry: AnyRegistry<T>, tokenData: TD) -> ContainerUI<T, TD, VC>?
 }
 
 struct ErasedMultiContainerUIFactory<T> {
-    private let createContainerClosure: (AnyRegistry<T>, MultiUITokenData<T>) -> Any?
+    typealias TD = MultiUITokenData<T>
 
-    init<VC, F: MultiContainerUIFactory<T, VC>>(_ factory: F) {
+    private let createContainerClosure: (AnyRegistry<T>, TD) -> Any?
+
+    init<VC, F>(_ factory: F) where VC: ViewController, F: MultiContainerUIFactory<T, VC> {
         createContainerClosure = { factory.createContainer(registry: $0, tokenData: $1) }
     }
 
-    func createContainer<VC>(registry: AnyRegistry<T>, tokenData: MultiUITokenData<T>) -> ContainerUI<T, VC>? {
-        createContainerClosure(registry, tokenData) as? ContainerUI<T, VC>
+    func createContainer<VC>(
+        registry: AnyRegistry<T>,
+        identifiableToken: IdentifiableToken<T, TD, VC>
+    ) -> ContainerUI<T, TD, VC>? {
+        createContainerClosure(registry, identifiableToken.data) as? ContainerUI<T, TD, VC>
     }
 }
 

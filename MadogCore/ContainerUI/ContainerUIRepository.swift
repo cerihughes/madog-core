@@ -41,22 +41,30 @@ class ContainerUIRepository<T> {
     }
 
     func createContainer<VC, TD>(
-        identifier: ContainerUI<T, VC>.Identifier<TD>,
-        tokenData: TD
-    ) -> ContainerUI<T, VC>? where VC: ViewController, TD: TokenData {
-        let key = identifier.value
-        if let td = tokenData as? SingleUITokenData<T> {
-            return singleRegistry[key]?.createContainer(registry: registry, tokenData: td)
+        identifiableToken: IdentifiableToken<T, TD, VC>
+    ) -> ContainerUI<T, TD, VC>? where VC: ViewController, TD: TokenData {
+        let key = identifiableToken.identifier.value
+        if let typed = identifiableToken.typed(SingleUITokenData<T>.self), let factory = singleRegistry[key] {
+            return factory.createContainer(registry: registry, identifiableToken: typed) as? ContainerUI<T, TD, VC>
         }
-        if let td = tokenData as? MultiUITokenData<T> {
-            return multiRegistry[key]?.createContainer(registry: registry, tokenData: td)
+        if let typed = identifiableToken.typed(MultiUITokenData<T>.self), let factory = multiRegistry[key] {
+            return factory.createContainer(registry: registry, identifiableToken: typed) as? ContainerUI<T, TD, VC>
         }
-        if let td = tokenData as? SplitSingleUITokenData<T> {
-            return splitSingleRegistry[key]?.createContainer(registry: registry, tokenData: td)
+        if let typed = identifiableToken.typed(SplitSingleUITokenData<T>.self), let factory = splitSingleRegistry[key] {
+            return factory.createContainer(registry: registry, identifiableToken: typed) as? ContainerUI<T, TD, VC>
         }
-        if let td = tokenData as? SplitMultiUITokenData<T> {
-            return splitMultiRegistry[key]?.createContainer(registry: registry, tokenData: td)
+        if let typed = identifiableToken.typed(SplitMultiUITokenData<T>.self), let factory = splitMultiRegistry[key] {
+            return factory.createContainer(registry: registry, identifiableToken: typed) as? ContainerUI<T, TD, VC>
         }
         return nil
+    }
+}
+
+private extension IdentifiableToken {
+    func typed<TD2>(_ type: TD2.Type) -> IdentifiableToken<T, TD2, VC>? {
+        guard let identifier = identifier as? ContainerUI<T, TD2, VC>.Identifier, let data = data as? TD2 else {
+            return nil
+        }
+        return .init(identifier: identifier, data: data)
     }
 }

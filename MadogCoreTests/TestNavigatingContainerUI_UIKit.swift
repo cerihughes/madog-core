@@ -30,7 +30,7 @@ extension TestNavigatingContainerUI {
         func createContainer(
             registry: AnyRegistry<T>,
             tokenData: SingleUITokenData<T>
-        ) -> ContainerUI<T, NavigationController>? {
+        ) -> ContainerUI<T, SingleUITokenData<T>, NavigationController>? {
             TestNavigatingContainerUI(registry: registry, tokenData: tokenData)
         }
     }

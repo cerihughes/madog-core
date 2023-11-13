@@ -8,7 +8,7 @@ import MadogCore
 extension TestContainerUI {
     struct Factory: ContainerUIFactory {
         func createContainer() -> ContainerUI<T, SingleUITokenData<T>, ViewController> {
-            TestContainerUI(viewController: .init())
+            TestContainerUI(containerViewController: .init())
         }
     }
 }

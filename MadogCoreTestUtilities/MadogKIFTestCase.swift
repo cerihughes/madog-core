@@ -42,10 +42,10 @@ private class KIFTestResolver: Resolver {
 
 private class KIFTestViewControllerProvider: ViewControllerProvider {
     func createViewController(token: String, container: AnyContainer<String>) -> UIViewController? {
-        let viewController = KIFTestViewController()
-        viewController.title = token.viewControllerTitle
-        viewController.label.text = token.viewControllerLabel
-        return viewController
+        let containerViewController = KIFTestViewController()
+        containerViewController.title = token.viewControllerTitle
+        containerViewController.label.text = token.viewControllerLabel
+        return containerViewController
     }
 }
 

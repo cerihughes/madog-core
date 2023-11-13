@@ -23,19 +23,19 @@ open class NavigatingContainerUI<T>: ContainerUI<T, SingleUITokenData<T>, Naviga
     public func navigateForward(token: Token<T>, animated: Bool) -> Bool {
         guard
             let contentFactory,
-            let vc = try? createContentViewController(contentFactory: contentFactory, from: token)
+            let viewController = try? createContentViewController(contentFactory: contentFactory, from: token)
         else { return false }
 
-        viewController.pushViewController(vc, animated: animated)
+        containerViewController.pushViewController(viewController, animated: animated)
         return true
     }
 
     public func navigateBack(animated: Bool) -> Bool {
-        viewController.popViewController(animated: animated) != nil
+        containerViewController.popViewController(animated: animated) != nil
     }
 
     public func navigateBackToRoot(animated _: Bool) -> Bool {
-        viewController.popToRootViewController(animated: true) != nil
+        containerViewController.popToRootViewController(animated: true) != nil
     }
 }
 

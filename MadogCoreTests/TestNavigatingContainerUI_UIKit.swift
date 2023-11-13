@@ -15,15 +15,15 @@ class TestNavigatingContainerUI<T>: NavigatingContainerUI<T> {
     ) throws {
         try super.populateContainer(contentFactory: contentFactory, tokenData: tokenData)
 
-        let vc = try createContentViewController(contentFactory: contentFactory, from: tokenData.token)
-        viewController.setViewControllers([vc], animated: false)
+        let viewController = try createContentViewController(contentFactory: contentFactory, from: tokenData.token)
+        containerViewController.setViewControllers([viewController], animated: false)
     }
 }
 
 extension TestNavigatingContainerUI {
     struct Factory: ContainerUIFactory {
         func createContainer() -> ContainerUI<T, SingleUITokenData<T>, NavigationController> {
-            TestNavigatingContainerUI(viewController: .init())
+            TestNavigatingContainerUI(containerViewController: .init())
         }
     }
 }

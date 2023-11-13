@@ -81,7 +81,7 @@ class MadogTests: XCTestCase {
         class TestContainer: ContainerUI<Int, TD, VC> {}
         class TestFactory: ContainerUIFactory {
             func createContainer() -> ContainerUI<Int, TD, VC> {
-                TestContainer(viewController: .init())
+                TestContainer(containerViewController: .init())
             }
 
         }
@@ -96,7 +96,7 @@ class MadogTests: XCTestCase {
         class TestContainer: ContainerUI<Int, TD, VC> {}
         class TestFactory: ContainerUIFactory {
             func createContainer() -> ContainerUI<Int, TD, VC> {
-                TestContainer(viewController: .init())
+                TestContainer(containerViewController: .init())
             }
 
         }
@@ -111,7 +111,7 @@ class MadogTests: XCTestCase {
         class TestContainer: ContainerUI<Int, TD, VC> {}
         class TestFactory: ContainerUIFactory {
             func createContainer() -> ContainerUI<Int, TD, VC> {
-                TestContainer(viewController: .init())
+                TestContainer(containerViewController: .init())
             }
 
         }
@@ -126,7 +126,7 @@ class MadogTests: XCTestCase {
         class TestContainer: ContainerUI<Int, TD, VC> {}
         class TestFactory: ContainerUIFactory {
             func createContainer() -> ContainerUI<Int, TD, VC> {
-                TestContainer(viewController: .init())
+                TestContainer(containerViewController: .init())
             }
 
         }
@@ -145,7 +145,7 @@ private extension AnyContainer where T == Int {
 
 private extension TestContainerUI {
     func assignDelegate(_ delegate: TestViewControllerDelegate) throws {
-        let vc = try XCTUnwrap(viewController.children[0] as? TestViewController<Int>)
+        let vc = try XCTUnwrap(containerViewController.children[0] as? TestViewController<Int>)
         vc.delegate = delegate
     }
 }

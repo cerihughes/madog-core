@@ -30,8 +30,8 @@ extension ContainerUI: ModalContainer {
             )
         else { return nil }
 
-        let presentedViewController = container.viewController
-        viewController.madog_presentModally(
+        let presentedViewController = container.containerViewController
+        containerViewController.madog_presentModally(
             viewController: presentedViewController,
             presentationStyle: presentationStyle,
             transitionStyle: transitionStyle,
@@ -69,7 +69,7 @@ extension ContainerUI: ModalContainer {
     }
 
     private func createModalToken(viewController: ViewController, container: AnyContainer<T>) -> AnyModalToken<T> {
-        ModalTokenImplementation(viewController: viewController, container: container)
+        ModalTokenImplementation(viewController: containerViewController, container: container)
     }
 }
 

@@ -12,7 +12,7 @@ class TestContainerUI<T>: ContainerUI<T> {
     private let containerController = ViewController()
 
     init?(registry: AnyRegistry<T>, tokenData: SingleUITokenData<T>) {
-        super.init(registry: registry, viewController: containerController)
+        super.init(registry: registry, containerViewController: containerController)
 
         guard let vc = registry.createViewController(from: tokenData.token, container: self) else { return nil }
 

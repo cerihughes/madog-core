@@ -25,25 +25,8 @@ public protocol SingleContainerUIFactory<T, VC> where VC: ViewController {
     func createContainer(registry: AnyRegistry<T>, tokenData: TD) -> ContainerUI<T, TD, VC>?
 }
 
-struct ErasedSingleContainerUIFactory<T> {
-    typealias TD = SingleUITokenData<T>
-
-    private let createContainerClosure: (AnyRegistry<T>, TD) -> Any?
-
-    init<VC, F>(_ factory: F) where VC: ViewController, F: SingleContainerUIFactory<T, VC> {
-        createContainerClosure = { factory.createContainer(registry: $0, tokenData: $1) }
-    }
-
-    func createContainer<VC>(
-        registry: AnyRegistry<T>,
-        identifiableToken: IdentifiableToken<T, TD, VC>
-    ) -> ContainerUI<T, TD, VC>? {
-        createContainerClosure(registry, identifiableToken.data) as? ContainerUI<T, TD, VC>
-    }
-}
-
 extension SingleContainerUIFactory {
-    func typeErased() -> ErasedSingleContainerUIFactory<T> {
-        .init(self)
+    func wrapped() -> SingleContainerUIFactoryWrapper<T> {
+        .init(createContainer(registry:tokenData:))
     }
 }

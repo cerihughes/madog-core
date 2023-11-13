@@ -26,25 +26,8 @@ public protocol SplitSingleContainerUIFactory<T, VC> where VC: ViewController {
     func createContainer(registry: AnyRegistry<T>, tokenData: TD) -> ContainerUI<T, TD, VC>?
 }
 
-struct ErasedSplitSingleContainerUIFactory<T> {
-    private let createContainerClosure: (AnyRegistry<T>, TD) -> Any?
-
-    typealias TD = SplitSingleUITokenData<T>
-
-    init<VC, F>(_ factory: F) where VC: ViewController, F: SplitSingleContainerUIFactory<T, VC> {
-        createContainerClosure = { factory.createContainer(registry: $0, tokenData: $1) }
-    }
-
-    func createContainer<VC>(
-        registry: AnyRegistry<T>,
-        identifiableToken: IdentifiableToken<T, TD, VC>
-    ) -> ContainerUI<T, TD, VC>? {
-        createContainerClosure(registry, identifiableToken.data) as? ContainerUI<T, TD, VC>
-    }
-}
-
 extension SplitSingleContainerUIFactory {
-    func typeErased() -> ErasedSplitSingleContainerUIFactory<T> {
-        .init(self)
+    func wrapped() -> SplitSingleContainerUIFactoryWrapper<T> {
+        .init(createContainer(registry:tokenData:))
     }
 }

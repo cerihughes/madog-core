@@ -29,25 +29,8 @@ public protocol MultiContainerUIFactory<T, VC> where VC: ViewController {
     func createContainer(registry: AnyRegistry<T>, tokenData: TD) -> ContainerUI<T, TD, VC>?
 }
 
-struct ErasedMultiContainerUIFactory<T> {
-    typealias TD = MultiUITokenData<T>
-
-    private let createContainerClosure: (AnyRegistry<T>, TD) -> Any?
-
-    init<VC, F>(_ factory: F) where VC: ViewController, F: MultiContainerUIFactory<T, VC> {
-        createContainerClosure = { factory.createContainer(registry: $0, tokenData: $1) }
-    }
-
-    func createContainer<VC>(
-        registry: AnyRegistry<T>,
-        identifiableToken: IdentifiableToken<T, TD, VC>
-    ) -> ContainerUI<T, TD, VC>? {
-        createContainerClosure(registry, identifiableToken.data) as? ContainerUI<T, TD, VC>
-    }
-}
-
 extension MultiContainerUIFactory {
-    func typeErased() -> ErasedMultiContainerUIFactory<T> {
-        .init(self)
+    func wrapped() -> MultiContainerUIFactoryWrapper<T> {
+        .init(createContainer(registry:tokenData:))
     }
 }

@@ -26,7 +26,7 @@ public final class Madog<T>: ContainerDelegate {
         identifier: ContainerUI<T, SingleUITokenData<T>, VC>.Identifier,
         factory: AnySingleContainerUIFactory<T, VC>
     ) -> Bool where VC: ViewController {
-        containerRepository.addContainerUIFactory(identifier: identifier.value, factory: factory.typeErased())
+        containerRepository.addContainerUIFactory(identifier: identifier.value, factory: factory.wrapped())
     }
 
     @discardableResult
@@ -34,7 +34,7 @@ public final class Madog<T>: ContainerDelegate {
         identifier: ContainerUI<T, MultiUITokenData<T>, VC>.Identifier,
         factory: AnyMultiContainerUIFactory<T, VC>
     ) -> Bool where VC: ViewController {
-        containerRepository.addContainerUIFactory(identifier: identifier.value, factory: factory.typeErased())
+        containerRepository.addContainerUIFactory(identifier: identifier.value, factory: factory.wrapped())
     }
 
     @discardableResult
@@ -42,7 +42,7 @@ public final class Madog<T>: ContainerDelegate {
         identifier: ContainerUI<T, SplitSingleUITokenData<T>, VC>.Identifier,
         factory: AnySplitSingleContainerUIFactory<T, VC>
     ) -> Bool where VC: ViewController {
-        containerRepository.addContainerUIFactory(identifier: identifier.value, factory: factory.typeErased())
+        containerRepository.addContainerUIFactory(identifier: identifier.value, factory: factory.wrapped())
     }
 
     @discardableResult
@@ -50,7 +50,7 @@ public final class Madog<T>: ContainerDelegate {
         identifier: ContainerUI<T, SplitMultiUITokenData<T>, VC>.Identifier,
         factory: AnySplitMultiContainerUIFactory<T, VC>
     ) -> Bool where VC: ViewController {
-        containerRepository.addContainerUIFactory(identifier: identifier.value, factory: factory.typeErased())
+        containerRepository.addContainerUIFactory(identifier: identifier.value, factory: factory.wrapped())
     }
 
     @discardableResult

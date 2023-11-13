@@ -23,6 +23,7 @@ public protocol Container<T> {
     associatedtype T
 
     var uuid: UUID { get }
+    var presentingContainer: AnyContainer<T>? { get }
     var castValue: AnyContainer<T>? { get }
 
     @discardableResult

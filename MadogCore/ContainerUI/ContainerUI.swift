@@ -44,6 +44,11 @@ open class ContainerUI<T, VC>: Container where VC: ViewController {
 
     // MARK: - Container
 
+    public var presentingContainer: AnyContainer<T>? {
+        guard let presentingViewController = viewController.presentingViewController else { return nil }
+        return delegate?.container(for: presentingViewController)
+    }
+
     public func close(animated: Bool, completion: CompletionBlock?) -> Bool {
 #if canImport(UIKit)
         closeContainer(presentedViewController: viewController, animated: animated, completion: completion)

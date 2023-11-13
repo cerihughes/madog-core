@@ -13,6 +13,7 @@ class ContainerProxy<T, VC>: Container where VC: ViewController {
     }
 
     var uuid: UUID { wrapped?.uuid ?? UUID() }
+    var presentingContainer: AnyContainer<T>? { wrapped?.presentingContainer }
     var castValue: AnyContainer<T>? { wrapped }
 
     func close(animated: Bool, completion: CompletionBlock?) -> Bool {

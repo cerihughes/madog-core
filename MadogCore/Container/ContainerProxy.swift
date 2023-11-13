@@ -26,7 +26,7 @@ class ContainerProxy<T, TD, VC>: Container where TD: TokenData, VC: ViewControll
         tokenData: TD2,
         transition: Transition?,
         customisation: CustomisationBlock<VC2>?
-    ) -> AnyContainer<T>? where VC2: ViewController, TD: TokenData {
+    ) -> AnyContainer<T>? where VC2: ViewController, TD2: TokenData {
         wrapped?.change(to: identifier, tokenData: tokenData, transition: transition, customisation: customisation)
     }
 }

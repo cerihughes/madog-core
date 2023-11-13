@@ -30,12 +30,18 @@ public protocol Container<T> {
     func close(animated: Bool, completion: CompletionBlock?) -> Bool
 
     @discardableResult
-    func change<VC, TD>(
-        to identifier: ContainerUI<T>.Identifier<VC, TD>,
+    func change<VC2, TD>(
+        to identifier: ContainerUI<T, VC2>.Identifier<TD>,
         tokenData: TD,
         transition: Transition?,
-        customisation: CustomisationBlock<VC>?
-    ) -> AnyContainer<T>? where VC: ViewController, TD: TokenData
+        customisation: CustomisationBlock<VC2>?
+    ) -> AnyContainer<T>? where VC2: ViewController, TD: TokenData
+}
+
+public protocol TypedContainer<T, VC>: Container where VC: ViewController {
+    associatedtype VC
+
+    var viewController: VC { get }
 }
 
 public extension Container {
@@ -45,12 +51,12 @@ public extension Container {
     }
 
     @discardableResult
-    func change<VC, TD>(
-        to identifier: ContainerUI<T>.Identifier<VC, TD>,
+    func change<VC2, TD>(
+        to identifier: ContainerUI<T, VC2>.Identifier<TD>,
         tokenData: TD,
         transition: Transition? = nil,
-        customisation: CustomisationBlock<VC>? = nil
-    ) -> AnyContainer<T>? where VC: ViewController, TD: TokenData {
+        customisation: CustomisationBlock<VC2>? = nil
+    ) -> AnyContainer<T>? where VC2: ViewController, TD: TokenData {
         change(to: identifier, tokenData: tokenData, transition: transition, customisation: customisation)
     }
 }

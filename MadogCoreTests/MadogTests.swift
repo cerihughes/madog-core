@@ -78,7 +78,7 @@ class MadogTests: XCTestCase {
 
 private extension AnyContainer where T == Int {
     func asImpl() throws -> TestContainerUI<Int> {
-        let wrapped = try XCTUnwrap(self as? ContainerProxy<Int>)
+        let wrapped = try XCTUnwrap(self as? ContainerProxy<Int, ViewController>)
         return try XCTUnwrap(wrapped.wrapped as? TestContainerUI<Int>)
     }
 }

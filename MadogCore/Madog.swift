@@ -9,7 +9,8 @@ public final class Madog<T>: ContainerDelegate {
     private let registrar = Registrar<T>()
     private let containerRepository: ContainerUIRepository<T>
 
-    private var container: ContainerUI<T>?
+    private var container: AnyContainer<T>?
+    private var containerViewController: ViewController?
     private var modalContainers = [ViewController: AnyContainer<T>]()
 
     public init() {
@@ -22,45 +23,45 @@ public final class Madog<T>: ContainerDelegate {
 
     @discardableResult
     public func addContainerUIFactory<VC>(
-        identifier: ContainerUI<T>.Identifier<VC, SingleUITokenData<T>>,
-        factory: AnySingleContainerUIFactory<T>
+        identifier: ContainerUI<T, VC>.Identifier<SingleUITokenData<T>>,
+        factory: AnySingleContainerUIFactory<T, VC>
     ) -> Bool where VC: ViewController {
-        containerRepository.addContainerUIFactory(identifier: identifier.value, factory: factory)
+        containerRepository.addContainerUIFactory(identifier: identifier.value, factory: factory.typeErased())
     }
 
     @discardableResult
     public func addContainerUIFactory<VC>(
-        identifier: ContainerUI<T>.Identifier<VC, MultiUITokenData<T>>,
-        factory: AnyMultiContainerUIFactory<T>
+        identifier: ContainerUI<T, VC>.Identifier<MultiUITokenData<T>>,
+        factory: AnyMultiContainerUIFactory<T, VC>
     ) -> Bool where VC: ViewController {
-        containerRepository.addContainerUIFactory(identifier: identifier.value, factory: factory)
+        containerRepository.addContainerUIFactory(identifier: identifier.value, factory: factory.typeErased())
     }
 
     @discardableResult
     public func addContainerUIFactory<VC>(
-        identifier: ContainerUI<T>.Identifier<VC, SplitSingleUITokenData<T>>,
-        factory: AnySplitSingleContainerUIFactory<T>
+        identifier: ContainerUI<T, VC>.Identifier<SplitSingleUITokenData<T>>,
+        factory: AnySplitSingleContainerUIFactory<T, VC>
     ) -> Bool where VC: ViewController {
-        containerRepository.addContainerUIFactory(identifier: identifier.value, factory: factory)
+        containerRepository.addContainerUIFactory(identifier: identifier.value, factory: factory.typeErased())
     }
 
     @discardableResult
     public func addContainerUIFactory<VC>(
-        identifier: ContainerUI<T>.Identifier<VC, SplitMultiUITokenData<T>>,
-        factory: AnySplitMultiContainerUIFactory<T>
+        identifier: ContainerUI<T, VC>.Identifier<SplitMultiUITokenData<T>>,
+        factory: AnySplitMultiContainerUIFactory<T, VC>
     ) -> Bool where VC: ViewController {
-        containerRepository.addContainerUIFactory(identifier: identifier.value, factory: factory)
+        containerRepository.addContainerUIFactory(identifier: identifier.value, factory: factory.typeErased())
     }
 
     @discardableResult
     public func renderUI<VC, TD>(
-        identifier: ContainerUI<T>.Identifier<VC, TD>,
+        identifier: ContainerUI<T, VC>.Identifier<TD>,
         tokenData: TD,
         in window: Window,
         transition: Transition? = nil,
         customisation: CustomisationBlock<VC>? = nil
     ) -> AnyContainer<T>? where VC: ViewController, TD: TokenData {
-        guard let container = createUI(
+        guard let container = createContainer(
             identifier: identifier,
             tokenData: tokenData,
             isModal: false,
@@ -79,34 +80,32 @@ public final class Madog<T>: ContainerDelegate {
         registrar.serviceProviders
     }
 
-    // MARK: - MadogUIContainerDelegate
+    // MARK: - ContainerDelegate
 
-    func createUI<VC, TD>(
-        identifier: ContainerUI<T>.Identifier<VC, TD>,
+    func createContainer<VC, TD>(
+        identifier: ContainerUI<T, VC>.Identifier<TD>,
         tokenData: TD,
         isModal: Bool,
         customisation: CustomisationBlock<VC>?
-    ) -> ContainerUI<T>? where VC: ViewController, TD: TokenData {
-        guard
-            let container = containerRepository.createContainer(identifier: identifier.value, tokenData: tokenData),
-            let viewController = container.viewController as? VC
-        else {
+    ) -> ContainerUI<T, VC>? where VC: ViewController, TD: TokenData {
+        guard let container = containerRepository.createContainer(identifier: identifier, tokenData: tokenData) else {
             return nil
         }
 
+        let viewController = container.viewController
         container.delegate = self
-        persist(container: container, isModal: isModal)
+        persist(container: container, containerViewController: viewController, isModal: isModal)
         customisation?(viewController)
         return container
     }
 
     func container(for viewController: ViewController) -> AnyContainer<T>? {
-        if viewController == container?.viewController { return container }
+        if viewController == containerViewController { return container }
         return modalContainers[viewController]
     }
 
     func releaseContainer(for viewController: ViewController) {
-        if viewController == container?.viewController {
+        if viewController == containerViewController {
             container = nil
         } else {
             modalContainers[viewController] = nil
@@ -115,11 +114,12 @@ public final class Madog<T>: ContainerDelegate {
 
     // MARK: - Private
 
-    private func persist(container: ContainerUI<T>, isModal: Bool) {
+    private func persist(container: AnyContainer<T>, containerViewController: ViewController, isModal: Bool) {
         if isModal {
-            modalContainers[container.viewController] = container
+            modalContainers[containerViewController] = container
         } else {
             self.container = container
+            self.containerViewController = containerViewController
             modalContainers = [:] // Clear old modal containers
         }
     }

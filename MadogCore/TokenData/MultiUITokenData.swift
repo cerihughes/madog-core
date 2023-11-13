@@ -19,8 +19,27 @@ public extension TokenData {
     }
 }
 
-public typealias AnyMultiContainerUIFactory<T> = any MultiContainerUIFactory<T>
-public protocol MultiContainerUIFactory<T> {
+public typealias AnyMultiContainerUIFactory<T, VC> = any MultiContainerUIFactory<T, VC>
+public protocol MultiContainerUIFactory<T, VC> where VC: ViewController {
     associatedtype T
-    func createContainer(registry: AnyRegistry<T>, tokenData: MultiUITokenData<T>) -> ContainerUI<T>?
+    associatedtype VC
+    func createContainer(registry: AnyRegistry<T>, tokenData: MultiUITokenData<T>) -> ContainerUI<T, VC>?
+}
+
+struct ErasedMultiContainerUIFactory<T> {
+    private let createContainerClosure: (AnyRegistry<T>, MultiUITokenData<T>) -> Any?
+
+    init<VC, F: MultiContainerUIFactory<T, VC>>(_ factory: F) {
+        createContainerClosure = { factory.createContainer(registry: $0, tokenData: $1) }
+    }
+
+    func createContainer<VC>(registry: AnyRegistry<T>, tokenData: MultiUITokenData<T>) -> ContainerUI<T, VC>? {
+        createContainerClosure(registry, tokenData) as? ContainerUI<T, VC>
+    }
+}
+
+extension MultiContainerUIFactory {
+    func typeErased() -> ErasedMultiContainerUIFactory<T> {
+        .init(self)
+    }
 }

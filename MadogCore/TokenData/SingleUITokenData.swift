@@ -23,23 +23,14 @@ public typealias AnySingleContainerUIFactory<T, VC> = any SingleContainerUIFacto
 public protocol SingleContainerUIFactory<T, VC> where VC: ViewController {
     associatedtype T
     associatedtype VC
-    func createContainer(registry: AnyRegistry<T>, tokenData: SingleUITokenData<T>) -> ContainerUI<T, VC>?
-}
 
-struct ErasedSingleContainerUIFactory<T> {
-    private let createContainerClosure: (AnyRegistry<T>, SingleUITokenData<T>) -> Any?
+    typealias TD = SingleUITokenData<T>
 
-    init<VC, F: SingleContainerUIFactory<T, VC>>(_ factory: F) where VC: ViewController {
-        createContainerClosure = { factory.createContainer(registry: $0, tokenData: $1) }
-    }
-
-    func createContainer<VC>(registry: AnyRegistry<T>, tokenData: SingleUITokenData<T>) -> ContainerUI<T, VC>? {
-        createContainerClosure(registry, tokenData) as? ContainerUI<T, VC>
-    }
+    func createContainer(registry: AnyRegistry<T>, tokenData: TD) -> ContainerUI<T, TD, VC>?
 }
 
 extension SingleContainerUIFactory {
-    func typeErased() -> ErasedSingleContainerUIFactory<T> {
-        .init(self)
+    func wrapped() -> SingleContainerUIFactoryWrapper<T> {
+        .init(createContainer(registry:tokenData:))
     }
 }

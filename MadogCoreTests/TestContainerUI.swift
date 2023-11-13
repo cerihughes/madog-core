@@ -10,7 +10,7 @@ extension TestContainerUI {
         func createContainer(
             registry: AnyRegistry<T>,
             tokenData: SingleUITokenData<T>
-        ) -> ContainerUI<T, ViewController>? {
+        ) -> ContainerUI<T, SingleUITokenData<T>, ViewController>? {
             TestContainerUI(registry: registry, tokenData: tokenData)
         }
     }

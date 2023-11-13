@@ -5,25 +5,29 @@
 
 import Foundation
 
+struct IdentifiableToken<T, TD, VC> where TD: TokenData, VC: ViewController {
+    let identifier: ContainerUI<T, TD, VC>.Identifier
+    let data: TD
+}
+
 typealias AnyContainerDelegate<T> = any ContainerDelegate<T>
 
 protocol ContainerDelegate<T>: AnyObject {
     associatedtype T
 
     func createContainer<VC, TD>(
-        identifier: ContainerUI<T, VC>.Identifier<TD>,
-        tokenData: TD,
+        identifiableToken: IdentifiableToken<T, TD, VC>,
         isModal: Bool,
         customisation: CustomisationBlock<VC>?
-    ) -> ContainerUI<T, VC>? where VC: ViewController, TD: TokenData
+    ) -> ContainerUI<T, TD, VC>? where VC: ViewController, TD: TokenData
 
     func container(for viewController: ViewController) -> AnyContainer<T>?
     func releaseContainer(for viewController: ViewController)
 }
 
-open class ContainerUI<T, VC>: Container where VC: ViewController {
+open class ContainerUI<T, TD, VC>: Container where TD: TokenData, VC: ViewController {
 
-    public struct Identifier<TD> where TD: TokenData {
+    public struct Identifier {
         let value: String
 
         public init(_ value: String) {
@@ -65,16 +69,15 @@ open class ContainerUI<T, VC>: Container where VC: ViewController {
         return true
     }
 
-    public func change<VC2, TD>(
-        to identifier: ContainerUI<T, VC2>.Identifier<TD>,
-        tokenData: TD,
+    public func change<VC2, TD2>(
+        to identifier: ContainerUI<T, TD2, VC2>.Identifier,
+        tokenData: TD2,
         transition: Transition?,
         customisation: CustomisationBlock<VC2>?
-    ) -> AnyContainer<T>? where VC2: ViewController, TD: TokenData {
+    ) -> AnyContainer<T>? where VC2: ViewController, TD2: TokenData {
         guard
             let container = delegate?.createContainer(
-                identifier: identifier,
-                tokenData: tokenData,
+                identifiableToken: .init(identifier: identifier, data: tokenData),
                 isModal: false,
                 customisation: customisation
             ),

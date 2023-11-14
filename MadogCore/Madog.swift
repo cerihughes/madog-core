@@ -24,7 +24,7 @@ public final class Madog<T>: ContainerDelegate {
     @discardableResult
     public func addContainerUIFactory<VC>(
         identifier: ContainerUI<T, SingleUITokenData<T>, VC>.Identifier,
-        factory: AnySingleContainerUIFactory<T, VC>
+        factory: AnyContainerUIFactory<T, SingleUITokenData<T>, VC>
     ) -> Bool where VC: ViewController {
         containerRepository.addContainerUIFactory(identifier: identifier.value, factory: factory.wrapped())
     }
@@ -32,7 +32,7 @@ public final class Madog<T>: ContainerDelegate {
     @discardableResult
     public func addContainerUIFactory<VC>(
         identifier: ContainerUI<T, MultiUITokenData<T>, VC>.Identifier,
-        factory: AnyMultiContainerUIFactory<T, VC>
+        factory: AnyContainerUIFactory<T, MultiUITokenData<T>, VC>
     ) -> Bool where VC: ViewController {
         containerRepository.addContainerUIFactory(identifier: identifier.value, factory: factory.wrapped())
     }
@@ -40,7 +40,7 @@ public final class Madog<T>: ContainerDelegate {
     @discardableResult
     public func addContainerUIFactory<VC>(
         identifier: ContainerUI<T, SplitSingleUITokenData<T>, VC>.Identifier,
-        factory: AnySplitSingleContainerUIFactory<T, VC>
+        factory: AnyContainerUIFactory<T, SplitSingleUITokenData<T>, VC>
     ) -> Bool where VC: ViewController {
         containerRepository.addContainerUIFactory(identifier: identifier.value, factory: factory.wrapped())
     }
@@ -48,7 +48,7 @@ public final class Madog<T>: ContainerDelegate {
     @discardableResult
     public func addContainerUIFactory<VC>(
         identifier: ContainerUI<T, SplitMultiUITokenData<T>, VC>.Identifier,
-        factory: AnySplitMultiContainerUIFactory<T, VC>
+        factory: AnyContainerUIFactory<T, SplitMultiUITokenData<T>, VC>
     ) -> Bool where VC: ViewController {
         containerRepository.addContainerUIFactory(identifier: identifier.value, factory: factory.wrapped())
     }

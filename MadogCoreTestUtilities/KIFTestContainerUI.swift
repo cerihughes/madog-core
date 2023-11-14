@@ -28,7 +28,7 @@ class KIFTestContainerUI<T>: ContainerUI<T, SingleUITokenData<T>, ViewController
 }
 
 extension KIFTestContainerUI {
-    struct Factory: SingleContainerUIFactory {
+    struct Factory: ContainerUIFactory {
         func createContainer(
             registry: AnyRegistry<T>,
             tokenData: SingleUITokenData<T>

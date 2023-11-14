@@ -15,19 +15,3 @@ public extension TokenData {
         SplitSingleUITokenData(primaryToken: primaryToken, secondaryToken: secondaryToken)
     }
 }
-
-public typealias AnySplitSingleContainerUIFactory<T, VC> = any SplitSingleContainerUIFactory<T, VC>
-public protocol SplitSingleContainerUIFactory<T, VC> where VC: ViewController {
-    associatedtype T
-    associatedtype VC
-
-    typealias TD = SplitSingleUITokenData<T>
-
-    func createContainer(registry: AnyRegistry<T>, tokenData: TD) -> ContainerUI<T, TD, VC>?
-}
-
-extension SplitSingleContainerUIFactory {
-    func wrapped() -> SplitSingleContainerUIFactoryWrapper<T> {
-        .init(createContainer(registry:tokenData:))
-    }
-}

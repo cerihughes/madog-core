@@ -6,7 +6,7 @@
 import MadogCore
 
 extension TestContainerUI {
-    struct Factory: SingleContainerUIFactory {
+    struct Factory: ContainerUIFactory {
         func createContainer(
             registry: AnyRegistry<T>,
             tokenData: SingleUITokenData<T>

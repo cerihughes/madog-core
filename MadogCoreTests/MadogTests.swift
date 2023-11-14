@@ -5,6 +5,20 @@
 
 import XCTest
 
+#if canImport(UIKit)
+
+typealias SingleTokenVC = UINavigationController
+typealias MultiTokenVC = UITabBarController
+typealias SplitTokenVC = UISplitViewController
+
+#elseif canImport(AppKit)
+
+typealias SingleTokenVC = NSPageController
+typealias MultiTokenVC = NSTabViewController
+typealias SplitTokenVC = NSSplitViewController
+
+#endif
+
 @testable import MadogCore
 
 class MadogTests: XCTestCase {
@@ -77,7 +91,7 @@ class MadogTests: XCTestCase {
 
     func testSingleTokenFactory() {
         typealias TD = SingleUITokenData<Int>
-        typealias VC = UINavigationController
+        typealias VC = SingleTokenVC
         class TestContainer: ContainerUI<Int, TD, VC> {}
         class TestFactory: SingleContainerUIFactory {
             func createContainer(registry: AnyRegistry<Int>, tokenData: TD) -> ContainerUI<Int, TD, VC>? {
@@ -92,7 +106,7 @@ class MadogTests: XCTestCase {
 
     func testMultiTokenFactory() {
         typealias TD = MultiUITokenData<Int>
-        typealias VC = UITabBarController
+        typealias VC = MultiTokenVC
         class TestContainer: ContainerUI<Int, TD, VC> {}
         class TestFactory: MultiContainerUIFactory {
             func createContainer(registry: AnyRegistry<Int>, tokenData: TD) -> ContainerUI<Int, TD, VC>? {
@@ -107,7 +121,7 @@ class MadogTests: XCTestCase {
 
     func testSplitSingleTokenFactory() {
         typealias TD = SplitSingleUITokenData<Int>
-        typealias VC = UINavigationController
+        typealias VC = SplitTokenVC
         class TestContainer: ContainerUI<Int, TD, VC> {}
         class TestFactory: SplitSingleContainerUIFactory {
             func createContainer(registry: AnyRegistry<Int>, tokenData: TD) -> ContainerUI<Int, TD, VC>? {
@@ -122,7 +136,7 @@ class MadogTests: XCTestCase {
 
     func testSplitMultiTokenFactory() {
         typealias TD = SplitMultiUITokenData<Int>
-        typealias VC = UITabBarController
+        typealias VC = SplitTokenVC
         class TestContainer: ContainerUI<Int, TD, VC> {}
         class TestFactory: SplitMultiContainerUIFactory {
             func createContainer(registry: AnyRegistry<Int>, tokenData: TD) -> ContainerUI<Int, TD, VC>? {

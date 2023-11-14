@@ -97,8 +97,8 @@ class MadogTests: XCTestCase {
             func createContainer() -> ContainerUI<Int, TD, VC> {
                 TestContainer(containerViewController: .init())
             }
-
         }
+
         let identifier = ContainerUI<Int, TD, VC>.Identifier("testSingleTokenFactory")
         XCTAssertTrue(madog.addContainerUIFactory(identifier: identifier, factory: TestFactory()))
         XCTAssertNotNil(madog.renderUI(identifier: identifier, tokenData: .single(1), in: Window()))
@@ -112,8 +112,8 @@ class MadogTests: XCTestCase {
             func createContainer() -> ContainerUI<Int, TD, VC> {
                 TestContainer(containerViewController: .init())
             }
-
         }
+
         let identifier = ContainerUI<Int, TD, VC>.Identifier("testMultiTokenFactory")
         XCTAssertTrue(madog.addContainerUIFactory(identifier: identifier, factory: TestFactory()))
         XCTAssertNotNil(madog.renderUI(identifier: identifier, tokenData: .multi(1, 2, 3), in: Window()))
@@ -127,8 +127,8 @@ class MadogTests: XCTestCase {
             func createContainer() -> ContainerUI<Int, TD, VC> {
                 TestContainer(containerViewController: .init())
             }
-
         }
+
         let identifier = ContainerUI<Int, TD, VC>.Identifier("testSingleTokenFactory")
         XCTAssertTrue(madog.addContainerUIFactory(identifier: identifier, factory: TestFactory()))
         XCTAssertNotNil(madog.renderUI(identifier: identifier, tokenData: .splitSingle(1, 2), in: Window()))
@@ -142,8 +142,8 @@ class MadogTests: XCTestCase {
             func createContainer() -> ContainerUI<Int, TD, VC> {
                 TestContainer(containerViewController: .init())
             }
-
         }
+
         let identifier = ContainerUI<Int, TD, VC>.Identifier("testMultiTokenFactory")
         XCTAssertTrue(madog.addContainerUIFactory(identifier: identifier, factory: TestFactory()))
         XCTAssertNotNil(madog.renderUI(identifier: identifier, tokenData: .splitMulti(1, [2, 3]), in: Window()))

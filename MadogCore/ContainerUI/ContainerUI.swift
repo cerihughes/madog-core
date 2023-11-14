@@ -35,7 +35,6 @@ open class ContainerUI<T, TD, VC>: Container where TD: TokenData, VC: ViewContro
         }
     }
 
-    var registry: AnyRegistry<T>?
     public let uuid = UUID()
     public let containerViewController: VC
 

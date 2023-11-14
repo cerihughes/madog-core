@@ -45,14 +45,6 @@ class ContainerUIRepository<T> {
     func createContainer<VC, TD>(
         identifiableToken: IdentifiableToken<T, TD, VC>
     ) -> ContainerUI<T, TD, VC>? where VC: ViewController, TD: TokenData {
-        guard let container = _createContainer(identifiableToken: identifiableToken) else { return nil }
-        container.registry = registry
-        return container
-    }
-
-    private func _createContainer<VC, TD>(
-        identifiableToken: IdentifiableToken<T, TD, VC>
-    ) -> ContainerUI<T, TD, VC>? where VC: ViewController, TD: TokenData {
         let key = identifiableToken.identifier.value
         if let typed = identifiableToken.typed(SingleUITokenData<T>.self), let factory = singleRegistry[key] {
             return factory.createContainer(contentFactory: contentFactory, identifiableToken: typed)?.erased()

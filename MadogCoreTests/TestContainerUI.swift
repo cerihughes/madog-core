@@ -7,11 +7,8 @@ import MadogCore
 
 extension TestContainerUI {
     struct Factory: ContainerUIFactory {
-        func createContainer(
-            registry: AnyRegistry<T>,
-            tokenData: SingleUITokenData<T>
-        ) -> ContainerUI<T, SingleUITokenData<T>, ViewController>? {
-            TestContainerUI(registry: registry, tokenData: tokenData)
+        func createContainer() -> ContainerUI<T, SingleUITokenData<T>, ViewController> {
+            TestContainerUI(containerViewController: .init())
         }
     }
 }

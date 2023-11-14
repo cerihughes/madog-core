@@ -12,5 +12,5 @@ public protocol ContainerUIFactory<T, TD, VC> where TD: TokenData, VC: ViewContr
     associatedtype TD
     associatedtype VC
 
-    func createContainer(registry: AnyRegistry<T>, tokenData: TD) -> ContainerUI<T, TD, VC>?
+    func createContainer() -> ContainerUI<T, TD, VC>
 }

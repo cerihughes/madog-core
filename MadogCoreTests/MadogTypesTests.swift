@@ -3,6 +3,8 @@
 //  Copyright © 2019 Ceri Hughes. All rights reserved.
 //
 
+#if canImport(UIKit)
+
 import XCTest
 
 @testable import MadogCore
@@ -32,10 +34,12 @@ class MadogTypesTests: XCTestCase {
         XCTAssertEqual(resolver.serviceProviderFunctions().count, 1)
         XCTAssertEqual(resolver.viewControllerProviderFunctions().count, 1)
 
-        let container = NavigatingContainerUI(registry: registry, containerViewController: UINavigationController())
+        let container = NavigatingContainerUI<Int>(containerViewController: UINavigationController())
 
         XCTAssertNil(registry.createViewController(from: 1, container: container))
         registrar.resolve(resolver: resolver)
         XCTAssertNotNil(registry.createViewController(from: 0, container: container))
     }
 }
+
+#endif

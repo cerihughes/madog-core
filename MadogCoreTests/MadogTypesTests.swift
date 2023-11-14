@@ -3,6 +3,8 @@
 //  Copyright © 2019 Ceri Hughes. All rights reserved.
 //
 
+#if canImport(UIKit)
+
 import XCTest
 
 @testable import MadogCore
@@ -39,3 +41,5 @@ class MadogTypesTests: XCTestCase {
         XCTAssertNotNil(registry.createViewController(from: 0, container: container))
     }
 }
+
+#endif

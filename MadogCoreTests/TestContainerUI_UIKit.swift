@@ -15,16 +15,16 @@ class TestContainerUI<T>: ContainerUI<T, SingleUITokenData<T>, ViewController> {
     ) throws {
         try super.populateContainer(contentFactory: contentFactory, tokenData: tokenData)
 
-        let viewController = try createContentViewController(contentFactory: contentFactory, from: tokenData.token)
+        let vc = try createContentViewController(contentFactory: contentFactory, from: tokenData.token)
 
-        viewController.willMove(toParent: containerViewController)
+        vc.willMove(toParent: containerViewController)
 
-        containerViewController.addChild(viewController)
-        containerViewController.view.addSubview(viewController.view)
-        viewController.view.frame = containerViewController.view.bounds
-        viewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        containerViewController.addChild(vc)
+        containerViewController.view.addSubview(vc.view)
+        vc.view.frame = containerViewController.view.bounds
+        vc.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
 
-        viewController.didMove(toParent: containerViewController)
+        vc.didMove(toParent: containerViewController)
     }
 }
 

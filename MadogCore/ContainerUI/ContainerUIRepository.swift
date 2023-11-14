@@ -82,7 +82,7 @@ typealias SplitSingleContainerUIFactoryWrapper<T> = ContainerUIFactoryWrapper<T,
 typealias SplitMultiContainerUIFactoryWrapper<T> = ContainerUIFactoryWrapper<T, SplitMultiUITokenData<T>>
 
 struct ContainerUIFactoryWrapper<T, TD> where TD: TokenData {
-    typealias Closure = (Any, TD) -> Any?
+    typealias Closure = (AnyContainerUIContentFactory<T>, TD) -> Any?
 
     private let closure: Closure
 
@@ -100,11 +100,7 @@ struct ContainerUIFactoryWrapper<T, TD> where TD: TokenData {
 
 extension ContainerUIFactory {
     func wrapped() -> ContainerUIFactoryWrapper<T, TD> {
-        let closure: ContainerUIFactoryWrapper<T, TD>.Closure = {
-            guard let contentFactory = $0 as? AnyContainerUIContentFactory<T> else { return nil }
-            return try? createAndPopulateContainer(contentFactory: contentFactory, tokenData: $1)
-        }
-        return .init(closure)
+        .init(createAndPopulateContainer(contentFactory:tokenData:))
     }
 }
 
@@ -112,10 +108,14 @@ extension ContainerUIFactory {
     func createAndPopulateContainer(
         contentFactory: AnyContainerUIContentFactory<T>,
         tokenData: TD
-    ) throws -> ContainerUI<T, TD, VC> {
+    ) -> ContainerUI<T, TD, VC>? {
         let container = createContainer()
-        try container.populateContainer(contentFactory: contentFactory, tokenData: tokenData)
-        return container
+        do {
+            try container.populateContainer(contentFactory: contentFactory, tokenData: tokenData)
+            return container
+        } catch {
+            return nil
+        }
     }
 }
 

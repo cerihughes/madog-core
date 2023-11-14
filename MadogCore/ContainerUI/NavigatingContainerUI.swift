@@ -8,7 +8,6 @@
 import Foundation
 
 open class NavigatingContainerUI<T>: ContainerUI<T, SingleUITokenData<T>, NavigationController>, ForwardBackContainer {
-
     private var contentFactory: AnyContainerUIContentFactory<T>?
 
     override open func populateContainer(
@@ -23,10 +22,10 @@ open class NavigatingContainerUI<T>: ContainerUI<T, SingleUITokenData<T>, Naviga
     public func navigateForward(token: Token<T>, animated: Bool) -> Bool {
         guard
             let contentFactory,
-            let viewController = try? createContentViewController(contentFactory: contentFactory, from: token)
+            let toViewController = try? createContentViewController(contentFactory: contentFactory, from: token)
         else { return false }
 
-        containerViewController.pushViewController(viewController, animated: animated)
+        containerViewController.pushViewController(toViewController, animated: animated)
         return true
     }
 

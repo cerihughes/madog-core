@@ -15,15 +15,16 @@ class KIFTestContainerUI<T>: ContainerUI<T, SingleUITokenData<T>, ViewController
     ) throws {
         try super.populateContainer(contentFactory: contentFactory, tokenData: tokenData)
 
-        let viewController = try createContentViewController(contentFactory: contentFactory, from: tokenData.token)
-        viewController.willMove(toParent: containerViewController)
+        let vc = try createContentViewController(contentFactory: contentFactory, from: tokenData.token)
 
-        containerViewController.addChild(viewController)
-        containerViewController.view.addSubview(viewController.view)
-        viewController.view.frame = containerViewController.view.bounds
-        viewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        vc.willMove(toParent: containerViewController)
 
-        viewController.didMove(toParent: containerViewController)
+        containerViewController.addChild(vc)
+        containerViewController.view.addSubview(vc.view)
+        vc.view.frame = containerViewController.view.bounds
+        vc.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+
+        vc.didMove(toParent: containerViewController)
     }
 }
 

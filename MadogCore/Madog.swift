@@ -67,7 +67,7 @@ public final class Madog<T>: ContainerDelegate {
             customisation: customisation
         ) else { return nil }
 
-        window.setRootViewController(container.viewController, transition: transition)
+        window.setRootViewController(container.containerViewController, transition: transition)
         return container.proxy()
     }
 
@@ -90,10 +90,10 @@ public final class Madog<T>: ContainerDelegate {
             return nil
         }
 
-        let viewController = container.viewController
+        let containerViewController = container.containerViewController
         container.delegate = self
-        persist(container: container, containerViewController: viewController, isModal: isModal)
-        customisation?(viewController)
+        persist(container: container, containerViewController: containerViewController, isModal: isModal)
+        customisation?(containerViewController)
         return container
     }
 

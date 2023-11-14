@@ -32,7 +32,7 @@ class MadogTypesTests: XCTestCase {
         XCTAssertEqual(resolver.serviceProviderFunctions().count, 1)
         XCTAssertEqual(resolver.viewControllerProviderFunctions().count, 1)
 
-        let container = NavigatingContainerUI(registry: registry, viewController: UINavigationController())
+        let container = NavigatingContainerUI(registry: registry, containerViewController: UINavigationController())
 
         XCTAssertNil(registry.createViewController(from: 1, container: container))
         registrar.resolve(resolver: resolver)

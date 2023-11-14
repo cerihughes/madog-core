@@ -37,25 +37,25 @@ open class ContainerUI<T, TD, VC>: Container where TD: TokenData, VC: ViewContro
 
     public private(set) var registry: AnyRegistry<T>
     public let uuid = UUID()
-    let viewController: VC
+    let containerViewController: VC
 
     weak var delegate: AnyContainerDelegate<T>?
 
-    public init(registry: AnyRegistry<T>, viewController: VC) {
+    public init(registry: AnyRegistry<T>, containerViewController: VC) {
         self.registry = registry
-        self.viewController = viewController
+        self.containerViewController = containerViewController
     }
 
     // MARK: - Container
 
     public var presentingContainer: AnyContainer<T>? {
-        guard let presentingViewController = viewController.presentingViewController else { return nil }
+        guard let presentingViewController = containerViewController.presentingViewController else { return nil }
         return delegate?.container(for: presentingViewController)
     }
 
     public func close(animated: Bool, completion: CompletionBlock?) -> Bool {
 #if canImport(UIKit)
-        closeContainer(presentedViewController: viewController, animated: animated, completion: completion)
+        closeContainer(presentedViewController: containerViewController, animated: animated, completion: completion)
 #endif
         return true
     }
@@ -72,10 +72,10 @@ open class ContainerUI<T, TD, VC>: Container where TD: TokenData, VC: ViewContro
                 isModal: false,
                 customisation: customisation
             ),
-            let window = viewController.view.window
+            let window = containerViewController.view.window
         else { return nil }
 
-        window.setRootViewController(container.viewController, transition: transition)
+        window.setRootViewController(container.containerViewController, transition: transition)
         return container.proxy()
     }
 }

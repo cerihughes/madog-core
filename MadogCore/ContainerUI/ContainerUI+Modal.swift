@@ -2,6 +2,7 @@
 //  Created by Ceri Hughes on 05/06/2020.
 //  Copyright © 2020 Ceri Hughes. All rights reserved.
 //
+
 import Foundation
 
 #if canImport(UIKit)
@@ -29,8 +30,8 @@ extension ContainerUI: ModalContainer {
             )
         else { return nil }
 
-        let presentedViewController = container.viewController
-        viewController.madog_presentModally(
+        let presentedViewController = container.containerViewController
+        containerViewController.madog_presentModally(
             viewController: presentedViewController,
             presentationStyle: presentationStyle,
             transitionStyle: transitionStyle,

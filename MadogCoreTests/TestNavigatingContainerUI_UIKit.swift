@@ -12,7 +12,7 @@ class TestNavigatingContainerUI<T>: NavigatingContainerUI<T> {
     private let navigationController = UINavigationController()
 
     init?(registry: AnyRegistry<T>, tokenData: SingleUITokenData<T>) {
-        super.init(registry: registry, viewController: navigationController)
+        super.init(registry: registry, containerViewController: navigationController)
 
         guard let viewController = registry.createViewController(from: tokenData.token, container: self) else {
             return nil

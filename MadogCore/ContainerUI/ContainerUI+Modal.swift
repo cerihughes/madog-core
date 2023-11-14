@@ -41,7 +41,7 @@ extension ContainerUI: ModalContainer {
         )
 
         let proxy = container.proxy()
-        return createModalToken(viewController: presentedViewController, container: proxy)
+        return presentedViewController.createModalToken(container: proxy)
     }
 
     // swiftlint:enable function_parameter_count
@@ -67,9 +67,11 @@ extension ContainerUI: ModalContainer {
         presentedViewController.dismiss(animated: animated, completion: completion)
         delegate?.releaseContainer(for: presentedViewController)
     }
+}
 
-    private func createModalToken(viewController: ViewController, container: AnyContainer<T>) -> AnyModalToken<T> {
-        ModalTokenImplementation(viewController: viewController, container: container)
+private extension ViewController {
+    func createModalToken<T>(container: AnyContainer<T>) -> AnyModalToken<T> {
+        ModalTokenImplementation(viewController: self, container: container)
     }
 }
 

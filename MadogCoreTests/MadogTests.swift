@@ -94,8 +94,8 @@ class MadogTests: XCTestCase {
         typealias VC = SingleTokenVC
         class TestContainer: ContainerUI<Int, TD, VC> {}
         class TestFactory: ContainerUIFactory {
-            func createContainer(registry: AnyRegistry<Int>, tokenData: TD) -> ContainerUI<Int, TD, VC>? {
-                TestContainer(registry: registry, containerViewController: .init())
+            func createContainer() -> ContainerUI<Int, TD, VC> {
+                TestContainer(containerViewController: .init())
             }
 
         }
@@ -109,8 +109,8 @@ class MadogTests: XCTestCase {
         typealias VC = MultiTokenVC
         class TestContainer: ContainerUI<Int, TD, VC> {}
         class TestFactory: ContainerUIFactory {
-            func createContainer(registry: AnyRegistry<Int>, tokenData: TD) -> ContainerUI<Int, TD, VC>? {
-                TestContainer(registry: registry, containerViewController: .init())
+            func createContainer() -> ContainerUI<Int, TD, VC> {
+                TestContainer(containerViewController: .init())
             }
 
         }
@@ -124,8 +124,8 @@ class MadogTests: XCTestCase {
         typealias VC = SplitTokenVC
         class TestContainer: ContainerUI<Int, TD, VC> {}
         class TestFactory: ContainerUIFactory {
-            func createContainer(registry: AnyRegistry<Int>, tokenData: TD) -> ContainerUI<Int, TD, VC>? {
-                TestContainer(registry: registry, containerViewController: .init())
+            func createContainer() -> ContainerUI<Int, TD, VC> {
+                TestContainer(containerViewController: .init())
             }
 
         }
@@ -139,8 +139,8 @@ class MadogTests: XCTestCase {
         typealias VC = SplitTokenVC
         class TestContainer: ContainerUI<Int, TD, VC> {}
         class TestFactory: ContainerUIFactory {
-            func createContainer(registry: AnyRegistry<Int>, tokenData: TD) -> ContainerUI<Int, TD, VC>? {
-                TestContainer(registry: registry, containerViewController: .init())
+            func createContainer() -> ContainerUI<Int, TD, VC> {
+                TestContainer(containerViewController: .init())
             }
 
         }

@@ -9,21 +9,22 @@ import MadogCore
 import UIKit
 
 class TestContainerUI<T>: ContainerUI<T, SingleUITokenData<T>, ViewController> {
-    private let containerController = ViewController()
+    override func populateContainer(
+        contentFactory: AnyContainerUIContentFactory<T>,
+        tokenData: SingleUITokenData<T>
+    ) throws {
+        try super.populateContainer(contentFactory: contentFactory, tokenData: tokenData)
 
-    init?(registry: AnyRegistry<T>, tokenData: SingleUITokenData<T>) {
-        super.init(registry: registry, containerViewController: containerController)
+        let vc = try createContentViewController(contentFactory: contentFactory, from: tokenData.token)
 
-        guard let vc = registry.createViewController(from: tokenData.token, container: self) else { return nil }
+        vc.willMove(toParent: containerViewController)
 
-        vc.willMove(toParent: containerController)
-
-        containerController.addChild(vc)
-        containerController.view.addSubview(vc.view)
-        vc.view.frame = containerController.view.bounds
+        containerViewController.addChild(vc)
+        containerViewController.view.addSubview(vc.view)
+        vc.view.frame = containerViewController.view.bounds
         vc.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
 
-        vc.didMove(toParent: containerController)
+        vc.didMove(toParent: containerViewController)
     }
 }
 

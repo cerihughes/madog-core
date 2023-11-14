@@ -16,7 +16,7 @@ class CustomisationTests: MadogKIFTestCase {
         let container = renderUIAndWait(
             identifier: .kifTest(),
             tokenData: .single("vc1"),
-            customisation: customise(containerViewController:)
+            customisation: customise(viewController:)
         )
 
         XCTAssertNotNil(container)
@@ -31,17 +31,17 @@ class CustomisationTests: MadogKIFTestCase {
             identifier: .kifTest(),
             tokenData: .single("vc1"),
             animated: true,
-            customisation: customise(containerViewController:)
+            customisation: customise(viewController:)
         )
 
         XCTAssertNotNil(token)
         waitForTitle(token: "CUSTOMISED")
     }
 
-    private func customise(containerViewController: UIViewController) {
+    private func customise(viewController: UIViewController) {
         let label = UILabel()
         label.text = "CUSTOMISED"
-        containerViewController.view.addSubview(label)
+        viewController.view.addSubview(label)
     }
 }
 

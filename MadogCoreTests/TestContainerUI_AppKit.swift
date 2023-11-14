@@ -8,7 +8,7 @@
 import MadogCore
 import AppKit
 
-class TestContainerUI<T>: ContainerUI<T> {
+class TestContainerUI<T>: ContainerUI<T, SingleUITokenData<T>, ViewController> {
     private let containerController = ViewController()
 
     init?(registry: AnyRegistry<T>, tokenData: SingleUITokenData<T>) {

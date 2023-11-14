@@ -14,19 +14,3 @@ public extension TokenData {
         SingleUITokenData(token: token)
     }
 }
-
-public typealias AnySingleContainerUIFactory<T, VC> = any SingleContainerUIFactory<T, VC>
-public protocol SingleContainerUIFactory<T, VC> where VC: ViewController {
-    associatedtype T
-    associatedtype VC
-
-    typealias TD = SingleUITokenData<T>
-
-    func createContainer(registry: AnyRegistry<T>, tokenData: TD) -> ContainerUI<T, TD, VC>?
-}
-
-extension SingleContainerUIFactory {
-    func wrapped() -> SingleContainerUIFactoryWrapper<T> {
-        .init(createContainer(registry:tokenData:))
-    }
-}

@@ -93,7 +93,7 @@ class MadogTests: XCTestCase {
         typealias TD = SingleUITokenData<Int>
         typealias VC = SingleTokenVC
         class TestContainer: ContainerUI<Int, TD, VC> {}
-        class TestFactory: SingleContainerUIFactory {
+        class TestFactory: ContainerUIFactory {
             func createContainer(registry: AnyRegistry<Int>, tokenData: TD) -> ContainerUI<Int, TD, VC>? {
                 TestContainer(registry: registry, containerViewController: .init())
             }
@@ -108,7 +108,7 @@ class MadogTests: XCTestCase {
         typealias TD = MultiUITokenData<Int>
         typealias VC = MultiTokenVC
         class TestContainer: ContainerUI<Int, TD, VC> {}
-        class TestFactory: MultiContainerUIFactory {
+        class TestFactory: ContainerUIFactory {
             func createContainer(registry: AnyRegistry<Int>, tokenData: TD) -> ContainerUI<Int, TD, VC>? {
                 TestContainer(registry: registry, containerViewController: .init())
             }
@@ -123,7 +123,7 @@ class MadogTests: XCTestCase {
         typealias TD = SplitSingleUITokenData<Int>
         typealias VC = SplitTokenVC
         class TestContainer: ContainerUI<Int, TD, VC> {}
-        class TestFactory: SplitSingleContainerUIFactory {
+        class TestFactory: ContainerUIFactory {
             func createContainer(registry: AnyRegistry<Int>, tokenData: TD) -> ContainerUI<Int, TD, VC>? {
                 TestContainer(registry: registry, containerViewController: .init())
             }
@@ -138,7 +138,7 @@ class MadogTests: XCTestCase {
         typealias TD = SplitMultiUITokenData<Int>
         typealias VC = SplitTokenVC
         class TestContainer: ContainerUI<Int, TD, VC> {}
-        class TestFactory: SplitMultiContainerUIFactory {
+        class TestFactory: ContainerUIFactory {
             func createContainer(registry: AnyRegistry<Int>, tokenData: TD) -> ContainerUI<Int, TD, VC>? {
                 TestContainer(registry: registry, containerViewController: .init())
             }

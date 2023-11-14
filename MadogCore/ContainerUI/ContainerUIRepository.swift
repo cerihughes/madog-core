@@ -82,6 +82,12 @@ struct ContainerUIFactoryWrapper<T, TD> where TD: TokenData {
     }
 }
 
+extension ContainerUIFactory {
+    func wrapped() -> ContainerUIFactoryWrapper<T, TD> {
+        .init(createContainer(registry:tokenData:))
+    }
+}
+
 private extension IdentifiableToken {
     func typed<TD2>(_ type: TD2.Type) -> IdentifiableToken<T, TD2, VC>? {
         guard let identifier = identifier as? ContainerUI<T, TD2, VC>.Identifier, let data = data as? TD2 else {

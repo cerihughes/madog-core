@@ -18,19 +18,3 @@ public extension TokenData {
         multi(tokens)
     }
 }
-
-public typealias AnyMultiContainerUIFactory<T, VC> = any MultiContainerUIFactory<T, VC>
-public protocol MultiContainerUIFactory<T, VC> where VC: ViewController {
-    associatedtype T
-    associatedtype VC
-
-    typealias TD = MultiUITokenData<T>
-
-    func createContainer(registry: AnyRegistry<T>, tokenData: TD) -> ContainerUI<T, TD, VC>?
-}
-
-extension MultiContainerUIFactory {
-    func wrapped() -> MultiContainerUIFactoryWrapper<T> {
-        .init(createContainer(registry:tokenData:))
-    }
-}

@@ -10,16 +10,10 @@ struct IdentifiableToken<T, TD, VC> where TD: TokenData, VC: ViewController {
     let data: TD
 }
 
-typealias AnyContainerDelegate<T> = any ContainerDelegate<T>
+typealias AnyContainerUIDelegate<T> = any ContainerUIDelegate<T>
 
-protocol ContainerDelegate<T>: AnyObject {
+protocol ContainerUIDelegate<T>: ContainerCreationDelegate {
     associatedtype T
-
-    func createContainer<VC, TD>(
-        identifiableToken: IdentifiableToken<T, TD, VC>,
-        isModal: Bool,
-        customisation: CustomisationBlock<VC>?
-    ) -> ContainerUI<T, TD, VC>? where VC: ViewController, TD: TokenData
 
     func container(for viewController: ViewController) -> AnyContainer<T>?
     func releaseContainer(for viewController: ViewController)
@@ -38,7 +32,7 @@ open class ContainerUI<T, TD, VC>: Container where TD: TokenData, VC: ViewContro
     public let uuid = UUID()
     public let containerViewController: VC
 
-    weak var delegate: AnyContainerDelegate<T>?
+    weak var delegate: AnyContainerUIDelegate<T>?
 
     public init(containerViewController: VC) {
         self.containerViewController = containerViewController

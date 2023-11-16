@@ -15,7 +15,7 @@ public class Token<T> {
         tokenData: SingleUITokenData<T>,
         customisation: CustomisationBlock<VC2>? = nil
     ) -> Token<T> where VC2: ViewController {
-        ChangeToken(intent: .single(identifier.value, tokenData), customisation: wrap(customisation))
+        ChangeToken(intent: .single(.init(identifier: identifier, data: tokenData)), customisation: customisation)
     }
 
     public static func create<VC2>(
@@ -23,7 +23,7 @@ public class Token<T> {
         tokenData: MultiUITokenData<T>,
         customisation: CustomisationBlock<VC2>? = nil
     ) -> Token<T> where VC2: ViewController {
-        ChangeToken(intent: .multi(identifier.value, tokenData), customisation: wrap(customisation))
+        ChangeToken(intent: .multi(.init(identifier: identifier, data: tokenData)), customisation: customisation)
     }
 
     public static func create<VC2>(
@@ -31,7 +31,7 @@ public class Token<T> {
         tokenData: SplitSingleUITokenData<T>,
         customisation: CustomisationBlock<VC2>? = nil
     ) -> Token<T> where VC2: ViewController {
-        ChangeToken(intent: .splitSingle(identifier.value, tokenData), customisation: wrap(customisation))
+        ChangeToken(intent: .splitSingle(.init(identifier: identifier, data: tokenData)), customisation: customisation)
     }
 
     public static func create<VC2>(
@@ -39,17 +39,7 @@ public class Token<T> {
         tokenData: SplitMultiUITokenData<T>,
         customisation: CustomisationBlock<VC2>? = nil
     ) -> Token<T> where VC2: ViewController {
-        ChangeToken(intent: .splitMulti(identifier.value, tokenData), customisation: wrap(customisation))
-    }
-
-    static func wrap<VC>(
-        _ block: CustomisationBlock<VC>?
-    ) -> ChangeToken<T>.CustomisationBlock? where VC: ViewController {
-        guard let block else { return nil }
-        return {
-            guard let vc = $0 as? VC else { return }
-            block(vc)
-        }
+        ChangeToken(intent: .splitMulti(.init(identifier: identifier, data: tokenData)), customisation: customisation)
     }
 }
 
@@ -61,23 +51,23 @@ class UseParentToken<T>: Token<T> {
     }
 }
 
-class ChangeToken<T>: Token<T> {
-    typealias CustomisationBlock = (ViewController) -> Void
+class ChangeToken<T, VC>: Token<T> where VC: ViewController {
+    typealias CustomisationBlock = (VC) -> Void
 
-    let intent: ChangeIntent<T>
+    let intent: ChangeIntent<T, VC>
     let customisation: CustomisationBlock?
 
-    init(intent: ChangeIntent<T>, customisation: CustomisationBlock?) {
+    init(intent: ChangeIntent<T, VC>, customisation: CustomisationBlock?) {
         self.intent = intent
         self.customisation = customisation
     }
 }
 
-indirect enum ChangeIntent<T> {
-    case single(String, SingleUITokenData<T>)
-    case multi(String, MultiUITokenData<T>)
-    case splitSingle(String, SplitSingleUITokenData<T>)
-    case splitMulti(String, SplitMultiUITokenData<T>)
+indirect enum ChangeIntent<T, VC> where VC: ViewController {
+    case single(IdentifiableToken<T, SingleUITokenData<T>, VC>)
+    case multi(IdentifiableToken<T, MultiUITokenData<T>, VC>)
+    case splitSingle(IdentifiableToken<T, SplitSingleUITokenData<T>, VC>)
+    case splitMulti(IdentifiableToken<T, SplitMultiUITokenData<T>, VC>)
 }
 
 extension Token {
@@ -85,15 +75,11 @@ extension Token {
         self as? UseParentToken<T>
     }
 
-    private var changeToken: ChangeToken<T>? {
-        self as? ChangeToken<T>
+    func changeToken<VC>() -> ChangeToken<T, VC>? {
+        self as? ChangeToken<T, VC>
     }
 
     var use: T? {
         useParentToken?.token
-    }
-
-    var changeIntent: ChangeIntent<T>? {
-        changeToken?.intent
     }
 }

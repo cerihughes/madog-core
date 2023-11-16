@@ -7,7 +7,7 @@ import Foundation
 
 public final class Madog<T>: ContainerUIDelegate {
     private let registrar = Registrar<T>()
-    private let contentFactory: AnyContainerUIContentFactory<T>
+    private let contentFactory: ContainerUIContentFactoryImplementation<T>
     private let containerRepository: ContainerUIRepository<T>
 
     private var container: AnyContainer<T>?
@@ -17,6 +17,7 @@ public final class Madog<T>: ContainerUIDelegate {
     public init() {
         contentFactory = ContainerUIContentFactoryImplementation(registry: registrar.registry)
         containerRepository = ContainerUIRepository<T>(registry: registrar.registry, contentFactory: contentFactory)
+        contentFactory.delegate = self
     }
 
     public func resolve(resolver: AnyResolver<T>, launchOptions: LaunchOptions? = nil) {

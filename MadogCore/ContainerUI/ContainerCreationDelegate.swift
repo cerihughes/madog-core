@@ -5,6 +5,8 @@
 
 import Foundation
 
+typealias AnyContainerCreationDelegate<T> = any ContainerCreationDelegate<T>
+
 protocol ContainerCreationDelegate<T>: AnyObject {
     associatedtype T
 

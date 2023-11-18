@@ -11,7 +11,7 @@ public protocol SplitMultiContainer<T> {
     associatedtype T
 
     @discardableResult
-    func showDetail(tokens: [T]) -> Bool
+    func showDetail(tokens: [Token<T>]) -> Bool
 }
 
 public extension Container {

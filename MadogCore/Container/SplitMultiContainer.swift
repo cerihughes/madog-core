@@ -21,6 +21,7 @@ public extension Container {
 }
 
 public extension SplitMultiContainer {
+    @discardableResult
     func showDetail(tokens: [T]) -> Bool {
         showDetail(tokens: tokens.map { .use($0) })
     }

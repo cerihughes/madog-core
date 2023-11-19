@@ -21,6 +21,7 @@ public extension Container {
 }
 
 public extension SplitSingleContainer {
+    @discardableResult
     func showDetail(token: T) -> Bool {
         showDetail(token: .use(token))
     }

@@ -26,4 +26,11 @@ public extension Container {
     }
 }
 
+public extension ForwardBackContainer {
+    @discardableResult
+    func navigateForward(token: T, animated: Bool) -> Bool {
+        navigateForward(token: .use(token), animated: animated)
+    }
+}
+
 #endif

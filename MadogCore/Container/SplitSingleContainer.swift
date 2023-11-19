@@ -19,3 +19,9 @@ public extension Container {
         castValue as? AnySplitSingleContainer<T>
     }
 }
+
+public extension SplitSingleContainer {
+    func showDetail(token: T) -> Bool {
+        showDetail(token: .use(token))
+    }
+}

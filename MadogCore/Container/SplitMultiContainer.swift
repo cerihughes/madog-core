@@ -19,3 +19,9 @@ public extension Container {
         castValue as? AnySplitMultiContainer<T>
     }
 }
+
+public extension SplitMultiContainer {
+    func showDetail(tokens: [T]) -> Bool {
+        showDetail(tokens: tokens.map { .use($0) })
+    }
+}

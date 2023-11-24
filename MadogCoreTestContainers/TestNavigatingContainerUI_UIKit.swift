@@ -28,7 +28,7 @@ extension TestNavigatingContainerUI {
     }
 }
 
-extension ContainerUI.Identifier where VC == UINavigationController, TD == SingleUITokenData<T> {
+public extension ContainerUI.Identifier where VC == UINavigationController, TD == SingleUITokenData<T> {
     static func testNavigation() -> Self { .init("testNavigatingIdentifier") }
 }
 

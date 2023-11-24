@@ -13,7 +13,7 @@ import XCTest
 
 class ContainerUITests: MadogKIFTestCase {
     func testCloseReleasesMainContainer() {
-        let container = renderUIAndWait(identifier: .kifTest(), tokenData: .single("vc1"))
+        let container = renderUIAndWait(identifier: .test(), tokenData: .single("vc1"))
         waitForLabel(token: "vc1")
         XCTAssertNotNil(container.castValue)
 
@@ -22,7 +22,7 @@ class ContainerUITests: MadogKIFTestCase {
     }
 
     func testCloseModalReleasesModalContainer() {
-        let container = renderUIAndWait(identifier: .kifTest(), tokenData: .single("vc1"))
+        let container = renderUIAndWait(identifier: .test(), tokenData: .single("vc1"))
         waitForLabel(token: "vc1")
         XCTAssertNotNil(container.castValue)
 
@@ -35,7 +35,7 @@ class ContainerUITests: MadogKIFTestCase {
     }
 
     func testCloseMainReleasesBothContainers() {
-        let container = renderUIAndWait(identifier: .kifTest(), tokenData: .single("vc1"))
+        let container = renderUIAndWait(identifier: .test(), tokenData: .single("vc1"))
         waitForLabel(token: "vc1")
         XCTAssertNotNil(container.castValue)
 
@@ -51,7 +51,7 @@ class ContainerUITests: MadogKIFTestCase {
     }
 
     func testCloseWithNestedContainers() {
-        let container = renderUIAndWait(identifier: .kifTest(), tokenData: .single("vc1"))
+        let container = renderUIAndWait(identifier: .test(), tokenData: .single("vc1"))
         waitForLabel(token: "vc1")
 
         let modalContainer1 = createModalContainer(container: container, token: "vc2")
@@ -82,7 +82,7 @@ class ContainerUITests: MadogKIFTestCase {
     }
 
     func testChangeReleasesOldModalContainers() {
-        let container1 = renderUIAndWait(identifier: .kifTest(), tokenData: .single("vc1"))
+        let container1 = renderUIAndWait(identifier: .test(), tokenData: .single("vc1"))
         waitForLabel(token: "vc1")
         XCTAssertNotNil(container1.castValue)
 
@@ -94,7 +94,7 @@ class ContainerUITests: MadogKIFTestCase {
         waitForLabel(token: "vc3")
         XCTAssertNotNil(modalContainer2.castValue)
 
-        let container2 = container1.change(to: .kifTest(), tokenData: .single("vc4"))!
+        let container2 = container1.change(to: .test(), tokenData: .single("vc4"))!
         waitForLabel(token: "vc4")
 
         XCTAssertNil(container1.castValue)
@@ -104,7 +104,7 @@ class ContainerUITests: MadogKIFTestCase {
     }
 
     func testOpenSingleUIModal() {
-        let container = renderUIAndWait(identifier: .kifTest(), tokenData: .single("vc1"))
+        let container = renderUIAndWait(identifier: .test(), tokenData: .single("vc1"))
         waitForLabel(token: "vc1")
         XCTAssertNotNil(container.castValue)
 
@@ -114,7 +114,7 @@ class ContainerUITests: MadogKIFTestCase {
     }
 
     func testCloseSingleUIModal() {
-        let container = renderUIAndWait(identifier: .kifTest(), tokenData: .single("vc1"))
+        let container = renderUIAndWait(identifier: .test(), tokenData: .single("vc1"))
         waitForLabel(token: "vc1")
         XCTAssertNotNil(container.castValue)
 
@@ -126,10 +126,10 @@ class ContainerUITests: MadogKIFTestCase {
     }
 
     func testOpenModalCompletionIsFired() {
-        let container = renderUIAndWait(identifier: .kifTest(), tokenData: .single("vc1"))
+        let container = renderUIAndWait(identifier: .test(), tokenData: .single("vc1"))
 
         let completionExpectation = expectation(description: "Modal opened")
-        let modalToken = openModalAndWait(container.modal!, identifier: .kifTest(), tokenData: .single("vc2")) {
+        let modalToken = openModalAndWait(container.modal!, identifier: .test(), tokenData: .single("vc2")) {
             completionExpectation.fulfill()
         }
         XCTAssertNotNil(modalToken.container.castValue)
@@ -137,9 +137,9 @@ class ContainerUITests: MadogKIFTestCase {
     }
 
     func testCloseModalCompletionIsFired() {
-        let container = renderUIAndWait(identifier: .kifTest(), tokenData: .single("vc1"))
+        let container = renderUIAndWait(identifier: .test(), tokenData: .single("vc1"))
 
-        let modalToken = openModalAndWait(container.modal!, identifier: .kifTest(), tokenData: .single("vc2"))
+        let modalToken = openModalAndWait(container.modal!, identifier: .test(), tokenData: .single("vc2"))
         XCTAssertNotNil(modalToken)
         waitForLabel(token: "vc2")
 
@@ -149,10 +149,10 @@ class ContainerUITests: MadogKIFTestCase {
     }
 
     func testCloseCompletionIsFired() {
-        let container = renderUIAndWait(identifier: .kifTest(), tokenData: .single("vc1"))
+        let container = renderUIAndWait(identifier: .test(), tokenData: .single("vc1"))
 
         let openExpectation = expectation(description: "Modal opened")
-        let modalToken = openModalAndWait(container.modal!, identifier: .kifTest(), tokenData: .single("vc2")) {
+        let modalToken = openModalAndWait(container.modal!, identifier: .test(), tokenData: .single("vc2")) {
             openExpectation.fulfill()
         }
         wait(for: [openExpectation], timeout: 10)
@@ -165,18 +165,18 @@ class ContainerUITests: MadogKIFTestCase {
     }
 
     func testParentContainer() {
-        let container = renderUIAndWait(identifier: .kifTest(), tokenData: .single("vc1"))
+        let container = renderUIAndWait(identifier: .test(), tokenData: .single("vc1"))
         XCTAssertNil(container.parentContainer)
 
         let openExpectation1 = expectation(description: "Modal 1 opened")
-        var modalToken = openModalAndWait(container.modal!, identifier: .kifTest(), tokenData: .single("vc2")) {
+        var modalToken = openModalAndWait(container.modal!, identifier: .test(), tokenData: .single("vc2")) {
             openExpectation1.fulfill()
         }
         wait(for: [openExpectation1], timeout: 10)
         let modalContainer1 = modalToken.container
 
         let openExpectation2 = expectation(description: "Modal 2 opened")
-        modalToken = openModalAndWait(modalContainer1.modal!, identifier: .kifTest(), tokenData: .single("vc3")) {
+        modalToken = openModalAndWait(modalContainer1.modal!, identifier: .test(), tokenData: .single("vc3")) {
             openExpectation2.fulfill()
         }
         wait(for: [openExpectation2], timeout: 10)
@@ -191,7 +191,7 @@ class ContainerUITests: MadogKIFTestCase {
         token: String
     ) -> AnyModalToken<String> {
         let openExpectation = expectation(description: "Modal \(token) opened")
-        let modalToken = openModalAndWait(container.modal!, identifier: .kifTest(), tokenData: .single(token)) {
+        let modalToken = openModalAndWait(container.modal!, identifier: .test(), tokenData: .single(token)) {
             openExpectation.fulfill()
         }
         wait(for: [openExpectation], timeout: 10)

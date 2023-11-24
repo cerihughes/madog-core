@@ -3,6 +3,7 @@
 //  Copyright © 2019 Ceri Hughes. All rights reserved.
 //
 
+import MadogCoreTestContainers
 import XCTest
 
 #if canImport(UIKit)
@@ -29,7 +30,7 @@ class MadogTests: XCTestCase {
 
         madog = Madog()
         madog.resolve(resolver: TestResolver())
-        madog.addContainerUIFactory(identifier: .test(), factory: TestContainerUI.Factory())
+        madog.registerTestContainers()
     }
 
     override func tearDown() {
@@ -41,7 +42,7 @@ class MadogTests: XCTestCase {
     func testMadogKeepsStrongReferenceToCurrentContainer() throws {
         let window = Window()
 
-        weak var impl1: TestContainerUI<Int>?
+        weak var impl1: AnyObject?
         try autoreleasepool {
             impl1 = try madog.renderUI(identifier: .test(), tokenData: .single(0), in: window)?.asImpl()
             XCTAssertNotNil(impl1)
@@ -150,10 +151,12 @@ class MadogTests: XCTestCase {
     }
 }
 
+private typealias TestContainerUI<T> = ContainerUI<T, SingleUITokenData<T>, ViewController>
+
 private extension AnyContainer where T == Int {
     func asImpl() throws -> TestContainerUI<Int> {
         let wrapped = try XCTUnwrap(self as? ContainerProxy<Int, SingleUITokenData<T>, ViewController>)
-        return try XCTUnwrap(wrapped.wrapped as? TestContainerUI<Int>)
+        return try XCTUnwrap(wrapped.wrapped)
     }
 }
 

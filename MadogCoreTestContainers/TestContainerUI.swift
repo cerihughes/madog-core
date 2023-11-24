@@ -13,6 +13,6 @@ extension TestContainerUI {
     }
 }
 
-extension ContainerUI.Identifier where VC == ViewController, TD == SingleUITokenData<T> {
+public extension ContainerUI.Identifier where VC == ViewController, TD == SingleUITokenData<T> {
     static func test() -> Self { .init("testIdentifier") }
 }

@@ -6,6 +6,7 @@
 #if canImport(KIF) && canImport(UIKit)
 
 import KIF
+import MadogCoreTestContainers
 import XCTest
 import UIKit
 

@@ -20,6 +20,8 @@ public typealias TransitionStyle = UIModalTransitionStyle
 
 #elseif canImport(AppKit)
 
+import AppKit
+
 public typealias LaunchOptions = Notification
 
 public typealias Window = NSWindow
@@ -28,6 +30,11 @@ public typealias View = NSView
 
 public typealias AnimationOptions = Void
 
-import AppKit
+extension NSViewController {
+    func dismiss(animated flag: Bool, completion: CompletionBlock?) {
+        dismiss(nil)
+        completion?()
+    }
+}
 
 #endif

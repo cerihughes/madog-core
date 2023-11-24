@@ -10,16 +10,7 @@ struct IdentifiableToken<T, TD, VC> where TD: TokenData, VC: ViewController {
     let data: TD
 }
 
-typealias AnyContainerUIDelegate<T> = any ContainerUIDelegate<T>
-
-protocol ContainerUIDelegate<T>: ContainerCreationDelegate {
-    associatedtype T
-
-    func container(for viewController: ViewController) -> AnyContainer<T>?
-    func releaseContainer(for viewController: ViewController)
-}
-
-open class ContainerUI<T, TD, VC>: Container where TD: TokenData, VC: ViewController {
+open class ContainerUI<T, TD, VC>: InternalContainer where TD: TokenData, VC: ViewController {
 
     public struct Identifier {
         let value: String
@@ -32,7 +23,12 @@ open class ContainerUI<T, TD, VC>: Container where TD: TokenData, VC: ViewContro
     public let uuid = UUID()
     public let containerViewController: VC
 
-    weak var delegate: AnyContainerUIDelegate<T>?
+    weak var parentInternalContainer: AnyInternalContainer<T>?
+    public var parentContainer: AnyContainer<T>? { parentInternalContainer }
+    public var childContainer: AnyContainer<T>?
+
+    weak var creationDelegate: AnyContainerCreationDelegate<T>?
+    weak var releaseDelegate: AnyContainerReleaseDelegate<T>?
 
     public init(containerViewController: VC) {
         self.containerViewController = containerViewController
@@ -52,15 +48,11 @@ open class ContainerUI<T, TD, VC>: Container where TD: TokenData, VC: ViewContro
 
     // MARK: - Container
 
-    public var presentingContainer: AnyContainer<T>? {
-        guard let presentingViewController = containerViewController.presentingViewController else { return nil }
-        return delegate?.container(for: presentingViewController)
-    }
-
     public func close(animated: Bool, completion: CompletionBlock?) -> Bool {
-#if canImport(UIKit)
-        closeContainer(presentedViewController: containerViewController, animated: animated, completion: completion)
-#endif
+        childContainer?.close(animated: animated)
+        parentInternalContainer?.childContainer = nil
+        containerViewController.dismiss(animated: animated, completion: completion)
+        releaseDelegate?.releaseContainer(self)
         return true
     }
 
@@ -71,9 +63,9 @@ open class ContainerUI<T, TD, VC>: Container where TD: TokenData, VC: ViewContro
         customisation: CustomisationBlock<VC2>?
     ) -> AnyContainer<T>? where VC2: ViewController, TD2: TokenData {
         guard
-            let container = delegate?.createContainer(
+            let container = creationDelegate?.createContainer(
                 identifiableToken: .init(identifier: identifier, data: tokenData),
-                isModal: false,
+                parent: parentInternalContainer,
                 customisation: customisation
             ),
             let window = containerViewController.view.window

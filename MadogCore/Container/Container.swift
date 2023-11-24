@@ -23,7 +23,8 @@ public protocol Container<T> {
     associatedtype T
 
     var uuid: UUID { get }
-    var presentingContainer: AnyContainer<T>? { get }
+    var parentContainer: AnyContainer<T>? { get }
+    var childContainer: AnyContainer<T>? { get }
     var castValue: AnyContainer<T>? { get }
 
     @discardableResult
@@ -36,12 +37,6 @@ public protocol Container<T> {
         transition: Transition?,
         customisation: CustomisationBlock<VC2>?
     ) -> AnyContainer<T>? where VC2: ViewController, TD2: TokenData
-}
-
-public protocol TypedContainer<T, VC>: Container where VC: ViewController {
-    associatedtype VC
-
-    var viewController: VC { get }
 }
 
 public extension Container {

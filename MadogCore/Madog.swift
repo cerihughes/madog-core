@@ -5,18 +5,17 @@
 
 import Foundation
 
-public final class Madog<T>: ContainerUIDelegate {
+public final class Madog<T>: ContainerCreationDelegate, ContainerReleaseDelegate {
+    public let uuid = UUID()
     private let registrar = Registrar<T>()
     private let contentFactory: ContainerUIContentFactoryImplementation<T>
     private let containerRepository: ContainerUIRepository<T>
 
-    private var container: AnyContainer<T>?
-    private var containerViewController: ViewController?
-    private var modalContainers = [ViewController: AnyContainer<T>]()
+    public internal(set) var currentContainer: AnyContainer<T>?
 
     public init() {
-        contentFactory = ContainerUIContentFactoryImplementation(registry: registrar.registry)
-        containerRepository = ContainerUIRepository<T>(registry: registrar.registry, contentFactory: contentFactory)
+        contentFactory = .init(registry: registrar.registry)
+        containerRepository = .init(registry: registrar.registry, contentFactory: contentFactory)
         contentFactory.delegate = self
     }
 
@@ -66,7 +65,7 @@ public final class Madog<T>: ContainerUIDelegate {
     ) -> AnyContainer<T>? where VC: ViewController, TD: TokenData {
         guard let container = createContainer(
             identifiableToken: .init(identifier: identifier, data: tokenData),
-            isModal: false,
+            parent: nil,
             customisation: customisation
         ) else { return nil }
 
@@ -74,19 +73,15 @@ public final class Madog<T>: ContainerUIDelegate {
         return container.proxy()
     }
 
-    public var currentContainer: AnyContainer<T>? {
-        container
-    }
-
     public var serviceProviders: [String: ServiceProvider] {
         registrar.serviceProviders
     }
 
-    // MARK: - ContainerDelegate
+    // MARK: - ContainerCreationDelegate
 
     func createContainer<VC, TD>(
         identifiableToken: IdentifiableToken<T, TD, VC>,
-        isModal: Bool,
+        parent: AnyInternalContainer<T>?,
         customisation: CustomisationBlock<VC>?
     ) -> ContainerUI<T, TD, VC>? where VC: ViewController, TD: TokenData {
         guard let container = containerRepository.createContainer(identifiableToken: identifiableToken) else {
@@ -94,34 +89,29 @@ public final class Madog<T>: ContainerUIDelegate {
         }
 
         let containerViewController = container.containerViewController
-        container.delegate = self
-        persist(container: container, containerViewController: containerViewController, isModal: isModal)
+        container.creationDelegate = self
+        container.releaseDelegate = self
+        persist(container: container, parent: parent)
         customisation?(containerViewController)
+
         return container
     }
 
-    func container(for viewController: ViewController) -> AnyContainer<T>? {
-        if viewController == containerViewController { return container }
-        return modalContainers[viewController]
-    }
+    // MARK: - ContainerReleaseDelegate
 
-    func releaseContainer(for viewController: ViewController) {
-        if viewController == containerViewController {
-            container = nil
-        } else {
-            modalContainers[viewController] = nil
+    func releaseContainer(_ container: AnyContainer<T>) {
+        if container.uuid == currentContainer?.uuid {
+            currentContainer = nil
         }
     }
 
     // MARK: - Private
+    private func persist<VC, TD>(container: ContainerUI<T, VC, TD>, parent: AnyInternalContainer<T>?) {
+        container.parentInternalContainer = parent
+        parent?.childContainer = container
 
-    private func persist(container: AnyContainer<T>, containerViewController: ViewController, isModal: Bool) {
-        if isModal {
-            modalContainers[containerViewController] = container
-        } else {
-            self.container = container
-            self.containerViewController = containerViewController
-            modalContainers = [:] // Clear old modal containers
+        if parent == nil {
+            currentContainer = container
         }
     }
 }

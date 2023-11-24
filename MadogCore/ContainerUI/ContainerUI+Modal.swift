@@ -23,9 +23,9 @@ extension ContainerUI: ModalContainer {
         completion: CompletionBlock?
     ) -> AnyModalToken<T>? where VC2: ViewController, TD2: TokenData {
         guard
-            let container = delegate?.createContainer(
+            let container = creationDelegate?.createContainer(
                 identifiableToken: .init(identifier: identifier, data: tokenData),
-                isModal: true,
+                parent: self,
                 customisation: customisation
             )
         else { return nil }
@@ -50,28 +50,14 @@ extension ContainerUI: ModalContainer {
         animated: Bool,
         completion: CompletionBlock?
     ) -> Bool {
-        guard let token = token as? ModalTokenImplementation<T> else { return false }
-        closeContainer(presentedViewController: token.viewController, animated: animated, completion: completion)
+        token.container.close(animated: animated, completion: completion)
         return true
-    }
-
-    func closeContainer(
-        presentedViewController: ViewController,
-        animated: Bool = false,
-        completion: CompletionBlock? = nil
-    ) {
-        if let presentedPresentedViewController = presentedViewController.presentedViewController {
-            closeContainer(presentedViewController: presentedPresentedViewController, animated: animated)
-        }
-
-        presentedViewController.dismiss(animated: animated, completion: completion)
-        delegate?.releaseContainer(for: presentedViewController)
     }
 }
 
 private extension ViewController {
     func createModalToken<T>(container: AnyContainer<T>) -> AnyModalToken<T> {
-        ModalTokenImplementation(viewController: self, container: container)
+        ModalTokenImplementation(container: container)
     }
 }
 

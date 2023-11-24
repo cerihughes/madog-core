@@ -12,7 +12,15 @@ protocol ContainerCreationDelegate<T>: AnyObject {
 
     func createContainer<VC, TD>(
         identifiableToken: IdentifiableToken<T, TD, VC>,
-        isModal: Bool,
+        parent: AnyInternalContainer<T>?,
         customisation: CustomisationBlock<VC>?
     ) -> ContainerUI<T, TD, VC>? where VC: ViewController, TD: TokenData
+}
+
+typealias AnyContainerReleaseDelegate<T> = any ContainerReleaseDelegate<T>
+
+protocol ContainerReleaseDelegate<T>: AnyObject {
+    associatedtype T
+
+    func releaseContainer(_ container: AnyContainer<T>)
 }

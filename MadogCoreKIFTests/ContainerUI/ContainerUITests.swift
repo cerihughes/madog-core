@@ -11,7 +11,7 @@ import XCTest
 
 @testable import MadogCore
 
-class MadogUIContainerTests: MadogKIFTestCase {
+class ContainerUITests: MadogKIFTestCase {
     func testCloseReleasesMainContainer() {
         let container = renderUIAndWait(identifier: .kifTest(), tokenData: .single("vc1"))
         waitForLabel(token: "vc1")
@@ -164,9 +164,9 @@ class MadogUIContainerTests: MadogKIFTestCase {
         waitForExpectations(timeout: 10)
     }
 
-    func testPresentingContainer() {
+    func testParentContainer() {
         let container = renderUIAndWait(identifier: .kifTest(), tokenData: .single("vc1"))
-        XCTAssertNil(container.presentingContainer)
+        XCTAssertNil(container.parentContainer)
 
         let openExpectation1 = expectation(description: "Modal 1 opened")
         var modalToken = openModalAndWait(container.modal!, identifier: .kifTest(), tokenData: .single("vc2")) {
@@ -182,8 +182,8 @@ class MadogUIContainerTests: MadogKIFTestCase {
         wait(for: [openExpectation2], timeout: 10)
 
         let modalContainer2 = modalToken.container
-        XCTAssertTrue(container.uuid == modalContainer1.presentingContainer?.uuid)
-        XCTAssertTrue(modalContainer1.uuid == modalContainer2.presentingContainer?.uuid)
+        XCTAssertTrue(container.uuid == modalContainer1.parentContainer?.uuid)
+        XCTAssertTrue(modalContainer1.uuid == modalContainer2.parentContainer?.uuid)
     }
 
     private func createModal(

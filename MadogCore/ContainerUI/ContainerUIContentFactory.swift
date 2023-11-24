@@ -32,27 +32,45 @@ class ContainerUIContentFactoryImplementation<T>: ContainerUIContentFactory {
         } else if let token = token.changeToken() {
             switch token.intent {
             case .single(let identifiable):
-                return thing(identifiableToken: identifiable, isModal: false, customisation: token.customisation)
+                return createContainer(
+                    identifiableToken: identifiable,
+                    parent: container,
+                    customisation: token.customisation
+                )
             case .multi(let identifiable):
-                return thing(identifiableToken: identifiable, isModal: false, customisation: token.customisation)
+                return createContainer(
+                    identifiableToken: identifiable,
+                    parent: container,
+                    customisation: token.customisation
+                )
             case .splitSingle(let identifiable):
-                return thing(identifiableToken: identifiable, isModal: false, customisation: token.customisation)
+                return createContainer(
+                    identifiableToken: identifiable,
+                    parent: container,
+                    customisation: token.customisation
+                )
             case .splitMulti(let identifiable):
-                return thing(identifiableToken: identifiable, isModal: false, customisation: token.customisation)
+                return createContainer(
+                    identifiableToken: identifiable,
+                    parent: container,
+                    customisation: token.customisation
+                )
             }
         }
         return nil
     }
 
-    private func thing<TD, VC>(
-        identifiableToken: IdentifiableToken<T, TD, VC>,
-        isModal: Bool,
-        customisation: CustomisationBlock<VC>?
-    ) -> ViewController? where TD: TokenData, VC: ViewController {
-        let container = delegate?.createContainer(
+    private func createContainer<TD, VC, TD2, VC2>(
+        identifiableToken: IdentifiableToken<T, TD2, VC2>,
+        parent: ContainerUI<T, TD, VC>,
+        customisation: CustomisationBlock<VC2>?
+    ) -> ViewController? where TD: TokenData, TD2: TokenData, VC: ViewController, VC2: ViewController {
+        guard let container = delegate?.createContainer(
             identifiableToken: identifiableToken,
-            isModal: isModal,
-            customisation: customisation)
-        return container?.containerViewController
+            parent: parent,
+            customisation: customisation) else {
+            return nil
+        }
+        return container.containerViewController
     }
 }

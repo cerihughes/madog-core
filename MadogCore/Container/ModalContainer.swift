@@ -69,11 +69,9 @@ public protocol ModalToken<T> {
 }
 
 class ModalTokenImplementation<T>: ModalToken {
-    let viewController: ViewController
     let container: AnyContainer<T>
 
-    init(viewController: ViewController, container: AnyContainer<T>) {
-        self.viewController = viewController
+    init(container: AnyContainer<T>) {
         self.container = container
     }
 }

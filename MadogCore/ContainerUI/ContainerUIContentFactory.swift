@@ -22,8 +22,8 @@ class ContainerUIContentFactoryImplementation<T>: ContainerUIContentFactory {
     }
 
     func createContentViewController(from token: Token<T>, parent: AnyInternalContainer<T>) -> ViewController? {
-        guard let context = token.createTokenContext(registry: registry) else { return nil }
-        context.delegate = delegate
-        return context.createContentViewController(parent: parent)
+        guard let delegate else { return nil }
+        let context = Token<T>.CreationContext(registry: registry, delegate: delegate, parent: parent)
+        return token.createContentViewController(context: context)
     }
 }

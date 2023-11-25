@@ -18,7 +18,9 @@ class ContainerHierarchyTests: MadogKIFTestCase {
             .create(identifier: .testNavigation(), tokenData: .single("vc1")),
             .create(identifier: .testNavigation(), tokenData: .single("vc2"))
         ))
+        container.multi?.selectedIndex = 0
         waitForLabel(token: "vc1")
+        container.multi?.selectedIndex = 1
         waitForLabel(token: "vc2")
         XCTAssertNotNil(container.castValue)
 

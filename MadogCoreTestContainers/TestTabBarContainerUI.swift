@@ -9,8 +9,6 @@ import MadogCore
 import UIKit
 
 class TestTabBarContainerUI<T>: ContainerUI<T, MultiUITokenData<T>, UITabBarController>, MultiContainer {
-    private let tabBarController = UITabBarController()
-
     override func populateContainer(
         contentFactory: AnyContainerUIContentFactory<T>,
         tokenData: MultiUITokenData<T>
@@ -21,14 +19,14 @@ class TestTabBarContainerUI<T>: ContainerUI<T, MultiUITokenData<T>, UITabBarCont
             try createContentViewController(contentFactory: contentFactory, from: $0)
         }
 
-        tabBarController.viewControllers = viewControllers
+        containerViewController.viewControllers = viewControllers
     }
 
     // MARK: - MultiContainer
 
     var selectedIndex: Int {
-        get { tabBarController.selectedIndex }
-        set { tabBarController.selectedIndex = newValue }
+        get { containerViewController.selectedIndex }
+        set { containerViewController.selectedIndex = newValue }
     }
 }
 

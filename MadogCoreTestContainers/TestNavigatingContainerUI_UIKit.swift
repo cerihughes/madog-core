@@ -3,7 +3,7 @@
 //  Copyright © 2023 Ceri Hughes. All rights reserved.
 //
 
-#if canImport(UIKit)
+#if DEBUG && canImport(UIKit)
 
 import MadogCore
 import UIKit

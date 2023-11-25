@@ -3,22 +3,23 @@
 //  Copyright © 2023 Ceri Hughes. All rights reserved.
 //
 
-#if canImport(AppKit)
+#if DEBUG && canImport(AppKit)
 
 import MadogCore
 import AppKit
 
 class TestContainerUI<T>: ContainerUI<T, SingleUITokenData<T>, ViewController> {
-    private let containerController = ViewController()
+    override func populateContainer(
+        contentFactory: AnyContainerUIContentFactory<T>,
+        tokenData: SingleUITokenData<T>
+    ) throws {
+        try super.populateContainer(contentFactory: contentFactory, tokenData: tokenData)
 
-    init?(registry: AnyRegistry<T>, tokenData: SingleUITokenData<T>) {
-        super.init(registry: registry, containerViewController: containerController)
+        let vc = try createContentViewController(contentFactory: contentFactory, from: tokenData.token)
 
-        guard let vc = registry.createViewController(from: tokenData.token, container: self) else { return nil }
-
-        containerController.addChild(vc)
-        containerController.view.addSubview(vc.view)
-        vc.view.frame = containerController.view.bounds
+        containerViewController.addChild(vc)
+        containerViewController.view.addSubview(vc.view)
+        vc.view.frame = containerViewController.view.bounds
         vc.view.autoresizingMask = [.width, .height]
     }
 }

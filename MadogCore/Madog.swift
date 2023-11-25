@@ -107,7 +107,7 @@ public final class Madog<T>: ContainerUIDelegate {
     // MARK: - Private
     private func persist<VC, TD>(container: ContainerUI<T, VC, TD>, parent: AnyInternalContainer<T>?) {
         container.parentInternalContainer = parent
-        parent?.childContainer = container
+        parent?.childContainers.append(container)
 
         if parent == nil {
             currentContainer = container

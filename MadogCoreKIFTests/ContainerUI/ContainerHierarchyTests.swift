@@ -26,6 +26,7 @@ class ContainerHierarchyTests: MadogKIFTestCase {
         waitForTitle(token: "vc2")
         waitForLabel(token: "vc1")
         XCTAssertNotNil(container.castValue)
+        XCTAssertEqual(container.childContainers.count, 2)
 
         closeContainerAndWait(container)
         XCTAssertNil(container.castValue)

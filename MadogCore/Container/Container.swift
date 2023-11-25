@@ -24,7 +24,7 @@ public protocol Container<T> {
 
     var uuid: UUID { get }
     var parentContainer: AnyContainer<T>? { get }
-    var childContainer: AnyContainer<T>? { get }
+    var childContainers: [AnyContainer<T>] { get }
     var castValue: AnyContainer<T>? { get }
 
     @discardableResult

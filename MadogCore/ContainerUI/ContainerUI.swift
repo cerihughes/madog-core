@@ -25,7 +25,7 @@ open class ContainerUI<T, TD, VC>: InternalContainer where TD: TokenData, VC: Vi
 
     weak var parentInternalContainer: AnyInternalContainer<T>?
     public var parentContainer: AnyContainer<T>? { parentInternalContainer }
-    public var childContainer: AnyContainer<T>?
+    public var childContainers = [AnyContainer<T>]()
 
     var contentFactory: AnyContainerUIContentFactory<T>?
 
@@ -54,8 +54,10 @@ open class ContainerUI<T, TD, VC>: InternalContainer where TD: TokenData, VC: Vi
     // MARK: - Container
 
     public func close(animated: Bool, completion: CompletionBlock?) -> Bool {
-        childContainer?.close(animated: animated)
-        parentInternalContainer?.childContainer = nil
+        childContainers.forEach { $0.close(animated: animated) }
+        parentInternalContainer?.childContainers.removeAll(where: {
+            $0.uuid == uuid
+        })
         containerViewController.dismiss(animated: animated, completion: completion)
         delegate?.releaseContainer(self)
         return true

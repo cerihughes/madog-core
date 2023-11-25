@@ -14,7 +14,7 @@ class ContainerProxy<T, TD, VC>: Container where TD: TokenData, VC: ViewControll
 
     var uuid: UUID { wrapped?.uuid ?? UUID() }
     var parentContainer: AnyContainer<T>? { wrapped?.parentContainer }
-    var childContainer: AnyContainer<T>? { wrapped?.childContainer }
+    var childContainers: [AnyContainer<T>] { wrapped?.childContainers ?? [] }
     var castValue: AnyContainer<T>? { wrapped }
 
     func close(animated: Bool, completion: CompletionBlock?) -> Bool {

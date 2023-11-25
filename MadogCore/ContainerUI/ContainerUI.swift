@@ -27,22 +27,21 @@ open class ContainerUI<T, TD, VC>: InternalContainer where TD: TokenData, VC: Vi
     public var parentContainer: AnyContainer<T>? { parentInternalContainer }
     public var childContainer: AnyContainer<T>?
 
+    var contentFactory: AnyContainerUIContentFactory<T>?
+
     weak var delegate: AnyContainerUIDelegate<T>?
 
     public init(containerViewController: VC) {
         self.containerViewController = containerViewController
     }
 
-    public func createContentViewController(
-        contentFactory: AnyContainerUIContentFactory<T>,
-        from token: Token<T>
-    ) throws -> ViewController {
+    public func createContentViewController(from token: Token<T>) throws -> ViewController {
         // TODO: Remove force unwrap
-        guard let contentFactory = contentFactory as? AnyInternalContainerUIContentFactory<T> else { fatalError() }
+        guard let contentFactory = contentFactory else { fatalError() }
         return contentFactory.createContentViewController(from: token, parent: self)!
     }
 
-    open func populateContainer(contentFactory: AnyContainerUIContentFactory<T>, tokenData: TD) throws {
+    open func populateContainer(tokenData: TD) throws {
         // Override point
     }
 

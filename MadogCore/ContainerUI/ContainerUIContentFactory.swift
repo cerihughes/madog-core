@@ -5,17 +5,14 @@
 
 import Foundation
 
-public typealias AnyContainerUIContentFactory<T> = any ContainerUIContentFactory<T>
-public protocol ContainerUIContentFactory<T> {
+typealias AnyContainerUIContentFactory<T> = any ContainerUIContentFactory<T>
+protocol ContainerUIContentFactory<T> {
     associatedtype T
-}
 
-typealias AnyInternalContainerUIContentFactory<T> = any InternalContainerUIContentFactory<T>
-protocol InternalContainerUIContentFactory<T>: ContainerUIContentFactory {
     func createContentViewController(from token: Token<T>, parent: AnyInternalContainer<T>) -> ViewController?
 }
 
-class ContainerUIContentFactoryImplementation<T>: InternalContainerUIContentFactory {
+class ContainerUIContentFactoryImplementation<T>: ContainerUIContentFactory {
     private let registry: AnyRegistry<T>
 
     weak var delegate: AnyContainerCreationDelegate<T>?

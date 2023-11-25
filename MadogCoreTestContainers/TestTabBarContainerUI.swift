@@ -9,14 +9,11 @@ import MadogCore
 import UIKit
 
 class TestTabBarContainerUI<T>: ContainerUI<T, MultiUITokenData<T>, UITabBarController>, MultiContainer {
-    override func populateContainer(
-        contentFactory: AnyContainerUIContentFactory<T>,
-        tokenData: MultiUITokenData<T>
-    ) throws {
-        try super.populateContainer(contentFactory: contentFactory, tokenData: tokenData)
+    override func populateContainer(tokenData: MultiUITokenData<T>) throws {
+        try super.populateContainer(tokenData: tokenData)
 
         let viewControllers = try tokenData.tokens.compactMap {
-            try createContentViewController(contentFactory: contentFactory, from: $0)
+            try createContentViewController(from: $0)
         }
 
         containerViewController.viewControllers = viewControllers

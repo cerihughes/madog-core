@@ -9,9 +9,9 @@ import MadogCore
 import UIKit
 
 class TestNavigatingContainerUI<T>: NavigatingContainerUI<T> {
-    override func populateContainer(tokenData: SingleUITokenData<T>) throws {
-        try super.populateContainer(tokenData: tokenData)
-        let viewController = try createContentViewController(from: tokenData.token)
+    override func populateContainer(tokenData: SingleUITokenData<T>) {
+        super.populateContainer(tokenData: tokenData)
+        guard let viewController = createContentViewController(from: tokenData.token) else { return }
         containerViewController.setViewControllers([viewController], animated: false)
     }
 }

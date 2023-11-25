@@ -9,10 +9,10 @@ import MadogCore
 import UIKit
 
 class TestContainerUI<T>: ContainerUI<T, SingleUITokenData<T>, ViewController> {
-    override func populateContainer(tokenData: SingleUITokenData<T>) throws {
-        try super.populateContainer(tokenData: tokenData)
+    override func populateContainer(tokenData: SingleUITokenData<T>) {
+        super.populateContainer(tokenData: tokenData)
 
-        let vc = try createContentViewController(from: tokenData.token)
+        guard let vc = createContentViewController(from: tokenData.token) else { return }
 
         vc.willMove(toParent: containerViewController)
 

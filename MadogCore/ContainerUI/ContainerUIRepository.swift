@@ -103,12 +103,8 @@ extension ContainerUIFactory {
     ) -> ContainerUI<T, TD, VC>? {
         let container = createContainer()
         container.contentFactory = contentFactory
-        do {
-            try container.populateContainer(tokenData: tokenData)
-            return container
-        } catch {
-            return nil
-        }
+        container.populateContainer(tokenData: tokenData)
+        return container
     }
 }
 

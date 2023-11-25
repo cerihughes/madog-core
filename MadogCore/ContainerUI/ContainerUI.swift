@@ -35,13 +35,11 @@ open class ContainerUI<T, TD, VC>: InternalContainer where TD: TokenData, VC: Vi
         self.containerViewController = containerViewController
     }
 
-    public func createContentViewController(from token: Token<T>) throws -> ViewController {
-        // TODO: Remove force unwrap
-        guard let contentFactory = contentFactory else { fatalError() }
-        return contentFactory.createContentViewController(from: token, parent: self)!
+    public func createContentViewController(from token: Token<T>) -> ViewController? {
+        contentFactory?.createContentViewController(from: token, parent: self)
     }
 
-    open func populateContainer(tokenData: TD) throws {
+    open func populateContainer(tokenData: TD) {
         // Override point
     }
 

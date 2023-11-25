@@ -14,7 +14,7 @@ import XCTest
 class CustomisationTests: MadogKIFTestCase {
     func testMainCustomisationBlock() {
         let container = renderUIAndWait(
-            identifier: .kifTest(),
+            identifier: .test(),
             tokenData: .single("vc1"),
             customisation: customise(viewController:)
         )
@@ -24,11 +24,11 @@ class CustomisationTests: MadogKIFTestCase {
     }
 
     func testModalCustomisationBlock() throws {
-        let container = try XCTUnwrap(renderUIAndWait(identifier: .kifTest(), tokenData: .single("vc1")))
+        let container = try XCTUnwrap(renderUIAndWait(identifier: .test(), tokenData: .single("vc1")))
 
         waitForAbsenceOfTitle(token: "CUSTOMISED")
         let token = container.modal?.openModal(
-            identifier: .kifTest(),
+            identifier: .test(),
             tokenData: .single("vc1"),
             animated: true,
             customisation: customise(viewController:)

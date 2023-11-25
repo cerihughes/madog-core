@@ -1,14 +1,14 @@
 //
-//  Created by Ceri Hughes on 11/11/2023.
+//  Created by Ceri Hughes on 24/07/2023.
 //  Copyright © 2023 Ceri Hughes. All rights reserved.
 //
 
-#if canImport(UIKit)
+#if DEBUG && canImport(UIKit)
 
 import MadogCore
 import UIKit
 
-class KIFTestContainerUI<T>: ContainerUI<T, SingleUITokenData<T>, ViewController> {
+class TestContainerUI<T>: ContainerUI<T, SingleUITokenData<T>, ViewController> {
     override func populateContainer(
         contentFactory: AnyContainerUIContentFactory<T>,
         tokenData: SingleUITokenData<T>
@@ -25,24 +25,6 @@ class KIFTestContainerUI<T>: ContainerUI<T, SingleUITokenData<T>, ViewController
         vc.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
 
         vc.didMove(toParent: containerViewController)
-    }
-}
-
-extension KIFTestContainerUI {
-    struct Factory: ContainerUIFactory {
-        func createContainer() -> ContainerUI<T, SingleUITokenData<T>, ViewController> {
-            KIFTestContainerUI(containerViewController: .init())
-        }
-    }
-}
-
-public extension ContainerUI.Identifier where VC == ViewController, TD == SingleUITokenData<T> {
-    static func kifTest() -> Self { .init("kifTestIdentifier") }
-}
-
-public extension Madog {
-    func registerTestContainers() {
-        _ = addContainerUIFactory(identifier: .kifTest(), factory: KIFTestContainerUI.Factory())
     }
 }
 

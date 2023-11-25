@@ -5,6 +5,7 @@
 
 #if canImport(UIKit)
 
+import MadogCoreTestContainers
 import XCTest
 
 @testable import MadogCore
@@ -17,8 +18,7 @@ class ForwardBackContainerTests: XCTestCase {
 
         madog = Madog()
         madog.resolve(resolver: TestResolver())
-        madog.addContainerUIFactory(identifier: .test(), factory: TestContainerUI.Factory())
-        madog.addContainerUIFactory(identifier: .testNavigation(), factory: TestNavigatingContainerUI.Factory())
+        madog.registerTestContainers()
     }
 
     override func tearDown() {

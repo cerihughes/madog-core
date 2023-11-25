@@ -3,6 +3,7 @@
 //  Copyright © 2019 Ceri Hughes. All rights reserved.
 //
 
+import MadogCoreTestContainers
 import XCTest
 
 #if canImport(UIKit)
@@ -29,7 +30,7 @@ class MadogTests: XCTestCase {
 
         madog = Madog()
         madog.resolve(resolver: TestResolver())
-        madog.addContainerUIFactory(identifier: .test(), factory: TestContainerUI.Factory())
+        madog.registerTestContainers()
     }
 
     override func tearDown() {
@@ -97,8 +98,8 @@ class MadogTests: XCTestCase {
             func createContainer() -> ContainerUI<Int, TD, VC> {
                 TestContainer(containerViewController: .init())
             }
-
         }
+
         let identifier = ContainerUI<Int, TD, VC>.Identifier("testSingleTokenFactory")
         XCTAssertTrue(madog.addContainerUIFactory(identifier: identifier, factory: TestFactory()))
         XCTAssertNotNil(madog.renderUI(identifier: identifier, tokenData: .single(1), in: Window()))
@@ -112,8 +113,8 @@ class MadogTests: XCTestCase {
             func createContainer() -> ContainerUI<Int, TD, VC> {
                 TestContainer(containerViewController: .init())
             }
-
         }
+
         let identifier = ContainerUI<Int, TD, VC>.Identifier("testMultiTokenFactory")
         XCTAssertTrue(madog.addContainerUIFactory(identifier: identifier, factory: TestFactory()))
         XCTAssertNotNil(madog.renderUI(identifier: identifier, tokenData: .multi(1, 2, 3), in: Window()))
@@ -127,8 +128,8 @@ class MadogTests: XCTestCase {
             func createContainer() -> ContainerUI<Int, TD, VC> {
                 TestContainer(containerViewController: .init())
             }
-
         }
+
         let identifier = ContainerUI<Int, TD, VC>.Identifier("testSingleTokenFactory")
         XCTAssertTrue(madog.addContainerUIFactory(identifier: identifier, factory: TestFactory()))
         XCTAssertNotNil(madog.renderUI(identifier: identifier, tokenData: .splitSingle(1, 2), in: Window()))
@@ -142,18 +143,20 @@ class MadogTests: XCTestCase {
             func createContainer() -> ContainerUI<Int, TD, VC> {
                 TestContainer(containerViewController: .init())
             }
-
         }
+
         let identifier = ContainerUI<Int, TD, VC>.Identifier("testMultiTokenFactory")
         XCTAssertTrue(madog.addContainerUIFactory(identifier: identifier, factory: TestFactory()))
         XCTAssertNotNil(madog.renderUI(identifier: identifier, tokenData: .splitMulti(1, [2, 3]), in: Window()))
     }
 }
 
+private typealias TestContainerUI<T> = ContainerUI<T, SingleUITokenData<T>, ViewController>
+
 private extension AnyContainer where T == Int {
     func asImpl() throws -> TestContainerUI<Int> {
         let wrapped = try XCTUnwrap(self as? ContainerProxy<Int, SingleUITokenData<T>, ViewController>)
-        return try XCTUnwrap(wrapped.wrapped as? TestContainerUI<Int>)
+        return try XCTUnwrap(wrapped.wrapped)
     }
 }
 

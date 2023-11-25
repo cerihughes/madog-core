@@ -3,10 +3,10 @@
 //  Copyright © 2023 Ceri Hughes. All rights reserved.
 //
 
-#if canImport(UIKit)
+#if DEBUG && canImport(AppKit)
 
 import MadogCore
-import UIKit
+import AppKit
 
 class TestContainerUI<T>: ContainerUI<T, SingleUITokenData<T>, ViewController> {
     override func populateContainer(
@@ -17,14 +17,10 @@ class TestContainerUI<T>: ContainerUI<T, SingleUITokenData<T>, ViewController> {
 
         let vc = try createContentViewController(contentFactory: contentFactory, from: tokenData.token)
 
-        vc.willMove(toParent: containerViewController)
-
         containerViewController.addChild(vc)
         containerViewController.view.addSubview(vc.view)
         vc.view.frame = containerViewController.view.bounds
-        vc.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-
-        vc.didMove(toParent: containerViewController)
+        vc.view.autoresizingMask = [.width, .height]
     }
 }
 

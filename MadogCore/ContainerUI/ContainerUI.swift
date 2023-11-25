@@ -27,8 +27,7 @@ open class ContainerUI<T, TD, VC>: InternalContainer where TD: TokenData, VC: Vi
     public var parentContainer: AnyContainer<T>? { parentInternalContainer }
     public var childContainer: AnyContainer<T>?
 
-    weak var creationDelegate: AnyContainerCreationDelegate<T>?
-    weak var releaseDelegate: AnyContainerReleaseDelegate<T>?
+    weak var delegate: AnyContainerUIDelegate<T>?
 
     public init(containerViewController: VC) {
         self.containerViewController = containerViewController
@@ -59,7 +58,7 @@ open class ContainerUI<T, TD, VC>: InternalContainer where TD: TokenData, VC: Vi
         childContainer?.close(animated: animated)
         parentInternalContainer?.childContainer = nil
         containerViewController.dismiss(animated: animated, completion: completion)
-        releaseDelegate?.releaseContainer(self)
+        delegate?.releaseContainer(self)
         return true
     }
 
@@ -70,7 +69,7 @@ open class ContainerUI<T, TD, VC>: InternalContainer where TD: TokenData, VC: Vi
         customisation: CustomisationBlock<VC2>?
     ) -> AnyContainer<T>? where VC2: ViewController, TD2: TokenData {
         guard
-            let container = creationDelegate?.createContainer(
+            let container = delegate?.createContainer(
                 identifiableToken: .init(identifier: identifier, data: tokenData),
                 parent: parentInternalContainer,
                 customisation: customisation

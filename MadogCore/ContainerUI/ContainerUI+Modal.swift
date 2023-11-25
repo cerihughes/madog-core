@@ -23,7 +23,7 @@ extension ContainerUI: ModalContainer {
         completion: CompletionBlock?
     ) -> AnyModalToken<T>? where VC2: ViewController, TD2: TokenData {
         guard
-            let container = creationDelegate?.createContainer(
+            let container = delegate?.createContainer(
                 identifiableToken: .init(identifier: identifier, data: tokenData),
                 parent: self,
                 customisation: customisation

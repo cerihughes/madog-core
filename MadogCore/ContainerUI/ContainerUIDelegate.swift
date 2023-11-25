@@ -24,3 +24,7 @@ protocol ContainerReleaseDelegate<T>: AnyObject {
 
     func releaseContainer(_ container: AnyContainer<T>)
 }
+
+typealias AnyContainerUIDelegate<T> = any ContainerUIDelegate<T>
+
+protocol ContainerUIDelegate<T>: ContainerCreationDelegate, ContainerReleaseDelegate {}

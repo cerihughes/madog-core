@@ -5,7 +5,7 @@
 
 import Foundation
 
-public final class Madog<T>: ContainerCreationDelegate, ContainerReleaseDelegate {
+public final class Madog<T>: ContainerUIDelegate {
     public let uuid = UUID()
     private let registrar = Registrar<T>()
     private let contentFactory: ContainerUIContentFactoryImplementation<T>
@@ -89,8 +89,7 @@ public final class Madog<T>: ContainerCreationDelegate, ContainerReleaseDelegate
         }
 
         let containerViewController = container.containerViewController
-        container.creationDelegate = self
-        container.releaseDelegate = self
+        container.delegate = self
         persist(container: container, parent: parent)
         customisation?(containerViewController)
 

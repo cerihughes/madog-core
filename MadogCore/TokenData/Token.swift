@@ -41,6 +41,10 @@ public class Token<T> {
     ) -> Token<T> where VC2: ViewController {
         ChangeToken(intent: .splitMulti(.init(identifier: identifier, data: tokenData)), customisation: customisation)
     }
+
+    func createTokenContext(registry: AnyRegistry<T>) -> AnyTokenContext<T>? {
+        nil
+    }
 }
 
 class UseParentToken<T>: Token<T> {
@@ -48,6 +52,10 @@ class UseParentToken<T>: Token<T> {
 
     init(token: T) {
         self.token = token
+    }
+
+    override func createTokenContext(registry: AnyRegistry<T>) -> AnyTokenContext<T>? {
+        UseParentTokenContext(registry: registry, token: token)
     }
 }
 
@@ -61,6 +69,10 @@ class ChangeToken<T, VC>: Token<T> where VC: ViewController {
         self.intent = intent
         self.customisation = customisation
     }
+
+    override func createTokenContext(registry: AnyRegistry<T>) -> AnyTokenContext<T>? {
+        ChangeTokenContext(registry: registry, token: self)
+    }
 }
 
 indirect enum ChangeIntent<T, VC> where VC: ViewController {
@@ -70,16 +82,83 @@ indirect enum ChangeIntent<T, VC> where VC: ViewController {
     case splitMulti(IdentifiableToken<T, SplitMultiUITokenData<T>, VC>)
 }
 
-extension Token {
-    private var useParentToken: UseParentToken<T>? {
-        self as? UseParentToken<T>
+typealias AnyTokenContext<T> = any TokenContext<T>
+
+protocol TokenContext<T> {
+    associatedtype T
+
+    var delegate: AnyContainerCreationDelegate<T>? { get nonmutating set }
+
+    func createContentViewController(parent: AnyInternalContainer<T>) -> ViewController?
+}
+
+class UseParentTokenContext<T>: TokenContext {
+    private let registry: AnyRegistry<T>
+    private let token: T
+
+    weak var delegate: AnyContainerCreationDelegate<T>?
+
+    init(registry: AnyRegistry<T>, token: T) {
+        self.registry = registry
+        self.token = token
     }
 
-    func changeToken<VC>() -> ChangeToken<T, VC>? {
-        self as? ChangeToken<T, VC>
+    func createContentViewController(parent: AnyInternalContainer<T>) -> ViewController? {
+        registry.createViewController(from: token, parent: parent)
+    }
+}
+
+class ChangeTokenContext<T, VC>: TokenContext where VC: ViewController {
+    private let registry: AnyRegistry<T>
+    private let token: ChangeToken<T, VC>
+
+    weak var delegate: AnyContainerCreationDelegate<T>?
+
+    init(registry: AnyRegistry<T>, token: ChangeToken<T, VC>) {
+        self.registry = registry
+        self.token = token
     }
 
-    var use: T? {
-        useParentToken?.token
+    func createContentViewController(parent: AnyInternalContainer<T>) -> ViewController? {
+        switch token.intent {
+        case .single(let identifiable):
+            return createContainer(
+                identifiableToken: identifiable,
+                parent: parent,
+                customisation: token.customisation
+            )
+        case .multi(let identifiable):
+            return createContainer(
+                identifiableToken: identifiable,
+                parent: parent,
+                customisation: token.customisation
+            )
+        case .splitSingle(let identifiable):
+            return createContainer(
+                identifiableToken: identifiable,
+                parent: parent,
+                customisation: token.customisation
+            )
+        case .splitMulti(let identifiable):
+            return createContainer(
+                identifiableToken: identifiable,
+                parent: parent,
+                customisation: token.customisation
+            )
+        }
+    }
+
+    private func createContainer<TD2, VC2>(
+        identifiableToken: IdentifiableToken<T, TD2, VC2>,
+        parent: AnyInternalContainer<T>,
+        customisation: CustomisationBlock<VC2>?
+    ) -> ViewController? where TD2: TokenData, VC2: ViewController {
+        guard let container = delegate?.createContainer(
+            identifiableToken: identifiableToken,
+            parent: parent,
+            customisation: customisation) else {
+            return nil
+        }
+        return container.containerViewController
     }
 }

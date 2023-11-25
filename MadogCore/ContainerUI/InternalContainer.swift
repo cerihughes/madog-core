@@ -9,4 +9,6 @@ typealias AnyInternalContainer<T> = any InternalContainer<T>
 
 protocol InternalContainer<T>: AnyObject, Container {
     var childContainer: AnyContainer<T>? { get set }
+
+    func proxy() -> AnyContainer<T>
 }

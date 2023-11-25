@@ -11,7 +11,7 @@ public typealias AnyRegistry<T> = any Registry<T>
 public protocol Registry<T>: AnyObject {
     associatedtype T
 
-    func createViewController<VC, TD>(from token: T, container: ContainerUI<T, TD, VC>) -> ViewController?
+    func createViewController(from token: T, parent: AnyContainer<T>) -> ViewController?
 }
 
 class RegistryBridge<T>: Registry {
@@ -21,8 +21,9 @@ class RegistryBridge<T>: Registry {
         self.bridged = bridged
     }
 
-    func createViewController<VC, TD>(from token: T, container: ContainerUI<T, TD, VC>) -> ViewController? {
-        bridged.createViewController(from: token, context: container.proxy())
+    func createViewController(from token: T, parent: AnyContainer<T>) -> ViewController? {
+        guard let parent = parent as? AnyInternalContainer<T> else { return nil }
+        return bridged.createViewController(from: token, context: parent.proxy())
     }
 }
 

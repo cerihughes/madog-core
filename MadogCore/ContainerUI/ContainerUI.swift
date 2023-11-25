@@ -39,11 +39,18 @@ open class ContainerUI<T, TD, VC>: InternalContainer where TD: TokenData, VC: Vi
         from token: Token<T>
     ) throws -> ViewController {
         // TODO: Remove force unwrap
-        contentFactory.createContentViewController(from: token, container: self)!
+        guard let contentFactory = contentFactory as? AnyInternalContainerUIContentFactory<T> else { fatalError() }
+        return contentFactory.createContentViewController(from: token, parent: self)!
     }
 
     open func populateContainer(contentFactory: AnyContainerUIContentFactory<T>, tokenData: TD) throws {
         // Override point
+    }
+
+    // MARK: - InternalContainer
+
+    func proxy() -> AnyContainer<T> {
+        ContainerProxy(wrapped: self)
     }
 
     // MARK: - Container

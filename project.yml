@@ -83,6 +83,7 @@ targets:
       - MadogCoreTests
     dependencies:
       - target: MadogCore
+      - target: MadogCoreTestContainers
   MadogCoreKIFTests:
     type: bundle.unit-test
     supportedDestinations: [iOS, tvOS]

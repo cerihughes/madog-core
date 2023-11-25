@@ -3,6 +3,8 @@
 //  Copyright © 2023 Ceri Hughes. All rights reserved.
 //
 
+#if DEBUG && canImport(UIKit)
+
 import MadogCore
 import UIKit
 
@@ -41,3 +43,5 @@ extension TestTabBarContainerUI {
 public extension ContainerUI.Identifier where VC == UITabBarController, TD == MultiUITokenData<T> {
     static func testTabBar() -> Self { .init("testTabBarIdentifier") }
 }
+
+#endif

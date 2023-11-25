@@ -3,6 +3,8 @@
 //  Copyright © 2023 Ceri Hughes. All rights reserved.
 //
 
+#if DEBUG
+
 import MadogCore
 
 extension TestContainerUI {
@@ -16,3 +18,5 @@ extension TestContainerUI {
 public extension ContainerUI.Identifier where VC == ViewController, TD == SingleUITokenData<T> {
     static func test() -> Self { .init("testIdentifier") }
 }
+
+#endif

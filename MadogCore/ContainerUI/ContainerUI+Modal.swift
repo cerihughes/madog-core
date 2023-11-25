@@ -21,7 +21,7 @@ extension ContainerUI: ModalContainer {
         animated: Bool,
         customisation: CustomisationBlock<VC2>?,
         completion: CompletionBlock?
-    ) -> AnyModalToken<T>? where VC2: ViewController, TD2: TokenData {
+    ) -> ModalToken<T>? where VC2: ViewController, TD2: TokenData {
         guard
             let container = delegate?.createContainer(
                 identifiableToken: .init(identifier: identifier, data: tokenData),
@@ -46,7 +46,7 @@ extension ContainerUI: ModalContainer {
 
     // swiftlint:enable function_parameter_count
     public func closeModal(
-        token: AnyModalToken<T>,
+        token: ModalToken<T>,
         animated: Bool,
         completion: CompletionBlock?
     ) -> Bool {
@@ -56,8 +56,8 @@ extension ContainerUI: ModalContainer {
 }
 
 private extension ViewController {
-    func createModalToken<T>(container: AnyContainer<T>) -> AnyModalToken<T> {
-        ModalTokenImplementation(container: container)
+    func createModalToken<T>(container: AnyContainer<T>) -> ModalToken<T> {
+        .init(container: container)
     }
 }
 

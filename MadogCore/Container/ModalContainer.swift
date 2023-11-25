@@ -23,11 +23,11 @@ public protocol ModalContainer<T> {
         animated: Bool,
         customisation: CustomisationBlock<VC2>?,
         completion: CompletionBlock?
-    ) -> AnyModalToken<T>? where VC2: ViewController, TD2: TokenData
+    ) -> ModalToken<T>? where VC2: ViewController, TD2: TokenData
     // swiftlint:enable function_parameter_count
 
     @discardableResult
-    func closeModal(token: AnyModalToken<T>, animated: Bool, completion: CompletionBlock?) -> Bool
+    func closeModal(token: ModalToken<T>, animated: Bool, completion: CompletionBlock?) -> Bool
 }
 
 public extension ModalContainer {
@@ -41,7 +41,7 @@ public extension ModalContainer {
         animated: Bool,
         customisation: CustomisationBlock<VC2>? = nil,
         completion: CompletionBlock? = nil
-    ) -> AnyModalToken<T>? where VC2: ViewController, TD2: TokenData {
+    ) -> ModalToken<T>? where VC2: ViewController, TD2: TokenData {
         openModal(
             identifier: identifier,
             tokenData: tokenData,
@@ -55,25 +55,13 @@ public extension ModalContainer {
     }
 
     @discardableResult
-    func closeModal(token: AnyModalToken<T>, animated: Bool) -> Bool {
+    func closeModal(token: ModalToken<T>, animated: Bool) -> Bool {
         closeModal(token: token, animated: animated, completion: nil)
     }
 }
 
-public typealias AnyModalToken<T> = any ModalToken<T>
-
-public protocol ModalToken<T> {
-    associatedtype T
-
-    var container: AnyContainer<T> { get }
-}
-
-class ModalTokenImplementation<T>: ModalToken {
-    let container: AnyContainer<T>
-
-    init(container: AnyContainer<T>) {
-        self.container = container
-    }
+public struct ModalToken<T> {
+    public let container: AnyContainer<T>
 }
 
 public extension Container {

@@ -189,7 +189,7 @@ class ContainerUITests: MadogKIFTestCase {
     private func createModal(
         container: AnyContainer<String>,
         token: String
-    ) -> AnyModalToken<String> {
+    ) -> ModalToken<String> {
         let openExpectation = expectation(description: "Modal \(token) opened")
         let modalToken = openModalAndWait(container.modal!, identifier: .test(), tokenData: .single(token)) {
             openExpectation.fulfill()

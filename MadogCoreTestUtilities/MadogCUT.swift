@@ -43,7 +43,7 @@ public extension MadogCUT {
         identifier: ContainerUI<T, TD2, VC>.Identifier,
         tokenData: TD2,
         completion: CompletionBlock? = nil
-    ) -> AnyModalToken<T> where VC: UIViewController, TD2: TokenData {
+    ) -> ModalToken<T> where VC: UIViewController, TD2: TokenData {
         let result = modalContainer.openModal(
             identifier: identifier,
             tokenData: tokenData,
@@ -58,7 +58,7 @@ public extension MadogCUT {
     @discardableResult
     func closeModalAndWait(
         _ modalContainer: AnyModalContainer<T>,
-        token: AnyModalToken<T>,
+        token: ModalToken<T>,
         completion: CompletionBlock? = nil
     ) -> Bool {
         let result = modalContainer.closeModal(token: token, animated: true, completion: completion)

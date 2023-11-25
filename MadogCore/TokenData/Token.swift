@@ -16,6 +16,7 @@ public class Token<T> {
         nil
     }
 }
+
 public extension Token {
     static func use(_ token: T) -> Token<T> {
         UseParentToken(token: token)

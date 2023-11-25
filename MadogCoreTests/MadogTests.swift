@@ -42,7 +42,7 @@ class MadogTests: XCTestCase {
     func testMadogKeepsStrongReferenceToCurrentContainer() throws {
         let window = Window()
 
-        weak var impl1: AnyObject?
+        weak var impl1: TestContainerUI<Int>?
         try autoreleasepool {
             impl1 = try madog.renderUI(identifier: .test(), tokenData: .single(0), in: window)?.asImpl()
             XCTAssertNotNil(impl1)

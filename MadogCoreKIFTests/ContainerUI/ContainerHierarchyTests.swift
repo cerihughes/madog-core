@@ -31,6 +31,39 @@ class ContainerHierarchyTests: MadogKIFTestCase {
         closeContainerAndWait(container)
         XCTAssertNil(container.castValue)
     }
+
+    func testNestedContainersWithNavigation() {
+        let container = renderUIAndWait(identifier: .testTabBar(), tokenData: .multi(
+            .create(identifier: .testNavigation(), tokenData: .single("vc1")),
+            .create(identifier: .testNavigation(), tokenData: .single("vc2"))
+        ))
+        waitForLabel(token: "vc1")
+
+        let nav1 = container.childContainers[0]
+        let nav2 = container.childContainers[1]
+
+        nav1.forwardBack?.navigateForward(token: "vc3", animated: true)
+        waitForLabel(token: "vc3")
+
+        container.multi?.selectedIndex = 1
+        waitForLabel(token: "vc2")
+
+        nav2.forwardBack?.navigateForward(token: "vc4", animated: true)
+        waitForLabel(token: "vc4")
+        nav2.forwardBack?.navigateForward(token: "vc5", animated: true)
+        waitForLabel(token: "vc5")
+
+        container.multi?.selectedIndex = 0
+        waitForLabel(token: "vc3")
+        nav1.forwardBack?.navigateBack(animated: true)
+        nav2.forwardBack?.navigateBack(animated: true)
+        waitForLabel(token: "vc1")
+        container.multi?.selectedIndex = 1
+        waitForLabel(token: "vc4")
+
+        nav2.forwardBack?.navigateBack(animated: true)
+        waitForLabel(token: "vc2")
+    }
 }
 
 #endif

@@ -13,15 +13,18 @@ import XCTest
 @testable import MadogCoreTests
 
 class ContainerHierarchyTests: MadogKIFTestCase {
-    func testCloseReleasesMainContainer() {
+    func testNestedContainers() {
         let container = renderUIAndWait(identifier: .testTabBar(), tokenData: .multi(
-            .create(identifier: .testNavigation(), tokenData: .single("vc1")),
-            .create(identifier: .testNavigation(), tokenData: .single("vc2"))
+            .create(identifier: .testNavigation(), tokenData: .single("vc1")) {
+                $0.tabBarItem.title = "vc1"
+            },
+            .create(identifier: .testNavigation(), tokenData: .single("vc2")) {
+                $0.tabBarItem.title = "vc2"
+            }
         ))
-        container.multi?.selectedIndex = 0
+        waitForTitle(token: "vc1")
+        waitForTitle(token: "vc2")
         waitForLabel(token: "vc1")
-        container.multi?.selectedIndex = 1
-        waitForLabel(token: "vc2")
         XCTAssertNotNil(container.castValue)
 
         closeContainerAndWait(container)

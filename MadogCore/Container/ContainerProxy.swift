@@ -16,8 +16,9 @@ class ContainerProxy<T, TD, VC>: Container where TD: TokenData, VC: ViewControll
     var presentingContainer: AnyContainer<T>? { wrapped?.presentingContainer }
     var castValue: AnyContainer<T>? { wrapped }
 
-    func close(animated: Bool, completion: CompletionBlock?) -> Bool {
-        wrapped?.close(animated: animated, completion: completion) ?? false
+    func close(animated: Bool, completion: CompletionBlock?) throws {
+        guard let wrapped else { throw MadogError<T>.containerReleased }
+        try wrapped.close(animated: animated, completion: completion)
     }
 
     @discardableResult
@@ -26,8 +27,14 @@ class ContainerProxy<T, TD, VC>: Container where TD: TokenData, VC: ViewControll
         tokenData: TD2,
         transition: Transition?,
         customisation: CustomisationBlock<VC2>?
-    ) -> AnyContainer<T>? where VC2: ViewController, TD2: TokenData {
-        wrapped?.change(to: identifier, tokenData: tokenData, transition: transition, customisation: customisation)
+    ) throws -> AnyContainer<T> where VC2: ViewController, TD2: TokenData {
+        guard let wrapped else { throw MadogError<T>.containerReleased }
+        return try wrapped.change(
+            to: identifier,
+            tokenData: tokenData,
+            transition: transition,
+            customisation: customisation
+        )
     }
 }
 

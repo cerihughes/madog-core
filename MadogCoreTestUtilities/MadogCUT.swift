@@ -20,22 +20,20 @@ public extension MadogCUT {
         identifier: ContainerUI<T, TD, VC>.Identifier,
         tokenData: TD,
         customisation: CustomisationBlock<VC>? = nil
-    ) -> AnyContainer<T> where VC: ViewController, TD: TokenData {
-        let result = madog.renderUI(
+    ) throws -> AnyContainer<T> where VC: ViewController, TD: TokenData {
+        let result = try madog.renderUI(
             identifier: identifier,
             tokenData: tokenData,
             in: window,
             customisation: customisation
         )
         waitForAnimationsToFinish()
-        return result!
+        return result
     }
 
-    @discardableResult
-    func closeContainerAndWait(_ container: AnyContainer<T>, completion: CompletionBlock? = nil) -> Bool {
-        let result = container.close(animated: true, completion: completion)
+    func closeContainerAndWait(_ container: AnyContainer<T>, completion: CompletionBlock? = nil) throws {
+        try container.close(animated: true, completion: completion)
         waitForAnimationsToFinish()
-        return result
     }
 
     func openModalAndWait<VC, TD2>(
@@ -43,8 +41,8 @@ public extension MadogCUT {
         identifier: ContainerUI<T, TD2, VC>.Identifier,
         tokenData: TD2,
         completion: CompletionBlock? = nil
-    ) -> AnyModalToken<T> where VC: UIViewController, TD2: TokenData {
-        let result = modalContainer.openModal(
+    ) throws -> AnyModalToken<T> where VC: UIViewController, TD2: TokenData {
+        let result = try modalContainer.openModal(
             identifier: identifier,
             tokenData: tokenData,
             presentationStyle: .formSheet,
@@ -52,18 +50,16 @@ public extension MadogCUT {
             completion: completion
         )
         waitForAnimationsToFinish()
-        return result!
+        return result
     }
 
-    @discardableResult
     func closeModalAndWait(
         _ modalContainer: AnyModalContainer<T>,
         token: AnyModalToken<T>,
         completion: CompletionBlock? = nil
-    ) -> Bool {
-        let result = modalContainer.closeModal(token: token, animated: true, completion: completion)
+    ) throws {
+        try modalContainer.closeModal(token: token, animated: true, completion: completion)
         waitForAnimationsToFinish()
-        return result
     }
 
     private func waitForAnimationsToFinish(_ file: String = #file, _ line: Int = #line) {

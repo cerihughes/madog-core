@@ -19,7 +19,7 @@ protocol ContainerDelegate<T>: AnyObject {
         identifiableToken: IdentifiableToken<T, TD, VC>,
         isModal: Bool,
         customisation: CustomisationBlock<VC>?
-    ) -> ContainerUI<T, TD, VC>? where VC: ViewController, TD: TokenData
+    ) throws -> ContainerUI<T, TD, VC> where VC: ViewController, TD: TokenData
 
     func container(for viewController: ViewController) -> AnyContainer<T>?
     func releaseContainer(for viewController: ViewController)
@@ -49,8 +49,7 @@ open class ContainerUI<T, TD, VC>: Container where TD: TokenData, VC: ViewContro
         contentFactory: AnyContainerUIContentFactory<T>,
         from token: T
     ) throws -> ViewController {
-        // TODO: Remove force unwrap
-        contentFactory.createContentViewController(from: token, container: self)!
+        try contentFactory.createContentViewController(from: token, container: self)
     }
 
     open func populateContainer(contentFactory: AnyContainerUIContentFactory<T>, tokenData: TD) throws {
@@ -64,11 +63,10 @@ open class ContainerUI<T, TD, VC>: Container where TD: TokenData, VC: ViewContro
         return delegate?.container(for: presentingViewController)
     }
 
-    public func close(animated: Bool, completion: CompletionBlock?) -> Bool {
+    public func close(animated: Bool, completion: CompletionBlock?) throws {
 #if canImport(UIKit)
-        closeContainer(presentedViewController: containerViewController, animated: animated, completion: completion)
+        try closeContainer(presentedViewController: containerViewController, animated: animated, completion: completion)
 #endif
-        return true
     }
 
     public func change<VC2, TD2>(
@@ -76,16 +74,14 @@ open class ContainerUI<T, TD, VC>: Container where TD: TokenData, VC: ViewContro
         tokenData: TD2,
         transition: Transition?,
         customisation: CustomisationBlock<VC2>?
-    ) -> AnyContainer<T>? where VC2: ViewController, TD2: TokenData {
-        guard
-            let container = delegate?.createContainer(
-                identifiableToken: .init(identifier: identifier, data: tokenData),
-                isModal: false,
-                customisation: customisation
-            ),
-            let window = containerViewController.view.window
-        else { return nil }
-
+    ) throws -> AnyContainer<T> where VC2: ViewController, TD2: TokenData {
+        guard let delegate else { throw MadogError<T>.internalError("Delegate not set in \(self)") }
+        guard let window = containerViewController.view.window else { throw MadogError<T>.containerHasNoWindow }
+        let container = try delegate.createContainer(
+            identifiableToken: .init(identifier: identifier, data: tokenData),
+            isModal: false,
+            customisation: customisation
+        )
         window.setRootViewController(container.containerViewController, transition: transition)
         return container.proxy()
     }

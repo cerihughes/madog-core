@@ -21,14 +21,13 @@ extension ContainerUI: ModalContainer {
         animated: Bool,
         customisation: CustomisationBlock<VC2>?,
         completion: CompletionBlock?
-    ) -> AnyModalToken<T>? where VC2: ViewController, TD2: TokenData {
-        guard
-            let container = delegate?.createContainer(
-                identifiableToken: .init(identifier: identifier, data: tokenData),
-                isModal: true,
-                customisation: customisation
-            )
-        else { return nil }
+    ) throws -> AnyModalToken<T> where VC2: ViewController, TD2: TokenData {
+        guard let delegate else { throw MadogError<T>.internalError("Delegate not set in \(self)") }
+        let container = try delegate.createContainer(
+            identifiableToken: .init(identifier: identifier, data: tokenData),
+            isModal: true,
+            customisation: customisation
+        )
 
         let presentedViewController = container.containerViewController
         containerViewController.madog_presentModally(
@@ -49,23 +48,25 @@ extension ContainerUI: ModalContainer {
         token: AnyModalToken<T>,
         animated: Bool,
         completion: CompletionBlock?
-    ) -> Bool {
-        guard let token = token as? ModalTokenImplementation<T> else { return false }
-        closeContainer(presentedViewController: token.viewController, animated: animated, completion: completion)
-        return true
+    ) throws {
+        guard let token = token as? ModalTokenImplementation<T> else {
+            throw MadogError<T>.internalError("Token is not correct type (ModalTokenImplementation)")
+        }
+        try closeContainer(presentedViewController: token.viewController, animated: animated, completion: completion)
     }
 
     func closeContainer(
         presentedViewController: ViewController,
         animated: Bool = false,
         completion: CompletionBlock? = nil
-    ) {
+    ) throws {
+        guard let delegate else { throw MadogError<T>.internalError("Delegate not set in \(self)") }
         if let presentedPresentedViewController = presentedViewController.presentedViewController {
-            closeContainer(presentedViewController: presentedPresentedViewController, animated: animated)
+            try closeContainer(presentedViewController: presentedPresentedViewController, animated: animated)
         }
 
         presentedViewController.dismiss(animated: animated, completion: completion)
-        delegate?.releaseContainer(for: presentedViewController)
+        delegate.releaseContainer(for: presentedViewController)
     }
 }
 

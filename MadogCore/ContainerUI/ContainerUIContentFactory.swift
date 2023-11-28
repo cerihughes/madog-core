@@ -8,7 +8,7 @@ import Foundation
 public typealias AnyContainerUIContentFactory<T> = any ContainerUIContentFactory<T>
 public protocol ContainerUIContentFactory<T> {
     associatedtype T
-    func createContentViewController<VC, TD>(from token: T, container: ContainerUI<T, TD, VC>) -> ViewController?
+    func createContentViewController<VC, TD>(from token: T, container: ContainerUI<T, TD, VC>) throws -> ViewController
 }
 
 class ContainerUIContentFactoryImplementation<T>: ContainerUIContentFactory {
@@ -21,7 +21,7 @@ class ContainerUIContentFactoryImplementation<T>: ContainerUIContentFactory {
     public func createContentViewController<VC, TD>(
         from token: T,
         container: ContainerUI<T, TD, VC>
-    ) -> ViewController? {
-        registry.createViewController(from: token, container: container)
+    ) throws -> ViewController {
+        try registry.createViewController(token: token, container: container)
     }
 }

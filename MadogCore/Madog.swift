@@ -5,7 +5,7 @@
 
 import Foundation
 
-public final class Madog<T>: ContainerDelegate {
+public final class Madog<T>: ContainerUIDelegate {
     private let registrar = Registrar<T>()
     private let contentFactory: AnyContainerUIContentFactory<T>
     private let containerRepository: ContainerUIRepository<T>

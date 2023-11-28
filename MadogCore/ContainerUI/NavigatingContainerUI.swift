@@ -8,20 +8,10 @@
 import Foundation
 
 open class NavigatingContainerUI<T>: ContainerUI<T, SingleUITokenData<T>, NavigationController>, ForwardBackContainer {
-    private var contentFactory: AnyContainerUIContentFactory<T>?
-
-    override open func populateContainer(
-        contentFactory: AnyContainerUIContentFactory<T>,
-        tokenData: SingleUITokenData<T>
-    ) throws {
-        self.contentFactory = contentFactory
-    }
-
     // MARK: - ForwardBackContainer
 
     public func navigateForward(token: T, animated: Bool) throws {
-        guard let contentFactory else { throw MadogError<T>.internalError("ContentFactory not set in \(self)") }
-        let toViewController = try createContentViewController(contentFactory: contentFactory, from: token)
+        let toViewController = try createContentViewController(token: token)
         containerViewController.pushViewController(toViewController, animated: animated)
     }
 

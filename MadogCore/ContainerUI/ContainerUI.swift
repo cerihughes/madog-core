@@ -35,7 +35,7 @@ open class ContainerUI<T, TD, VC>: Container where TD: TokenData, VC: ViewContro
         }
     }
 
-    var registry: AnyRegistry<T>?
+    var contentFactory: AnyContainerUIContentFactory<T>?
     public let uuid = UUID()
     public let containerViewController: VC
 
@@ -45,14 +45,12 @@ open class ContainerUI<T, TD, VC>: Container where TD: TokenData, VC: ViewContro
         self.containerViewController = containerViewController
     }
 
-    public func createContentViewController(
-        contentFactory: AnyContainerUIContentFactory<T>,
-        from token: T
-    ) throws -> ViewController {
-        try contentFactory.createContentViewController(from: token, container: self)
+    public func createContentViewController(token: T) throws -> ViewController {
+        guard let contentFactory else { throw MadogError<T>.internalError("ContentFactory not set in \(self)") }
+        return try contentFactory.createContentViewController(token: token, container: self)
     }
 
-    open func populateContainer(contentFactory: AnyContainerUIContentFactory<T>, tokenData: TD) throws {
+    open func populateContainer(tokenData: TD) throws {
         // Override point
     }
 

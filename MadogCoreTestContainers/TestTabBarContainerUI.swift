@@ -11,14 +11,11 @@ import UIKit
 class TestTabBarContainerUI<T>: ContainerUI<T, MultiUITokenData<T>, UITabBarController>, MultiContainer {
     private let tabBarController = UITabBarController()
 
-    override func populateContainer(
-        contentFactory: AnyContainerUIContentFactory<T>,
-        tokenData: MultiUITokenData<T>
-    ) throws {
-        try super.populateContainer(contentFactory: contentFactory, tokenData: tokenData)
+    override func populateContainer(tokenData: MultiUITokenData<T>) throws {
+        try super.populateContainer(tokenData: tokenData)
 
         let viewControllers = try tokenData.tokens.compactMap {
-            try createContentViewController(contentFactory: contentFactory, from: $0)
+            try createContentViewController(token: $0)
         }
 
         tabBarController.viewControllers = viewControllers

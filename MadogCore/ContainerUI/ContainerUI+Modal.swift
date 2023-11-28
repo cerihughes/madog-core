@@ -21,14 +21,13 @@ extension ContainerUI: ModalContainer {
         animated: Bool,
         customisation: CustomisationBlock<VC2>?,
         completion: CompletionBlock?
-    ) -> ModalToken<T>? where VC2: ViewController, TD2: TokenData {
-        guard
-            let container = delegate?.createContainer(
-                identifiableToken: .init(identifier: identifier, data: tokenData),
-                parent: self,
-                customisation: customisation
-            )
-        else { return nil }
+    ) throws -> ModalToken<T> where VC2: ViewController, TD2: TokenData {
+        guard let delegate else { throw MadogError.internalError }
+        let container = try delegate.createContainer(
+            identifiableToken: .init(identifier: identifier, data: tokenData),
+            parent: self,
+            customisation: customisation
+        )
 
         let presentedViewController = container.containerViewController
         containerViewController.madog_presentModally(
@@ -49,9 +48,8 @@ extension ContainerUI: ModalContainer {
         token: ModalToken<T>,
         animated: Bool,
         completion: CompletionBlock?
-    ) -> Bool {
-        token.container.close(animated: animated, completion: completion)
-        return true
+    ) throws {
+        try token.container.close(animated: animated, completion: completion)
     }
 }
 

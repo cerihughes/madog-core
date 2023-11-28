@@ -62,12 +62,12 @@ public final class Madog<T>: ContainerUIDelegate {
         in window: Window,
         transition: Transition? = nil,
         customisation: CustomisationBlock<VC>? = nil
-    ) -> AnyContainer<T>? where VC: ViewController, TD: TokenData {
-        guard let container = createContainer(
+    ) throws -> AnyContainer<T> where VC: ViewController, TD: TokenData {
+        let container = try createContainer(
             identifiableToken: .init(identifier: identifier, data: tokenData),
             parent: nil,
             customisation: customisation
-        ) else { return nil }
+        )
 
         window.setRootViewController(container.containerViewController, transition: transition)
         return container.proxy()
@@ -83,11 +83,8 @@ public final class Madog<T>: ContainerUIDelegate {
         identifiableToken: IdentifiableToken<T, TD, VC>,
         parent: AnyInternalContainer<T>?,
         customisation: CustomisationBlock<VC>?
-    ) -> ContainerUI<T, TD, VC>? where VC: ViewController, TD: TokenData {
-        guard let container = containerRepository.createContainer(identifiableToken: identifiableToken) else {
-            return nil
-        }
-
+    ) throws -> ContainerUI<T, TD, VC> where VC: ViewController, TD: TokenData {
+        let container = try containerRepository.createContainer(identifiableToken: identifiableToken)
         let containerViewController = container.containerViewController
         container.delegate = self
         persist(container: container, parent: parent)

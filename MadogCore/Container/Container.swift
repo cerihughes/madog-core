@@ -27,8 +27,7 @@ public protocol Container<T> {
     var childContainers: [AnyContainer<T>] { get }
     var castValue: AnyContainer<T>? { get }
 
-    @discardableResult
-    func close(animated: Bool, completion: CompletionBlock?) -> Bool
+    func close(animated: Bool, completion: CompletionBlock?) throws
 
     @discardableResult
     func change<VC2, TD2>(
@@ -36,13 +35,12 @@ public protocol Container<T> {
         tokenData: TD2,
         transition: Transition?,
         customisation: CustomisationBlock<VC2>?
-    ) -> AnyContainer<T>? where VC2: ViewController, TD2: TokenData
+    ) throws -> AnyContainer<T> where VC2: ViewController, TD2: TokenData
 }
 
 public extension Container {
-    @discardableResult
-    func close(animated: Bool) -> Bool {
-        close(animated: animated, completion: nil)
+    func close(animated: Bool) throws {
+        try close(animated: animated, completion: nil)
     }
 
     @discardableResult
@@ -51,8 +49,8 @@ public extension Container {
         tokenData: TD2,
         transition: Transition? = nil,
         customisation: CustomisationBlock<VC2>? = nil
-    ) -> AnyContainer<T>? where VC2: ViewController, TD2: TokenData {
-        change(to: identifier, tokenData: tokenData, transition: transition, customisation: customisation)
+    ) throws -> AnyContainer<T> where VC2: ViewController, TD2: TokenData {
+        try change(to: identifier, tokenData: tokenData, transition: transition, customisation: customisation)
     }
 }
 

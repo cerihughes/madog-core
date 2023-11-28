@@ -9,7 +9,7 @@ typealias AnyContainerUIContentFactory<T> = any ContainerUIContentFactory<T>
 protocol ContainerUIContentFactory<T> {
     associatedtype T
 
-    func createContentViewController(from token: Token<T>, parent: AnyInternalContainer<T>) -> ViewController?
+    func createContentViewController(token: Token<T>, parent: AnyInternalContainer<T>) throws -> ViewController
 }
 
 class ContainerUIContentFactoryImplementation<T>: ContainerUIContentFactory {
@@ -21,9 +21,9 @@ class ContainerUIContentFactoryImplementation<T>: ContainerUIContentFactory {
         self.registry = registry
     }
 
-    func createContentViewController(from token: Token<T>, parent: AnyInternalContainer<T>) -> ViewController? {
-        guard let delegate else { return nil }
+    func createContentViewController(token: Token<T>, parent: AnyInternalContainer<T>) throws -> ViewController {
+        guard let delegate else { throw MadogError.internalError }
         let context = Token<T>.CreationContext(registry: registry, delegate: delegate, parent: parent)
-        return token.createContentViewController(context: context)
+        return try token.createContentViewController(context: context)
     }
 }

@@ -10,8 +10,7 @@ public typealias AnySplitMultiContainer<T> = any SplitMultiContainer<T>
 public protocol SplitMultiContainer<T> {
     associatedtype T
 
-    @discardableResult
-    func showDetail(tokens: [Token<T>]) -> Bool
+    func showDetail(tokens: [Token<T>]) throws
 }
 
 public extension Container {
@@ -21,8 +20,7 @@ public extension Container {
 }
 
 public extension SplitMultiContainer {
-    @discardableResult
-    func showDetail(tokens: [T]) -> Bool {
-        showDetail(tokens: tokens.map { .use($0) })
+    func showDetail(tokens: [T]) throws {
+        try showDetail(tokens: tokens.map { .use($0) })
     }
 }

@@ -12,8 +12,8 @@ public class Token<T> {
         let parent: AnyInternalContainer<T>
     }
 
-    func createContentViewController(context: CreationContext) -> ViewController? {
-        nil
+    func createContentViewController(context: CreationContext) throws -> ViewController {
+        throw MadogError.internalError
     }
 }
 
@@ -62,8 +62,8 @@ class UseParentToken<T>: Token<T> {
         self.token = token
     }
 
-    override func createContentViewController(context: Token<T>.CreationContext) -> ViewController? {
-        context.registry.createViewController(from: token, parent: context.parent)
+    override func createContentViewController(context: Token<T>.CreationContext) throws -> ViewController {
+        try context.registry.createViewController(token: token, parent: context.parent)
     }
 }
 
@@ -78,29 +78,27 @@ class ChangeToken<T, VC>: Token<T> where VC: ViewController {
         self.customisation = customisation
     }
 
-    override func createContentViewController(context: Token<T>.CreationContext) -> ViewController? {
+    override func createContentViewController(context: Token<T>.CreationContext) throws -> ViewController {
         switch intent {
         case .single(let identifiable):
-            return createContainer(identifiableToken: identifiable, context: context)
+            return try createContainer(identifiableToken: identifiable, context: context)
         case .multi(let identifiable):
-            return createContainer(identifiableToken: identifiable, context: context)
+            return try createContainer(identifiableToken: identifiable, context: context)
         case .splitSingle(let identifiable):
-            return createContainer(identifiableToken: identifiable, context: context)
+            return try createContainer(identifiableToken: identifiable, context: context)
         case .splitMulti(let identifiable):
-            return createContainer(identifiableToken: identifiable, context: context)
+            return try createContainer(identifiableToken: identifiable, context: context)
         }
     }
 
     private func createContainer<TD>(
         identifiableToken: IdentifiableToken<T, TD, VC>,
         context: Token<T>.CreationContext
-    ) -> ViewController? where TD: TokenData {
-        guard let container = context.delegate.createContainer(
+    ) throws -> ViewController where TD: TokenData {
+        let container = try context.delegate.createContainer(
             identifiableToken: identifiableToken,
             parent: context.parent,
-            customisation: customisation) else {
-            return nil
-        }
+            customisation: customisation)
         return container.containerViewController
     }
 }

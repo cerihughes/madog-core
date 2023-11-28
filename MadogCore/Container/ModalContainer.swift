@@ -23,11 +23,10 @@ public protocol ModalContainer<T> {
         animated: Bool,
         customisation: CustomisationBlock<VC2>?,
         completion: CompletionBlock?
-    ) -> ModalToken<T>? where VC2: ViewController, TD2: TokenData
+    ) throws -> ModalToken<T> where VC2: ViewController, TD2: TokenData
     // swiftlint:enable function_parameter_count
 
-    @discardableResult
-    func closeModal(token: ModalToken<T>, animated: Bool, completion: CompletionBlock?) -> Bool
+    func closeModal(token: ModalToken<T>, animated: Bool, completion: CompletionBlock?) throws
 }
 
 public extension ModalContainer {
@@ -41,8 +40,8 @@ public extension ModalContainer {
         animated: Bool,
         customisation: CustomisationBlock<VC2>? = nil,
         completion: CompletionBlock? = nil
-    ) -> ModalToken<T>? where VC2: ViewController, TD2: TokenData {
-        openModal(
+    ) throws -> ModalToken<T> where VC2: ViewController, TD2: TokenData {
+        try openModal(
             identifier: identifier,
             tokenData: tokenData,
             presentationStyle: presentationStyle,
@@ -54,9 +53,8 @@ public extension ModalContainer {
         )
     }
 
-    @discardableResult
-    func closeModal(token: ModalToken<T>, animated: Bool) -> Bool {
-        closeModal(token: token, animated: animated, completion: nil)
+    func closeModal(token: ModalToken<T>, animated: Bool) throws {
+        try closeModal(token: token, animated: animated, completion: nil)
     }
 }
 

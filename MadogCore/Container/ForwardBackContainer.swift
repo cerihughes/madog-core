@@ -12,12 +12,9 @@ public typealias AnyForwardBackContainer<T> = any ForwardBackContainer<T>
 public protocol ForwardBackContainer<T> {
     associatedtype T
 
-    @discardableResult
-    func navigateForward(token: Token<T>, animated: Bool) -> Bool
-    @discardableResult
-    func navigateBack(animated: Bool) -> Bool
-    @discardableResult
-    func navigateBackToRoot(animated: Bool) -> Bool
+    func navigateForward(token: Token<T>, animated: Bool) throws
+    func navigateBack(animated: Bool) throws
+    func navigateBackToRoot(animated: Bool) throws
 }
 
 public extension Container {
@@ -27,9 +24,8 @@ public extension Container {
 }
 
 public extension ForwardBackContainer {
-    @discardableResult
-    func navigateForward(token: T, animated: Bool) -> Bool {
-        navigateForward(token: .use(token), animated: animated)
+    func navigateForward(token: T, animated: Bool) throws {
+        try navigateForward(token: .use(token), animated: animated)
     }
 }
 

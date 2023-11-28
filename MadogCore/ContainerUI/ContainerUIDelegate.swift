@@ -14,7 +14,7 @@ protocol ContainerCreationDelegate<T>: AnyObject {
         identifiableToken: IdentifiableToken<T, TD, VC>,
         parent: AnyInternalContainer<T>?,
         customisation: CustomisationBlock<VC>?
-    ) -> ContainerUI<T, TD, VC>? where VC: ViewController, TD: TokenData
+    ) throws -> ContainerUI<T, TD, VC> where VC: ViewController, TD: TokenData
 }
 
 typealias AnyContainerReleaseDelegate<T> = any ContainerReleaseDelegate<T>

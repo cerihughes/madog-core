@@ -28,7 +28,7 @@ options:
 packages:
   Provident:
     url: https://github.com/cerihughes/provident
-    majorVersion: 6.0.0
+    majorVersion: 7.0.0
   KIF:
     url: https://github.com/kif-framework/KIF
     majorVersion: 3.8.0

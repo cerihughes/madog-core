@@ -35,11 +35,12 @@ open class ContainerUI<T, TD, VC>: InternalContainer where TD: TokenData, VC: Vi
         self.containerViewController = containerViewController
     }
 
-    public func createContentViewController(from token: Token<T>) -> ViewController? {
-        contentFactory?.createContentViewController(from: token, parent: self)
+    public func createContentViewController(token: Token<T>) throws -> ViewController {
+        guard let contentFactory else { throw MadogError.internalError }
+        return try contentFactory.createContentViewController(token: token, parent: self)
     }
 
-    open func populateContainer(tokenData: TD) {
+    open func populateContainer(tokenData: TD) throws {
         // Override point
     }
 
@@ -51,14 +52,13 @@ open class ContainerUI<T, TD, VC>: InternalContainer where TD: TokenData, VC: Vi
 
     // MARK: - Container
 
-    public func close(animated: Bool, completion: CompletionBlock?) -> Bool {
-        childContainers.forEach { $0.close(animated: animated) }
+    public func close(animated: Bool, completion: CompletionBlock?) throws {
+        try childContainers.forEach { try $0.close(animated: animated) }
         parentInternalContainer?.childContainers.removeAll(where: {
             $0.uuid == uuid
         })
         containerViewController.dismiss(animated: animated, completion: completion)
         delegate?.releaseContainer(self)
-        return true
     }
 
     public func change<VC2, TD2>(
@@ -66,16 +66,14 @@ open class ContainerUI<T, TD, VC>: InternalContainer where TD: TokenData, VC: Vi
         tokenData: TD2,
         transition: Transition?,
         customisation: CustomisationBlock<VC2>?
-    ) -> AnyContainer<T>? where VC2: ViewController, TD2: TokenData {
-        guard
-            let container = delegate?.createContainer(
-                identifiableToken: .init(identifier: identifier, data: tokenData),
-                parent: parentInternalContainer,
-                customisation: customisation
-            ),
-            let window = containerViewController.view.window
-        else { return nil }
-
+    ) throws -> AnyContainer<T> where VC2: ViewController, TD2: TokenData {
+        guard let delegate else { throw MadogError.internalError }
+        guard let window = containerViewController.view.window else { throw MadogError.containerHasNoWindow }
+        let container = try delegate.createContainer(
+            identifiableToken: .init(identifier: identifier, data: tokenData),
+            parent: parentInternalContainer,
+            customisation: customisation
+        )
         window.setRootViewController(container.containerViewController, transition: transition)
         return container.proxy()
     }

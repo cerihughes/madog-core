@@ -11,7 +11,14 @@ public typealias AnyRegistry<T> = any Registry<T>
 public protocol Registry<T>: AnyObject {
     associatedtype T
 
-    func createViewController(from token: T, parent: AnyContainer<T>) -> ViewController?
+    func createViewController(token: T, parent: AnyContainer<T>) throws -> ViewController
+}
+
+public enum MadogError: Error {
+    case internalError
+    case containerReleased
+    case containerHasNoWindow
+    case cannotNavigateBack
 }
 
 class RegistryBridge<T>: Registry {
@@ -21,9 +28,9 @@ class RegistryBridge<T>: Registry {
         self.bridged = bridged
     }
 
-    func createViewController(from token: T, parent: AnyContainer<T>) -> ViewController? {
-        guard let parent = parent as? AnyInternalContainer<T> else { return nil }
-        return bridged.createViewController(from: token, context: parent.proxy())
+    func createViewController(token: T, parent: AnyContainer<T>) throws -> ViewController {
+        guard let parent = parent as? AnyInternalContainer<T> else { throw MadogError.internalError }
+        return try bridged.createViewController(token: token, context: parent.proxy())
     }
 }
 

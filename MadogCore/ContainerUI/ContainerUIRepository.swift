@@ -46,26 +46,39 @@ class ContainerUIRepository<T> {
         identifiableToken: IdentifiableToken<T, TD, VC>
     ) throws -> ContainerUI<T, TD, VC> where VC: ViewController, TD: TokenData {
         let key = identifiableToken.identifier.value
-        if let typed = identifiableToken.typed(SingleUITokenData<T>.self), let factory = singleRegistry[key] {
+        if let typed = identifiableToken.typed(SingleUITokenData<T>.self) {
+            let factory = try singleRegistry.factory(key: key, type: T.self)
             return try factory.createContainer(contentFactory: contentFactory, identifiableToken: typed).erased()
         }
-        if let typed = identifiableToken.typed(MultiUITokenData<T>.self), let factory = multiRegistry[key] {
+        if let typed = identifiableToken.typed(MultiUITokenData<T>.self) {
+            let factory = try multiRegistry.factory(key: key, type: T.self)
             return try factory.createContainer(contentFactory: contentFactory, identifiableToken: typed).erased()
         }
-        if let typed = identifiableToken.typed(SplitSingleUITokenData<T>.self), let factory = splitSingleRegistry[key] {
+        if let typed = identifiableToken.typed(SplitSingleUITokenData<T>.self) {
+            let factory = try splitSingleRegistry.factory(key: key, type: T.self)
             return try factory.createContainer(contentFactory: contentFactory, identifiableToken: typed).erased()
         }
-        if let typed = identifiableToken.typed(SplitMultiUITokenData<T>.self), let factory = splitMultiRegistry[key] {
+        if let typed = identifiableToken.typed(SplitMultiUITokenData<T>.self) {
+            let factory = try splitMultiRegistry.factory(key: key, type: T.self)
             return try factory.createContainer(contentFactory: contentFactory, identifiableToken: typed).erased()
         }
-        throw MadogError.internalError
+        throw MadogError<T>.internalError
+    }
+}
+
+private extension Dictionary where Key == String {
+    func factory<T>(key: String, type: T.Type) throws -> Value {
+        guard let value = self[key] else {
+            throw MadogError<T>.noMatchingContainer(key)
+        }
+        return value
     }
 }
 
 private extension ContainerUI {
     func erased<T2, TD2, VC2>() throws -> ContainerUI<T2, TD2, VC2> {
         guard let erased = self as? ContainerUI<T2, TD2, VC2> else {
-            throw MadogError.internalError
+            throw MadogError<T>.internalError
         }
         return erased
     }
@@ -90,7 +103,7 @@ struct ContainerUIFactoryWrapper<T, TD> where TD: TokenData {
         identifiableToken: IdentifiableToken<T, TD, VC>
     ) throws -> ContainerUI<T, TD, VC> {
         guard let container = try closure(contentFactory, identifiableToken.data) as? ContainerUI<T, TD, VC> else {
-            throw MadogError.internalError
+            throw MadogError<T>.internalError
         }
         return container
     }

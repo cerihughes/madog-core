@@ -18,14 +18,14 @@ open class NavigatingContainerUI<T>: ContainerUI<T, SingleUITokenData<T>, Naviga
     public func navigateBack(animated: Bool) throws {
         let popped = containerViewController.popViewController(animated: animated)
         if popped == nil {
-            throw MadogError.cannotNavigateBack
+            throw MadogError<T>.cannotNavigateBack
         }
     }
 
     public func navigateBackToRoot(animated _: Bool) throws {
         let popped = containerViewController.popToRootViewController(animated: true)
         if popped == nil {
-            throw MadogError.cannotNavigateBack
+            throw MadogError<T>.cannotNavigateBack
         }
     }
 }

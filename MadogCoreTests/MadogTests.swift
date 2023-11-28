@@ -39,6 +39,43 @@ class MadogTests: XCTestCase {
         super.tearDown()
     }
 
+    func testContainerErrorIsThrown() {
+        let fakeIdentifier = ContainerUI<Int, SingleUITokenData<Int>, ViewController>.Identifier("fakeIdentifier")
+
+        do {
+            try _ = madog.renderUI(identifier: fakeIdentifier, tokenData: .single(0), in: Window())
+            XCTFail("Expecting an error to be thrown")
+        } catch MadogError<Int>.noMatchingContainer(let identifier) {
+            XCTAssertEqual(identifier, "fakeIdentifier")
+        } catch {
+            XCTFail("Expecting a different error to be thrown")
+        }
+    }
+
+    func testContainerErrorIsThrown_notConfigured() {
+        madog = Madog() // recreate so no resolver has run
+
+        do {
+            try _ = madog.renderUI(identifier: .test(), tokenData: .single(0), in: Window())
+            XCTFail("Expecting an error to be thrown")
+        } catch MadogError<Int>.noMatchingContainer(let identifier) {
+            XCTAssertEqual(identifier, "testIdentifier")
+        } catch {
+            XCTFail("Expecting a different error to be thrown")
+        }
+    }
+
+    func testViewControllerErrorIsThrown() throws {
+        do {
+            try _ = madog.renderUI(identifier: .test(), tokenData: .single(-1), in: Window())
+            XCTFail("Expecting an error to be thrown")
+        } catch MadogError<Int>.noMatchingViewController(let token) {
+            XCTAssertEqual(token, -1)
+        } catch {
+            XCTFail("Expecting a different error to be thrown")
+        }
+    }
+
     func testMadogKeepsStrongReferenceToCurrentContainer() throws {
         let window = Window()
 

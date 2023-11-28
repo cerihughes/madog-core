@@ -13,7 +13,7 @@ public class Token<T> {
     }
 
     func createContentViewController(context: CreationContext) throws -> ViewController {
-        throw MadogError.internalError
+        throw MadogError<T>.internalError
     }
 }
 

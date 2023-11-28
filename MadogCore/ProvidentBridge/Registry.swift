@@ -14,7 +14,9 @@ public protocol Registry<T>: AnyObject {
     func createViewController(token: T, parent: AnyContainer<T>) throws -> ViewController
 }
 
-public enum MadogError: Error {
+public enum MadogError<T>: Error {
+    case noMatchingViewController(T)
+    case noMatchingContainer(String)
     case internalError
     case containerReleased
     case containerHasNoWindow
@@ -29,8 +31,14 @@ class RegistryBridge<T>: Registry {
     }
 
     func createViewController(token: T, parent: AnyContainer<T>) throws -> ViewController {
-        guard let parent = parent as? AnyInternalContainer<T> else { throw MadogError.internalError }
-        return try bridged.createViewController(token: token, context: parent.proxy())
+        guard let parent = parent as? AnyInternalContainer<T> else { throw MadogError<T>.internalError }
+        do {
+            return try bridged.createViewController(token: token, context: parent.proxy())
+        } catch ProvidentError<T>.noMatchingViewController(let token) {
+            throw MadogError<T>.noMatchingViewController(token)
+        } catch {
+            throw MadogError<T>.internalError
+        }
     }
 }
 

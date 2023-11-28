@@ -22,7 +22,7 @@ class ContainerUIContentFactoryImplementation<T>: ContainerUIContentFactory {
     }
 
     func createContentViewController(token: Token<T>, parent: AnyInternalContainer<T>) throws -> ViewController {
-        guard let delegate else { throw MadogError.internalError }
+        guard let delegate else { throw MadogError<T>.internalError }
         let context = Token<T>.CreationContext(registry: registry, delegate: delegate, parent: parent)
         return try token.createContentViewController(context: context)
     }

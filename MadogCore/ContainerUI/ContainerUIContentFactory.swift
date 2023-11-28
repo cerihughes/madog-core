@@ -5,10 +5,10 @@
 
 import Foundation
 
-public typealias AnyContainerUIContentFactory<T> = any ContainerUIContentFactory<T>
-public protocol ContainerUIContentFactory<T> {
+typealias AnyContainerUIContentFactory<T> = any ContainerUIContentFactory<T>
+protocol ContainerUIContentFactory<T> {
     associatedtype T
-    func createContentViewController<VC, TD>(from token: T, container: ContainerUI<T, TD, VC>) -> ViewController?
+    func createContentViewController(token: T, container: AnyInternalContainer<T>) throws -> ViewController
 }
 
 class ContainerUIContentFactoryImplementation<T>: ContainerUIContentFactory {
@@ -18,10 +18,7 @@ class ContainerUIContentFactoryImplementation<T>: ContainerUIContentFactory {
         self.registry = registry
     }
 
-    public func createContentViewController<VC, TD>(
-        from token: T,
-        container: ContainerUI<T, TD, VC>
-    ) -> ViewController? {
-        registry.createViewController(from: token, container: container)
+    public func createContentViewController(token: T, container: AnyInternalContainer<T>) throws -> ViewController {
+        try registry.createViewController(token: token, container: container)
     }
 }

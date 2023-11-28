@@ -5,7 +5,7 @@
 
 import Foundation
 
-public final class Madog<T>: ContainerDelegate {
+public final class Madog<T>: ContainerUIDelegate {
     private let registrar = Registrar<T>()
     private let contentFactory: AnyContainerUIContentFactory<T>
     private let containerRepository: ContainerUIRepository<T>
@@ -62,13 +62,12 @@ public final class Madog<T>: ContainerDelegate {
         in window: Window,
         transition: Transition? = nil,
         customisation: CustomisationBlock<VC>? = nil
-    ) -> AnyContainer<T>? where VC: ViewController, TD: TokenData {
-        guard let container = createContainer(
+    ) throws -> AnyContainer<T> where VC: ViewController, TD: TokenData {
+        let container = try createContainer(
             identifiableToken: .init(identifier: identifier, data: tokenData),
             isModal: false,
             customisation: customisation
-        ) else { return nil }
-
+        )
         window.setRootViewController(container.containerViewController, transition: transition)
         return container.proxy()
     }
@@ -87,11 +86,8 @@ public final class Madog<T>: ContainerDelegate {
         identifiableToken: IdentifiableToken<T, TD, VC>,
         isModal: Bool,
         customisation: CustomisationBlock<VC>?
-    ) -> ContainerUI<T, TD, VC>? where VC: ViewController, TD: TokenData {
-        guard let container = containerRepository.createContainer(identifiableToken: identifiableToken) else {
-            return nil
-        }
-
+    ) throws -> ContainerUI<T, TD, VC> where VC: ViewController, TD: TokenData {
+        let container = try containerRepository.createContainer(identifiableToken: identifiableToken)
         let containerViewController = container.containerViewController
         container.delegate = self
         persist(container: container, containerViewController: containerViewController, isModal: isModal)

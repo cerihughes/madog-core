@@ -8,33 +8,25 @@
 import Foundation
 
 open class NavigatingContainerUI<T>: ContainerUI<T, SingleUITokenData<T>, NavigationController>, ForwardBackContainer {
-    private var contentFactory: AnyContainerUIContentFactory<T>?
-
-    override open func populateContainer(
-        contentFactory: AnyContainerUIContentFactory<T>,
-        tokenData: SingleUITokenData<T>
-    ) throws {
-        self.contentFactory = contentFactory
-    }
-
     // MARK: - ForwardBackContainer
 
-    public func navigateForward(token: T, animated: Bool) -> Bool {
-        guard
-            let contentFactory,
-            let toViewController = try? createContentViewController(contentFactory: contentFactory, from: token)
-        else { return false }
-
+    public func navigateForward(token: T, animated: Bool) throws {
+        let toViewController = try createContentViewController(token: token)
         containerViewController.pushViewController(toViewController, animated: animated)
-        return true
     }
 
-    public func navigateBack(animated: Bool) -> Bool {
-        containerViewController.popViewController(animated: animated) != nil
+    public func navigateBack(animated: Bool) throws {
+        let popped = containerViewController.popViewController(animated: animated)
+        if popped == nil {
+            throw MadogError<T>.cannotNavigateBack
+        }
     }
 
-    public func navigateBackToRoot(animated _: Bool) -> Bool {
-        containerViewController.popToRootViewController(animated: true) != nil
+    public func navigateBackToRoot(animated _: Bool) throws {
+        let popped = containerViewController.popToRootViewController(animated: true)
+        if popped == nil {
+            throw MadogError<T>.cannotNavigateBack
+        }
     }
 }
 

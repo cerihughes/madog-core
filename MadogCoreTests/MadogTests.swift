@@ -39,16 +39,52 @@ class MadogTests: XCTestCase {
         super.tearDown()
     }
 
+    func testContainerErrorIsThrown() {
+        let fakeIdentifier = ContainerUI<Int, SingleUITokenData<Int>, ViewController>.Identifier("fakeIdentifier")
+
+        do {
+            try _ = madog.renderUI(identifier: fakeIdentifier, tokenData: .single(0), in: Window())
+            XCTFail("Expecting an error to be thrown")
+        } catch MadogError<Int>.noMatchingContainer(let identifier) {
+            XCTAssertEqual(identifier, "fakeIdentifier")
+        } catch {
+            XCTFail("Expecting a different error to be thrown")
+        }
+    }
+
+    func testContainerErrorIsThrown_notConfigured() {
+        madog = Madog() // recreate so no resolver has run
+        do {
+            try _ = madog.renderUI(identifier: .test(), tokenData: .single(0), in: Window())
+            XCTFail("Expecting an error to be thrown")
+        } catch MadogError<Int>.noMatchingContainer(let identifier) {
+            XCTAssertEqual(identifier, "testIdentifier")
+        } catch {
+            XCTFail("Expecting a different error to be thrown")
+        }
+    }
+
+    func testViewControllerErrorIsThrown() throws {
+        do {
+            try _ = madog.renderUI(identifier: .test(), tokenData: .single(-1), in: Window())
+            XCTFail("Expecting an error to be thrown")
+        } catch MadogError<Int>.noMatchingViewController(let token) {
+            XCTAssertEqual(token, -1)
+        } catch {
+            XCTFail("Expecting a different error to be thrown")
+        }
+    }
+
     func testMadogKeepsStrongReferenceToCurrentContainer() throws {
         let window = Window()
 
         weak var impl1: TestContainerUI<Int>?
         try autoreleasepool {
-            impl1 = try madog.renderUI(identifier: .test(), tokenData: .single(0), in: window)?.asImpl()
+            impl1 = try madog.renderUI(identifier: .test(), tokenData: .single(0), in: window).asImpl()
             XCTAssertNotNil(impl1)
         }
 
-        weak var impl2 = try madog.renderUI(identifier: .test(), tokenData: .single(1), in: window)?.asImpl()
+        weak var impl2 = try madog.renderUI(identifier: .test(), tokenData: .single(1), in: window).asImpl()
         XCTAssertNil(impl1)
         XCTAssertNotNil(impl2)
     }
@@ -58,7 +94,7 @@ class MadogTests: XCTestCase {
         let tracker = DeallocationTracker()
 
         try autoreleasepool {
-            weak var impl = try madog.renderUI(identifier: .test(), tokenData: .single(0), in: window)?.asImpl()
+            weak var impl = try madog.renderUI(identifier: .test(), tokenData: .single(0), in: window).asImpl()
             XCTAssertNotNil(impl)
             try impl?.assignDelegate(tracker)
         }
@@ -66,7 +102,7 @@ class MadogTests: XCTestCase {
         XCTAssertEqual(tracker.deallocations, 0)
 
         try autoreleasepool {
-            weak var impl = try madog.renderUI(identifier: .test(), tokenData: .single(0), in: window)?.asImpl()
+            weak var impl = try madog.renderUI(identifier: .test(), tokenData: .single(0), in: window).asImpl()
             XCTAssertNotNil(impl)
             try impl?.assignDelegate(tracker)
         }
@@ -74,7 +110,7 @@ class MadogTests: XCTestCase {
         XCTAssertEqual(tracker.deallocations, 1)
 
         try autoreleasepool {
-            weak var impl = try madog.renderUI(identifier: .test(), tokenData: .single(0), in: window)?.asImpl()
+            weak var impl = try madog.renderUI(identifier: .test(), tokenData: .single(0), in: window).asImpl()
             XCTAssertNotNil(impl)
             try impl?.assignDelegate(tracker)
         }
@@ -102,7 +138,7 @@ class MadogTests: XCTestCase {
 
         let identifier = ContainerUI<Int, TD, VC>.Identifier("testSingleTokenFactory")
         XCTAssertTrue(madog.addContainerUIFactory(identifier: identifier, factory: TestFactory()))
-        XCTAssertNotNil(madog.renderUI(identifier: identifier, tokenData: .single(1), in: Window()))
+        XCTAssertNoThrow(try madog.renderUI(identifier: identifier, tokenData: .single(1), in: Window()))
     }
 
     func testMultiTokenFactory() {
@@ -117,7 +153,7 @@ class MadogTests: XCTestCase {
 
         let identifier = ContainerUI<Int, TD, VC>.Identifier("testMultiTokenFactory")
         XCTAssertTrue(madog.addContainerUIFactory(identifier: identifier, factory: TestFactory()))
-        XCTAssertNotNil(madog.renderUI(identifier: identifier, tokenData: .multi(1, 2, 3), in: Window()))
+        XCTAssertNoThrow(try madog.renderUI(identifier: identifier, tokenData: .multi(1, 2, 3), in: Window()))
     }
 
     func testSplitSingleTokenFactory() {
@@ -132,7 +168,7 @@ class MadogTests: XCTestCase {
 
         let identifier = ContainerUI<Int, TD, VC>.Identifier("testSingleTokenFactory")
         XCTAssertTrue(madog.addContainerUIFactory(identifier: identifier, factory: TestFactory()))
-        XCTAssertNotNil(madog.renderUI(identifier: identifier, tokenData: .splitSingle(1, 2), in: Window()))
+        XCTAssertNoThrow(try madog.renderUI(identifier: identifier, tokenData: .splitSingle(1, 2), in: Window()))
     }
 
     func testSplitMultiTokenFactory() {
@@ -147,7 +183,7 @@ class MadogTests: XCTestCase {
 
         let identifier = ContainerUI<Int, TD, VC>.Identifier("testMultiTokenFactory")
         XCTAssertTrue(madog.addContainerUIFactory(identifier: identifier, factory: TestFactory()))
-        XCTAssertNotNil(madog.renderUI(identifier: identifier, tokenData: .splitMulti(1, [2, 3]), in: Window()))
+        XCTAssertNoThrow(try madog.renderUI(identifier: identifier, tokenData: .splitMulti(1, [2, 3]), in: Window()))
     }
 }
 

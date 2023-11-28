@@ -22,9 +22,17 @@ let package = Package(
             path: "MadogCore"
         ),
         .target(
+            name: "MadogCoreTestContainers",
+            dependencies: [
+                "MadogCore",
+            ],
+            path: "MadogCoreTestUtilities"
+        ),
+        .target(
             name: "MadogCoreTestUtilities",
             dependencies: [
                 "MadogCore",
+                "MadogCoreTestContainers",
                 .product(name: "KIF", package: "KIF", condition: .when(platforms: [.iOS]))
             ],
             path: "MadogCoreTestUtilities"

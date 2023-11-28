@@ -26,7 +26,7 @@ let package = Package(
             dependencies: [
                 "MadogCore",
             ],
-            path: "MadogCoreTestUtilities"
+            path: "MadogCoreTestContainers"
         ),
         .target(
             name: "MadogCoreTestUtilities",
@@ -37,7 +37,11 @@ let package = Package(
             ],
             path: "MadogCoreTestUtilities"
         ),
-        .testTarget(name: "MadogCoreTests", dependencies: ["MadogCore"], path: "MadogCoreTests"),
+        .testTarget(
+            name: "MadogCoreTests",
+            dependencies: ["MadogCore", "MadogCoreTestContainers"],
+            path: "MadogCoreTests"
+        ),
         .testTarget(
             name: "MadogCoreKIFTests",
             dependencies: [

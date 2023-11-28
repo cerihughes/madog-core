@@ -9,7 +9,7 @@ let package = Package(
         .library(name: "MadogCoreTestUtilities", targets: ["MadogCoreTestUtilities"])
     ],
     dependencies: [
-        .package(url: "https://github.com/cerihughes/provident", .upToNextMajor(from: "6.0.0")),
+        .package(url: "https://github.com/cerihughes/provident", .upToNextMajor(from: "7.0.0")),
         .package(url: "https://github.com/kif-framework/KIF", .upToNextMajor(from: "3.8.0"))
     ],
     targets: [

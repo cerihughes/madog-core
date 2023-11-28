@@ -75,7 +75,7 @@ public final class Madog<T>: ContainerUIDelegate {
         registrar.serviceProviders
     }
 
-    // MARK: - ContainerCreationDelegate
+    // MARK: - ContainerUIDelegate
 
     func createContainer<VC, TD>(
         identifiableToken: IdentifiableToken<T, TD, VC>,
@@ -90,8 +90,6 @@ public final class Madog<T>: ContainerUIDelegate {
 
         return container
     }
-
-    // MARK: - ContainerReleaseDelegate
 
     func releaseContainer(_ container: AnyContainer<T>) {
         if container.uuid == currentContainer?.uuid {

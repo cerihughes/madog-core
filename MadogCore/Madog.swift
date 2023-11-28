@@ -6,7 +6,6 @@
 import Foundation
 
 public final class Madog<T>: ContainerUIDelegate {
-    public let uuid = UUID()
     private let registrar = Registrar<T>()
     private let contentFactory: ContainerUIContentFactoryImplementation<T>
     private let containerRepository: ContainerUIRepository<T>
@@ -68,7 +67,6 @@ public final class Madog<T>: ContainerUIDelegate {
             parent: nil,
             customisation: customisation
         )
-
         window.setRootViewController(container.containerViewController, transition: transition)
         return container.proxy()
     }

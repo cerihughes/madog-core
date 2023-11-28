@@ -19,7 +19,7 @@ class TestResolver: Resolver {
 
 class TestViewControllerProvider: ViewControllerProvider {
     func createViewController(token: Int, container: AnyContainer<Int>) -> ViewController? {
-        token >= 0 ? TestViewController(container: container) :  nil
+        token >= 0 ? TestViewController(container: container) : nil
     }
 }
 

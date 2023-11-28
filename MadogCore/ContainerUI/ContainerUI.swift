@@ -34,14 +34,13 @@ open class ContainerUI<T, TD, VC>: InternalContainer where TD: TokenData, VC: Vi
         }
     }
 
+    var contentFactory: AnyContainerUIContentFactory<T>?
     public let uuid = UUID()
     public let containerViewController: VC
 
     weak var parentInternalContainer: AnyInternalContainer<T>?
     public var parentContainer: AnyContainer<T>? { parentInternalContainer }
     public var childContainers = [AnyContainer<T>]()
-
-    var contentFactory: AnyContainerUIContentFactory<T>?
 
     weak var delegate: AnyContainerUIDelegate<T>?
 

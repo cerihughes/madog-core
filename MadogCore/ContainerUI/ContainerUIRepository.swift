@@ -119,7 +119,7 @@ extension ContainerUIFactory {
     func createAndPopulateContainer(
         contentFactory: AnyContainerUIContentFactory<T>,
         tokenData: TD
-    ) throws -> ContainerUI<T, TD, VC>? {
+    ) throws -> ContainerUI<T, TD, VC> {
         let container = createContainer()
         container.contentFactory = contentFactory
         try container.populateContainer(tokenData: tokenData)

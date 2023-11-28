@@ -6,6 +6,7 @@ let package = Package(
     platforms: [.iOS(.v16), .macOS(.v13), .tvOS(.v16)],
     products: [
         .library(name: "MadogCore", targets: ["MadogCore"]),
+        .library(name: "MadogCoreTestContainers", targets: ["MadogCoreTestContainers"]),
         .library(name: "MadogCoreTestUtilities", targets: ["MadogCoreTestUtilities"])
     ],
     dependencies: [

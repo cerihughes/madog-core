@@ -8,6 +8,7 @@ import Foundation
 typealias AnyContainerUIContentFactory<T> = any ContainerUIContentFactory<T>
 protocol ContainerUIContentFactory<T> {
     associatedtype T
+
     func createContentViewController(token: T, container: AnyInternalContainer<T>) throws -> ViewController
 }
 

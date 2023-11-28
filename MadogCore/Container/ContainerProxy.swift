@@ -37,9 +37,3 @@ class ContainerProxy<T, TD, VC>: Container where TD: TokenData, VC: ViewControll
         )
     }
 }
-
-extension ContainerUI {
-    func proxy() -> AnyContainer<T> {
-        ContainerProxy(wrapped: self)
-    }
-}

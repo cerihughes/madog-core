@@ -25,7 +25,7 @@ protocol ContainerUIDelegate<T>: AnyObject {
     func releaseContainer(for viewController: ViewController)
 }
 
-open class ContainerUI<T, TD, VC>: Container where TD: TokenData, VC: ViewController {
+open class ContainerUI<T, TD, VC>: InternalContainer where TD: TokenData, VC: ViewController {
 
     public struct Identifier {
         let value: String
@@ -52,6 +52,12 @@ open class ContainerUI<T, TD, VC>: Container where TD: TokenData, VC: ViewContro
 
     open func populateContainer(tokenData: TD) throws {
         // Override point
+    }
+
+    // MARK: - InternalContainer
+
+    func proxy() -> AnyContainer<T> {
+        ContainerProxy(wrapped: self)
     }
 
     // MARK: - Container

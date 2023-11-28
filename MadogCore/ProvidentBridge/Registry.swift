@@ -17,7 +17,7 @@ public protocol Registry<T>: AnyObject {
 public enum MadogError<T>: Error {
     case noMatchingViewController(T)
     case noMatchingContainer(String)
-    case internalError
+    case internalError(String)
     case containerReleased
     case containerHasNoWindow
     case cannotNavigateBack
@@ -31,13 +31,15 @@ class RegistryBridge<T>: Registry {
     }
 
     func createViewController(token: T, parent: AnyContainer<T>) throws -> ViewController {
-        guard let parent = parent as? AnyInternalContainer<T> else { throw MadogError<T>.internalError }
+        guard let parent = parent as? AnyInternalContainer<T> else {
+            throw MadogError<T>.internalError("Parent is not correct type (AnyInternalContainer)")
+        }
         do {
             return try bridged.createViewController(token: token, context: parent.proxy())
         } catch ProvidentError<T>.noMatchingViewController(let token) {
             throw MadogError<T>.noMatchingViewController(token)
         } catch {
-            throw MadogError<T>.internalError
+            throw MadogError<T>.internalError("Unexpected Provident error")
         }
     }
 }

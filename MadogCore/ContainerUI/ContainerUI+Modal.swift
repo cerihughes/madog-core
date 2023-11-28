@@ -22,7 +22,7 @@ extension ContainerUI: ModalContainer {
         customisation: CustomisationBlock<VC2>?,
         completion: CompletionBlock?
     ) throws -> ModalToken<T> where VC2: ViewController, TD2: TokenData {
-        guard let delegate else { throw MadogError<T>.internalError }
+        guard let delegate else { throw MadogError<T>.internalError("Delegate not set in \(self)") }
         let container = try delegate.createContainer(
             identifiableToken: .init(identifier: identifier, data: tokenData),
             parent: self,

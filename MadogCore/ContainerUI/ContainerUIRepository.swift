@@ -62,7 +62,7 @@ class ContainerUIRepository<T> {
             let factory = try splitMultiRegistry.factory(key: key, type: T.self)
             return try factory.createContainer(contentFactory: contentFactory, identifiableToken: typed).erased()
         }
-        throw MadogError<T>.internalError
+        throw MadogError<T>.internalError("Unknown TokenData type")
     }
 }
 
@@ -78,7 +78,7 @@ private extension Dictionary where Key == String {
 private extension ContainerUI {
     func erased<T2, TD2, VC2>() throws -> ContainerUI<T2, TD2, VC2> {
         guard let erased = self as? ContainerUI<T2, TD2, VC2> else {
-            throw MadogError<T>.internalError
+            throw MadogError<T>.internalError("Cannot erase \(self) to correct ContainerUI")
         }
         return erased
     }
@@ -103,7 +103,7 @@ struct ContainerUIFactoryWrapper<T, TD> where TD: TokenData {
         identifiableToken: IdentifiableToken<T, TD, VC>
     ) throws -> ContainerUI<T, TD, VC> {
         guard let container = try closure(contentFactory, identifiableToken.data) as? ContainerUI<T, TD, VC> else {
-            throw MadogError<T>.internalError
+            throw MadogError<T>.internalError("ContentFactory doesn't create ContainerUI")
         }
         return container
     }

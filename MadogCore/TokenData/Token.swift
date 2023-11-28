@@ -13,7 +13,7 @@ public class Token<T> {
     }
 
     func createContentViewController(context: CreationContext) throws -> ViewController {
-        throw MadogError<T>.internalError
+        throw MadogError<T>.internalError("createContentViewController not overridden in \(self)")
     }
 }
 

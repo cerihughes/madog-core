@@ -36,7 +36,7 @@ open class ContainerUI<T, TD, VC>: InternalContainer where TD: TokenData, VC: Vi
     }
 
     public func createContentViewController(token: Token<T>) throws -> ViewController {
-        guard let contentFactory else { throw MadogError<T>.internalError }
+        guard let contentFactory else { throw MadogError<T>.internalError("ContentFactory not set in \(self)") }
         return try contentFactory.createContentViewController(token: token, parent: self)
     }
 
@@ -67,7 +67,7 @@ open class ContainerUI<T, TD, VC>: InternalContainer where TD: TokenData, VC: Vi
         transition: Transition?,
         customisation: CustomisationBlock<VC2>?
     ) throws -> AnyContainer<T> where VC2: ViewController, TD2: TokenData {
-        guard let delegate else { throw MadogError<T>.internalError }
+        guard let delegate else { throw MadogError<T>.internalError("Delegate not set in \(self)") }
         guard let window = containerViewController.view.window else { throw MadogError<T>.containerHasNoWindow }
         let container = try delegate.createContainer(
             identifiableToken: .init(identifier: identifier, data: tokenData),

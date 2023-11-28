@@ -20,6 +20,8 @@ public typealias TransitionStyle = UIModalTransitionStyle
 
 #elseif canImport(AppKit)
 
+import AppKit
+
 public typealias LaunchOptions = Notification
 
 public typealias Window = NSWindow
@@ -27,7 +29,5 @@ public typealias ViewController = NSViewController
 public typealias View = NSView
 
 public typealias AnimationOptions = Void
-
-import AppKit
 
 #endif

@@ -80,7 +80,7 @@ public final class Madog<T>: ContainerUIDelegate {
         registrar.serviceProviders
     }
 
-    // MARK: - ContainerDelegate
+    // MARK: - ContainerUIDelegate
 
     func createContainer<VC, TD>(
         identifiableToken: IdentifiableToken<T, TD, VC>,

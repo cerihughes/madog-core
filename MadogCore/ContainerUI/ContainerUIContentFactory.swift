@@ -15,7 +15,7 @@ protocol ContainerUIContentFactory<T> {
 class ContainerUIContentFactoryImplementation<T>: ContainerUIContentFactory {
     private let registry: AnyRegistry<T>
 
-    weak var delegate: AnyContainerCreationDelegate<T>?
+    weak var delegate: AnyContainerUIDelegate<T>?
 
     init(registry: AnyRegistry<T>) {
         self.registry = registry

@@ -8,7 +8,7 @@ import Foundation
 public class Token<T> {
     struct CreationContext {
         let registry: AnyRegistry<T>
-        let delegate: AnyContainerCreationDelegate<T>
+        let delegate: AnyContainerUIDelegate<T>
         let parent: AnyInternalContainer<T>
     }
 

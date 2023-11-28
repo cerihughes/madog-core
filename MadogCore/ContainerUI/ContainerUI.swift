@@ -10,6 +10,20 @@ struct IdentifiableToken<T, TD, VC> where TD: TokenData, VC: ViewController {
     let data: TD
 }
 
+typealias AnyContainerUIDelegate<T> = any ContainerUIDelegate<T>
+
+protocol ContainerUIDelegate<T>: AnyObject {
+    associatedtype T
+
+    func createContainer<VC, TD>(
+        identifiableToken: IdentifiableToken<T, TD, VC>,
+        parent: AnyInternalContainer<T>?,
+        customisation: CustomisationBlock<VC>?
+    ) throws -> ContainerUI<T, TD, VC> where VC: ViewController, TD: TokenData
+
+    func releaseContainer(_ container: AnyContainer<T>)
+}
+
 open class ContainerUI<T, TD, VC>: InternalContainer where TD: TokenData, VC: ViewController {
 
     public struct Identifier {

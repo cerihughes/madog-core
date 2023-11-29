@@ -59,7 +59,7 @@ open class ContainerUI<T, TD, VC>: InternalContainer where TD: TokenData, VC: Vi
 
     // MARK: - InternalContainer
 
-    public func proxy() -> AnyContainer<T> {
+    func proxy() -> AnyContainer<T> {
         ContainerProxy(wrapped: self)
     }
 

@@ -5,9 +5,9 @@
 
 import Foundation
 
-public typealias AnyInternalContainer<T> = any InternalContainer<T>
+typealias AnyInternalContainer<T> = any InternalContainer<T>
 
-public protocol InternalContainer<T>: AnyObject, Container {
+protocol InternalContainer<T>: AnyObject, Container {
     var childContainers: [AnyContainer<T>] { get set }
 
     func proxy() -> AnyContainer<T>

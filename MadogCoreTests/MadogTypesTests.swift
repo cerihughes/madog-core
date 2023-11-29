@@ -36,9 +36,9 @@ class MadogTypesTests: XCTestCase {
 
         let container = NavigatingContainerUI<Int>(containerViewController: UINavigationController())
 
-        XCTAssertThrowsError(try registry.createViewController(token: 1, container: container))
+        XCTAssertThrowsError(try registry.createViewController(token: 1, parent: container))
         registrar.resolve(resolver: resolver)
-        XCTAssertNoThrow(try registry.createViewController(token: 0, container: container))
+        XCTAssertNoThrow(try registry.createViewController(token: 0, parent: container))
     }
 }
 

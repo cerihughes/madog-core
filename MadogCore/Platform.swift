@@ -30,4 +30,11 @@ public typealias View = NSView
 
 public typealias AnimationOptions = Void
 
+extension NSViewController {
+    func dismiss(animated flag: Bool, completion: CompletionBlock?) {
+        dismiss(nil)
+        completion?()
+    }
+}
+
 #endif

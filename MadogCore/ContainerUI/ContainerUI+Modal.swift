@@ -21,11 +21,11 @@ extension ContainerUI: ModalContainer {
         animated: Bool,
         customisation: CustomisationBlock<VC2>?,
         completion: CompletionBlock?
-    ) throws -> AnyModalToken<T> where VC2: ViewController, TD2: TokenData {
+    ) throws -> ModalToken<T> where VC2: ViewController, TD2: TokenData {
         guard let delegate else { throw MadogError<T>.internalError("Delegate not set in \(self)") }
         let container = try delegate.createContainer(
             identifiableToken: .init(identifier: identifier, data: tokenData),
-            isModal: true,
+            parent: self,
             customisation: customisation
         )
 
@@ -45,34 +45,17 @@ extension ContainerUI: ModalContainer {
 
     // swiftlint:enable function_parameter_count
     public func closeModal(
-        token: AnyModalToken<T>,
+        token: ModalToken<T>,
         animated: Bool,
         completion: CompletionBlock?
     ) throws {
-        guard let token = token as? ModalTokenImplementation<T> else {
-            throw MadogError<T>.internalError("Token is not correct type (ModalTokenImplementation)")
-        }
-        try closeContainer(presentedViewController: token.viewController, animated: animated, completion: completion)
-    }
-
-    func closeContainer(
-        presentedViewController: ViewController,
-        animated: Bool = false,
-        completion: CompletionBlock? = nil
-    ) throws {
-        guard let delegate else { throw MadogError<T>.internalError("Delegate not set in \(self)") }
-        if let presentedPresentedViewController = presentedViewController.presentedViewController {
-            try closeContainer(presentedViewController: presentedPresentedViewController, animated: animated)
-        }
-
-        presentedViewController.dismiss(animated: animated, completion: completion)
-        delegate.releaseContainer(for: presentedViewController)
+        try token.container.close(animated: animated, completion: completion)
     }
 }
 
 private extension ViewController {
-    func createModalToken<T>(container: AnyContainer<T>) -> AnyModalToken<T> {
-        ModalTokenImplementation(viewController: self, container: container)
+    func createModalToken<T>(container: AnyContainer<T>) -> ModalToken<T> {
+        .init(container: container)
     }
 }
 

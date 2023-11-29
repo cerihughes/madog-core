@@ -164,9 +164,9 @@ class ContainerUITests: MadogKIFTestCase {
         waitForExpectations(timeout: 10)
     }
 
-    func testPresentingContainer() throws {
+    func testParentContainer() throws {
         let container = try renderUIAndWait(identifier: .test(), tokenData: .single("vc1"))
-        XCTAssertNil(container.presentingContainer)
+        XCTAssertNil(container.parentContainer)
 
         let openExpectation1 = expectation(description: "Modal 1 opened")
         var modalToken = try openModalAndWait(container.modal!, identifier: .test(), tokenData: .single("vc2")) {
@@ -182,14 +182,14 @@ class ContainerUITests: MadogKIFTestCase {
         wait(for: [openExpectation2], timeout: 10)
 
         let modalContainer2 = modalToken.container
-        XCTAssertTrue(container.uuid == modalContainer1.presentingContainer?.uuid)
-        XCTAssertTrue(modalContainer1.uuid == modalContainer2.presentingContainer?.uuid)
+        XCTAssertTrue(container.uuid == modalContainer1.parentContainer?.uuid)
+        XCTAssertTrue(modalContainer1.uuid == modalContainer2.parentContainer?.uuid)
     }
 
     private func createModal(
         container: AnyContainer<String>,
         token: String
-    ) throws -> AnyModalToken<String> {
+    ) throws -> ModalToken<String> {
         let openExpectation = expectation(description: "Modal \(token) opened")
         let modalToken = try openModalAndWait(container.modal!, identifier: .test(), tokenData: .single(token)) {
             openExpectation.fulfill()

@@ -35,6 +35,27 @@ class ForwardBackContainerTests: XCTestCase {
         let container2 = try XCTUnwrap(madog.renderUI(identifier: .testNavigation(), tokenData: .single(0), in: window))
         XCTAssertNotNil(container2.forwardBack)
     }
+
+    func testUseToken() throws {
+        let window = UIWindow()
+        let container = try madog.renderUI(identifier: .testNavigation(), tokenData: .single(0), in: window)
+        try container.forwardBack!.navigateForward(token: .use(1), animated: true)
+    }
+
+    func testChangeToken() throws {
+        let window = UIWindow()
+        let container = try madog.renderUI(identifier: .testNavigation(), tokenData: .single(0), in: window)
+        XCTAssertEqual(container.uuid, madog.currentContainer?.uuid)
+        XCTAssertEqual(container.childContainers.count, 0)
+        try container.forwardBack!.navigateForward(
+            token: .create(identifier: .test(), tokenData: .single(1)),
+            animated: true
+        )
+
+        XCTAssertEqual(container.childContainers.count, 1)
+        let childContainer = try XCTUnwrap(container.childContainers.first)
+        XCTAssertNotEqual(container.uuid, childContainer.uuid)
+    }
 }
 
 #endif

@@ -17,12 +17,11 @@ protocol ContainerUIDelegate<T>: AnyObject {
 
     func createContainer<VC, TD>(
         identifiableToken: IdentifiableToken<T, TD, VC>,
-        isModal: Bool,
+        parent: AnyInternalContainer<T>?,
         customisation: CustomisationBlock<VC>?
     ) throws -> ContainerUI<T, TD, VC> where VC: ViewController, TD: TokenData
 
-    func container(for viewController: ViewController) -> AnyContainer<T>?
-    func releaseContainer(for viewController: ViewController)
+    func releaseContainer(_ container: AnyContainer<T>)
 }
 
 open class ContainerUI<T, TD, VC>: InternalContainer where TD: TokenData, VC: ViewController {
@@ -39,15 +38,19 @@ open class ContainerUI<T, TD, VC>: InternalContainer where TD: TokenData, VC: Vi
     public let uuid = UUID()
     public let containerViewController: VC
 
+    weak var parentInternalContainer: AnyInternalContainer<T>?
+    public var parentContainer: AnyContainer<T>? { parentInternalContainer }
+    public var childContainers = [AnyContainer<T>]()
+
     weak var delegate: AnyContainerUIDelegate<T>?
 
     public init(containerViewController: VC) {
         self.containerViewController = containerViewController
     }
 
-    public func createContentViewController(token: T) throws -> ViewController {
+    public func createContentViewController(token: Token<T>) throws -> ViewController {
         guard let contentFactory else { throw MadogError<T>.internalError("ContentFactory not set in \(self)") }
-        return try contentFactory.createContentViewController(token: token, container: self)
+        return try contentFactory.createContentViewController(token: token, parent: self)
     }
 
     open func populateContainer(tokenData: TD) throws {
@@ -62,15 +65,13 @@ open class ContainerUI<T, TD, VC>: InternalContainer where TD: TokenData, VC: Vi
 
     // MARK: - Container
 
-    public var presentingContainer: AnyContainer<T>? {
-        guard let presentingViewController = containerViewController.presentingViewController else { return nil }
-        return delegate?.container(for: presentingViewController)
-    }
-
     public func close(animated: Bool, completion: CompletionBlock?) throws {
-#if canImport(UIKit)
-        try closeContainer(presentedViewController: containerViewController, animated: animated, completion: completion)
-#endif
+        try childContainers.forEach { try $0.close(animated: animated) }
+        parentInternalContainer?.childContainers.removeAll(where: {
+            $0.uuid == uuid
+        })
+        containerViewController.dismiss(animated: animated, completion: completion)
+        delegate?.releaseContainer(self)
     }
 
     public func change<VC2, TD2>(
@@ -83,7 +84,7 @@ open class ContainerUI<T, TD, VC>: InternalContainer where TD: TokenData, VC: Vi
         guard let window = containerViewController.view.window else { throw MadogError<T>.containerHasNoWindow }
         let container = try delegate.createContainer(
             identifiableToken: .init(identifier: identifier, data: tokenData),
-            isModal: false,
+            parent: parentInternalContainer,
             customisation: customisation
         )
         window.setRootViewController(container.containerViewController, transition: transition)

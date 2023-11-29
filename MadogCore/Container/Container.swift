@@ -23,7 +23,8 @@ public protocol Container<T> {
     associatedtype T
 
     var uuid: UUID { get }
-    var presentingContainer: AnyContainer<T>? { get }
+    var parentContainer: AnyContainer<T>? { get }
+    var childContainers: [AnyContainer<T>] { get }
     var castValue: AnyContainer<T>? { get }
 
     func close(animated: Bool, completion: CompletionBlock?) throws

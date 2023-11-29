@@ -7,16 +7,15 @@ import Foundation
 
 public final class Madog<T>: ContainerUIDelegate {
     private let registrar = Registrar<T>()
-    private let contentFactory: AnyContainerUIContentFactory<T>
+    private let contentFactory: ContainerUIContentFactoryImplementation<T>
     private let containerRepository: ContainerUIRepository<T>
 
-    private var container: AnyContainer<T>?
-    private var containerViewController: ViewController?
-    private var modalContainers = [ViewController: AnyContainer<T>]()
+    public internal(set) var currentContainer: AnyContainer<T>?
 
     public init() {
-        contentFactory = ContainerUIContentFactoryImplementation(registry: registrar.registry)
-        containerRepository = ContainerUIRepository<T>(registry: registrar.registry, contentFactory: contentFactory)
+        contentFactory = .init(registry: registrar.registry)
+        containerRepository = .init(registry: registrar.registry, contentFactory: contentFactory)
+        contentFactory.delegate = self
     }
 
     public func resolve(resolver: AnyResolver<T>, launchOptions: LaunchOptions? = nil) {
@@ -65,15 +64,11 @@ public final class Madog<T>: ContainerUIDelegate {
     ) throws -> AnyContainer<T> where VC: ViewController, TD: TokenData {
         let container = try createContainer(
             identifiableToken: .init(identifier: identifier, data: tokenData),
-            isModal: false,
+            parent: nil,
             customisation: customisation
         )
         window.setRootViewController(container.containerViewController, transition: transition)
         return container.proxy()
-    }
-
-    public var currentContainer: AnyContainer<T>? {
-        container
     }
 
     public var serviceProviders: [String: ServiceProvider] {
@@ -84,39 +79,31 @@ public final class Madog<T>: ContainerUIDelegate {
 
     func createContainer<VC, TD>(
         identifiableToken: IdentifiableToken<T, TD, VC>,
-        isModal: Bool,
+        parent: AnyInternalContainer<T>?,
         customisation: CustomisationBlock<VC>?
     ) throws -> ContainerUI<T, TD, VC> where VC: ViewController, TD: TokenData {
         let container = try containerRepository.createContainer(identifiableToken: identifiableToken)
         let containerViewController = container.containerViewController
         container.delegate = self
-        persist(container: container, containerViewController: containerViewController, isModal: isModal)
+        persist(container: container, parent: parent)
         customisation?(containerViewController)
+
         return container
     }
 
-    func container(for viewController: ViewController) -> AnyContainer<T>? {
-        if viewController == containerViewController { return container }
-        return modalContainers[viewController]
-    }
-
-    func releaseContainer(for viewController: ViewController) {
-        if viewController == containerViewController {
-            container = nil
-        } else {
-            modalContainers[viewController] = nil
+    func releaseContainer(_ container: AnyContainer<T>) {
+        if container.uuid == currentContainer?.uuid {
+            currentContainer = nil
         }
     }
 
     // MARK: - Private
+    private func persist<VC, TD>(container: ContainerUI<T, VC, TD>, parent: AnyInternalContainer<T>?) {
+        container.parentInternalContainer = parent
+        parent?.childContainers.append(container)
 
-    private func persist(container: AnyContainer<T>, containerViewController: ViewController, isModal: Bool) {
-        if isModal {
-            modalContainers[containerViewController] = container
-        } else {
-            self.container = container
-            self.containerViewController = containerViewController
-            modalContainers = [:] // Clear old modal containers
+        if parent == nil {
+            currentContainer = container
         }
     }
 }

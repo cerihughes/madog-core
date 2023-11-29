@@ -10,7 +10,7 @@ import Foundation
 open class NavigatingContainerUI<T>: ContainerUI<T, SingleUITokenData<T>, NavigationController>, ForwardBackContainer {
     // MARK: - ForwardBackContainer
 
-    public func navigateForward(token: T, animated: Bool) throws {
+    public func navigateForward(token: Token<T>, animated: Bool) throws {
         let toViewController = try createContentViewController(token: token)
         containerViewController.pushViewController(toViewController, animated: animated)
     }

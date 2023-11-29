@@ -5,10 +5,9 @@
 
 #if canImport(UIKit)
 
+import MadogCore
 import MadogCoreTestContainers
 import XCTest
-
-@testable import MadogCore
 
 class ForwardBackContainerTests: XCTestCase {
     private var madog: Madog<Int>!

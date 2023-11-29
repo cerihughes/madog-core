@@ -62,7 +62,7 @@ public extension MadogCUT {
         waitForAnimationsToFinish()
     }
 
-    private func waitForAnimationsToFinish(_ file: String = #file, _ line: Int = #line) {
+    func waitForAnimationsToFinish(_ file: String = #file, _ line: Int = #line) {
         viewTester(file, line)
             .waitForAnimationsToFinish()
     }

@@ -24,7 +24,7 @@ let package = Package(
         .target(
             name: "MadogCoreTestContainers",
             dependencies: [
-                "MadogCore",
+                "MadogCore"
             ],
             path: "MadogCoreTestContainers"
         ),

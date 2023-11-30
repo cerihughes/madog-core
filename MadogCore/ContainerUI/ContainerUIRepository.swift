@@ -42,7 +42,7 @@ class ContainerUIRepository<T> {
         return true
     }
 
-    func createContainer<VC, TD>(
+    func createContainer<TD, VC>(
         identifiableToken: IdentifiableToken<T, TD, VC>
     ) throws -> ContainerUI<T, TD, VC> where VC: ViewController, TD: TokenData {
         let key = identifiableToken.identifier.value

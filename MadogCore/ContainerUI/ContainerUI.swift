@@ -15,7 +15,7 @@ typealias AnyContainerUIDelegate<T> = any ContainerUIDelegate<T>
 protocol ContainerUIDelegate<T>: AnyObject {
     associatedtype T
 
-    func createContainer<VC, TD>(
+    func createContainer<TD, VC>(
         identifiableToken: IdentifiableToken<T, TD, VC>,
         parent: AnyInternalContainer<T>?,
         customisation: CustomisationBlock<VC>?

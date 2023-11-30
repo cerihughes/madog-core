@@ -55,7 +55,7 @@ public final class Madog<T>: ContainerUIDelegate {
     }
 
     @discardableResult
-    public func renderUI<VC, TD>(
+    public func renderUI<TD, VC>(
         identifier: ContainerUI<T, TD, VC>.Identifier,
         tokenData: TD,
         in window: Window,
@@ -77,7 +77,7 @@ public final class Madog<T>: ContainerUIDelegate {
 
     // MARK: - ContainerUIDelegate
 
-    func createContainer<VC, TD>(
+    func createContainer<TD, VC>(
         identifiableToken: IdentifiableToken<T, TD, VC>,
         parent: AnyInternalContainer<T>?,
         customisation: CustomisationBlock<VC>?
@@ -98,7 +98,7 @@ public final class Madog<T>: ContainerUIDelegate {
     }
 
     // MARK: - Private
-    private func persist<VC, TD>(container: ContainerUI<T, VC, TD>, parent: AnyInternalContainer<T>?) throws {
+    private func persist<TD, VC>(container: ContainerUI<T, TD, VC>, parent: AnyInternalContainer<T>?) throws {
         container.parentInternalContainer = parent
         parent?.addChildContainer(container)
 

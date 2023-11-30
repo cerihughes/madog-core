@@ -41,7 +41,7 @@ open class ContainerUI<T, TD, VC>: InternalContainer where TD: TokenData, VC: Vi
     weak var parentInternalContainer: AnyInternalContainer<T>?
     var childInternalContainers = [AnyInternalContainer<T>]()
 
-    public var parentContainer: AnyContainer<T>? { parentInternalContainer }
+    public var parentContainer: AnyContainer<T>? { parentInternalContainer.flatMap { $0.proxy() } }
     public var childContainers: [AnyContainer<T>] {
         childInternalContainers.map { $0.proxy() }
     }

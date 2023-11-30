@@ -166,7 +166,6 @@ class ContainerUITests: MadogKIFTestCase {
 
     func testParentContainer() throws {
         let container = try renderUIAndWait(identifier: .test(), tokenData: .single("vc1"))
-        XCTAssertNil(container.parentContainer)
 
         let openExpectation1 = expectation(description: "Modal 1 opened")
         var modalToken = try openModalAndWait(container.modal!, identifier: .test(), tokenData: .single("vc2")) {
@@ -182,8 +181,30 @@ class ContainerUITests: MadogKIFTestCase {
         wait(for: [openExpectation2], timeout: 10)
 
         let modalContainer2 = modalToken.container
-        XCTAssertTrue(container.uuid == modalContainer1.parentContainer?.uuid)
-        XCTAssertTrue(modalContainer1.uuid == modalContainer2.parentContainer?.uuid)
+        XCTAssertEqual(container.uuid, modalContainer1.parentContainer?.uuid)
+        XCTAssertEqual(modalContainer1.uuid, modalContainer2.parentContainer?.uuid)
+    }
+
+    func testParentChildContainers() throws {
+        let container = try renderUIAndWait(identifier: .test(), tokenData: .single("vc1"))
+
+        let openExpectation1 = expectation(description: "Modal 1 opened")
+        let modalToken = try openModalAndWait(container.modal!, identifier: .test(), tokenData: .single("vc2")) {
+            openExpectation1.fulfill()
+        }
+        wait(for: [openExpectation1], timeout: 10)
+
+        let modalContainer1 = modalToken.container
+        let childContainer = try XCTUnwrap(container.childContainers.first)
+        let parentContainer = try XCTUnwrap(modalContainer1.parentContainer)
+
+        XCTAssertEqual(childContainer.uuid, modalContainer1.uuid)
+        XCTAssertEqual(parentContainer.uuid, container.uuid)
+
+        typealias ContainerProxyType = ContainerProxy<String, SingleUITokenData<String>, ViewController>
+        // Returned relationships should be proxies, not containers
+        XCTAssertTrue(childContainer is ContainerProxyType)
+        XCTAssertTrue(parentContainer is ContainerProxyType)
     }
 
     private func createModal(

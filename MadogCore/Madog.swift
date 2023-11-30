@@ -85,7 +85,7 @@ public final class Madog<T>: ContainerUIDelegate {
         let container = try containerRepository.createContainer(identifiableToken: identifiableToken)
         let containerViewController = container.containerViewController
         container.delegate = self
-        persist(container: container, parent: parent)
+        try persist(container: container, parent: parent)
         customisation?(containerViewController)
 
         return container
@@ -98,11 +98,12 @@ public final class Madog<T>: ContainerUIDelegate {
     }
 
     // MARK: - Private
-    private func persist<VC, TD>(container: ContainerUI<T, VC, TD>, parent: AnyInternalContainer<T>?) {
+    private func persist<VC, TD>(container: ContainerUI<T, VC, TD>, parent: AnyInternalContainer<T>?) throws {
         container.parentInternalContainer = parent
-        parent?.childContainers.append(container)
+        parent?.addChildContainer(container)
 
         if parent == nil {
+            try currentContainer?.close(animated: false)
             currentContainer = container
         }
     }

@@ -3,8 +3,9 @@
 //  Copyright © 2019 Ceri Hughes. All rights reserved.
 //
 
-import MadogCoreTestContainers
 import XCTest
+
+@testable import MadogCoreTestContainers
 
 #if canImport(UIKit)
 
@@ -187,12 +188,10 @@ class MadogTests: XCTestCase {
     }
 }
 
-private typealias TestContainerUI<T> = ContainerUI<T, SingleUITokenData<T>, ViewController>
-
 private extension AnyContainer where T == Int {
     func asImpl() throws -> TestContainerUI<Int> {
         let wrapped = try XCTUnwrap(self as? ContainerProxy<Int, SingleUITokenData<T>, ViewController>)
-        return try XCTUnwrap(wrapped.wrapped)
+        return try XCTUnwrap(wrapped.wrapped as? TestContainerUI<Int>)
     }
 }
 

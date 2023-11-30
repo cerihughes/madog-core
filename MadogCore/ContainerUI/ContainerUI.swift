@@ -39,8 +39,7 @@ open class ContainerUI<T, TD, VC>: InternalContainer where TD: TokenData, VC: Vi
     public let containerViewController: VC
 
     weak var parentInternalContainer: AnyInternalContainer<T>?
-    public var parentContainer: AnyContainer<T>? { parentInternalContainer }
-    public var childContainers = [AnyContainer<T>]()
+    var childInternalContainers = [AnyInternalContainer<T>]()
 
     weak var delegate: AnyContainerUIDelegate<T>?
 
@@ -63,13 +62,27 @@ open class ContainerUI<T, TD, VC>: InternalContainer where TD: TokenData, VC: Vi
         ContainerProxy(wrapped: self)
     }
 
+    func addChildContainer(_ child: AnyInternalContainer<T>) {
+        childInternalContainers.append(child)
+    }
+
+    func removeChildContainer(_ child: AnyInternalContainer<T>) {
+        childInternalContainers.removeAll { $0.uuid == child.uuid }
+    }
+
     // MARK: - Container
+
+    public var parentContainer: AnyContainer<T>? {
+        parentInternalContainer.flatMap { $0.proxy() }
+    }
+
+    public var childContainers: [AnyContainer<T>] {
+        childInternalContainers.map { $0.proxy() }
+    }
 
     public func close(animated: Bool, completion: CompletionBlock?) throws {
         try childContainers.forEach { try $0.close(animated: animated) }
-        parentInternalContainer?.childContainers.removeAll(where: {
-            $0.uuid == uuid
-        })
+        parentInternalContainer?.removeChildContainer(self)
         containerViewController.dismiss(animated: animated, completion: completion)
         delegate?.releaseContainer(self)
     }

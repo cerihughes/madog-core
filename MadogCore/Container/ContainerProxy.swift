@@ -23,7 +23,7 @@ class ContainerProxy<T, TD, VC>: Container where TD: TokenData, VC: ViewControll
     }
 
     @discardableResult
-    func change<VC2, TD2>(
+    func change<TD2, VC2>(
         to identifier: ContainerUI<T, TD2, VC2>.Identifier,
         tokenData: TD2,
         transition: Transition?,

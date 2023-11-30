@@ -87,7 +87,7 @@ open class ContainerUI<T, TD, VC>: InternalContainer where TD: TokenData, VC: Vi
         delegate?.releaseContainer(self)
     }
 
-    public func change<VC2, TD2>(
+    public func change<TD2, VC2>(
         to identifier: ContainerUI<T, TD2, VC2>.Identifier,
         tokenData: TD2,
         transition: Transition?,

@@ -14,7 +14,7 @@ public protocol ModalContainer<T> {
 
     // swiftlint:disable function_parameter_count
     @discardableResult
-    func openModal<VC2, TD2>(
+    func openModal<TD2, VC2>(
         identifier: ContainerUI<T, TD2, VC2>.Identifier,
         tokenData: TD2,
         presentationStyle: PresentationStyle?,
@@ -31,7 +31,7 @@ public protocol ModalContainer<T> {
 
 public extension ModalContainer {
     @discardableResult
-    func openModal<VC2, TD2>(
+    func openModal<TD2, VC2>(
         identifier: ContainerUI<T, TD2, VC2>.Identifier,
         tokenData: TD2,
         presentationStyle: PresentationStyle? = nil,

@@ -36,7 +36,7 @@ public extension MadogCUT {
         waitForAnimationsToFinish()
     }
 
-    func openModalAndWait<TD, VC2>(
+    func openModalAndWait<TD2, VC>(
         _ modalContainer: AnyModalContainer<T>,
         identifier: ContainerUI<T, TD2, VC>.Identifier,
         tokenData: TD2,

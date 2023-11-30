@@ -41,11 +41,6 @@ open class ContainerUI<T, TD, VC>: InternalContainer where TD: TokenData, VC: Vi
     weak var parentInternalContainer: AnyInternalContainer<T>?
     var childInternalContainers = [AnyInternalContainer<T>]()
 
-    public var parentContainer: AnyContainer<T>? { parentInternalContainer.flatMap { $0.proxy() } }
-    public var childContainers: [AnyContainer<T>] {
-        childInternalContainers.map { $0.proxy() }
-    }
-
     weak var delegate: AnyContainerUIDelegate<T>?
 
     public init(containerViewController: VC) {
@@ -76,6 +71,14 @@ open class ContainerUI<T, TD, VC>: InternalContainer where TD: TokenData, VC: Vi
     }
 
     // MARK: - Container
+
+    public var parentContainer: AnyContainer<T>? {
+        parentInternalContainer.flatMap { $0.proxy() }
+    }
+
+    public var childContainers: [AnyContainer<T>] {
+        childInternalContainers.map { $0.proxy() }
+    }
 
     public func close(animated: Bool, completion: CompletionBlock?) throws {
         try childContainers.forEach { try $0.close(animated: animated) }

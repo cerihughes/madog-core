@@ -26,3 +26,12 @@ public extension TokenData {
         multi(tokens)
     }
 }
+
+public extension MultiUITokenData {
+    func wrapping<VC>(
+        identifier: ContainerUI<T, SingleUITokenData<T>, VC>.Identifier,
+        customisation: CustomisationBlock<VC>? = nil
+    ) -> Self where VC: ViewController {
+        .init(tokens: tokens.map { identifier.wrapping(token: $0, customisation: customisation) })
+    }
+}

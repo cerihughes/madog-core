@@ -23,3 +23,15 @@ public extension TokenData {
         splitMulti(primaryToken, secondaryTokens)
     }
 }
+
+public extension SplitMultiUITokenData {
+    func wrapping<VC>(
+        identifier: ContainerUI<T, SingleUITokenData<T>, VC>.Identifier,
+        customisation: CustomisationBlock<VC>? = nil
+    ) -> Self where VC: ViewController {
+        .init(
+            primaryToken: identifier.wrapping(token: primaryToken, customisation: customisation),
+            secondaryTokens: secondaryTokens.map { identifier.wrapping(token: $0, customisation: customisation) }
+        )
+    }
+}

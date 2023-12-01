@@ -18,3 +18,21 @@ public extension TokenData {
         SingleUITokenData(token: token)
     }
 }
+
+public extension SingleUITokenData {
+    func wrapping<VC>(
+        identifier: ContainerUI<T, SingleUITokenData<T>, VC>.Identifier,
+        customisation: CustomisationBlock<VC>? = nil
+    ) -> Self where VC: ViewController {
+        .init(token: identifier.wrapping(token: token, customisation: customisation))
+    }
+}
+
+extension ContainerUI.Identifier where TD == SingleUITokenData<T> {
+    func wrapping(
+        token: Token<T>,
+        customisation: CustomisationBlock<VC>? = nil
+    ) -> Token<T> where VC: ViewController {
+        .create(identifier: self, tokenData: .single(token), customisation: customisation)
+    }
+}

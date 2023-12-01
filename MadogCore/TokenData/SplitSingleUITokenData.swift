@@ -22,3 +22,15 @@ public extension TokenData {
         SplitSingleUITokenData(primaryToken: primaryToken, secondaryToken: secondaryToken)
     }
 }
+
+public extension SplitSingleUITokenData {
+    func wrapping<VC>(
+        identifier: ContainerUI<T, SingleUITokenData<T>, VC>.Identifier,
+        customisation: CustomisationBlock<VC>? = nil
+    ) -> Self where VC: ViewController {
+        .init(
+            primaryToken: identifier.wrapping(token: primaryToken, customisation: customisation),
+            secondaryToken: secondaryToken.flatMap { identifier.wrapping(token: $0, customisation: customisation) }
+        )
+    }
+}

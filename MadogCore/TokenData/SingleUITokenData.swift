@@ -10,11 +10,11 @@ public struct SingleUITokenData<T>: TokenData {
 }
 
 public extension TokenData {
-    static func single<T>(_ token: T) -> SingleUITokenData<T> {
+    static func single<T>(_ token: T) -> Self where Self == SingleUITokenData<T> {
         .single(.use(token))
     }
 
-    static func single<T>(_ token: Token<T>) -> SingleUITokenData<T> {
+    static func single<T>(_ token: Token<T>) -> Self where Self == SingleUITokenData<T> {
         SingleUITokenData(token: token)
     }
 }

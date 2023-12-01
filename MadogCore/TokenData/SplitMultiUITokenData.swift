@@ -11,15 +11,24 @@ public struct SplitMultiUITokenData<T>: TokenData {
 }
 
 public extension TokenData {
-    static func splitMulti<T>(_ primaryToken: T, _ secondaryTokens: [T]) -> SplitMultiUITokenData<T> {
+    static func splitMulti<T>(
+        _ primaryToken: T,
+        _ secondaryTokens: [T]
+    ) -> Self where Self == SplitMultiUITokenData<T> {
         .splitMulti(.use(primaryToken), secondaryTokens.map { .use($0) })
     }
 
-    static func splitMulti<T>(_ primaryToken: Token<T>, _ secondaryTokens: [Token<T>]) -> SplitMultiUITokenData<T> {
+    static func splitMulti<T>(
+        _ primaryToken: Token<T>,
+        _ secondaryTokens: [Token<T>]
+    ) -> Self where Self == SplitMultiUITokenData<T> {
         SplitMultiUITokenData(primaryToken: primaryToken, secondaryTokens: secondaryTokens)
     }
 
-    static func splitMulti<T>(_ primaryToken: Token<T>, _ secondaryTokens: Token<T>...) -> SplitMultiUITokenData<T> {
+    static func splitMulti<T>(
+        _ primaryToken: Token<T>,
+        _ secondaryTokens: Token<T>...
+    ) -> Self where Self == SplitMultiUITokenData<T> {
         splitMulti(primaryToken, secondaryTokens)
     }
 }

@@ -10,19 +10,28 @@ public struct MultiUITokenData<T>: TokenData {
 }
 
 public extension TokenData {
-    static func multi<T>(_ tokens: [T]) -> MultiUITokenData<T> {
+    static func multi<T>(_ tokens: [T]) -> Self where Self == MultiUITokenData<T> {
         .multi(tokens.map { Token.use($0) })
     }
 
-    static func multi<T>(_ tokens: T...) -> MultiUITokenData<T> {
+    static func multi<T>(_ tokens: T...) -> Self where Self == MultiUITokenData<T> {
         multi(tokens)
     }
 
-    static func multi<T>(_ tokens: [Token<T>]) -> MultiUITokenData<T> {
+    static func multi<T>(_ tokens: [Token<T>]) -> Self where Self == MultiUITokenData<T> {
         MultiUITokenData(tokens: tokens)
     }
 
-    static func multi<T>(_ tokens: Token<T>...) -> MultiUITokenData<T> {
+    static func multi<T>(_ tokens: Token<T>...) -> Self where Self == MultiUITokenData<T> {
         multi(tokens)
+    }
+}
+
+public extension MultiUITokenData {
+    func wrapping<VC>(
+        identifier: ContainerUI<T, SingleUITokenData<T>, VC>.Identifier,
+        customisation: CustomisationBlock<VC>? = nil
+    ) -> Self where VC: ViewController {
+        .init(tokens: tokens.map { identifier.wrapping(token: $0, customisation: customisation) })
     }
 }

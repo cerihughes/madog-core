@@ -12,7 +12,7 @@ extension ContainerUI: ModalContainer {
     // MARK: - ModalContainer
 
     // swiftlint:disable function_parameter_count
-    public func openModal<VC2, TD2>(
+    public func openModal<TD2, VC2>(
         identifier: ContainerUI<T, TD2, VC2>.Identifier,
         tokenData: TD2,
         presentationStyle: PresentationStyle?,

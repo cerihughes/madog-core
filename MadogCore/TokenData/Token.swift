@@ -68,12 +68,10 @@ class UseParentToken<T>: Token<T> {
 }
 
 class ChangeToken<T, VC>: Token<T> where VC: ViewController {
-    typealias CustomisationBlock = (VC) -> Void
-
     let intent: ChangeIntent<T, VC>
-    let customisation: CustomisationBlock?
+    let customisation: CustomisationBlock<VC>?
 
-    init(intent: ChangeIntent<T, VC>, customisation: CustomisationBlock?) {
+    init(intent: ChangeIntent<T, VC>, customisation: CustomisationBlock<VC>?) {
         self.intent = intent
         self.customisation = customisation
     }

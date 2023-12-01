@@ -33,10 +33,10 @@ class ContainerHierarchyTests: MadogKIFTestCase {
     }
 
     func testNestedContainersWithNavigation() throws {
-        let container = try renderUIAndWait(identifier: .testTabBar(), tokenData: .multi(
-            .create(identifier: .testNavigation(), tokenData: .single("vc1")),
-            .create(identifier: .testNavigation(), tokenData: .single("vc2"))
-        ))
+        let container = try renderUIAndWait(
+            identifier: .testTabBar(),
+            tokenData: .multi("vc1", "vc2").wrapping(identifier: .testNavigation())
+        )
         waitForLabel(token: "vc1")
 
         let nav1 = container.childContainers[0]
@@ -67,10 +67,10 @@ class ContainerHierarchyTests: MadogKIFTestCase {
     }
 
     func testNestedContainersAreAllReleasedOnChange() throws {
-        let container1 = try renderUIAndWait(identifier: .testTabBar(), tokenData: .multi(
-            .create(identifier: .testNavigation(), tokenData: .single("vc1")),
-            .create(identifier: .testNavigation(), tokenData: .single("vc2"))
-        ))
+        let container1 = try renderUIAndWait(
+            identifier: .testTabBar(),
+            tokenData: .multi("vc1", "vc2").wrapping(identifier: .testNavigation())
+        )
         waitForLabel(token: "vc1")
 
         let nav1 = container1.childContainers[0]

@@ -30,7 +30,7 @@ public protocol Container<T> {
     func close(animated: Bool, completion: CompletionBlock?) throws
 
     @discardableResult
-    func change<VC2, TD2>(
+    func change<TD2, VC2>(
         to identifier: ContainerUI<T, TD2, VC2>.Identifier,
         tokenData: TD2,
         transition: Transition?,
@@ -44,7 +44,7 @@ public extension Container {
     }
 
     @discardableResult
-    func change<VC2, TD2>(
+    func change<TD2, VC2>(
         to identifier: ContainerUI<T, TD2, VC2>.Identifier,
         tokenData: TD2,
         transition: Transition? = nil,

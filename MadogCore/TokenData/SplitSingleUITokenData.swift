@@ -11,14 +11,29 @@ public struct SplitSingleUITokenData<T>: TokenData {
 }
 
 public extension TokenData {
-    static func splitSingle<T>(_ primaryToken: T, _ secondaryToken: T? = nil) -> SplitSingleUITokenData<T> {
+    static func splitSingle<T>(
+        _ primaryToken: T,
+        _ secondaryToken: T? = nil
+    ) -> Self where Self == SplitSingleUITokenData<T> {
         .splitSingle(.use(primaryToken), secondaryToken.flatMap { .use($0) })
     }
 
     static func splitSingle<T>(
         _ primaryToken: Token<T>,
         _ secondaryToken: Token<T>? = nil
-    ) -> SplitSingleUITokenData<T> {
+    ) -> Self where Self == SplitSingleUITokenData<T> {
         SplitSingleUITokenData(primaryToken: primaryToken, secondaryToken: secondaryToken)
+    }
+}
+
+public extension SplitSingleUITokenData {
+    func wrapping<VC>(
+        identifier: ContainerUI<T, SingleUITokenData<T>, VC>.Identifier,
+        customisation: CustomisationBlock<VC>? = nil
+    ) -> Self where VC: ViewController {
+        .init(
+            primaryToken: identifier.wrapping(token: primaryToken, customisation: customisation),
+            secondaryToken: secondaryToken.flatMap { identifier.wrapping(token: $0, customisation: customisation) }
+        )
     }
 }
